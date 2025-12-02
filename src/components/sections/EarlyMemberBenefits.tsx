@@ -100,44 +100,6 @@ export function EarlyMemberBenefits() {
           ))}
         </StaggerContainer>
 
-        {/* Highlight box */}
-        <AnimatedSection delay={0.6} className="mt-10 max-w-2xl mx-auto">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-            className="relative p-6 rounded-2xl bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 border border-purple-100 shadow-sm"
-          >
-            {/* Decorative corner */}
-            <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl shadow-lg flex items-center justify-center">
-              <span className="text-white text-sm font-bold">!</span>
-            </div>
-
-            {/* Animated border glow */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400/20 via-indigo-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
-
-            <p className="text-center text-enterprise-700">
-              <span className="font-bold text-purple-700">Limited to first 1,000 members.</span>
-              {' '}Be among the first to shape the future of AI-enabled GCCs.
-            </p>
-
-            {/* Progress indicator */}
-            <div className="mt-4 max-w-xs mx-auto">
-              <div className="flex justify-between text-xs text-enterprise-500 mb-1">
-                <span>847 joined</span>
-                <span>1,000 spots</span>
-              </div>
-              <div className="h-2 bg-enterprise-200 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: '84.7%' }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                  className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"
-                />
-              </div>
-            </div>
-          </motion.div>
-        </AnimatedSection>
       </Container>
     </section>
   )

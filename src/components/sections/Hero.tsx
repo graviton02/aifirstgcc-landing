@@ -132,7 +132,7 @@ export function Hero() {
           >
             <Button
               size="lg"
-              className="group min-w-[220px] bg-white text-enterprise-900 hover:bg-white/90 shadow-lg hover:shadow-xl"
+              className="group min-w-[220px] bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
               onClick={() => document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Join the Early Access List
@@ -148,25 +148,6 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
-          >
-            <motion.div
-              animate={{ opacity: [0.5, 1, 0.5], y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-1.5 h-1.5 bg-white rounded-full"
-            />
-          </motion.div>
-        </motion.div>
       </Container>
     </section>
   )

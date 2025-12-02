@@ -17,26 +17,26 @@ const industries = [
 const stats = [
   {
     icon: Building2,
-    value: '500+',
+    value: '1,700+',
     label: 'GCCs in India alone',
     color: 'from-blue-500 to-indigo-600',
   },
   {
     icon: Users2,
-    value: '1.9M',
-    label: 'GCC professionals globally',
+    value: '2.1M',
+    label: 'GCC professionals employed',
     color: 'from-purple-500 to-pink-600',
   },
   {
     icon: Globe2,
-    value: '$64B',
+    value: '$64.6B',
     label: 'Annual GCC revenue',
     color: 'from-violet-500 to-purple-600',
   },
   {
     icon: TrendingUp,
-    value: '12%',
-    label: 'YoY growth rate',
+    value: '11%',
+    label: 'CAGR over 5 years',
     color: 'from-emerald-500 to-teal-600',
   },
 ]
@@ -61,8 +61,11 @@ export function SocialProof() {
               The GCC Opportunity
             </span>
             <h3 className="font-display text-display-sm text-enterprise-900">
-              A <span className="text-gradient">$64 Billion</span> Ecosystem
+              A <span className="text-gradient">$64.6 Billion</span> Ecosystem
             </h3>
+            <p className="mt-3 text-enterprise-600">
+              India hosts <span className="font-semibold text-enterprise-800">50-55%</span> of the world's GCCs
+            </p>
           </div>
 
           <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" staggerDelay={0.1}>

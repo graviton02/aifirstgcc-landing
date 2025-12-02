@@ -23,7 +23,7 @@ export function Footer() {
           </div>
 
           {/* Tagline */}
-          <p className="text-enterprise-400 text-sm max-w-md mx-auto mb-8">
+          <p className="text-white/70 text-sm max-w-md mx-auto mb-8">
             A global knowledge initiative to shape the future of Global Capability Centers.
           </p>
 
@@ -36,10 +36,10 @@ export function Footer() {
 
           {/* Copyright */}
           <div className="space-y-2">
-            <p className="text-enterprise-500 text-sm">
+            <p className="text-white/60 text-sm">
               © 2026 AI-First GCC. All rights reserved.
             </p>
-            <p className="text-enterprise-600 text-xs">
+            <p className="text-white/50 text-xs">
               Launching soon.
             </p>
           </div>

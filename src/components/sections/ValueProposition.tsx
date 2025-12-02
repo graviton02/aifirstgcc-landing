@@ -1,16 +1,22 @@
 import { motion } from 'framer-motion'
 import {
+  Bot,
   BookOpen,
   Workflow,
   Route,
   FileCode,
   BarChart3,
-  Users,
 } from 'lucide-react'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/shared/AnimatedSection'
 
 const features = [
+  {
+    icon: Bot,
+    title: 'AI Agent Marketplace',
+    description: 'Discover and deploy enterprise-ready AI agents',
+    gradient: 'from-fuchsia-500 to-purple-600',
+  },
   {
     icon: BookOpen,
     title: 'Playbooks & Frameworks',
@@ -40,12 +46,6 @@ const features = [
     title: 'Research & Benchmarks',
     description: 'Data-driven insights and comparisons',
     gradient: 'from-cyan-500 to-blue-600',
-  },
-  {
-    icon: Users,
-    title: 'Community Events',
-    description: 'Roundtables and peer discussions',
-    gradient: 'from-fuchsia-500 to-purple-600',
   },
 ]
 
