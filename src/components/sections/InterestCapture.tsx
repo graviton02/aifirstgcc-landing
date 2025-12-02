@@ -14,8 +14,8 @@ import { submitEarlyAccess } from '@/lib/supabase'
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  organization: z.string().optional(),
-  role: z.string().optional(),
+  organization: z.string().min(1, 'Organization is required'),
+  role: z.string().min(1, 'Role is required'),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -67,11 +67,11 @@ export function InterestCapture() {
   return (
     <section id="signup" className="section-padding relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-enterprise-50 via-purple-50/30 to-blue-50/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-enterprise-50 via-purple-50/30 to-blue-50/30 pointer-events-none" />
 
       {/* Decorative mesh pattern */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='%236366f1' stroke-width='0.5'/%3E%3C/svg%3E")`,
           backgroundSize: '60px 60px',
@@ -79,8 +79,8 @@ export function InterestCapture() {
       />
 
       {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-radial from-purple-200/50 to-transparent blur-3xl" />
-      <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-gradient-radial from-blue-200/50 to-transparent blur-3xl" />
+      <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-radial from-purple-200/50 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-gradient-radial from-blue-200/50 to-transparent blur-3xl pointer-events-none" />
 
       <Toaster position="top-center" richColors />
 
@@ -205,30 +205,48 @@ export function InterestCapture() {
 
                     {/* Organization field */}
                     <div className="space-y-2">
-                      <Label htmlFor="organization" className="text-enterprise-600">
-                        Your organization{' '}
-                        <span className="text-enterprise-400 font-normal">(optional)</span>
+                      <Label htmlFor="organization" className="text-enterprise-800">
+                        Your organization <span className="text-red-500">*</span>
                       </Label>
                       <Input
                         id="organization"
                         type="text"
                         placeholder="Acme Inc."
                         {...register('organization')}
+                        className={errors.organization ? 'border-red-300 focus:border-red-500 focus:ring-red-200' : ''}
                       />
+                      {errors.organization && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-sm text-red-500"
+                        >
+                          {errors.organization.message}
+                        </motion.p>
+                      )}
                     </div>
 
                     {/* Role field */}
                     <div className="space-y-2">
-                      <Label htmlFor="role" className="text-enterprise-600">
-                        Your role{' '}
-                        <span className="text-enterprise-400 font-normal">(optional)</span>
+                      <Label htmlFor="role" className="text-enterprise-800">
+                        Your role <span className="text-red-500">*</span>
                       </Label>
                       <Input
                         id="role"
                         type="text"
                         placeholder="GCC Leader, VP Technology..."
                         {...register('role')}
+                        className={errors.role ? 'border-red-300 focus:border-red-500 focus:ring-red-200' : ''}
                       />
+                      {errors.role && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-sm text-red-500"
+                        >
+                          {errors.role.message}
+                        </motion.p>
+                      )}
                     </div>
 
                     {/* Submit button */}

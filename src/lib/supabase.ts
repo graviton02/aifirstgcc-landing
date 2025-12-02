@@ -13,8 +13,8 @@ export const supabase = supabaseUrl && supabaseAnonKey
 
 export interface EarlyAccessSignup {
   email: string
-  organization?: string
-  role?: string
+  organization: string
+  role: string
 }
 
 export async function submitEarlyAccess(data: EarlyAccessSignup) {
