@@ -138,13 +138,6 @@ export function Hero() {
               Join the Early Access List
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <button
-              onClick={() => document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors"
-            >
-              <span className="text-sm font-medium">Notify me when the platform launches</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </button>
           </motion.div>
         </motion.div>
 

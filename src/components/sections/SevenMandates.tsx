@@ -147,9 +147,18 @@ export function SevenMandates() {
           </p>
         </AnimatedSection>
 
-        {/* Mandates Grid - Bento-style layout */}
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {mandates.map((mandate, index) => (
+        {/* Mandates Grid - 2-3-2 layout */}
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
+          {mandates.map((mandate, index) => {
+            // Row 1 (index 0-1): 2 cards spanning 3 cols each
+            // Row 2 (index 2-4): 3 cards spanning 2 cols each
+            // Row 3 (index 5-6): 2 cards spanning 3 cols each
+            const getColSpan = () => {
+              if (index <= 1 || index >= 5) return 'lg:col-span-3'
+              return 'lg:col-span-2'
+            }
+
+            return (
             <motion.div
               key={mandate.number}
               initial={{ opacity: 0, y: 40 }}
@@ -159,14 +168,10 @@ export function SevenMandates() {
                 delay: index * 0.1,
                 ease: [0.4, 0, 0.2, 1],
               }}
-              className={`group relative ${
-                index === 0 ? 'md:col-span-2 lg:col-span-1 lg:row-span-2' : ''
-              } ${index === 6 ? 'md:col-span-2 lg:col-span-1' : ''}`}
+              className={`group relative ${getColSpan()}`}
             >
               <div
-                className={`relative h-full p-6 md:p-8 rounded-2xl border border-white/[0.08] bg-gradient-to-br from-white/[0.05] to-white/[0.02] backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-white/[0.15] hover:from-white/[0.08] hover:to-white/[0.04] ${
-                  index === 0 ? 'lg:min-h-[380px]' : 'min-h-[200px]'
-                }`}
+                className="relative h-full p-6 md:p-8 rounded-2xl border border-white/[0.08] bg-gradient-to-br from-white/[0.05] to-white/[0.02] backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-white/[0.15] hover:from-white/[0.08] hover:to-white/[0.04] min-h-[200px]"
               >
                 {/* Hover glow effect */}
                 <div
@@ -223,7 +228,8 @@ export function SevenMandates() {
                 </div>
               </div>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Bottom CTA hint */}
