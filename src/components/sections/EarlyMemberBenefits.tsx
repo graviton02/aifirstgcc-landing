@@ -1,8 +1,12 @@
+// Motion gives access to framer-motion powered animation primitives.
 import { motion } from 'framer-motion'
+// Icon set used throughout the benefits cards.
 import { Check, Crown, Gem, Rocket, Users, FileText, Compass, Star } from 'lucide-react'
+// Layout helpers shared across the site.
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/shared/AnimatedSection'
 
+// Structured list of benefits that will be rendered into animated cards.
 const benefits = [
   {
     icon: Rocket,
@@ -38,6 +42,7 @@ const benefits = [
 
 export function EarlyMemberBenefits() {
   return (
+    // Top-level section with theme-specific styling and anchor id for in-page navigation.
     <section id="benefits" className="section-padding bg-white relative overflow-hidden">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-enterprise-50/50 to-white" />
@@ -46,7 +51,9 @@ export function EarlyMemberBenefits() {
       <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-radial from-emerald-100/40 to-transparent blur-2xl" />
       <div className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-radial from-purple-100/40 to-transparent blur-2xl" />
 
+      {/* Container keeps content centered and constrained on wide screens. */}
       <Container className="relative">
+        {/* AnimatedSection applies entrance animation when this block scrolls into view. */}
         <AnimatedSection className="text-center mb-14">
           {/* Crown badge */}
           <motion.div
@@ -70,8 +77,10 @@ export function EarlyMemberBenefits() {
         </AnimatedSection>
 
         {/* 2-column grid on desktop */}
+        {/* StaggerContainer sequences child animations to play one after another. */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto" staggerDelay={0.08}>
           {benefits.map((benefit, index) => (
+            // StaggerItem hooks into StaggerContainer so each card animates in order.
             <StaggerItem key={index}>
               <motion.div
                 whileHover={{ y: -4, scale: 1.01 }}
@@ -84,6 +93,7 @@ export function EarlyMemberBenefits() {
                 </div>
 
                 {/* Content */}
+                {/* Each card shows the benefit title with a checkmark followed by a short description. */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <Check className="w-4 h-4 text-emerald-500 flex-shrink-0" strokeWidth={3} />

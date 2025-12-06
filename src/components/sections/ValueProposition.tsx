@@ -1,238 +1,216 @@
-import { useState } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import {
-  Bot,
-  BookOpen,
-  Workflow,
-  Route,
-  FileCode,
-  BarChart3,
-} from 'lucide-react'
+import { motion } from 'framer-motion'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'
 
+// Feature illustrations (transparent PNGs)
+const agentMarketplaceImg = '/images/icons/agent-marketplace.png'
+const playbooksImg = '/images/icons/playbooks-frameworks.png'
+const operatingModelsImg = '/images/icons/operating-models.png'
+const aiRoadmapsImg = '/images/icons/ai-roadmaps.png'
+const templatesImg = '/images/icons/implementation-templates.png'
+const researchImg = '/images/icons/research-benchmarks.png'
+
 const features = [
   {
-    icon: Bot,
-    title: 'AI Agent Marketplace',
-    description: 'Discover and deploy enterprise-ready AI agents',
-    gradient: 'from-violet-500 via-purple-500 to-fuchsia-500',
-    shadowColor: 'rgba(139, 92, 246, 0.3)',
+    title: 'Agent Marketplace',
+    subtitle: 'Ready-to-deploy AI Agents designed for GCC use cases.',
+    image: agentMarketplaceImg,
   },
   {
-    icon: BookOpen,
     title: 'Playbooks & Frameworks',
-    description: 'Proven methodologies for AI transformation',
-    gradient: 'from-blue-500 via-cyan-500 to-teal-500',
-    shadowColor: 'rgba(6, 182, 212, 0.3)',
+    subtitle: 'Proven methodologies for AI transformation.',
+    image: playbooksImg,
   },
   {
-    icon: Workflow,
     title: 'Operating Models',
-    description: 'Blueprints for AI-enabled operations',
-    gradient: 'from-rose-500 via-pink-500 to-fuchsia-500',
-    shadowColor: 'rgba(236, 72, 153, 0.3)',
+    subtitle: 'Blueprints for AI-enabled operations.',
+    image: operatingModelsImg,
   },
   {
-    icon: Route,
     title: 'AI Roadmaps',
-    description: 'Strategic paths to AI maturity',
-    gradient: 'from-amber-500 via-orange-500 to-red-500',
-    shadowColor: 'rgba(249, 115, 22, 0.3)',
+    subtitle: 'Strategic paths to AI maturity.',
+    image: aiRoadmapsImg,
   },
   {
-    icon: FileCode,
     title: 'Implementation Templates',
-    description: 'Ready-to-use AI project templates',
-    gradient: 'from-emerald-500 via-green-500 to-teal-500',
-    shadowColor: 'rgba(16, 185, 129, 0.3)',
+    subtitle: 'Ready-to-use AI project templates.',
+    image: templatesImg,
   },
   {
-    icon: BarChart3,
     title: 'Research & Benchmarks',
-    description: 'Data-driven insights and comparisons',
-    gradient: 'from-indigo-500 via-blue-500 to-cyan-500',
-    shadowColor: 'rgba(99, 102, 241, 0.3)',
+    subtitle: 'Data-driven insights and comparisons.',
+    image: researchImg,
   },
 ]
 
-export function ValueProposition() {
-  const containerRef = useRef(null)
-  const isInView = useInView(containerRef, { once: true, margin: '-100px' })
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+}
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
+
+function FeatureCard({ feature }: { feature: typeof features[0] }) {
   return (
-    <section id="value" className="section-padding relative overflow-hidden">
-      {/* Soft gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50/30" />
-
-      {/* Floating gradient orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-blue-200/40 to-cyan-200/40 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-violet-100/30 to-fuchsia-100/30 rounded-full blur-3xl" />
-
-      <Container className="relative">
-        <AnimatedSection className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold text-purple-700 bg-purple-100 rounded-full">
-            Why AI-First GCC?
-          </span>
-          <h2 className="font-display text-display-md md:text-display-lg text-enterprise-900 mb-6">
-            The{' '}
-            <span className="text-gradient">AI Core</span>
-            {' '}of the Enterprise
-          </h2>
-          <p className="max-w-3xl mx-auto text-lg text-enterprise-600 leading-relaxed">
-            A curated collection of tools, frameworks, and insights to accelerate your AI transformation journey.
-          </p>
-        </AnimatedSection>
-
-        {/* 3D Card Stack Container */}
-        <div
-          ref={containerRef}
-          className="relative perspective-1000 py-8"
-        >
-          {/* Desktop: Fanned card layout */}
-          <div className="hidden md:flex justify-center items-center gap-4 lg:gap-6">
-            {features.map((feature, index) => {
-              const isHovered = hoveredIndex === index
-              const totalCards = features.length
-              const middleIndex = (totalCards - 1) / 2
-              const offsetFromCenter = index - middleIndex
-
-              // Calculate rotation for fan effect
-              const baseRotation = offsetFromCenter * 3
-              const baseTranslateY = Math.abs(offsetFromCenter) * 8
-
-              return (
-                <motion.div
-                  key={feature.title}
-                  initial={{
-                    opacity: 0,
-                    y: 100,
-                    rotateX: -20,
-                    scale: 0.8
-                  }}
-                  animate={isInView ? {
-                    opacity: 1,
-                    y: 0,
-                    rotateX: 0,
-                    scale: 1
-                  } : {}}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.1,
-                    type: 'spring',
-                    stiffness: 100,
-                    damping: 15,
-                  }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className="preserve-3d"
-                  style={{
-                    zIndex: isHovered ? 50 : totalCards - Math.abs(offsetFromCenter),
-                  }}
-                >
-                  <motion.div
-                    animate={{
-                      rotateZ: isHovered ? 0 : baseRotation,
-                      y: isHovered ? -20 : baseTranslateY,
-                      scale: isHovered ? 1.08 : 1,
-                    }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 20,
-                    }}
-                    className="relative cursor-pointer"
-                  >
-                    {/* Card shadow layer */}
-                    <div
-                      className="absolute inset-0 rounded-3xl transition-all duration-300"
-                      style={{
-                        background: `linear-gradient(135deg, ${feature.shadowColor}, transparent)`,
-                        filter: 'blur(30px)',
-                        opacity: isHovered ? 0.8 : 0.4,
-                        transform: 'translateY(10px)',
-                      }}
-                    />
-
-                    {/* Main card */}
-                    <div
-                      className={`relative card-glass noise-texture rounded-3xl p-6 w-[200px] lg:w-[220px] transition-all duration-300 ${
-                        isHovered ? 'bg-white' : ''
-                      }`}
-                      style={{
-                        boxShadow: isHovered
-                          ? `0 25px 50px -12px ${feature.shadowColor}, 0 0 0 1px rgba(255,255,255,0.8)`
-                          : undefined,
-                      }}
-                    >
-                      {/* Gradient accent bar */}
-                      <div
-                        className={`absolute top-0 left-6 right-6 h-1 rounded-full bg-gradient-to-r ${feature.gradient} opacity-80`}
-                      />
-
-                      {/* Icon */}
-                      <motion.div
-                        animate={{
-                          scale: isHovered ? 1.1 : 1,
-                          rotate: isHovered ? 5 : 0,
-                        }}
-                        transition={{ type: 'spring', stiffness: 400 }}
-                        className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 shadow-lg`}
-                      >
-                        <feature.icon className="w-7 h-7 text-white" strokeWidth={1.5} />
-                      </motion.div>
-
-                      {/* Title */}
-                      <h3 className="font-display text-base font-semibold text-enterprise-900 mb-2 leading-tight">
-                        {feature.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-enterprise-600 text-sm leading-relaxed">
-                        {feature.description}
-                      </p>
-
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )
-            })}
+    <motion.div
+      variants={itemVariants}
+      className="group relative"
+    >
+      <div className="relative h-full rounded-2xl bg-white border border-enterprise-200/60 overflow-hidden transition-all duration-500 ease-out hover:border-enterprise-300/80 hover:shadow-xl hover:shadow-enterprise-900/5">
+        <div className="flex flex-col sm:flex-row h-full">
+          {/* Image Section */}
+          <div className="relative sm:w-2/5 p-6 flex items-center justify-center">
+            <img
+              src={feature.image}
+              alt={feature.title}
+              className="w-full max-w-[180px] h-auto object-contain"
+            />
           </div>
 
-          {/* Mobile: Simple stacked grid */}
-          <div className="md:hidden grid grid-cols-2 gap-4">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.1 }}
-                className="relative card-glass noise-texture rounded-2xl p-5"
-              >
-                {/* Gradient accent */}
-                <div
-                  className={`absolute top-0 left-4 right-4 h-0.5 rounded-full bg-gradient-to-r ${feature.gradient} opacity-80`}
-                />
+          {/* Content Section */}
+          <div className="sm:w-3/5 p-6 sm:p-8 flex flex-col justify-center">
+            {/* Title */}
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-enterprise-900 mb-3">
+              {feature.title}
+            </h3>
 
-                <div
-                  className={`w-11 h-11 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-3 shadow-md`}
-                >
-                  <feature.icon className="w-5 h-5 text-white" strokeWidth={1.5} />
-                </div>
-
-                <h3 className="font-display text-sm font-semibold text-enterprise-900 mb-1">
-                  {feature.title}
-                </h3>
-                <p className="text-enterprise-500 text-xs leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
+            {/* Subtitle */}
+            <p className="text-enterprise-600 text-base leading-relaxed">
+              {feature.subtitle}
+            </p>
           </div>
         </div>
+      </div>
+    </motion.div>
+  )
+}
+
+export function ValueProposition() {
+  return (
+    <section id="value" className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+      {/* Background layers */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30" />
+
+      {/* Subtle radial gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-100/20 via-transparent to-transparent" />
+
+      {/* Dot pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.4]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(203 213 225 / 0.4) 1px, transparent 0)`,
+          backgroundSize: '24px 24px',
+        }}
+      />
+
+      {/* Decorative blurred shapes */}
+      <motion.div
+        className="absolute top-1/4 -left-32 w-64 h-64 bg-gradient-to-br from-violet-200/40 to-purple-200/40 rounded-full blur-3xl"
+        animate={{
+          y: [0, 30, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 -right-32 w-80 h-80 bg-gradient-to-br from-blue-200/30 to-cyan-200/30 rounded-full blur-3xl"
+        animate={{
+          y: [0, -40, 0],
+          scale: [1, 1.15, 1],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 1,
+        }}
+      />
+
+      <Container className="relative">
+        {/* Header */}
+        <AnimatedSection className="text-center mb-16 md:mb-20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2.5 px-5 py-2.5 mb-8 rounded-full bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100/80"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
+            </span>
+            <span className="text-sm font-semibold bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
+              Why Orbis360?
+            </span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-enterprise-900 mb-6 tracking-tight"
+          >
+            The{' '}
+            <span className="relative inline-block">
+              <span className="relative z-10 bg-gradient-to-r from-blue-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+                AI Core
+              </span>
+              <motion.span
+                className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200/60 via-purple-200/60 to-violet-200/60 rounded-full -z-0"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </span>
+            {' '}of the Enterprise
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-2xl mx-auto text-lg md:text-xl text-enterprise-600 leading-relaxed"
+          >
+            A curated collection of tools, frameworks, and insights to accelerate your AI transformation journey.
+          </motion.p>
+        </AnimatedSection>
+
+        {/* Features Grid - 2 columns */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8"
+        >
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} feature={feature} />
+          ))}
+        </motion.div>
 
       </Container>
     </section>

@@ -16,10 +16,20 @@ export function Footer() {
           className="text-center"
         >
           {/* Logo/Brand */}
-          <div className="mb-6">
-            <span className="font-display text-xl font-bold text-white">
-              AI-First <span className="text-gradient-light">GCC</span>
-            </span>
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <img
+              src="/aifirstgcclogo.svg"
+              alt="Orbis360 logo"
+              className="h-12 w-auto brightness-0 invert"
+            />
+            <div className="flex flex-col text-left">
+              <span className="text-xl md:text-2xl font-display font-bold tracking-tight text-white leading-none">
+                Orbis360
+              </span>
+              <span className="text-[10px] md:text-xs font-medium tracking-wide text-white/70">
+                The AI-First GCC Platform
+              </span>
+            </div>
           </div>
 
           {/* Tagline */}
@@ -37,7 +47,7 @@ export function Footer() {
           {/* Copyright */}
           <div className="space-y-2">
             <p className="text-white/60 text-sm">
-              © 2026 AI-First GCC. All rights reserved.
+              © 2026 Orbis360. All rights reserved.
             </p>
             <p className="text-white/50 text-xs">
               Launching soon.

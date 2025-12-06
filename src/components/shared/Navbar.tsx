@@ -38,28 +38,31 @@ export function Navbar() {
             {/* Logo */}
             <motion.a
               href="#"
-              className="flex items-center gap-2 group"
+              className="flex items-center group"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             >
-              {/* Logo mark */}
-              <div className="relative w-9 h-9 md:w-10 md:h-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-violet-600 rounded-xl rotate-3 group-hover:rotate-6 transition-transform duration-300" />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-violet-600 rounded-xl flex items-center justify-center">
-                  <span className="font-display font-bold text-white text-sm md:text-base">AI</span>
-                </div>
-              </div>
-              {/* Logo text */}
-              <div className="flex flex-col">
-                <span className={`font-display font-bold text-base md:text-lg leading-none transition-colors duration-300 ${
-                  isScrolled ? 'text-enterprise-900' : 'text-white'
-                }`}>
-                  AI-First
+              <img
+                src="/aifirstgcclogo.svg"
+                alt="AI-First GCC logo"
+                className={`h-10 w-auto md:h-12 transition-all duration-500 ${
+                  isScrolled ? '' : 'brightness-0 invert'
+                }`}
+              />
+              <div className="ml-3 flex flex-col">
+                <span
+                  className={`text-xl md:text-2xl font-display font-bold tracking-tight transition-colors duration-500 leading-none ${
+                    isScrolled ? 'text-enterprise-900' : 'text-white'
+                  }`}
+                >
+                  Orbis360
                 </span>
-                <span className={`font-display font-semibold text-xs md:text-sm leading-none transition-colors duration-300 ${
-                  isScrolled ? 'text-purple-600' : 'text-purple-300'
-                }`}>
-                  GCC
+                <span
+                  className={`text-[10px] md:text-xs font-medium tracking-wide transition-colors duration-500 ${
+                    isScrolled ? 'text-enterprise-600' : 'text-white/70'
+                  }`}
+                >
+                  The AI-First GCC Platform
                 </span>
               </div>
             </motion.a>

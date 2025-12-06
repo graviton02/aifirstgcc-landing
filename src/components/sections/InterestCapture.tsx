@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Loader2, Send, CheckCircle2, Mail, Users, TrendingUp, Shield } from 'lucide-react'
+import { Loader2, Send, CheckCircle2, Mail, Shield } from 'lucide-react'
 import { toast, Toaster } from 'sonner'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'
@@ -20,23 +20,9 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-// Simulated waitlist count (replace with real data from Supabase)
-const BASE_WAITLIST_COUNT = 847
-
 export function InterestCapture() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [waitlistCount, setWaitlistCount] = useState(BASE_WAITLIST_COUNT)
-
-  // Simulate growing waitlist (in production, fetch from Supabase)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() > 0.7) {
-        setWaitlistCount(prev => prev + 1)
-      }
-    }, 15000)
-    return () => clearInterval(interval)
-  }, [])
 
   const {
     register,
@@ -52,7 +38,6 @@ export function InterestCapture() {
     try {
       await submitEarlyAccess(data)
       setIsSubmitted(true)
-      setWaitlistCount(prev => prev + 1)
       reset()
       toast.success('Welcome to the AI-First GCC movement!', {
         description: "We'll notify you when the platform launches.",
@@ -106,38 +91,6 @@ export function InterestCapture() {
           </p>
         </AnimatedSection>
 
-        {/* Live waitlist counter */}
-        <AnimatedSection delay={0.15} className="mb-8">
-          <motion.div
-            className="flex items-center justify-center gap-6 flex-wrap"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-enterprise-200 shadow-sm">
-              <div className="relative">
-                <Users className="w-4 h-4 text-purple-600" />
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              </div>
-              <span className="text-sm font-semibold text-enterprise-900">
-                <motion.span
-                  key={waitlistCount}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="inline-block"
-                >
-                  {waitlistCount.toLocaleString()}
-                </motion.span>
-                + on waitlist
-              </span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200">
-              <TrendingUp className="w-4 h-4 text-emerald-600" />
-              <span className="text-sm font-medium text-emerald-700">Growing daily</span>
-            </div>
-          </motion.div>
-        </AnimatedSection>
-
         <AnimatedSection delay={0.2}>
           <AnimatePresence mode="wait">
             {isSubmitted ? (
@@ -156,7 +109,7 @@ export function InterestCapture() {
                   <CheckCircle2 className="w-8 h-8" />
                 </motion.div>
                 <h3 className="font-display text-xl font-semibold text-enterprise-900 mb-2">
-                  You're #{waitlistCount} on the list!
+                  You're on the list!
                 </h3>
                 <p className="text-enterprise-600 mb-6">
                   We'll send you exclusive updates and early access information.
@@ -286,60 +239,11 @@ export function InterestCapture() {
                   </div>
                 </div>
 
-                {/* Recent signups ticker */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="mt-6 text-center"
-                >
-                  <RecentSignups />
-                </motion.div>
               </motion.form>
             )}
           </AnimatePresence>
         </AnimatedSection>
       </Container>
     </section>
-  )
-}
-
-// Recent signups component for social proof
-function RecentSignups() {
-  const recentSignups = [
-    { name: 'VP of Technology', company: 'Fortune 500 Bank', time: '2 min ago' },
-    { name: 'GCC Director', company: 'Global Auto OEM', time: '5 min ago' },
-    { name: 'Head of AI', company: 'Tech Giant', time: '12 min ago' },
-  ]
-
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % recentSignups.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <div className="h-6 overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.p
-          key={currentIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className="text-sm text-enterprise-500"
-        >
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse" />
-          <span className="font-medium text-enterprise-700">{recentSignups[currentIndex].name}</span>
-          {' from '}
-          <span className="text-enterprise-600">{recentSignups[currentIndex].company}</span>
-          {' joined '}
-          <span className="text-enterprise-400">{recentSignups[currentIndex].time}</span>
-        </motion.p>
-      </AnimatePresence>
-    </div>
   )
 }
