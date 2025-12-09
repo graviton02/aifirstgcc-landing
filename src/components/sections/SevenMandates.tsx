@@ -209,7 +209,7 @@ export function SevenMandates() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-white/40 text-sm leading-relaxed mt-auto group-hover:text-white/60 transition-colors">
+                  <p className="text-white/80 text-sm leading-relaxed mt-auto group-hover:text-white transition-colors">
                     {mandate.description}
                   </p>
 
