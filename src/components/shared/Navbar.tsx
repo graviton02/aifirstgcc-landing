@@ -55,7 +55,7 @@ export function Navbar() {
                     isScrolled ? 'text-enterprise-900' : 'text-white'
                   }`}
                 >
-                  Orbis360
+                  Orbys360
                 </span>
                 <span
                   className={`text-[10px] md:text-xs font-medium tracking-wide transition-colors duration-500 ${
@@ -70,10 +70,13 @@ export function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <NavLink isScrolled={isScrolled} onClick={() => scrollToSection('value')}>
-                Why AI-First
+                Why Orbys360
               </NavLink>
-              <NavLink isScrolled={isScrolled} onClick={() => scrollToSection('mandates')}>
-                7 Mandates
+              <NavLink isScrolled={isScrolled} onClick={() => scrollToSection('enterprises')}>
+                For Enterprises
+              </NavLink>
+              <NavLink isScrolled={isScrolled} onClick={() => scrollToSection('providers')}>
+                For Partners
               </NavLink>
               <NavLink isScrolled={isScrolled} onClick={() => scrollToSection('benefits')}>
                 Benefits
@@ -117,10 +120,13 @@ export function Navbar() {
               <Container>
                 <div className="py-4 space-y-2">
                   <MobileNavLink onClick={() => scrollToSection('value')}>
-                    Why AI-First
+                    Why Orbys360
                   </MobileNavLink>
-                  <MobileNavLink onClick={() => scrollToSection('mandates')}>
-                    7 Mandates
+                  <MobileNavLink onClick={() => scrollToSection('enterprises')}>
+                    For Enterprises
+                  </MobileNavLink>
+                  <MobileNavLink onClick={() => scrollToSection('providers')}>
+                    For Partners
                   </MobileNavLink>
                   <MobileNavLink onClick={() => scrollToSection('benefits')}>
                     Benefits

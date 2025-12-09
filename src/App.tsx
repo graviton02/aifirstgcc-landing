@@ -3,6 +3,8 @@ import { FloatingCTA } from '@/components/shared/FloatingCTA'
 import { Hero } from '@/components/sections/Hero'
 import { ValueProposition } from '@/components/sections/ValueProposition'
 import { SevenMandates } from '@/components/sections/SevenMandates'
+import { EnterprisesSection } from '@/components/sections/EnterprisesSection'
+import { ProvidersSection } from '@/components/sections/ProvidersSection'
 import { EarlyMemberBenefits } from '@/components/sections/EarlyMemberBenefits'
 import { InterestCapture } from '@/components/sections/InterestCapture'
 import { SocialProof } from '@/components/sections/SocialProof'
@@ -17,6 +19,8 @@ function App() {
         <Hero />
         <ValueProposition />
         <SevenMandates />
+        <EnterprisesSection />
+        <ProvidersSection />
         <EarlyMemberBenefits />
         <InterestCapture />
         <SocialProof />

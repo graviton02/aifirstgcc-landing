@@ -19,12 +19,12 @@ export function Footer() {
           <div className="mb-6 flex items-center justify-center gap-3">
             <img
               src="/aifirstgcclogo.svg"
-              alt="Orbis360 logo"
+              alt="Orbys360 logo"
               className="h-12 w-auto brightness-0 invert"
             />
             <div className="flex flex-col text-left">
               <span className="text-xl md:text-2xl font-display font-bold tracking-tight text-white leading-none">
-                Orbis360
+                Orbys360
               </span>
               <span className="text-[10px] md:text-xs font-medium tracking-wide text-white/70">
                 The AI-First GCC Platform
@@ -47,7 +47,7 @@ export function Footer() {
           {/* Copyright */}
           <div className="space-y-2">
             <p className="text-white/60 text-sm">
-              © 2026 Orbis360. All rights reserved.
+              © 2026 Orbys360. All rights reserved.
             </p>
             <p className="text-white/50 text-xs">
               Launching soon.

@@ -41,6 +41,16 @@ const features = [
     subtitle: 'Data-driven insights and comparisons.',
     image: researchImg,
   },
+  {
+    title: 'AI Expert Advisors',
+    subtitle: 'Connect with seasoned AI strategists and practitioners for guidance.',
+    image: '/advisors.png',
+  },
+  {
+    title: 'AI News & Trends',
+    subtitle: 'Stay ahead with curated updates on AI advancements and industry shifts.',
+    image: '/news.png',
+  },
 ]
 
 const containerVariants = {
@@ -161,7 +171,7 @@ export function ValueProposition() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
             </span>
             <span className="text-sm font-semibold bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
-              Why Orbis360?
+              Why Orbys360?
             </span>
           </motion.div>
 

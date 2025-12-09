@@ -1,7 +1,7 @@
 // Motion gives access to framer-motion powered animation primitives.
 import { motion } from 'framer-motion'
 // Icon set used throughout the benefits cards.
-import { Check, Crown, Gem, Rocket, Users, FileText, Compass, Star } from 'lucide-react'
+import { Check, Crown, Gem, Rocket, Users, FileText, Compass, Star, UserCheck } from 'lucide-react'
 // Layout helpers shared across the site.
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/shared/AnimatedSection'
@@ -37,6 +37,11 @@ const benefits = [
     icon: Star,
     title: 'Join the Founding Community',
     description: 'Exclusive network of AI-first GCC pioneers',
+  },
+  {
+    icon: UserCheck,
+    title: 'Access to AI Experts',
+    description: 'Get guidance from experienced AI strategists and practitioners',
   },
 ]
 
@@ -79,9 +84,11 @@ export function EarlyMemberBenefits() {
         {/* 2-column grid on desktop */}
         {/* StaggerContainer sequences child animations to play one after another. */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto" staggerDelay={0.08}>
-          {benefits.map((benefit, index) => (
+          {benefits.map((benefit, index) => {
+            const isLastOdd = benefits.length % 2 === 1 && index === benefits.length - 1
+            return (
             // StaggerItem hooks into StaggerContainer so each card animates in order.
-            <StaggerItem key={index}>
+            <StaggerItem key={index} className={isLastOdd ? 'md:col-span-2 md:max-w-md md:mx-auto' : ''}>
               <motion.div
                 whileHover={{ y: -4, scale: 1.01 }}
                 transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
@@ -107,7 +114,8 @@ export function EarlyMemberBenefits() {
                 </div>
               </motion.div>
             </StaggerItem>
-          ))}
+            )
+          })}
         </StaggerContainer>
 
       </Container>

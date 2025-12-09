@@ -137,7 +137,7 @@ export function SevenMandates() {
           </motion.div>
 
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">7 Mandates</span>
+            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">Mandates</span>
             <br />
             <span className="text-white/80">of an AI-First GCC</span>
           </h2>

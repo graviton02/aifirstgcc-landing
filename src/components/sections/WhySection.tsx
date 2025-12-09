@@ -42,7 +42,7 @@ export function WhySection() {
             <h2 className="font-display text-display-sm sm:text-display-md text-white">
               Why We're Building
               <br />
-              <span className="text-gradient-light">Orbis360</span>
+              <span className="text-gradient-light">Orbys360</span>
             </h2>
           </div>
 
