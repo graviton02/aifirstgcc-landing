@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { GrainGradient } from '@paper-design/shaders-react'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'
 
@@ -67,21 +66,25 @@ const cardVariants = {
 export function EnterprisesSection() {
   return (
     <section id="enterprises" className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
-      {/* GrainGradient Background - Purple tones for Enterprises */}
-      <div className="absolute inset-0">
-        <GrainGradient
-          speed={1}
-          scale={1}
-          rotation={0}
-          offsetX={0}
-          offsetY={0}
-          softness={0.5}
-          intensity={0.5}
-          noise={0.25}
-          shape="corners"
-          colors={['#4C1D95', '#7C3AED', '#5B21B6', '#6D28D9']}
-          colorBack="#1a0a2e"
-          className="w-full h-full"
+      {/* CSS Gradient Background - Purple tones for Enterprises */}
+      <div className="absolute inset-0 bg-[#1a0a2e]">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse at 0% 0%, #4C1D95 0%, transparent 50%),
+              radial-gradient(ellipse at 100% 0%, #7C3AED 0%, transparent 50%),
+              radial-gradient(ellipse at 100% 100%, #5B21B6 0%, transparent 50%),
+              radial-gradient(ellipse at 0% 100%, #6D28D9 0%, transparent 50%)
+            `,
+          }}
+        />
+        {/* Noise texture overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
         />
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/40" />

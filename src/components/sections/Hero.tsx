@@ -31,45 +31,10 @@ export function Hero() {
         }}
       />
 
-      {/* Floating decorative elements */}
-      <motion.div
-        className="absolute top-1/4 left-[10%] w-2 h-2 bg-white/30 rounded-full blur-[1px]"
-        animate={{
-          y: [0, -20, 0],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute top-1/3 right-[15%] w-3 h-3 bg-purple-300/40 rounded-full blur-[2px]"
-        animate={{
-          y: [0, -30, 0],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-[20%] w-1.5 h-1.5 bg-blue-200/50 rounded-full blur-[1px]"
-        animate={{
-          y: [0, -15, 0],
-          opacity: [0.5, 0.8, 0.5],
-        }}
-        transition={{
-          duration: 3.5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 0.5,
-        }}
-      />
+      {/* Static decorative elements - reduced from animated for performance */}
+      <div className="absolute top-1/4 left-[10%] w-2 h-2 bg-white/40 rounded-full blur-[1px]" />
+      <div className="absolute top-1/3 right-[15%] w-3 h-3 bg-purple-300/50 rounded-full blur-[2px]" />
+      <div className="absolute bottom-1/3 left-[20%] w-1.5 h-1.5 bg-blue-200/60 rounded-full blur-[1px]" />
 
       {/* Content */}
       <Container className="relative z-10 text-center">
