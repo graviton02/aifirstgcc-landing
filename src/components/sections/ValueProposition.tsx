@@ -2,13 +2,13 @@ import { motion } from 'framer-motion'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'
 
-// Feature illustrations (transparent PNGs)
-const agentMarketplaceImg = '/images/icons/agent-marketplace.png'
-const playbooksImg = '/images/icons/playbooks-frameworks.png'
-const operatingModelsImg = '/images/icons/operating-models.png'
-const aiRoadmapsImg = '/images/icons/ai-roadmaps.png'
-const templatesImg = '/images/icons/implementation-templates.png'
-const researchImg = '/images/icons/research-benchmarks.png'
+// Feature illustrations (optimized WebP)
+const agentMarketplaceImg = '/images/icons/agent-marketplace.webp'
+const playbooksImg = '/images/icons/playbooks-frameworks.webp'
+const operatingModelsImg = '/images/icons/operating-models.webp'
+const aiRoadmapsImg = '/images/icons/ai-roadmaps.webp'
+const templatesImg = '/images/icons/implementation-templates.webp'
+const researchImg = '/images/icons/research-benchmarks.webp'
 
 const features = [
   {
@@ -44,12 +44,12 @@ const features = [
   {
     title: 'AI Expert Advisors',
     subtitle: 'Connect with seasoned AI strategists and practitioners for guidance.',
-    image: '/advisors.png',
+    image: '/advisors.webp',
   },
   {
     title: 'AI News & Trends',
     subtitle: 'Stay ahead with curated updates on AI advancements and industry shifts.',
-    image: '/news.png',
+    image: '/news.webp',
   },
 ]
 
@@ -89,6 +89,8 @@ function FeatureCard({ feature }: { feature: typeof features[0] }) {
             <img
               src={feature.image}
               alt={feature.title}
+              loading="lazy"
+              decoding="async"
               className="w-full max-w-[180px] h-auto object-contain"
             />
           </div>
@@ -129,32 +131,9 @@ export function ValueProposition() {
         }}
       />
 
-      {/* Decorative blurred shapes */}
-      <motion.div
-        className="absolute top-1/4 -left-32 w-64 h-64 bg-gradient-to-br from-violet-200/40 to-purple-200/40 rounded-full blur-3xl"
-        animate={{
-          y: [0, 30, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 -right-32 w-80 h-80 bg-gradient-to-br from-blue-200/30 to-cyan-200/30 rounded-full blur-3xl"
-        animate={{
-          y: [0, -40, 0],
-          scale: [1, 1.15, 1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
-      />
+      {/* Static decorative blurred shapes - reduced from animated for performance */}
+      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-gradient-to-br from-violet-200/40 to-purple-200/40 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 -right-32 w-80 h-80 bg-gradient-to-br from-blue-200/30 to-cyan-200/30 rounded-full blur-3xl" />
 
       <Container className="relative">
         {/* Header */}

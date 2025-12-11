@@ -58,19 +58,8 @@ export function FloatingCTA() {
             whileTap={{ scale: 0.95 }}
             className="group relative"
           >
-            {/* Animated glow ring */}
-            <motion.div
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 blur-lg opacity-40"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.4, 0.6, 0.4],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
+            {/* Static glow ring - reduced from animated for performance */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 blur-lg opacity-50" />
 
             {/* Button */}
             <div className="relative flex items-center gap-2 px-5 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40 transition-shadow duration-300">
