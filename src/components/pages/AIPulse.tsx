@@ -95,18 +95,6 @@ export function AIPulse() {
           />
 
           {/* Masthead */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-4"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
-              <Sparkles className="w-4 h-4 text-purple-400" />
-              <span className="text-sm text-white/80 font-medium">Orbys360 Intelligence</span>
-            </div>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
