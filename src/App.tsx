@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { Navbar } from '@/components/shared/Navbar'
 import { FloatingCTA } from '@/components/shared/FloatingCTA'
 import { Hero } from '@/components/sections/Hero'
@@ -14,15 +15,26 @@ const SocialProof = lazy(() => import('@/components/sections/SocialProof').then(
 const WhySection = lazy(() => import('@/components/sections/WhySection').then(m => ({ default: m.WhySection })))
 const Footer = lazy(() => import('@/components/sections/Footer').then(m => ({ default: m.Footer })))
 
+// Lazy load AI Pulse page
+const AIPulse = lazy(() => import('@/components/pages/AIPulse').then(m => ({ default: m.AIPulse })))
+
 // Minimal loading placeholder
 function SectionLoader() {
   return <div className="min-h-[200px]" />
 }
 
-function App() {
+// Full page loader for route transitions
+function PageLoader() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-purple-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+  )
+}
+
+function LandingPage() {
   return (
     <>
-      <Navbar />
       <main className="overflow-hidden">
         <Hero />
         <Suspense fallback={<SectionLoader />}>
@@ -54,6 +66,25 @@ function App() {
         </Suspense>
       </main>
       <FloatingCTA />
+    </>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/ai-pulse"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <AIPulse />
+            </Suspense>
+          }
+        />
+      </Routes>
     </>
   )
 }
