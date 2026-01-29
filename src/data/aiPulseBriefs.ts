@@ -23,7 +23,7 @@ export const dailyBriefs: DailyBrief[] = [
   {
     slug: '2026-01-29',
     date: '2026-01-29',
-    editorHeadline: 'Agent AI moves from pilots to production across security, operations, and domain-specific deployments',
+    editorHeadline: 'Agentic AI shifts from pilot programs to production across security, operations, and enterprise deployments',
     topDevelopments: [
       {
         headline: 'Agent-based AI systems expand into live security and defense operations',
