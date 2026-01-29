@@ -9,7 +9,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
-  const isAIPulsePage = location.pathname === '/ai-pulse'
+  const isAIPulsePage = location.pathname.startsWith('/ai-pulse')
 
   useEffect(() => {
     const handleScroll = () => {

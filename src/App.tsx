@@ -15,8 +15,9 @@ const SocialProof = lazy(() => import('@/components/sections/SocialProof').then(
 const WhySection = lazy(() => import('@/components/sections/WhySection').then(m => ({ default: m.WhySection })))
 const Footer = lazy(() => import('@/components/sections/Footer').then(m => ({ default: m.Footer })))
 
-// Lazy load AI Pulse page
-const AIPulse = lazy(() => import('@/components/pages/AIPulse').then(m => ({ default: m.AIPulse })))
+// Lazy load AI Pulse pages
+const AIPulseListing = lazy(() => import('@/components/pages/AIPulseListing').then(m => ({ default: m.AIPulseListing })))
+const AIPulseDetail = lazy(() => import('@/components/pages/AIPulseDetail').then(m => ({ default: m.AIPulseDetail })))
 
 // Minimal loading placeholder
 function SectionLoader() {
@@ -80,7 +81,15 @@ function App() {
           path="/ai-pulse"
           element={
             <Suspense fallback={<PageLoader />}>
-              <AIPulse />
+              <AIPulseListing />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/ai-pulse/:slug"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <AIPulseDetail />
             </Suspense>
           }
         />
