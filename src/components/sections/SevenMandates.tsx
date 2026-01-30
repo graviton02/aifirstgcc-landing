@@ -198,7 +198,7 @@ export function SevenMandates() {
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 400 }}
                     className={`inline-flex items-center justify-center w-14 h-14 mb-5 rounded-xl bg-gradient-to-br ${mandate.color} shadow-lg`}
-                    style={{ boxShadow: `0 8px 32px ${mandate.glowColor}` }}
+                    style={{ boxShadow: `0 8px 32px ${mandate.glowColor}` } as React.CSSProperties}
                   >
                     <mandate.icon className="w-7 h-7 text-white" strokeWidth={1.5} />
                   </motion.div>

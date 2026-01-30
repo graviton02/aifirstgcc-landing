@@ -21,6 +21,89 @@ import type { DailyBrief } from './aiPulseTypes'
 
 export const dailyBriefs: DailyBrief[] = [
   {
+    slug: '2026-01-30',
+    date: '2026-01-30',
+    editorHeadline:
+      'Enterprise agentic AI adoption accelerates — governance, identity, and cost efficiency emerge as defining battlegrounds',
+    topDevelopments: [
+      {
+        headline: 'Enterprise agentic AI adoption surges, with governance and identity risks emerging',
+        description:
+          'Recent studies and reporting show accelerated enterprise use of agentic AI systems but also highlight governance gaps and security concerns around identity and access for autonomous agents. Uncontrolled agent credentials and weak operational oversight pose new risks if organizations scale without sufficient safeguards.',
+        source: {
+          label: 'The Register',
+          url: 'https://www.theregister.com/2026/01/29/ai_agent_identity_security/',
+        },
+      },
+      {
+        headline: 'Enterprise agentic AI linked to significant operational cost reductions',
+        description:
+          'Benchmark findings released today indicate that autonomous AI systems are replacing manual workflows across key enterprise functions — including operations, finance, and marketing — and delivering up to 38% reduction in operational costs in early adopter environments.',
+        source: {
+          label: 'Barchart',
+          url: 'https://www.barchart.com/story/news/3731ew-report-agentic-ai-reduces-operational-costs-by-up-to-38',
+        },
+      },
+      {
+        headline: 'Databricks research highlights deepening enterprise agent use and governance benefits',
+        description:
+          'A new state-of-the-industry report from Databricks shows a sharp rise in coordinated AI agent use across workflows in global organizations, and underscores that strong governance correlates with higher production deployment rates for AI projects.',
+        source: {
+          label: 'Databricks',
+          url: 'https://www.databricks.com/blog/enterprise-ai-agent-trends-top-use-cases-governance-evaluations-and-more',
+        },
+      },
+    ],
+    useCase: {
+      title: 'AI-Driven Security Incident Triage and Response Acceleration',
+      description:
+        'Enterprises are deploying agentic AI to autonomously triage and correlate security alerts in real time, prioritizing threats and feeding contextual information into SOC workflows. These systems ingest telemetry from EDR, identity, network, email, and cloud sources, drastically reducing mean time to detect and respond by surfacing only verified high-priority issues for human analysts — enabling zero dwell investigated alerts.',
+      source: {
+        label: 'The Hacker News',
+        url: 'https://thehackernews.com/2026/01/from-triage-to-threat-hunts-how-ai.html',
+      },
+    },
+    enterpriseImpact: [
+      'Operational acceleration meets governance pressure: Organizations are unlocking tangible cost and efficiency gains from autonomous agents, but GCCs and enterprise teams must prioritize identity, access, and behavioral governance to avoid security blind spots.',
+      'GCCs become strategic hubs: With enterprise AI adoption increasing, GCCs are positioned to lead in agentic workflow integration, governance frameworks, and cost optimization, rather than traditional task execution.',
+      'Shift from pilots to production discipline: Research indicates that structured governance practices directly correlate with successful agent deployments at scale — making governance expertise a differentiator for service delivery teams.',
+    ],
+    opportunities: [
+      {
+        title: 'Cost efficiency at scale',
+        description:
+          'Enterprises can achieve significant operational cost reductions by embedding autonomous agents into repeatable workflows across marketing, finance, and IT operations — unlocking headcount-agnostic scaling.',
+      },
+      {
+        title: 'Differentiated GCC value via governance leadership',
+        description:
+          'GCCs that build and operationalize agentic AI governance frameworks, identity controls, and observability layers can position themselves as strategic partners in AI-driven transformation, rather than back-office execution centers.',
+      },
+      {
+        title: 'Production-ready AI with measurable outcomes',
+        description:
+          'The latest enterprise data shows that automated workflows, when coupled with governance and monitoring, boost the percentage of AI projects moved into production, strengthening ROI realization.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Security and identity exposure',
+        description:
+          'Agent credentials and access control gaps can inadvertently grant broad, unchecked permissions, resulting in security blind spots and attack surfaces if not tightly governed.',
+      },
+      {
+        title: 'Governance lag vs adoption pace',
+        description:
+          "Rapid agentic AI adoption continues to outpace enterprises' safety, governance, and compliance frameworks, leaving organizations vulnerable to operational and reputational risk.",
+      },
+      {
+        title: 'Data management and integration challenges',
+        description:
+          'As agents act autonomously across domains, legacy data architectures may struggle to provide reliable and secure contextualized access, increasing risks around data integrity, compliance, and decision quality.',
+      },
+    ],
+  },
+  {
     slug: '2026-01-29',
     date: '2026-01-29',
     editorHeadline: 'Agentic AI shifts from pilot programs to production across security, operations, and enterprise deployments',
