@@ -23,7 +23,7 @@ export function BriefCard({ brief, index }: { brief: DailyBrief; index: number }
     >
       <Link
         to={`/ai-pulse/${brief.slug}`}
-        className="group block relative bg-white rounded-2xl border border-enterprise-200 overflow-hidden transition-all duration-300 hover:shadow-card-hover hover:border-enterprise-300 hover:-translate-y-1"
+        className="group flex flex-col h-[340px] relative bg-white rounded-2xl border border-enterprise-200 overflow-hidden transition-all duration-300 hover:shadow-card-hover hover:border-enterprise-300 hover:-translate-y-1"
       >
         {/* Date badge */}
         <div className="px-6 pt-6 pb-3">
@@ -34,8 +34,8 @@ export function BriefCard({ brief, index }: { brief: DailyBrief; index: number }
         </div>
 
         {/* Headline */}
-        <div className="px-6 pb-4">
-          <h3 className="font-newspaper text-xl font-bold text-enterprise-900 leading-tight group-hover:text-blue-700 transition-colors mb-4">
+        <div className="px-6 pb-4 flex-1 min-h-0">
+          <h3 className="font-newspaper text-xl font-bold text-enterprise-900 leading-tight group-hover:text-blue-700 transition-colors mb-4 line-clamp-3">
             {displayHeadline}
           </h3>
 
@@ -53,7 +53,7 @@ export function BriefCard({ brief, index }: { brief: DailyBrief; index: number }
         </div>
 
         {/* Footer */}
-        <div className="px-6 pb-6 pt-3 flex items-center justify-end border-t border-enterprise-100">
+        <div className="px-6 pb-6 pt-3 flex items-center justify-end border-t border-enterprise-100 mt-auto">
           <span className="text-sm font-medium text-blue-600 flex items-center gap-1 group-hover:gap-2 transition-all">
             Read Brief
             <ArrowRight className="w-4 h-4" />
