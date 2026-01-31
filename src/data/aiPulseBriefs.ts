@@ -21,6 +21,89 @@ import type { DailyBrief } from './aiPulseTypes'
 
 export const dailyBriefs: DailyBrief[] = [
   {
+    slug: '2026-01-31',
+    date: '2026-01-31',
+    editorHeadline:
+      'Enterprise data architectures and security models face urgent rethinking as agentic AI scales into production workflows',
+    topDevelopments: [
+      {
+        headline: 'New enterprise data architecture demands emerge for agentic AI scaling',
+        description:
+          'As enterprises increasingly deploy autonomous agents, traditional centralized data infrastructures are proving inadequate. Emerging best practices emphasize distributed, governance\u2011centric architectures to support real\u2011time agent decisions, observability, and security \u2014 highlighting that data readiness, not model capability, is the chief bottleneck in scaling AI at enterprise scale.',
+        source: {
+          label: 'Frontier Enterprise',
+          url: 'https://www.frontier-enterprise.com/building-data-architectures-for-agentic-ai-success/',
+        },
+      },
+      {
+        headline: 'Security risk spotlight: agentic AI exposes perimeter blind spots',
+        description:
+          'Recent analysis reveals that unmanaged AI agents, operating inside authorized permissions, can bypass traditional security controls \u2014 creating \u201Cblind spots\u201D for enterprise defenses and exposing API keys or credentials. This raises immediate concerns for governance, identity, and risk teams as agentic systems move into production environments.',
+        source: {
+          label: 'VentureBeat',
+          url: 'https://venturebeat.com/security/openclaw-agentic-ai-security-risk-ciso-guide/',
+        },
+      },
+      {
+        headline: 'Mastercard and enterprise players advance agentic AI integration guidance',
+        description:
+          'Major enterprise players, including Mastercard, are announcing new frameworks and capabilities to help businesses integrate agentic AI into operations, signalling that the market is transitioning from experimentation to practical deployment strategies across real\u2011world workflows.',
+        source: {
+          label: 'CIO Africa',
+          url: 'https://cioafrica.co/mastercard-unveils-agent-suite-to-support-enterprise-adoption-of-agentic-ai/',
+        },
+      },
+    ],
+    useCase: {
+      title: 'AI\u2011Driven ERP Workflow Automation with Agentic Agents',
+      description:
+        'Enterprises are now integrating autonomous agents directly into core ERP processes \u2014 not just for analytics but for active decisioning and execution. Examples include AI agents automatically coordinating order processing, inventory adjustments, and exception management within ERP systems. These agents interact with transactional data, apply business rules, and execute outcomes while logging audit trails \u2014 enabling reduced cycle times, fewer manual handoffs, and scalability across finance and supply chain functions. Real adoption stories show reduced processing times and operational cost gains as core systems become autonomously responsive to change.',
+      source: {
+        label: 'Intelligent CIO',
+        url: 'https://www.intelligentcio.com/north-america/2026/01/08/top-10-predictions-for-2026-how-agentic-ai-erp-will-redefine-the-enterprise/',
+      },
+    },
+    enterpriseImpact: [
+      'Data and governance now strategic imperatives: As agentic AI systems proliferate beyond pilots into operational workflows, enterprises and GCCs must evolve data architectures and governance models to ensure reliability and compliance.',
+      'Security teams face new attack surfaces: Traditional perimeter controls are insufficient for autonomous agents that make decisions and execute actions, driving demand for identity\u2011centric risk frameworks and runtime observability.',
+      'GCCs become enablers of enterprise\u2011wide AI deployment: With players like Mastercard operationalizing agentic AI guidance, GCCs are positioned to lead enterprise integration, monitoring, and orchestration of agentic workflows \u2014 moving beyond support functions into strategic automation roles.',
+    ],
+    opportunities: [
+      {
+        title: 'Autonomous process orchestration at scale',
+        description:
+          'Agentic AI embedded in core systems such as ERP can transform routine operational workflows into seamlessly automated sequences, enabling productivity gains and faster cycle times across finance, supply chain, and service functions.',
+      },
+      {
+        title: 'Next\u2011gen data infrastructure and governance leadership',
+        description:
+          'Enterprises and GCCs that build distributed, real\u2011time data architectures tailored for agentic AI can unlock strategic advantages in observability, reliability, and compliance \u2014 accelerating AI adoption across units.',
+      },
+      {
+        title: 'Strategic value creation beyond cost reduction',
+        description:
+          'As agentic AI moves into revenue\u2011impacting functions like customer decisioning, order orchestration, and predictive operations, GCCs can capture higher value roles in innovation, strategy, and business outcome delivery.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Security governance gaps with autonomous agents',
+        description:
+          'Agentic systems operating with granted permissions can evade traditional detection, exposing enterprises to unauthorized actions, credential leakage, and audit blind spots unless identity and runtime controls are strengthened.',
+      },
+      {
+        title: 'Data architecture bottlenecks',
+        description:
+          'Legacy, centralized data systems are ill\u2011equipped for real\u2011time, autonomous AI decisioning, creating latency, quality, and integration challenges that hamper execution reliability and visibility.',
+      },
+      {
+        title: 'Operational complexity and model risk',
+        description:
+          'As agents coordinate multi\u2011step processes, governance and compliance frameworks must keep pace to manage decision boundaries, explainability, and rollback mechanisms \u2014 gaps in these areas can lead to amplified mistakes at scale.',
+      },
+    ],
+  },
+  {
     slug: '2026-01-30',
     date: '2026-01-30',
     editorHeadline:
