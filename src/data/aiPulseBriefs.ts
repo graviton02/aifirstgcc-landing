@@ -21,6 +21,89 @@ import type { DailyBrief } from './aiPulseTypes'
 
 export const dailyBriefs: DailyBrief[] = [
   {
+    slug: '2026-02-02',
+    date: '2026-02-02',
+    editorHeadline:
+      'Singapore sets global precedent with agentic AI governance framework as enterprise adoption surges ahead of security readiness',
+    topDevelopments: [
+      {
+        headline: 'Singapore launches world\u2019s first agentic AI governance framework',
+        description:
+          'Singapore has introduced the first national governance framework for agentic AI, aimed at helping enterprises adopt autonomous AI with structured risk, security, and accountability requirements. Regional industry partners including Microsoft are collaborating to help organisations operationalise the new standards. This marks a milestone in formalising governance for autonomous systems beyond pilots into regulated environments.',
+        source: {
+          label: 'PR Newswire',
+          url: 'https://www.prnewswire.com/apac/news-releases/singapore-launches-worlds-first-agentic-ai-governance-framework-302675602.html',
+        },
+      },
+      {
+        headline: 'Databricks reports surge in AI agent adoption despite governance gaps',
+        description:
+          'New findings from Databricks\u2019 2026 State of AI Agents report show a significant increase in enterprise use of autonomous AI agents. Organisations are rapidly transitioning from simple chatbots to multi\u2011agent systems that reason, plan, and execute across business workflows, even as governance and production scaling remain bottlenecks for many.',
+        source: {
+          label: 'SiliconANGLE',
+          url: 'https://siliconangle.com/2026/01/27/databricks-reports-finds-surge-ai-agent-adoption-despite-governance-bottlenecks',
+        },
+      },
+      {
+        headline: 'Security teams rethinking architectures for autonomous AI agents',
+        description:
+          'Enterprise security is confronting fundamental challenges as autonomous AI agents gain decision\u2011making ability and access to sensitive cloud systems. New reporting underscores how traditional InfoSec and SaaS security models were not designed for machine actors with autonomous behaviour, increasing risk exposure and prompting reevaluation of identity and runtime protections.',
+        source: {
+          label: 'WebProNews',
+          url: 'https://www.webpronews.com/the-collision-course-how-agentic-ai-forces-infosec-and-saas-teams-to-rethink-enterprise-data-protection/',
+        },
+      },
+    ],
+    useCase: {
+      title: 'Automated Regulatory and Risk Reporting with AI Agents',
+      description:
+        'Large financial and compliance organisations are deploying autonomous AI agents to generate, validate, and submit regulatory reports across multiple jurisdictions. These agents connect to core databases, interpret regulatory text, reconcile transaction and audit data, and produce structured filings. Instead of manual compilation and verification, agents run continuous monitoring and produce compliant reports with built\u2011in audit trails, reducing cycle time by over 60% and improving accuracy for high\u2011volume, cross\u2011border reporting functions. This real enterprise use case illustrates how agentic systems extend beyond assistance to operational execution in governance\u2011critical domains.',
+      source: {
+        label: 'Intelligent CIO',
+        url: 'https://www.intelligentcio.com/north-america/2026/01/08/top-10-predictions-for-2026-how-agentic-ai-erp-will-redefine-the-enterprise/',
+      },
+    },
+    enterpriseImpact: [
+      'Governance becomes a competitive imperative: National frameworks like Singapore\u2019s signal that governments are now formalising expectations for agentic AI oversight \u2014 pushing enterprises and GCCs to build or mature governance functions immediately.',
+      'Transition into production accelerates: Databricks\u2019 data reveals enterprises are not just experimenting but deploying multi\u2011agent AI strategically, even though many have not yet fully governed production workflows in place.',
+      'Security posture overhaul: As autonomous agents act within core SaaS and cloud environments, traditional security models are inadequate \u2014 requiring enterprises and GCCs to adopt agent\u2011aware identity, monitoring, and risk controls.',
+    ],
+    opportunities: [
+      {
+        title: 'Governance\u2011first enterprise strategy',
+        description:
+          'Formal frameworks and standards emerging at national and industry levels offer enterprises a roadmap to scale agentic AI with accountability and compliance baked in \u2014 allowing GCCs to differentiate by expertise in governance, risk, and compliance (GRC) integration.',
+      },
+      {
+        title: 'Operational scale\u2011up with autonomous execution',
+        description:
+          'As organisations transition from pilots to multi\u2011agent systems across ERP, risk, finance, and security workflows, there\u2019s a clear path to productivity and speed gains, enabling GCCs to drive measurable outcomes rather than incremental automation.',
+      },
+      {
+        title: 'Embedding AI in core data and decision infrastructure',
+        description:
+          'Multi\u2011agent AI is reshaping core infrastructure \u2014 such as auto\u2011generation of databases and real\u2011time planning processes \u2014 offering GCCs the chance to architect data\u2011centric platforms tuned for autonomous execution.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Shadow agents and security blind spots',
+        description:
+          'Independent agent proliferation across systems can bypass conventional SecOps controls, creating invisible actors with access to sensitive systems. Without identity\u2011anchored governance, this increases attack surfaces and compliance gaps.',
+      },
+      {
+        title: 'Production scalability constraints',
+        description:
+          'Despite rapid adoption, only a segment of enterprises have effectively deployed agentic AI at full scale. Common bottlenecks include governance, evaluation rigor, and infrastructure maturity \u2014 leading to stalled ROI for many organisations.',
+      },
+      {
+        title: 'Data infrastructure as a bottleneck',
+        description:
+          'Agentic systems expose underlying data fragilities; without real\u2011time, reliable database frameworks and telemetry, agents can produce inconsistent outcomes or drift from intended business logic, amplifying operational risk.',
+      },
+    ],
+  },
+  {
     slug: '2026-01-31',
     date: '2026-01-31',
     editorHeadline:
