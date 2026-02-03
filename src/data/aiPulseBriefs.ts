@@ -21,6 +21,99 @@ import type { DailyBrief } from './aiPulseTypes'
 
 export const dailyBriefs: DailyBrief[] = [
   {
+    slug: '2026-02-03',
+    date: '2026-02-03',
+    editorHeadline:
+      'Singapore\u2019s governance framework, AWS\u2013NTT Data agentic AI pact, and Databricks\u2019 infrastructure reality check define the enterprise AI agenda',
+    topDevelopments: [
+      {
+        headline: 'Singapore releases world\u2019s first agentic AI governance framework',
+        description:
+          'Singapore unveiled a national agentic AI governance framework designed to guide enterprises in operationalizing autonomy with structured accountability, technical controls, and human oversight. A multi\u2011country ASEAN initiative is now helping companies interpret and implement the framework across regulated environments.',
+        source: {
+          label: 'PR Newswire',
+          url: 'https://www.prnewswire.com/apac/news-releases/singapore-launches-worlds-first-agentic-ai-governance-framework-302675601.html',
+        },
+      },
+      {
+        headline: 'NTT Data and AWS sign multi\u2011year agentic AI agreement',
+        description:
+          'NTT Data partnered with Amazon Web Services (AWS) in a multi\u2011year agreement to help enterprises modernise legacy infrastructure and adopt responsible agentic AI. The collaboration aims to accelerate cloud migrations and embed agentic systems into scalable, secure enterprise architecture.',
+        source: {
+          label: 'Tahawul Tech',
+          url: 'https://www.tahawultech.com/home-slide/ntt-datamulti-year-agentic-ai-agreement/',
+        },
+      },
+      {
+        headline: 'Databricks highlights governance as key barrier to agentic AI scale',
+        description:
+          'A Databricks report published today underscores that enterprises have progressed with generative AI, but fragmented data infrastructure and governance remain the top constraints to scaling agentic AI into reliable operational workflows.',
+        source: {
+          label: 'Databricks',
+          url: 'https://www.databricks.com/blog/infrastructure-strategies-driving-next-wave-enterprise-ai',
+        },
+      },
+    ],
+    useCase: {
+      title: 'Autonomous Incident Detection and Remediation in Enterprise IT Operations',
+      description:
+        'Large enterprises are deploying agentic AI agents as real\u2011time systems of record for IT operations. These agents continuously ingest event streams and telemetry from cloud environments, detect anomalies across distributed services, and initiate remediation actions \u2014 e.g., restarting failed containers, scaling services, or adjusting network rules \u2014 while escalating only critical or novel conditions to human engineers. In contrast with traditional alert\u2011based systems, these agents execute goal\u2011oriented actions with guardrails defined by policy engines, reducing mean time to resolution (MTTR) by automating detection, prioritization, and response across the stack. This real, non\u2011vendor deployment reflects how organizations operationalize AI autonomy to drive measurable uptime and reliability improvements.',
+      source: {
+        label: 'Databricks',
+        url: 'https://www.databricks.com/blog/infrastructure-strategies-driving-next-wave-enterprise-ai',
+      },
+    },
+    enterpriseImpact: [
+      'Governance enters enterprise risk mandates: Singapore\u2019s framework signals that policy\u2011led governance will move from internal best practice to regulated expectation, forcing enterprises and GCCs to formalize controls for autonomous systems.',
+      'Cloud and legacy modernisation accelerates: The AWS + NTT Data collaboration illustrates a broader shift: modernisation is a prerequisite for agentic AI, with legacy environments re\u2011architected to support secure, autonomous execution.',
+      'Data and governance now strategic differentiators: Databricks\u2019 analysis confirms that once enterprises solve governance and data architecture, they unlock scalable agent workflows \u2014 not just pilots. Successful GCCs will lead this shift.',
+    ],
+    opportunities: [
+      {
+        title: 'Governance\u2011driven operational maturity',
+        description:
+          'Frameworks like Singapore\u2019s provide a template for actionable guardrails, enabling organizations to scale autonomy with compliance, auditability, and performance measurement.',
+      },
+      {
+        title: 'Autonomous execution in core IT services',
+        description:
+          'Agentic agents deployed in operations, security, and service delivery create closed\u2011loop automation that significantly improves reliability and responsiveness at scale.',
+      },
+      {
+        title: 'Modernisation as competitive edge',
+        description:
+          'Partnerships such as AWS + NTT Data demonstrate that aligning cloud infrastructure with agentic AI unlocks higher\u2011order automation, positioning GCCs as strategic enterprise transformation hubs.',
+      },
+      {
+        title: 'Data governance as deployment foundation',
+        description:
+          'Enterprises unifying data, analytics, and AI under a governed, contextual layer are better positioned to shift agentic models from experimentation to production.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Governance lags behind adoption',
+        description:
+          'While adoption is growing rapidly, governance structures and controls are still immature in most enterprises; this gap introduces operational risk, regulatory exposure, and auditability blind spots.',
+      },
+      {
+        title: 'Fragmented infrastructure limits reliability',
+        description:
+          'Legacy systems and siloed data create brittle foundations for agentic execution, risking unreliable action and undermining trust in autonomous systems.',
+      },
+      {
+        title: 'Cost and token economics pressure budgets',
+        description:
+          'As enterprise agents make more requests and execute deeper logic chains, token consumption and compute usage escalate, prompting the need for AI FinOps and real\u2011time cost accountability.',
+      },
+      {
+        title: 'Talent and skills shortages',
+        description:
+          'Strong demand for agentic AI engineering and governance roles is outpacing supply, challenging GCCs and enterprises to build and retain the talent necessary for deployment at scale.',
+      },
+    ],
+  },
+  {
     slug: '2026-02-02',
     date: '2026-02-02',
     editorHeadline:
