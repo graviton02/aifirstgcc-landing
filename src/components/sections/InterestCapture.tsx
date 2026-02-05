@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Loader2, Send, CheckCircle2, Mail, Shield } from 'lucide-react'
+import { Loader2, Send, CheckCircle2, Mail, Shield, Flame } from 'lucide-react'
 import { toast, Toaster } from 'sonner'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'
@@ -14,8 +14,6 @@ import { submitEarlyAccess } from '@/lib/supabase'
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  organization: z.string().min(1, 'Organization is required'),
-  role: z.string().min(1, 'Role is required'),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -39,8 +37,8 @@ export function InterestCapture() {
       await submitEarlyAccess(data)
       setIsSubmitted(true)
       reset()
-      toast.success('Welcome to the AI-First GCC movement!', {
-        description: "We'll notify you when the platform launches.",
+      toast.success('Welcome to the Founding 100!', {
+        description: "You've secured your spot. We'll be in touch soon.",
       })
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Something went wrong. Please try again.')
@@ -109,10 +107,10 @@ export function InterestCapture() {
                   <CheckCircle2 className="w-8 h-8" />
                 </motion.div>
                 <h3 className="font-display text-xl font-semibold text-enterprise-900 mb-2">
-                  You're on the list!
+                  Welcome, Founding Member!
                 </h3>
                 <p className="text-enterprise-600 mb-6">
-                  We'll send you exclusive updates and early access information.
+                  You've secured your spot in the Founding 100. We'll be in touch with exclusive updates and priority access.
                 </p>
                 <Button
                   variant="secondary"
@@ -130,6 +128,14 @@ export function InterestCapture() {
                 onSubmit={handleSubmit(onSubmit)}
                 className="max-w-md mx-auto"
               >
+                {/* Urgency badge */}
+                <div className="flex items-center justify-center gap-2 mb-4 text-sm">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-medium">
+                    <Flame className="w-4 h-4" />
+                    Founding 100 — Only 37 spots remaining
+                  </span>
+                </div>
+
                 {/* Form card with gradient border */}
                 <div className="gradient-border p-8 bg-white rounded-2xl shadow-card">
                   <div className="space-y-5">
@@ -156,52 +162,6 @@ export function InterestCapture() {
                       )}
                     </div>
 
-                    {/* Organization field */}
-                    <div className="space-y-2">
-                      <Label htmlFor="organization" className="text-enterprise-800">
-                        Your organization <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="organization"
-                        type="text"
-                        placeholder="Acme Inc."
-                        {...register('organization')}
-                        className={errors.organization ? 'border-red-300 focus:border-red-500 focus:ring-red-200' : ''}
-                      />
-                      {errors.organization && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-sm text-red-500"
-                        >
-                          {errors.organization.message}
-                        </motion.p>
-                      )}
-                    </div>
-
-                    {/* Role field */}
-                    <div className="space-y-2">
-                      <Label htmlFor="role" className="text-enterprise-800">
-                        Your role <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="role"
-                        type="text"
-                        placeholder="GCC Leader, VP Technology..."
-                        {...register('role')}
-                        className={errors.role ? 'border-red-300 focus:border-red-500 focus:ring-red-200' : ''}
-                      />
-                      {errors.role && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-sm text-red-500"
-                        >
-                          {errors.role.message}
-                        </motion.p>
-                      )}
-                    </div>
-
                     {/* Submit button */}
                     <Button
                       type="submit"
@@ -212,11 +172,11 @@ export function InterestCapture() {
                       {isLoading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />
-                          Joining...
+                          Claiming...
                         </>
                       ) : (
                         <>
-                          Count Me In
+                          Claim My Spot
                           <Send className="w-4 h-4" />
                         </>
                       )}
