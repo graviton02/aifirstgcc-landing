@@ -21,6 +21,187 @@ import type { DailyBrief } from './aiPulseTypes'
 
 export const dailyBriefs: DailyBrief[] = [
   {
+    slug: '2026-02-05',
+    date: '2026-02-05',
+    editorHeadline:
+      'Governed AI development, rogue agent risks, and AI-driven cybersecurity strategies define enterprise priorities',
+    topDevelopments: [
+      {
+        headline: 'Enterprise AI Development Gets Fully Governed Foundation',
+        description:
+          'A new strategic partnership between Coder and World Wide Technology aims to accelerate secure, governed AI development across hybrid, cloud, and air-gapped infrastructure. The collaboration targets improved code quality, speed of deployment, and trust by embedding governance into AI pipelines, addressing one of the major bottlenecks in scaling enterprise agentic systems.',
+        source: {
+          label: 'AI Magazine',
+          url: 'https://aimagazine.com/globenewswire/3232143',
+        },
+      },
+      {
+        headline: 'Rogue AI Agent Risk Spotlighted in Large Enterprises',
+        description:
+          'A recent industry analysis estimates that more than half of deployed AI agents in large U.S. and U.K. organizations are unmonitored and unsecured, creating a significant "rogue agent" risk. With millions of autonomous agents in operation, the speed of deployment is currently outpacing governance and security frameworks, expanding enterprise attack surfaces.',
+        source: {
+          label: 'CIO',
+          url: 'https://www.cio.com/article/4127774/1-5-million-ai-agents-are-at-risk-of-going-rogue-2.html',
+        },
+      },
+      {
+        headline: 'Enterprise Security Trends Highlight AI\u2019s Growing Threat Surface',
+        description:
+          'Gartner\u2019s latest cybersecurity trend report identifies the ongoing rise of AI \u2014 especially autonomous and generative systems \u2014 as a driving force reshaping cybersecurity strategies in 2026. With AI agents proliferating across enterprise environments, CISOs are being pushed to rethink threat models, governance, and perimeter defenses to account for dynamic machine decision-making.',
+        source: {
+          label: 'Gartner',
+          url: 'https://www.gartner.com/en/newsroom/press-releases/2026-02-05-gartner-identifies-the-top-cybersecurity-trends-for-2026',
+        },
+      },
+    ],
+    useCase: {
+      title: 'Automated Compliance Monitoring and Correction Agents',
+      description:
+        'In multinational enterprise environments, AI agents are being deployed to continuously monitor compliance with internal and external regulations (e.g., GDPR, financial reporting standards). These agents access event logs, detect policy deviations in near real-time, and initiate corrective actions (such as workflow adjustments, alert escalations, or automated documentation updates) when compliance thresholds are breached. Unlike simple reporting tools, these agents operate continuously and autonomously \u2014 embedding governance checks into operational workflows, reducing manual workloads and improving regulatory adherence without heavy oversight.',
+      source: {
+        label: 'CIO',
+        url: 'https://www.cio.com/article/4127774/1-5-million-ai-agents-are-at-risk-of-going-rogue-2.html',
+      },
+    },
+    enterpriseImpact: [
+      'Governed AI Development Becomes Operational Standard: The Coder & World Wide Technology partnership signals a shift toward governance-first foundations for enterprise AI build pipelines \u2014 a prerequisite for reliable and secure agentic deployments.',
+      'Security Risk Escalates with Unmonitored Agents: The growing number of unsecured AI agents means enterprises and GCCs must prioritize continuous monitoring, identity governance, and anomaly detection to prevent rogue actions or unintended behavior.',
+      'Cybersecurity Strategy Reoriented Around AI Behaviors: Gartner\u2019s trends emphasize that traditional security controls are insufficient for intelligent agents; GCCs will need to embed AI-aware defense models and threat analytics into enterprise risk frameworks.',
+    ],
+    opportunities: [
+      {
+        title: 'Governed AI Development Platforms',
+        description:
+          'Embedding governance into the AI development lifecycle (code to deployment) enables consistent security, compliance, and quality assurance, reducing friction between rapid AI adoption and risk management.',
+      },
+      {
+        title: 'Continuous Autonomous Compliance',
+        description:
+          'Deploying autonomous monitoring agents for regulation and policy enforcement transforms compliance from a periodic audit exercise into real-time operational assurance, enhancing enterprise responsiveness and reducing manual burden.',
+      },
+      {
+        title: 'AI-Aware Security Posture',
+        description:
+          'Organizations that redesign security around autonomous systems (identity for agents, real-time telemetry, and behavioral analytics) can create trust boundaries that balance agility with control.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Rogue and Unmonitored Agents',
+        description:
+          'The proliferation of unsecured agents poses systemic risk \u2014 ungoverned autonomous actors with broad access can execute unauthorized actions or amplify incidents without human detection.',
+      },
+      {
+        title: 'Traditional Security Gaps',
+        description:
+          'Security technologies not purpose-built for autonomous systems are blind to machine-to-machine decision loops, requiring new defense models such as AI-safe IAM, runtime controls, and adaptive detection \u2014 gaps still prevalent in many enterprises.',
+      },
+      {
+        title: 'Talent and Operational Readiness',
+        description:
+          'Effective scaling of agentic AI demands interdisciplinary expertise across AI engineering, governance, and security analytics \u2014 capabilities many enterprises and GCCs currently lack.',
+      },
+      {
+        title: 'Governance Lag Behind Deployment Speed',
+        description:
+          'Rapid agent adoption continues to outpace governance practices, increasing chances of regulatory non-compliance, uncontrolled decision paths, and opaque operational behavior, which can undermine trust and expose enterprises to audit and legal risks.',
+      },
+    ],
+  },
+  {
+    slug: '2026-02-04',
+    date: '2026-02-04',
+    editorHeadline:
+      'AI security acquisitions, Snowflake-OpenAI partnership, and agent identity management reshape enterprise AI landscape',
+    topDevelopments: [
+      {
+        headline: 'Varonis Acquires AllTrue to Strengthen AI Risk & Security',
+        description:
+          'Varonis Systems announced a $125 M acquisition of AllTrue, a specialist in AI trust, risk, and security management. The deal reflects rising enterprise concern over AI governance, model vulnerabilities, bias, and attack surfaces introduced by autonomous systems. Leaders emphasize that many security issues today are intertwined with AI behaviors, signaling a shift toward integrated risk frameworks covering identity, model governance, and anomaly detection across AI agents.',
+        source: {
+          label: 'WSJ',
+          url: 'https://www.wsj.com/articles/varonis-to-acquire-alltrue-as-ai-security-concerns-mount-a365f97d',
+        },
+      },
+      {
+        headline: 'Snowflake & OpenAI Expand Partnership to Operationalize Agentic AI',
+        description:
+          'Snowflake and OpenAI announced a $200 M multi-year partnership to embed advanced AI models (including GPT-5.2) into Snowflake\u2019s data platform and enterprise agent system. The collaboration focuses on enabling enterprises to build, deploy, and govern AI agents that leverage proprietary data securely and compliantly \u2014 addressing two of the top pain points for large organizations: data siloing and trustworthy agent execution.',
+        source: {
+          label: 'IT Pro',
+          url: 'https://www.itpro.com/business/data-and-insights/snowflake-and-openai-are-teaming-up-simplify-enterprises',
+        },
+      },
+      {
+        headline: 'AI Agent Identity Management Emerges as Core Enterprise Security Challenge',
+        description:
+          'Autonomous AI agents are proliferating across enterprise environments, yet traditional identity & access management (IAM) models aren\u2019t equipped to govern them. Security experts now identify AI agent identity lifecycle management as essential, arguing that unmanaged agents create visibility blind spots, over-privileging risks, and orphaned identities that can persist and access sensitive systems. This development highlights a deep structural risk accompanying rapid agent adoption.',
+        source: {
+          label: 'BleepingComputer',
+          url: 'https://www.bleepingcomputer.com/news/security/ai-agent-identity-management-a-new-security-control-plane-for-cisos/',
+        },
+      },
+    ],
+    useCase: {
+      title: 'Autonomous IT Operations Self-Healing Infrastructure',
+      description:
+        'Large enterprises are deploying goal-driven agentic systems within IT operations platforms that continuously monitor infrastructure telemetry, detect incidents, and execute remediation actions autonomously \u2014 for example, restarting services, reallocating resources, or applying security patches when predefined thresholds are breached. These agents integrate with ticketing systems and escalate only complex scenarios that fall outside policy guardrails. This use case moves beyond traditional automation by eliminating manual intervention for mid-to-low-severity incidents and providing real-time, autonomous IT service resilience without being tied to a specific vendor product.',
+      source: {
+        label: 'BleepingComputer',
+        url: 'https://www.bleepingcomputer.com/news/security/ai-agent-identity-management-a-new-security-control-plane-for-cisos/',
+      },
+    },
+    enterpriseImpact: [
+      'Security & Risk Governance Ascend to Board-Level Priorities: The Varonis-AllTrue acquisition reflects rising executive and CISO focus on AI-specific trust, risk, and security tooling \u2014 especially as agentic systems access sensitive environments at scale.',
+      'Data-Driven Agent Deployment Moves Forward: The Snowflake-OpenAI partnership signals that enterprise adoption of agentic AI is increasingly tied to secure, governed data access and context-rich workflows, not just model capabilities.',
+      'Identity Governance Reframes AI Risk Models: With AI agent identity management identified as a unique risk domain, enterprises and GCCs must integrate identity-centric risk and audit practices into AI governance frameworks.',
+    ],
+    opportunities: [
+      {
+        title: 'Identity-First AI Governance',
+        description:
+          'Treating AI agents as distinct identity classes unlocks continuous lifecycle governance, dynamic least-privilege enforcement, and accountability traceability \u2014 enabling enterprises to scale autonomy without loosening controls.',
+      },
+      {
+        title: 'Data-Integrated Agentic Workflows',
+        description:
+          'Partnerships like Snowflake-OpenAI create a blueprint for data-centric agent deployment where enterprise data, models, and governance converge \u2014 shortening time to production and scaling trust.',
+      },
+      {
+        title: 'Autonomous Operational Resilience',
+        description:
+          'Self-healing IT and infrastructure systems reduce manual workloads, decrease mean time to resolution, and improve uptime \u2014 positioning agentic AI as a core engine of operational excellence.',
+      },
+      {
+        title: 'Expanded Security Toolchains',
+        description:
+          'AI risk management tools (e.g., AllTrue) becoming embedded in enterprise stacks allow organizations to measure, monitor, and mitigate AI-specific vulnerabilities at scale, aligning risk practice with AI outcomes.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Identity & Access Blind Spots',
+        description:
+          'Existing IAM, PAM, and IGA systems are inadequate for agentic identities, creating unmonitored privileges and orphaned agent accounts that magnify enterprise attack surfaces.',
+      },
+      {
+        title: 'Governance Gaps Slow Value Realization',
+        description:
+          'Without robust governance, enterprises struggle to move agentic AI from experimentation to reliable production \u2014 driving operational inconsistencies and compliance risk.',
+      },
+      {
+        title: 'Cost of Token-Driven Enterprise Economics',
+        description:
+          'As agentic systems scale, token consumption, compute usage, and operational costs can balloon without disciplined governance, requiring new AI FinOps practices (not covered in mainstream tooling yet).',
+      },
+      {
+        title: 'Talent & Maturity Shortfalls',
+        description:
+          'Fast-moving agent ecosystems demand interdisciplinary skills spanning data, security, compliance, and risk \u2014 yet most organizations lack mature teams calibrated for these cross-domain responsibilities.',
+      },
+    ],
+  },
+  {
     slug: '2026-02-03',
     date: '2026-02-03',
     editorHeadline:
