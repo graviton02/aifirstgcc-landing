@@ -27,18 +27,18 @@ export const dailyBriefs: DailyBrief[] = [
       'OpenAI launches Frontier enterprise agent platform as governance partner ecosystems expand to support secure AI adoption',
     topDevelopments: [
       {
-        headline: 'OpenAI Launches Frontier — Enterprise System for AI Agents',
+        headline: 'OpenAI Launches Frontier: Enterprise System for AI Agents',
         description:
-          'OpenAI announced Frontier, a new enterprise‑focused platform that lets organizations build, deploy, manage, and coordinate AI agents capable of performing complex multi‑step tasks such as coding, data handling, and integration with internal systems. Frontier is designed to act as a central control plane for AI "coworkers," providing shared memory, permissions, and evaluation capabilities. Early adopters include Intuit, State Farm, Thermo Fisher, and Uber.',
+          'OpenAI announced Frontier, a new enterprise-focused platform that lets organizations build, deploy, manage, and coordinate AI agents capable of performing complex multi-step tasks such as coding, data handling, and integration with internal systems. Frontier is designed to act as a central control plane for AI coworkers, providing shared memory, permissions, and evaluation capabilities. Early adopters include Intuit, State Farm, Thermo Fisher, and Uber.',
         source: {
           label: 'Axios',
           url: 'https://www.axios.com/2026/02/05/openai-platform-ai-agents',
         },
       },
       {
-        headline: 'OpenAI's Frontier Positioned as Agent Management Hub',
+        headline: "OpenAI's Frontier Positioned as Agent Management Hub",
         description:
-          'Independent reporting confirms OpenAI's Frontier aims to unify AI agent workflows across diverse tools and third‑party systems, effectively creating an "HR‑like" management layer for autonomous agents. The platform emphasizes on‑boarding, permissions, integration, and governance — reflective of enterprise needs around AI lifecycle control.',
+          "Independent reporting confirms OpenAI's Frontier aims to unify AI agent workflows across diverse tools and third-party systems, effectively creating an HR-like management layer for autonomous agents. The platform emphasizes onboarding, permissions, integration, and governance, reflective of enterprise needs around AI lifecycle control.",
         source: {
           label: 'The Verge',
           url: 'https://www.theverge.com/ai-artificial-intelligence/874258/openai-frontier-ai-agent-platform-management',
@@ -47,7 +47,7 @@ export const dailyBriefs: DailyBrief[] = [
       {
         headline: 'AI Security and Governance Partner Ecosystem Expands',
         description:
-          'CultureAI launched a global partner program to help resellers and managed service providers support secure and compliant AI adoption. The initiative includes AI risk assessment tools, multi‑tenant management architecture, and enablement resources aimed at regulated industries (finance, healthcare, legal) struggling with governance as AI spreads.',
+          'CultureAI launched a global partner program to help resellers and managed service providers support secure and compliant AI adoption. The initiative includes AI risk assessment tools, multi-tenant management architecture, and enablement resources aimed at regulated industries (finance, healthcare, legal) struggling with governance as AI spreads.',
         source: {
           label: 'IT Pro',
           url: 'https://www.itpro.com/business/business-strategy/cultureais-new-partner-program-targets-channel-ai-governance-gains',
@@ -57,16 +57,16 @@ export const dailyBriefs: DailyBrief[] = [
     useCase: {
       title: 'Autonomous Compliance Monitoring Across Global Operations',
       description:
-        'Enterprises with multinational regulatory footprints are deploying agentic AI systems that continuously monitor internal logs, transaction streams, and policy rules to detect deviations from compliance standards (e.g., financial controls, data privacy mandates). Upon identifying a risk, the system automatically initiates corrective workflows — such as flagging issues to governance teams, creating audit records, or adjusting process parameters in connected systems — while maintaining human oversight checkpoints. Unlike static reporting tools, these agents operate continuously and autonomously, enforcing policy across business‑critical functions without constant human intervention.',
+        'Enterprises with multinational regulatory footprints are deploying agentic AI systems that continuously monitor internal logs, transaction streams, and policy rules to detect deviations from compliance standards (e.g., financial controls, data privacy mandates). Upon identifying a risk, the system automatically initiates corrective workflows such as flagging issues to governance teams, creating audit records, or adjusting process parameters in connected systems while maintaining human oversight checkpoints. Unlike static reporting tools, these agents operate continuously and autonomously, enforcing policy across business-critical functions without constant human intervention.',
       source: {
         label: 'AI Magazine',
         url: 'https://www.axios.com/2026/02/05/openai-platform-ai-agents',
       },
     },
     enterpriseImpact: [
-      'AI Agent Management Moves to Enterprise Infrastructure: The launch of OpenAI Frontier reflects a shift where enterprises now require enterprise‑grade control, monitoring, and governance for distributed AI agents that access internal systems and data.',
-      'Governance Ecosystem Expands with Partner Programs: Initiatives like CultureAI's partner program indicate that multi‑tenant and compliance‑oriented governance tooling is emerging as a necessary layer for secure AI adoption in regulated industries.',
-      'GCCs Positioned as AI Operating Hubs: Prior announcements of AI‑focused GCC hubs (e.g., Maharashtra/Supervity MoU) reinforce the role of GCCs as innovation and deployment centers for agentic systems that support operational transformation across core functions such as supply chain, finance, and compliance.',
+      'AI Agent Management Moves to Enterprise Infrastructure: The launch of OpenAI Frontier reflects a shift where enterprises now require enterprise-grade control, monitoring, and governance for distributed AI agents that access internal systems and data.',
+      "Governance Ecosystem Expands with Partner Programs: Initiatives like CultureAI's partner program indicate that multi-tenant and compliance-oriented governance tooling is emerging as a necessary layer for secure AI adoption in regulated industries.",
+      'GCCs Positioned as AI Operating Hubs: Prior announcements of AI-focused GCC hubs (e.g., Maharashtra/Supervity MoU) reinforce the role of GCCs as innovation and deployment centers for agentic systems that support operational transformation across core functions such as supply chain, finance, and compliance.',
     ],
     opportunities: [
       {
@@ -77,39 +77,39 @@ export const dailyBriefs: DailyBrief[] = [
       {
         title: 'Continuous Autonomous Compliance',
         description:
-          'Autonomous compliance monitoring agents reduce the burden on legal and audit teams, providing real‑time assurance and rapid detection/correction mechanisms that improve operational resilience and reduce regulatory exposure.',
+          'Autonomous compliance monitoring agents reduce the burden on legal and audit teams, providing real-time assurance and rapid detection/correction mechanisms that improve operational resilience and reduce regulatory exposure.',
       },
       {
         title: 'Security Partner Ecosystems',
         description:
-          'Partner programs for AI governance and risk tooling enable managed services providers, VARs, and consultancies to embed risk‑aware AI practices into customer environments — a key enabler for scaled adoption in regulated industries.',
+          'Partner programs for AI governance and risk tooling enable managed services providers, VARs, and consultancies to embed risk-aware AI practices into customer environments, a key enabler for scaled adoption in regulated industries.',
       },
       {
-        title: 'GCC‑Led AI Transformation',
+        title: 'GCC-Led AI Transformation',
         description:
-          'AI GCC hubs such as the one planned in Mumbai act as centers of excellence for multi‑agent AI experimentation, governance best practices, and reproducible deployment models that enterprises can emulate globally.',
+          'AI GCC hubs such as the one planned in Mumbai act as centers of excellence for multi-agent AI experimentation, governance best practices, and reproducible deployment models that enterprises can emulate globally.',
       },
     ],
     risks: [
       {
         title: 'Fragmented Governance Across Agent Networks',
         description:
-          'As agentic systems proliferate, maintaining consistent governance, audit trails, and policy enforcement across distributed agents remains a critical challenge — especially where decentralized autonomy leads to uncoordinated behavior.',
+          'As agentic systems proliferate, maintaining consistent governance, audit trails, and policy enforcement across distributed agents remains a critical challenge, especially where decentralized autonomy leads to uncoordinated behavior.',
       },
       {
         title: 'Security Blind Spots in Agent Decision Chains',
         description:
-          'Traditional access control models struggle to anticipate contextual, goal‑driven agent behavior that can infer permissions or act across systems in ways that static RBAC/ABAC cannot constrain effectively.',
+          'Traditional access control models struggle to anticipate contextual, goal-driven agent behavior that can infer permissions or act across systems in ways that static RBAC/ABAC cannot constrain effectively.',
       },
       {
         title: 'Operational Dependency and Resilience Gaps',
         description:
-          'Heavy reliance on autonomous agents introduces resilience risks if governance, monitoring, or manual override mechanisms are immature. Organizations must build contingency and human‑in‑the‑loop safeguards to prevent unchecked drift or failure modes.',
+          'Heavy reliance on autonomous agents introduces resilience risks if governance, monitoring, or manual override mechanisms are immature. Organizations must build contingency and human-in-the-loop safeguards to prevent unchecked drift or failure modes.',
       },
       {
         title: 'Skills and Talent Shortages',
         description:
-          'Effectively scaling, governing, and auditing autonomous agent systems demands cross‑functional expertise in data engineering, security, risk management, and human‑AI interaction — a skill set still scarce in many enterprise and GCC teams.',
+          'Effectively scaling, governing, and auditing autonomous agent systems demands cross-functional expertise in data engineering, security, risk management, and human-AI interaction, a skill set still scarce in many enterprise and GCC teams.',
       },
     ],
   },
