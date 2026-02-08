@@ -21,6 +21,193 @@ import type { DailyBrief } from './aiPulseTypes'
 
 export const dailyBriefs: DailyBrief[] = [
   {
+    slug: '2026-02-08',
+    date: '2026-02-08',
+    editorHeadline:
+      'Goldman Sachs deploys autonomous AI agents for banking operations as real-time agent security solutions emerge',
+    topDevelopments: [
+      {
+        headline: 'Real-Time Security for Agentic AI at Enterprise Scale',
+        description:
+          'Operant AI launched Agent Protector, a purpose-built security solution designed to discover, secure, and govern AI agents in real time across cloud, SaaS, and internal environments. It provides zero-trust enforcement, behavior analysis, and shadow agent detection, capabilities critical as autonomous agents proliferate across enterprise systems.',
+        source: {
+          label: 'GlobeNewswire',
+          url: 'https://www.globenewswire.com/news-release/2026/02/05/3233044/0/en/Operant-AI-Launches-Agent-Protector-The-First-Real-Time-Agentic-Security-Solution-Enabling-Safe-AI-Agent-Innovation-at-Scale.html',
+        },
+      },
+      {
+        headline: 'Goldman Sachs Deploys Autonomous AI Agents for Core Operations',
+        description:
+          "The Goldman Sachs Group is deploying autonomous AI agents powered by Anthropic's Claude models to automate accounting, compliance, trade reconciliation, and client onboarding. These digital agents are being integrated within key banking workflows to improve speed and reduce manual overhead, marking one of the most ambitious real-world agentic deployments in financial services to date.",
+        source: {
+          label: 'Reuters',
+          url: 'https://www.reuters.com/business/finance/goldman-sachs-teams-up-with-anthropic-automate-banking-tasks-with-ai-agents-cnbc-2026-02-06/',
+        },
+      },
+      {
+        headline: 'Enterprise Agent Management Platforms Move Forward',
+        description:
+          'OpenAI introduced Frontier, an enterprise platform to help organizations build, deploy, and manage AI agents across systems. Frontier treats AI agents like employees, offering shared memory, defined permissions, and integration capabilities to reduce agent sprawl and align autonomous workflows with business processes.',
+        source: {
+          label: 'TechRadar',
+          url: 'https://www.techradar.com/pro/openai-introduces-frontier-an-easier-way-to-manage-all-your-ai-agents-in-one-place',
+        },
+      },
+    ],
+    useCase: {
+      title: 'AI Agents Automating Financial Operations in Banking',
+      description:
+        "Major financial institutions are adopting autonomous AI agents to handle complex and regulated back-office tasks that have historically required large teams of specialists. At Goldman Sachs, AI agents based on Anthropic's Claude are being deployed to autonomously reconcile trade and transaction records, manage accounting workflows, and execute compliance and onboarding processes. These agents coordinate across enterprise data sources, interpret regulatory rules, generate structured outputs, and escalate exceptions to human teams only when needed, effectively acting as digital co-workers embedded within core finance infrastructure. Unlike narrow tools, these agents operate over long-running, multi-step tasks and integrate with compliance and risk workflows, illustrating how autonomous systems are becoming integrated components of operational pipelines rather than standalone assistants.",
+      source: {
+        label: 'Reuters',
+        url: 'https://www.reuters.com/business/finance/goldman-sachs-teams-up-with-anthropic-automate-banking-tasks-with-ai-agents-cnbc-2026-02-06/',
+      },
+    },
+    enterpriseImpact: [
+      'Security Becomes a Critical Prerequisite for Agentic Adoption: With solutions like Agent Protector emerging, enterprises now have dedicated tools to monitor, control, and secure autonomous AI agents in real time, addressing a foundational risk for broad agent deployments.',
+      "AI Agents Move Beyond Pilots into Production Workflows: Goldman Sachs' use of Claude-powered agents for accounting and compliance highlights organizations crossing the threshold from experimentation to mission-critical automation for regulated, high-impact business functions.",
+      "Management Platforms Elevate Enterprise AI Strategy: OpenAI's Frontier platform reflects the market's need for enterprise-grade agent orchestration layers that unify identity, permissions, shared context, and governance across disparate AI agents and workflows.",
+      'GCCs as AI Deployment Hubs: Global Capability Centers will increasingly serve as centers of excellence for secure agentic AI deployment, standardizing governance frameworks, scaling best practices across regions, and reducing siloed experimentation.',
+    ],
+    opportunities: [
+      {
+        title: 'Autonomous Operational Scale',
+        description:
+          'Deploying AI agents for end-to-end financial operations and compliance reduces cycle times, increases accuracy, and frees up human talent for strategic work, driving measurable productivity gains.',
+      },
+      {
+        title: 'Real-Time Trust and Security Controls',
+        description:
+          'Real-time security platforms tailor-built for agentic environments enable enterprises to operate autonomous systems with risk-aware controls, closing visibility gaps that traditional IAM or legacy security tools cannot address.',
+      },
+      {
+        title: 'Unified Agent Management',
+        description:
+          'Platforms like Frontier enable organizations to standardize AI agent lifecycle management including onboarding, identity assignment, permissioning, and shared memory/context, positioning AI agents as manageable digital assets rather than untracked automation.',
+      },
+      {
+        title: 'GCC-Led Innovation and Governance',
+        description:
+          'GCCs can spearhead reusable governance templates, secure deployment architectures, and cross-regional compliance practices, accelerating enterprise-wide adoption with consistent risk controls and efficiency benchmarks.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Security Blind Spots',
+        description:
+          'As autonomous agents execute tasks across cloud, SaaS, and internal systems, unmanaged or shadow agents create new attack vectors including data exfiltration, privilege escalation, and unauthorized actions, requiring countermeasures beyond traditional perimeter defenses.',
+      },
+      {
+        title: 'Compliance and Oversight Complexity',
+        description:
+          'Agents acting independently on regulated datasets may inadvertently violate policy constraints if not tightly integrated with audit trails, access governance, and human oversight frameworks.',
+      },
+      {
+        title: 'Operational Risk and Governance Sprawl',
+        description:
+          'Without centralized management and continuous monitoring, enterprises risk agent proliferation without accountability, leading to inconsistent decision logic, uncontrolled workflows, and compliance drift.',
+      },
+      {
+        title: 'Talent and Process Gaps',
+        description:
+          'Realizing agentic AI full value requires interdisciplinary expertise combining AI engineering, risk management, data governance, and process redesign, a combination that remains scarce and expensive.',
+      },
+    ],
+  },
+  {
+    slug: '2026-02-07',
+    date: '2026-02-07',
+    editorHeadline:
+      'OpenAI expands enterprise support roles while Microsoft launches AI QuickStart programme to accelerate enterprise AI readiness',
+    topDevelopments: [
+      {
+        headline: 'OpenAI Expands Enterprise Support to Bridge Adoption Gap',
+        description:
+          'OpenAI is scaling its enterprise-focused roles by adding deployment managers and solutions architects aimed at helping organizations move AI projects from pilot to production. This addresses a persistent bottleneck in enterprise AI adoption including integration complexity, data risks, and change management challenges.',
+        source: {
+          label: 'MarketingProfs',
+          url: 'https://www.marketingprofs.com/opinions/2026/54257/ai-update-february-6-2026-ai-news-and-views-from-the-past-week',
+        },
+      },
+      {
+        headline: 'Microsoft Launches AI QuickStart Programme for Enterprise Digital Maturity',
+        description:
+          "Microsoft unveiled a new initiative (with partners including Singapore's IMDA and UOB) designed to help digitally mature enterprises accelerate AI adoption, especially where data practices and foundational systems readiness still lag behind strategic ambitions. This emphasizes strengthening enterprise readiness for agentic and generative AI systems at scale.",
+        source: {
+          label: 'Microsoft',
+          url: 'https://news.microsoft.com/source/asia/2026/02/06/microsoft-launches-ai-quickstart-programme-with-support-from-imda-and-uob/',
+        },
+      },
+      {
+        headline: 'Netskope Enhances AI-Ready Data Security with Lineage and Analytics Capabilities',
+        description:
+          "Netskope announced advanced tools that provide data lineage, visibility, and analytics tuned for the AI era, helping enterprises understand where data flows, how it's used in models and agents, and where potential governance and leakage risks lie, a critical need as organizations operationalize data for agentic systems.",
+        source: {
+          label: 'HPCwire',
+          url: 'https://www.hpcwire.com/bigdatawire/this-just-in/netskope-advances-ai-ready-data-security-with-visibility-and-analytics-of-data-lineage/',
+        },
+      },
+    ],
+    useCase: {
+      title: 'Enterprise AI Governance Bots for Automated Data Protection Enforcement',
+      description:
+        'Large global enterprises are deploying lightweight AI governance bots that autonomously monitor enterprise-wide data movements, enforce protection policies, and intervene when anomalous access patterns or policy violations occur, for example quarantining sensitive data flows across SaaS platforms or flagging improper export of regulated information. Unlike traditional SIEM or DAM tools, these bots combine real-time telemetry, contextual model reasoning, and policy rule engines to act and correct behavior autonomously while logging all actions for audit and compliance. This use case shows a shift from passive monitoring to autonomous enforcement and remediation in enterprise data governance, an operational scenario moving beyond vendor marketing into real deployments.',
+      source: {
+        label: 'HPCwire',
+        url: 'https://www.hpcwire.com/bigdatawire/this-just-in/netskope-advances-ai-ready-data-security-with-visibility-and-analytics-of-data-lineage/',
+      },
+    },
+    enterpriseImpact: [
+      "Enterprise Adoption Support Expands: OpenAI's enterprise enablement efforts directly address the major barrier in scaling agentic AI, the transition from prototype to production-ready systems across business domains.",
+      "Digital Maturity Becomes Strategic Priority: Microsoft's AI QuickStart initiative signals that digital readiness, particularly in data, process integration, and compliance infrastructure, is now a prerequisite for enterprises to adopt agentic and generative systems reliably.",
+      "Governance Infrastructure Strengthens: Netskope's enhancements reinforce that data governance and lineage visibility are foundational for responsible, scalable enterprise AI, particularly where agents are acting autonomously on sensitive data.",
+    ],
+    opportunities: [
+      {
+        title: 'Accelerated Enterprise AI Productionization',
+        description:
+          'With OpenAI expanding enterprise support roles, organizations gain practical pathways from experimentation to operational use, reducing the adoption gap and unlocking sustained ROI from AI initiatives.',
+      },
+      {
+        title: 'Rapid Capability Uplift via Structured Programs',
+        description:
+          "Programs like Microsoft's AI QuickStart help enterprises benchmark readiness, modernize data infrastructure, and align teams, enabling faster and safer rollout of agentic systems into mission-critical workflows.",
+      },
+      {
+        title: 'Autonomous Governance and Data Protection',
+        description:
+          'AI governance bots and tools offering data lineage and analytics present opportunities to automate compliance and risk controls without full dependency on human review cycles, essential as agents operate across distributed environments.',
+      },
+      {
+        title: 'GCCs as Centers of Operational AI Excellence',
+        description:
+          'Global Capability Centers with focused AI teams can standardize governance patterns, build reusable agentic services, and scale best practices across the enterprise, turning localized AI pilots into globally supported platforms.',
+      },
+    ],
+    risks: [
+      {
+        title: 'Integration and Operational Complexity',
+        description:
+          'While strategic support roles reduce adoption friction, the sheer complexity of integrating agents into legacy systems risks fragmented deployments if not accompanied by architectural and data modernization.',
+      },
+      {
+        title: 'Data Governance Blind Spots',
+        description:
+          'Autonomous systems acting on sensitive data can create hidden compliance gaps if lineage, auditability, and contextual policy enforcement are not tightly controlled, exposing enterprises to regulatory and reputation risk.',
+      },
+      {
+        title: 'Skill Shortages in Hybrid AI and Operations',
+        description:
+          'Skill sets that blend AI engineering with risk, security, and enterprise process design are scarce; gaps here increase the probability of misconfigured agents, insecure workflows, and uncontrolled model drift.',
+      },
+      {
+        title: 'Overreliance on Single Vendor Ecosystems',
+        description:
+          'Heavy dependence on a single platform enterprise tooling may create lock-in and limited interoperability, constraining long-term flexibility as agentic AI ecosystems evolve.',
+      },
+    ],
+  },
+  {
     slug: '2026-02-06',
     date: '2026-02-06',
     editorHeadline:
