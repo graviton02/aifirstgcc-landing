@@ -1,10 +1,20 @@
 import { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUp, Zap } from 'lucide-react'
+import { useAuth } from '@clerk/clerk-react'
+
+const HIDDEN_ROUTES = ['/provider', '/gcc-dashboard', '/onboarding', '/admin', '/auth']
 
 export function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { isSignedIn } = useAuth()
+
+  const isLandingPage = location.pathname === '/'
+  const isHiddenRoute = HIDDEN_ROUTES.some(r => location.pathname.startsWith(r))
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,8 +27,15 @@ export function FloatingCTA() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollToSignup = () => {
-    document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' })
+  // Hide on app routes and when signed in
+  if (isHiddenRoute || isSignedIn) return null
+
+  const handleCTAClick = () => {
+    if (isLandingPage) {
+      document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate('/auth?mode=signup')
+    }
   }
 
   const scrollToTop = () => {
@@ -53,7 +70,7 @@ export function FloatingCTA() {
 
           {/* Main CTA button */}
           <motion.button
-            onClick={scrollToSignup}
+            onClick={handleCTAClick}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="group relative"
@@ -64,7 +81,7 @@ export function FloatingCTA() {
             {/* Button */}
             <div className="relative flex items-center gap-2 px-5 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40 transition-shadow duration-300">
               <Zap className="w-4 h-4" />
-              <span className="text-sm">Join Waitlist</span>
+              <span className="text-sm">Join Now</span>
 
               {/* Pulse dot */}
               <span className="relative flex h-2 w-2 ml-1">

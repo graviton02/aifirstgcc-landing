@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { MeshGradient } from '@paper-design/shaders-react'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -95,14 +96,25 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.7 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button
-              size="lg"
-              className="group min-w-[220px] bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
-              onClick={() => document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Join the Early Access List
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+            <Link to="/marketplace">
+              <Button
+                size="lg"
+                className="group min-w-[220px] bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
+              >
+                Explore Agent Marketplace
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link to="/auth?mode=signup&role=provider">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="group min-w-[220px] border border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/50 backdrop-blur-sm"
+              >
+                Join as Provider
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
 

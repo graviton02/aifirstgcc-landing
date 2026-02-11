@@ -23,6 +23,8 @@ export default defineConfig({
           'vendor-motion': ['framer-motion'],
           'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
           'vendor-ui': ['lucide-react', 'clsx', 'tailwind-merge', 'class-variance-authority'],
+          'vendor-clerk': ['@clerk/clerk-react'],
+          'vendor-query': ['@tanstack/react-query'],
         },
       },
     },
