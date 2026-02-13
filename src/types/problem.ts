@@ -24,10 +24,3 @@ export interface ProblemStatementInterest {
   created_at: string
 }
 
-export interface GccProblemSubmissionQuota {
-  id: string
-  gcc_org_id: string
-  current_month: string
-  submissions_this_month: number
-  quota_limit: number
-}

@@ -73,7 +73,11 @@ export interface ProviderRequest {
   provider_profile_id: string
   gcc_user_email: string
   gcc_org_id: string
+  gcc_user_id: string
   agent_id: string
-  status: 'new' | 'contacted' | 'archived'
+  message: string | null
+  admin_notes: string | null
+  reviewed_at: string | null
+  status: 'pending_admin' | 'approved' | 'rejected' | 'contacted' | 'archived'
   created_at: string
 }

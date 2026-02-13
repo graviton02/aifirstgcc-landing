@@ -33,10 +33,11 @@ export interface TspSubmission {
   industry_recognitions: string | null
   agent_native_vision: string | null
   expansion_plans: string | null
-  contact_name: string
-  contact_email: string
+  contact_name: string | null
+  contact_email: string | null
   contact_phone: string | null
-  submission_status: 'pending' | 'approved' | 'rejected' | 'changes_requested'
+  completed_pages: number[]
+  submission_status: 'draft' | 'pending' | 'approved' | 'rejected' | 'changes_requested'
   admin_notes: string | null
   created_at: string
   updated_at: string
@@ -59,12 +60,23 @@ export interface StartupSubmission {
   certifications: string[]
   data_privacy_posture: string | null
   security_measures: string | null
-  contact_name: string
-  contact_email: string
+  contact_name: string | null
+  contact_email: string | null
   contact_phone: string | null
   partnership_interests: string | null
-  submission_status: 'pending' | 'approved' | 'rejected' | 'changes_requested'
+  completed_pages: number[]
+  submission_status: 'draft' | 'pending' | 'approved' | 'rejected' | 'changes_requested'
   admin_notes: string | null
   created_at: string
   updated_at: string
+}
+
+export interface TspEdit {
+  id: string
+  tsp_id: string
+  user_id: string
+  payload: Record<string, unknown>
+  status: 'pending' | 'approved' | 'rejected'
+  admin_notes: string | null
+  created_at: string
 }

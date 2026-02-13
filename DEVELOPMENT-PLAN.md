@@ -1,8 +1,9 @@
 # Orbys360 Platform — Full Development Plan
 
 > **Created:** 2026-02-11
+> **Last audited:** 2026-02-12
 > **Branch:** `develop`
-> **Total tickets:** 50
+> **Total tickets:** 50 (38 complete, 1 merged, 1 skipped, 10 not started)
 > **Prerequisite:** Scaffolding tickets 1–13 completed. Clerk account active. Supabase project accessible.
 > **Scope:** Core PRD (Sections 1–8) + Known Gaps (Section 9: email notifications, admin edit UI, pagination, backend role enforcement)
 > **Backend strategy:** Supabase Edge Functions (Deno) for server-side logic
@@ -14,62 +15,62 @@
 
 | # | Ticket | Status | Blocked By |
 |---|--------|--------|------------|
-| 1 | Supabase Foundation Migration (4 Core Tables) | `not_started` | — |
-| 2 | Provider Submission Tables Migration | `not_started` | #1 |
-| 3 | Marketplace & GCC Tables Migration | `not_started` | #1 |
-| 4 | Self-Assessment Tables Migration | `not_started` | #1 |
-| 5 | Supabase Storage Buckets | `not_started` | #1 |
-| 6 | Clerk-to-Supabase JWT Bridge | `not_started` | #1 |
-| 7 | Clerk Webhook Edge Function (publicMetadata Sync) | `not_started` | #6 |
-| 8 | Backend Role Enforcement Edge Function | `not_started` | #6 |
-| 9 | Typed Supabase Client Helpers | `not_started` | #1, #2, #3, #4 |
-| 10 | TanStack Query Hooks — Provider Data | `not_started` | #9 |
-| 11 | TanStack Query Hooks — Agent & Marketplace Data | `not_started` | #9 |
-| 12 | TanStack Query Hooks — GCC & Problem Data | `not_started` | #9 |
-| 13 | Onboarding Step 1 — Category Selection | `not_started` | #9, #10 |
-| 14 | Onboarding Step 2 — Basic Info Form | `not_started` | #13 |
-| 15 | Onboarding Step 3 — TSP 5-Page Wizard | `not_started` | #2, #5, #14 |
-| 16 | Onboarding Step 3 — Startup 5-Page Wizard | `not_started` | #2, #5, #14 |
-| 17 | Provider Dashboard Shell + Pending Banner | `not_started` | #10 |
-| 18 | Provider Dashboard — Requests Tab | `not_started` | #3, #17 |
-| 19 | Provider Dashboard — Submissions Tab | `not_started` | #11, #17 |
-| 20 | Provider Dashboard — Profile Tab | `not_started` | #2, #5, #17 |
-| 21 | Agent Listing 5-Page Wizard | `not_started` | #5, #11 |
-| 22 | Agent Edit Flow | `not_started` | #3, #11, #21 |
-| 23 | Marketplace Listing Page | `not_started` | #11 |
-| 24 | Agent Detail Page | `not_started` | #11 |
-| 25 | Contact Provider Modal + Logging | `not_started` | #3, #12, #24 |
-| 26 | Shortlist Management | `not_started` | #3, #12 |
-| 27 | GCC Dashboard Shell | `not_started` | #12 |
-| 28 | GCC Dashboard — Shortlisted Agents Tab | `not_started` | #26, #27 |
-| 29 | GCC Dashboard — Current Requests Tab | `not_started` | #25, #27 |
-| 30 | GCC Dashboard — Problem Hub Tab | `not_started` | #12, #27 |
-| 31 | Problem Statement Submission Form | `not_started` | #3, #12 |
-| 32 | Problems Public Listing Page | `not_started` | #11, #12 |
-| 33 | Express Interest Flow | `not_started` | #3, #32 |
-| 34 | Monthly Quota Enforcement | `not_started` | #3, #31 |
-| 35 | Admin Session Auth | `not_started` | #1 |
-| 36 | Admin Dashboard — Agents Tab | `not_started` | #11, #35 |
-| 37 | Admin Dashboard — Providers Tab | `not_started` | #10, #35 |
-| 38 | Admin Dashboard — Problems Tab | `not_started` | #12, #35 |
-| 39 | Admin — Agent Edit Reviews | `not_started` | #22, #36 |
-| 40 | Admin — Profile Edit Reviews | `not_started` | #20, #37 |
-| 41 | Self-Assessment Questionnaire | `not_started` | #4, #12 |
-| 42 | Self-Assessment Results + PDF Generation | `not_started` | #4, #5, #41 |
-| 43 | Thought Leadership Hub + Article Pages | `not_started` | — |
-| 44 | Tools Hub Page | `not_started` | — |
-| 45 | Orbyt Landing Page | `not_started` | #23 |
-| 46 | Provider Ecosystem + Directory Page | `not_started` | #10 |
+| 1 | Supabase Foundation Migration (4 Core Tables) | `complete` | — |
+| 2 | Provider Submission Tables Migration | `complete` | — |
+| 3 | Marketplace & GCC Tables Migration | `complete` | — |
+| 4 | Self-Assessment Tables Migration | `complete` | — |
+| 5 | Supabase Storage Buckets | `complete` | — |
+| 6 | Clerk-to-Supabase JWT Bridge | `complete` | — |
+| 7 | Clerk Webhook Edge Function (publicMetadata Sync) | `complete` | — |
+| 8 | Backend Role Enforcement Edge Function | `complete` | — |
+| 9 | Typed Supabase Client Helpers | `complete` | — |
+| 10 | TanStack Query Hooks — Provider Data | `complete` | — |
+| 11 | TanStack Query Hooks — Agent & Marketplace Data | `complete` | — |
+| 12 | TanStack Query Hooks — GCC & Problem Data | `complete` | — |
+| 13 | Onboarding Step 1 — Category Selection | `complete` | — |
+| 14 | Onboarding Step 2 — Basic Info Form | `complete` | — |
+| 15 | Onboarding Step 3 — Save-Per-Page Wizard (TSP + Startup) | `complete` | — |
+| 16 | ~~Onboarding Step 3 — Startup 5-Page Wizard~~ | `merged_into_15` | — |
+| 17 | Provider Dashboard Shell + Onboarding Banner | `complete` | — |
+| 18 | Provider Dashboard — Requests Tab | `complete` | — |
+| 19 | Provider Dashboard — Submissions Tab | `complete` | — |
+| 20 | Provider Dashboard — Profile Tab | `complete` | — |
+| 21 | Agent Listing 5-Page Wizard | `complete` | — |
+| 22 | Agent Edit Flow | `complete` | — |
+| 23 | Marketplace Listing Page | `complete` | — |
+| 24 | Agent Detail Page | `complete` | — |
+| 25 | Contact Provider Modal + Logging | `complete` | — |
+| 26 | Shortlist Management | `complete` | — |
+| 27 | GCC Dashboard Shell | `complete` | — |
+| 28 | GCC Dashboard — Shortlisted Agents Tab | `complete` | #26, #27 |
+| 29 | GCC Dashboard — Current Requests Tab | `complete` | #25, #27 |
+| 30 | GCC Dashboard — Problem Hub Tab | `complete` | #27 |
+| 31 | Problem Statement Submission Form | `complete` | — |
+| 32 | Problems Public Listing Page | `complete` | — |
+| 33 | Express Interest Flow | `complete` | #32 |
+| 34 | ~~Monthly Quota Enforcement~~ | `skipped` | — |
+| 35 | Admin Session Auth | `complete` | — |
+| 36 | Admin Dashboard — Agents Tab | `complete` | #35 |
+| 37 | Admin Dashboard — Providers Tab | `complete` | #35 |
+| 38 | Admin Dashboard — Problems Tab | `not_started` | #35 |
+| 39 | Admin — Agent Edit Reviews | `not_started` | #36 |
+| 40 | Admin — Profile Edit Reviews | `not_started` | #37 |
+| 41 | Self-Assessment Questionnaire | `not_started` | — |
+| 42 | Self-Assessment Results + PDF Generation | `not_started` | #41 |
+| 43 | Thought Leadership Hub + Article Pages | `complete` | — |
+| 44 | Tools Hub Page | `complete` | — |
+| 45 | Orbyt Landing Page | `not_started` | — |
+| 46 | Provider Ecosystem + Directory Page | `complete` | — |
 | 47 | Benchmarks Page | `not_started` | — |
-| 48 | Email Notifications Edge Function | `not_started` | #6 |
-| 49 | Pagination (Marketplace, Problems, Content) | `not_started` | #23, #32, #43 |
-| 50 | Route Tree Update + Final Integration | `not_started` | #42, #43, #44, #45, #46, #47 |
+| 48 | Email Notifications Edge Function | `not_started` | — |
+| 49 | Pagination (Marketplace, Problems, Content) | `not_started` | #32, #43 |
+| 50 | Route Tree Update + Final Integration | `not_started` | #42, #45, #47 |
 
 ---
 
 ## Ticket 1: Supabase Foundation Migration (4 Core Tables)
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -228,7 +229,7 @@ None — this is the first ticket in this plan.
 
 ## Ticket 2: Provider Submission Tables Migration
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -371,7 +372,7 @@ ls supabase/migrations/20260211000001_create_provider_submissions.sql
 
 ## Ticket 3: Marketplace & GCC Tables Migration
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -536,7 +537,7 @@ ls supabase/migrations/20260211000002_create_marketplace_gcc_tables.sql
 
 ## Ticket 4: Self-Assessment Tables Migration
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -616,7 +617,7 @@ ls supabase/migrations/20260211000003_create_self_assessment_tables.sql
 
 ## Ticket 5: Supabase Storage Buckets
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -679,7 +680,7 @@ ls supabase/migrations/20260211000004_create_storage_buckets.sql
 
 ## Ticket 6: Clerk-to-Supabase JWT Bridge
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -776,7 +777,7 @@ ls src/lib/supabase-auth.ts
 
 ## Ticket 7: Clerk Webhook Edge Function (publicMetadata Sync)
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -885,7 +886,7 @@ npm run build
 
 ## Ticket 8: Backend Role Enforcement Edge Function
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -982,111 +983,64 @@ ls supabase/functions/enforce-role/index.ts
 
 ## Ticket 9: Typed Supabase Client Helpers
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
 Create a typed data access layer that wraps Supabase queries with TypeScript interfaces. These functions are the single source of truth for all database operations — every TanStack Query hook (Tickets #10–#12) calls these instead of raw Supabase queries.
 
-### What Changes
+### What Changed
 
-Create `src/lib/api/` directory with the following files:
+Created `src/lib/api/` directory with the following 6 files (originally planned 5, added `assessments.ts` for full coverage):
 
-**`src/lib/api/providers.ts`** — Provider-related queries:
-```typescript
-import type { ProviderProfile, TspSubmission, StartupSubmission } from '@/types/provider'
+**`src/lib/api/providers.ts`** — Provider profiles, TSP/startup submissions, TSP edits, provider requests:
+- `getProviderProfile`, `createProviderProfile`, `updateProviderProfile`
+- `submitTspForm`, `submitStartupForm`, `getProviderSubmission`
+- `createTspEdit`, `getTspEdits` *(added — was missing from original plan)*
+- `getProviderRequests`, `updateProviderRequestStatus` *(added — was missing from original plan)*
 
-export async function getProviderProfile(supabase: SupabaseClient, userId: string): Promise<ProviderProfile | null>
-export async function createProviderProfile(supabase: SupabaseClient, data: Omit<ProviderProfile, 'id' | 'created_at' | 'updated_at'>): Promise<ProviderProfile>
-export async function updateProviderProfile(supabase: SupabaseClient, id: string, data: Partial<ProviderProfile>): Promise<ProviderProfile>
-export async function submitTspForm(supabase: SupabaseClient, data: Omit<TspSubmission, 'id' | 'created_at' | 'updated_at'>): Promise<TspSubmission>
-export async function submitStartupForm(supabase: SupabaseClient, data: Omit<StartupSubmission, 'id' | 'created_at' | 'updated_at'>): Promise<StartupSubmission>
-export async function getProviderSubmission(supabase: SupabaseClient, profileId: string): Promise<TspSubmission | StartupSubmission | null>
-```
+**`src/lib/api/agents.ts`** — Agent queries, submissions, edits:
+- `getAgents` (with `AgentFilters`: search, category, page, pageSize)
+- `getAgentById`, `getAgentsByProvider`
+- `submitAgent`, `getAgentSubmissions`
+- `createAgentEdit`, `getAgentEdits`
 
-**`src/lib/api/agents.ts`** — Agent-related queries:
-```typescript
-import type { Agent, AgentSubmission } from '@/types/agent'
+**`src/lib/api/gcc.ts`** — GCC shortlists, contact logs, problems, interest, quotas:
+- `getShortlist`, `addToShortlist`, `removeFromShortlist`
+- `getContactLogs`, `createContactLog`
+- `getProblems`, `getApprovedProblems`, `submitProblem`
+- `expressInterest`, `getQuota`
 
-export async function getAgents(supabase: SupabaseClient, filters?: AgentFilters): Promise<{ data: Agent[]; count: number }>
-export async function getAgentById(supabase: SupabaseClient, id: string): Promise<Agent | null>
-export async function getAgentsByProvider(supabase: SupabaseClient, profileId: string): Promise<Agent[]>
-export async function submitAgent(supabase: SupabaseClient, data: Omit<AgentSubmission, 'id' | 'created_at' | 'updated_at'>): Promise<AgentSubmission>
-export async function getAgentSubmissions(supabase: SupabaseClient, userId: string): Promise<AgentSubmission[]>
-export async function createAgentEdit(supabase: SupabaseClient, agentId: string, userId: string, payload: Record<string, unknown>): Promise<void>
-export async function getAgentEdits(supabase: SupabaseClient, userId: string): Promise<AgentEdit[]>
-```
-
-**`src/lib/api/gcc.ts`** — GCC-related queries:
-```typescript
-import type { ProblemStatement } from '@/types/problem'
-
-export async function getShortlist(supabase: SupabaseClient, orgId: string): Promise<ShortlistEntry[]>
-export async function addToShortlist(supabase: SupabaseClient, orgId: string, agentId: string, userId: string): Promise<void>
-export async function removeFromShortlist(supabase: SupabaseClient, orgId: string, agentId: string): Promise<void>
-export async function getContactLogs(supabase: SupabaseClient, orgId: string): Promise<ContactLog[]>
-export async function createContactLog(supabase: SupabaseClient, data: ContactLogInput): Promise<void>
-export async function getProblems(supabase: SupabaseClient, orgId: string): Promise<ProblemStatement[]>
-export async function getApprovedProblems(supabase: SupabaseClient): Promise<ProblemStatement[]>
-export async function submitProblem(supabase: SupabaseClient, data: ProblemInput): Promise<ProblemStatement>
-export async function expressInterest(supabase: SupabaseClient, data: InterestInput): Promise<void>
-export async function getQuota(supabase: SupabaseClient, orgId: string): Promise<QuotaInfo>
-```
-
-**`src/lib/api/admin.ts`** — Admin-related queries:
-```typescript
-export async function validateAdminSession(supabase: SupabaseClient, token: string): Promise<boolean>
-export async function createAdminSession(supabase: SupabaseClient, token: string, password: string): Promise<string | null>
-export async function getPendingAgentSubmissions(supabase: SupabaseClient): Promise<AgentSubmission[]>
-export async function getPendingProviderSubmissions(supabase: SupabaseClient): Promise<(TspSubmission | StartupSubmission)[]>
-export async function getPendingProblems(supabase: SupabaseClient): Promise<ProblemStatement[]>
-export async function approveAgent(supabase: SupabaseClient, submissionId: string): Promise<Agent>
-export async function rejectAgent(supabase: SupabaseClient, submissionId: string, notes: string): Promise<void>
-export async function approveProvider(supabase: SupabaseClient, profileId: string): Promise<void>
-export async function rejectProvider(supabase: SupabaseClient, profileId: string, reason: string): Promise<void>
-export async function approveProblem(supabase: SupabaseClient, problemId: string): Promise<void>
-export async function rejectProblem(supabase: SupabaseClient, problemId: string, reason: string): Promise<void>
-```
+**`src/lib/api/admin.ts`** — Admin sessions and all approval/rejection flows:
+- `validateAdminSession`, `createAdminSession`, `deleteAdminSession` *(added delete — was missing)*
+- `getPendingAgentSubmissions`, `getPendingProviderSubmissions`, `getPendingProblems`
+- `getPendingTspEdits`, `getPendingAgentEdits` *(added — was missing from original plan)*
+- `approveAgent`, `rejectAgent`, `approveProvider`, `rejectProvider`
+- `approveProblem`, `rejectProblem`
+- `approveTspEdit`, `rejectTspEdit` *(added — was missing from original plan)*
+- `approveAgentEdit`, `rejectAgentEdit` *(added — was missing from original plan)*
 
 **`src/lib/api/storage.ts`** — File upload helpers:
-```typescript
-export async function uploadLogo(supabase: SupabaseClient, bucket: 'provider-logos' | 'agent-logos', userId: string, file: File): Promise<string>
-export async function deleteLogo(supabase: SupabaseClient, bucket: string, path: string): Promise<void>
-export async function getPublicUrl(supabase: SupabaseClient, bucket: string, path: string): string
-```
+- `uploadLogo`, `deleteLogo`, `getPublicUrl`
+- `uploadAssessmentPdf` *(added — was missing from original plan)*
+
+**`src/lib/api/assessments.ts`** *(new file — was missing from original plan)*:
+- `getSelfAssessment`, `createSelfAssessment`, `updateSelfAssessment`, `completeSelfAssessment`
+- `getSelfAssessmentResult`
+
+Also added `TspEdit` interface to `src/types/provider.ts`.
 
 ### Acceptance Criteria
 
-- [ ] `src/lib/api/` directory has 5 files: `providers.ts`, `agents.ts`, `gcc.ts`, `admin.ts`, `storage.ts`
-- [ ] Every function takes `supabase: SupabaseClient` as first argument (supports both anon and auth clients)
-- [ ] All functions use typed return values matching `src/types/` interfaces
-- [ ] Error handling: functions throw descriptive errors on Supabase failures (not silent nulls)
-- [ ] `getAgents` supports filters object for search, category, pagination
-- [ ] `uploadLogo` returns the public URL of the uploaded file
-- [ ] Admin functions use the service role pattern (or accept admin session token for validation)
-- [ ] `npm run build` passes
-
-### Machine Verification
-
-```bash
-npm run build
-ls src/lib/api/providers.ts src/lib/api/agents.ts src/lib/api/gcc.ts src/lib/api/admin.ts src/lib/api/storage.ts
-```
-
-### Human Verification
-
-1. Read each file and verify return types match `src/types/` interfaces
-2. Confirm `getAgents` filter parameter supports: `search`, `category`, `page`, `pageSize`
-3. Confirm all write operations include proper error handling
-
-### Prerequisites from User
-
-None — uses existing types and Supabase client.
-
-### State Awareness
-
-- **Before:** Only `submitEarlyAccess()` in `src/lib/supabase.ts`. No typed API layer.
-- **After:** Full typed API layer covering all 17 tables. Not yet consumed by hooks (that's Tickets #10–#12).
+- [x] `src/lib/api/` directory has 6 files: `providers.ts`, `agents.ts`, `gcc.ts`, `admin.ts`, `storage.ts`, `assessments.ts`
+- [x] Every function takes `supabase: SupabaseClient` as first argument (supports both anon and auth clients)
+- [x] All functions use typed return values matching `src/types/` interfaces
+- [x] Error handling: functions throw descriptive errors on Supabase failures (not silent nulls)
+- [x] `getAgents` supports filters object for search, category, pagination
+- [x] `uploadLogo` returns the public URL of the uploaded file
+- [x] Admin functions use the service role pattern (or accept admin session token for validation)
+- [x] `npm run build` passes
+- [x] All 17 database tables have full API coverage (gap analysis fixed)
 
 ### Dependencies
 
@@ -1096,7 +1050,7 @@ None — uses existing types and Supabase client.
 
 ## Ticket 10: TanStack Query Hooks — Provider Data
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1191,7 +1145,7 @@ None.
 
 ## Ticket 11: TanStack Query Hooks — Agent & Marketplace Data
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1278,7 +1232,7 @@ None.
 
 ## Ticket 12: TanStack Query Hooks — GCC & Problem Data
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1381,7 +1335,7 @@ None.
 
 ## Ticket 13: Onboarding Step 1 — Category Selection
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1445,7 +1399,7 @@ npm run build
 
 ## Ticket 14: Onboarding Step 2 — Basic Info Form
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1503,7 +1457,7 @@ None.
 
 ## Ticket 15: Onboarding Step 3 — TSP 5-Page Wizard
 
-### Status: `not_started`
+### Status: `complete` (merged with Ticket 16)
 
 ### Description
 
@@ -1570,7 +1524,7 @@ npm run build
 
 ## Ticket 16: Onboarding Step 3 — Startup 5-Page Wizard
 
-### Status: `not_started`
+### Status: `merged_into_15`
 
 ### Description
 
@@ -1629,7 +1583,7 @@ None.
 
 ## Ticket 17: Provider Dashboard Shell + Pending Banner
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1685,7 +1639,7 @@ npm run build
 
 ## Ticket 18: Provider Dashboard — Requests Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1738,7 +1692,7 @@ npm run build
 
 ## Ticket 19: Provider Dashboard — Submissions Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1793,7 +1747,7 @@ npm run build
 
 ## Ticket 20: Provider Dashboard — Profile Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1845,7 +1799,7 @@ npm run build
 
 ## Ticket 21: Agent Listing 5-Page Wizard
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1905,7 +1859,7 @@ npm run build
 
 ## Ticket 22: Agent Edit Flow
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -1958,7 +1912,7 @@ npm run build
 
 ## Ticket 23: Marketplace Listing Page
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2016,7 +1970,7 @@ npm run build
 
 ## Ticket 24: Agent Detail Page
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2070,7 +2024,7 @@ npm run build
 
 ## Ticket 25: Contact Provider Modal + Logging
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2123,7 +2077,7 @@ npm run build
 
 ## Ticket 26: Shortlist Management
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2176,7 +2130,7 @@ npm run build
 
 ## Ticket 27: GCC Dashboard Shell
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2230,7 +2184,7 @@ npm run build
 
 ## Ticket 28: GCC Dashboard — Shortlisted Agents Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2285,7 +2239,7 @@ npm run build
 
 ## Ticket 29: GCC Dashboard — Current Requests Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2337,7 +2291,7 @@ npm run build
 
 ## Ticket 30: GCC Dashboard — Problem Hub Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2398,7 +2352,7 @@ npm run build
 
 ## Ticket 31: Problem Statement Submission Form
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2468,7 +2422,7 @@ None.
 
 ## Ticket 32: Problems Public Listing Page
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2534,7 +2488,7 @@ npm run build
 
 ## Ticket 33: Express Interest Flow
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2657,7 +2611,7 @@ None.
 
 ## Ticket 35: Admin Session Auth
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2725,7 +2679,7 @@ npm run build
 
 ## Ticket 36: Admin Dashboard — Agents Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -2788,7 +2742,7 @@ npm run build
 
 ## Ticket 37: Admin Dashboard — Providers Tab
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -3150,7 +3104,7 @@ ls supabase/functions/generate-assessment-pdf/index.ts
 
 ## Ticket 43: Thought Leadership Hub + Article Pages
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -3220,7 +3174,7 @@ None — can be done in parallel with other tickets.
 
 ## Ticket 44: Tools Hub Page
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -3339,7 +3293,7 @@ None.
 
 ## Ticket 46: Provider Ecosystem + Directory Page
 
-### Status: `not_started`
+### Status: `complete`
 
 ### Description
 
@@ -3697,7 +3651,7 @@ grep -c "path=" src/App.tsx
 
 ### Dependencies
 
-- **Blocked by:** Tickets #42, #43, #44, #45, #46, #47 (all pages must exist)
+- **Blocked by:** Tickets #42, #45, #47 (all pages must exist; #43, #44, #46 are complete)
 
 ---
 
@@ -3750,3 +3704,100 @@ GAPS & POLISH (Tickets 48–50):
 ```
 
 **Critical path:** #1 → #6 → #9 → #10/#11/#12 → Dashboard + Marketplace features → #50
+
+---
+
+## Tickets 14 & 15: Save-Per-Page Onboarding with Dashboard-First Flow
+
+### Status: `complete`
+
+### Design Change (2026-02-11)
+
+The original plan had a linear flow: Category Select → Basic Info → 5-page Detailed Form → Dashboard. This was changed so that after Basic Info, providers land on their **dashboard** with a **"Complete your onboarding forms" banner**. The detailed form is now save-per-page (each page saves independently), enabling collaboration and progress tracking.
+
+**New flow:**
+```
+/onboarding/category → /onboarding/basics → /provider (dashboard + banner) → /onboarding/form?page=N (save-per-page wizard)
+```
+
+### What Changed
+
+**Database migration** (`20260211094141_add_draft_status_and_page_tracking.sql`):
+- Added `'draft'` to `submission_status` CHECK on `tsp_submissions` and `startup_submissions`
+- Made `contact_name` and `contact_email` nullable on both tables (page 5 fields)
+- Added `completed_pages INT[] NOT NULL DEFAULT '{}'` column to both tables
+- Updated RLS update policies to allow `'draft'` status alongside `'pending'`
+
+**TypeScript types** (`src/types/provider.ts`):
+- `TspSubmission` and `StartupSubmission`: added `'draft'` to `submission_status` union, `completed_pages: number[]`, nullable `contact_name` and `contact_email`
+
+**API layer** (`src/lib/api/providers.ts`):
+- `upsertTspDraft()` — upserts a draft row, manages `completed_pages` array
+- `upsertStartupDraft()` — same for startups
+- `finalizeSubmission()` — changes status from `'draft'` to `'pending'`
+
+**Hooks** (`src/hooks/use-provider.ts`):
+- `useUpdateProfile()` — wraps `updateProviderProfile()` (for BasicInfo form)
+- `useSaveTspPage()` — wraps `upsertTspDraft`, invalidates `['provider-submission']`
+- `useSaveStartupPage()` — wraps `upsertStartupDraft`, invalidates `['provider-submission']`
+- `useFinalizeSubmission()` — wraps `finalizeSubmission`, invalidates both keys
+
+**CategorySelect** (`src/pages/provider/onboarding/CategorySelect.tsx`):
+- Changed "Step 1 of 3" → "Step 1 of 2"
+
+**BasicInfo** (`src/pages/provider/onboarding/BasicInfo.tsx`):
+- Full rewrite from placeholder to React Hook Form + Zod form
+- Fields: Company Name (min 2), Location/HQ, Company Size (select)
+- Pre-populates from existing profile, navigates to `/provider` on success
+
+**OnboardingBanner** (`src/components/provider/OnboardingBanner.tsx`):
+- New component; shows contextual banners based on submission state:
+  - No submission → Amber: "Start Form"
+  - Draft → Amber: "N/5 sections complete" + "Continue Form"
+  - Pending → Blue: "Under review"
+  - Approved → Green/hidden
+
+**DetailedForm wizard** (`src/pages/provider/onboarding/DetailedForm.tsx`):
+- Full rewrite from placeholder to save-per-page wizard orchestrator
+- Reads `?page=N` from URL, defaults to page 1
+- Save & Next / Save & Exit buttons per page
+- Non-sequential navigation via progress bar
+- Submit for Review button on page 5 (when all pages complete)
+
+**Wizard sub-components** (`src/components/provider/wizard/`):
+- `WizardShell.tsx` — progress bar, step indicators, page navigation
+- `TspPage1.tsx` through `TspPage5.tsx` — individual TSP form pages
+- `StartupPage1.tsx` through `StartupPage5.tsx` — individual Startup form pages
+
+**ProviderDashboard** (`src/pages/provider/ProviderDashboard.tsx`):
+- Added `<OnboardingBanner />` at top of dashboard
+
+### TSP Wizard Pages
+
+| Page | Title | Fields |
+|------|-------|--------|
+| 1 | Company Profile | logo_url, website, founding_year, about_text |
+| 2 | AI-First Positioning | core_positioning, ai_first_definition, unique_differentiators |
+| 3 | Capabilities | ai_enabled_workflows[], governance_frameworks[], service_offerings[] |
+| 4 | Track Record | gccs_enabled, impact_metrics, case_studies, industry_recognitions |
+| 5 | Vision & Contact | agent_native_vision, expansion_plans, contact_name, contact_email, contact_phone |
+
+### Startup Wizard Pages
+
+| Page | Title | Fields |
+|------|-------|--------|
+| 1 | Company Profile | logo_url, website, founding_year, funding_stage |
+| 2 | Product & Technology | product_description, ai_capabilities, tech_stack |
+| 3 | Market & Traction | target_industries[], customer_segments[], key_metrics |
+| 4 | Compliance & Security | certifications[], data_privacy_posture, security_measures |
+| 5 | Contact & Partnership | contact_name, contact_email, contact_phone, partnership_interests |
+
+### Verification
+
+- [x] `npm run build` passes
+- [ ] `supabase db push` — run to apply migration to remote
+- [ ] Manual E2E: Sign in → Category → Basic Info → Dashboard → Banner → Wizard → Save pages → Submit
+
+### Note on Ticket 16
+
+Ticket 16 (Startup 5-Page Wizard) was merged into Ticket 15. Both TSP and Startup wizard pages are implemented in the same commit as part of the unified save-per-page system.

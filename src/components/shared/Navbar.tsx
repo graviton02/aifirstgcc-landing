@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sparkles, Linkedin, Newspaper, Search, LayoutDashboard } from 'lucide-react'
+import { Menu, X, Sparkles, Linkedin, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, Lightbulb, ChevronDown } from 'lucide-react'
 import { useAuth, UserButton } from '@clerk/clerk-react'
 import { Button } from '@/components/ui/button'
 import { useUserRole } from '@/auth/useUserRole'
@@ -12,15 +12,25 @@ const APP_ROUTES = ['/provider', '/gcc-dashboard', '/onboarding', '/admin', '/au
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false)
+  const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const { isLoaded: isAuthLoaded, isSignedIn } = useAuth()
   const { role } = useUserRole()
 
   const isLandingPage = location.pathname === '/'
-  const isAIPulsePage = location.pathname.startsWith('/ai-pulse')
-  const isAppPage = APP_ROUTES.some(r => location.pathname.startsWith(r))
+  const isAppPage = APP_ROUTES.some(r => location.pathname === r || location.pathname.startsWith(r + '/'))
   const hasScrolledBg = isScrolled || (!isLandingPage)
+  const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/problems'].some(r => location.pathname.startsWith(r))
+
+  const resourcesItems = [
+    { to: '/ai-pulse', label: 'AI Pulse', icon: Newspaper },
+    { to: '/thought-leadership', label: 'Thought Leadership', icon: BookOpen },
+    { to: '/tools', label: 'Tools', icon: Wrench },
+    { to: '/providers', label: 'Provider Ecosystem', icon: Building2 },
+    { to: '/problems', label: 'Problem Statements', icon: Lightbulb },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,16 +116,6 @@ export function Navbar() {
                 Benefits
               </NavLink>
               <Link
-                to="/ai-pulse"
-                className={`relative text-sm font-medium transition-colors duration-300 group flex items-center gap-1.5 ${
-                  hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
-                } ${isAIPulsePage ? 'text-purple-600' : ''}`}
-              >
-                <Newspaper className="w-4 h-4" />
-                AI Pulse
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${isAIPulsePage ? 'w-full' : 'w-0 group-hover:w-full'}`} />
-              </Link>
-              <Link
                 to="/marketplace"
                 className={`relative text-sm font-medium transition-colors duration-300 group flex items-center gap-1.5 ${
                   hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
@@ -125,6 +125,58 @@ export function Navbar() {
                 Marketplace
                 <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${location.pathname.startsWith('/marketplace') ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </Link>
+
+              {/* Resources dropdown */}
+              <div
+                className="relative"
+                onMouseEnter={() => setIsResourcesOpen(true)}
+                onMouseLeave={() => setIsResourcesOpen(false)}
+              >
+                <button
+                  onClick={() => setIsResourcesOpen(!isResourcesOpen)}
+                  className={`relative text-sm font-medium transition-colors duration-300 group flex items-center gap-1 ${
+                    hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
+                  } ${isResourcesPage ? 'text-purple-600' : ''}`}
+                >
+                  Resources
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isResourcesOpen ? 'rotate-180' : ''}`} />
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${isResourcesPage ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                </button>
+                <AnimatePresence>
+                  {isResourcesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-xl border border-enterprise-200 shadow-xl overflow-hidden"
+                    >
+                      <div className="py-1.5">
+                        {resourcesItems.map((item) => {
+                          const isActive = location.pathname.startsWith(item.to)
+                          const Icon = item.icon
+                          return (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={() => setIsResourcesOpen(false)}
+                              className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
+                                isActive
+                                  ? 'text-purple-600 bg-purple-50'
+                                  : 'text-enterprise-700 hover:bg-enterprise-50 hover:text-enterprise-900'
+                              }`}
+                            >
+                              <Icon className="w-4 h-4" />
+                              {item.label}
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <a
                 href="https://www.linkedin.com/company/orbys360/"
                 target="_blank"
@@ -214,16 +266,6 @@ export function Navbar() {
                     Benefits
                   </MobileNavLink>
                   <Link
-                    to="/ai-pulse"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center gap-2 w-full px-4 py-3 font-medium rounded-lg hover:bg-enterprise-50 transition-colors ${
-                      isAIPulsePage ? 'text-purple-600 bg-purple-50' : 'text-enterprise-700'
-                    }`}
-                  >
-                    <Newspaper className="w-5 h-5" />
-                    AI Pulse
-                  </Link>
-                  <Link
                     to="/marketplace"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center gap-2 w-full px-4 py-3 font-medium rounded-lg hover:bg-enterprise-50 transition-colors ${
@@ -233,6 +275,41 @@ export function Navbar() {
                     <Search className="w-5 h-5" />
                     Marketplace
                   </Link>
+
+                  {/* Mobile Resources section */}
+                  <div>
+                    <button
+                      onClick={() => setIsMobileResourcesOpen(!isMobileResourcesOpen)}
+                      className={`flex items-center justify-between w-full px-4 py-3 font-medium rounded-lg hover:bg-enterprise-50 transition-colors ${
+                        isResourcesPage ? 'text-purple-600' : 'text-enterprise-700'
+                      }`}
+                    >
+                      <span>Resources</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMobileResourcesOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isMobileResourcesOpen && (
+                      <div className="ml-4 space-y-0.5">
+                        {resourcesItems.map((item) => {
+                          const isActive = location.pathname.startsWith(item.to)
+                          const Icon = item.icon
+                          return (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={() => { setIsMobileMenuOpen(false); setIsMobileResourcesOpen(false) }}
+                              className={`flex items-center gap-2 w-full px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                                isActive ? 'text-purple-600 bg-purple-50' : 'text-enterprise-600 hover:bg-enterprise-50 hover:text-enterprise-700'
+                              }`}
+                            >
+                              <Icon className="w-4 h-4" />
+                              {item.label}
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+
                   <a
                     href="https://www.linkedin.com/company/orbys360/"
                     target="_blank"

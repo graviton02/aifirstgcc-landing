@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { FlutedGlass } from '@paper-design/shaders-react'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'
 
@@ -66,28 +67,30 @@ const cardVariants = {
 export function ProvidersSection() {
   return (
     <section id="providers" className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
-      {/* CSS Gradient Background - Purple tones for Providers */}
-      <div className="absolute inset-0 bg-[#1a0a2e]">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse at 0% 0%, #7C3AED 0%, transparent 50%),
-              radial-gradient(ellipse at 100% 0%, #A855F7 0%, transparent 50%),
-              radial-gradient(ellipse at 100% 100%, #8B5CF6 0%, transparent 50%),
-              radial-gradient(ellipse at 0% 100%, #9333EA 0%, transparent 50%)
-            `,
-          }}
+      {/* FlutedGlass shader background */}
+      <div className="absolute inset-0">
+        <FlutedGlass
+          size={0.5}
+          shape="wave"
+          angle={0}
+          distortionShape="lens"
+          distortion={0.5}
+          shift={0}
+          blur={0}
+          edges={0}
+          stretch={0}
+          image="https://workers.paper.design/file-assets/01KH9JD322HQFK1KE4YGW4GNAT/01KH9JJHZ34GAY6YYZVV7KB90E.webp"
+          scale={1.3}
+          fit="cover"
+          highlights={0.1}
+          shadows={0.25}
+          colorBack="#00000000"
+          colorHighlight="#FFFFFF"
+          colorShadow="#000000"
+          className="w-full h-full"
         />
-        {/* Noise texture overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.15]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          }}
-        />
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/40" />
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       <Container className="relative z-10">

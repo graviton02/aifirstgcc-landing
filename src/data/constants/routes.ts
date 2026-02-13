@@ -20,5 +20,5 @@ export const ROUTES = {
   EDIT_AGENT: (agentId: string) => `/provider/agents/${agentId}/edit`,
   GCC_DASHBOARD: '/gcc-dashboard',
   SELF_ASSESSMENT: '/self-assessment',
-  ADMIN: (token: string) => `/admin/${token}`,
+  ADMIN: '/o360',
 } as const

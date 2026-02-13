@@ -32,9 +32,11 @@ const ProvidersPage = lazy(() => import('@/pages/marketing/ProvidersPage'))
 const MarketplaceListing = lazy(() => import('@/pages/marketplace/MarketplaceListing'))
 const AgentDetail = lazy(() => import('@/pages/marketplace/AgentDetail'))
 const ThoughtLeadership = lazy(() => import('@/pages/content/ThoughtLeadership'))
+const ThoughtLeadershipArticle = lazy(() => import('@/pages/content/ThoughtLeadershipArticle'))
 const ToolsHub = lazy(() => import('@/pages/content/ToolsHub'))
 const Benchmarks = lazy(() => import('@/pages/content/Benchmarks'))
 const ProblemsListing = lazy(() => import('@/pages/content/ProblemsListing'))
+const ProviderDetail = lazy(() => import('@/pages/marketing/ProviderDetail'))
 const ProviderDashboard = lazy(() => import('@/pages/provider/ProviderDashboard'))
 const ListAgent = lazy(() => import('@/pages/provider/ListAgent'))
 const EditAgent = lazy(() => import('@/pages/provider/EditAgent'))
@@ -164,6 +166,14 @@ function App() {
           }
         />
         <Route
+          path="/providers/:providerId"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ProviderDetail />
+            </Suspense>
+          }
+        />
+        <Route
           path="/problems"
           element={
             <Suspense fallback={<PageLoader />}>
@@ -176,6 +186,14 @@ function App() {
           element={
             <Suspense fallback={<PageLoader />}>
               <ThoughtLeadership />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/thought-leadership/:slug"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ThoughtLeadershipArticle />
             </Suspense>
           }
         />
@@ -297,7 +315,7 @@ function App() {
 
       {/* Admin — standalone, no Clerk auth */}
       <Route
-        path="/admin/:secretToken"
+        path="/o360"
         element={
           <Suspense fallback={<PageLoader />}>
             <AdminDashboard />
