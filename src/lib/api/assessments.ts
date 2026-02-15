@@ -90,3 +90,25 @@ export async function getSelfAssessmentResult(
   if (error && error.code !== 'PGRST116') throw new Error(error.message)
   return data
 }
+
+export async function submitForAnalysis(
+  supabase: SupabaseClient,
+  id: string,
+  answers: Record<string, unknown>,
+): Promise<{ assessmentId: string; resultId: string }> {
+  // First update the assessment with final answers
+  await updateSelfAssessment(supabase, id, answers)
+
+  // Then mark as completed
+  await completeSelfAssessment(supabase, id)
+
+  // Invoke the edge function
+  const { data, error } = await supabase.functions.invoke('analyze-self-assessment', {
+    body: { assessmentId: id, answers },
+  })
+
+  if (error) throw new Error(error.message)
+  if (!data?.ok) throw new Error(data?.error || 'Analysis failed')
+
+  return { assessmentId: id, resultId: data.resultId }
+}

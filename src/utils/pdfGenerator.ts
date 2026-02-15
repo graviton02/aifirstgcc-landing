@@ -1,0 +1,168 @@
+import jsPDF from 'jspdf'
+import type { ConsultingAnalysis } from '@/types/assessment'
+
+const PILLAR_NAMES = [
+  'Strategy & Vision',
+  'Talent & Skills',
+  'Technology & Infrastructure',
+  'Operating Model',
+  'Innovation & Ecosystem',
+  'Governance & Risk',
+  'Impact & Outcomes'
+]
+
+export function generateConsultingPDF(analysis: ConsultingAnalysis, assessmentId: string): void {
+  const doc = new jsPDF()
+  const pageWidth = doc.internal.pageSize.width
+  const pageHeight = doc.internal.pageSize.height
+  const margin = 20
+  const lineHeight = 7
+  let currentY = margin
+
+  const addText = (text: string, x: number, y: number, maxWidth: number, fontSize: number = 10) => {
+    doc.setFontSize(fontSize)
+    const lines = doc.splitTextToSize(text, maxWidth)
+    doc.text(lines, x, y)
+    return y + (lines.length * lineHeight)
+  }
+
+  const checkNewPage = (requiredSpace: number) => {
+    if (currentY + requiredSpace > pageHeight - margin) {
+      doc.addPage()
+      currentY = margin
+    }
+  }
+
+  // Title page
+  doc.setFontSize(20)
+  doc.setFont('helvetica', 'bold')
+  currentY = addText('AI-First GCC Assessment Report', margin, currentY, pageWidth - 2 * margin, 20)
+
+  doc.setFontSize(12)
+  doc.setFont('helvetica', 'normal')
+  currentY = addText('7 Pillars of AI Transformation Analysis', margin, currentY + 5, pageWidth - 2 * margin, 12)
+  currentY = addText(`Generated on ${new Date().toLocaleDateString()}`, margin, currentY + 5, pageWidth - 2 * margin, 12)
+  currentY += 15
+
+  // Current State by Pillar
+  checkNewPage(40)
+  doc.setFillColor(59, 130, 246)
+  doc.rect(margin, currentY, pageWidth - 2 * margin, 12, 'F')
+
+  doc.setTextColor(255, 255, 255)
+  doc.setFontSize(16)
+  doc.setFont('helvetica', 'bold')
+  doc.text('Current State by Pillar', margin + 5, currentY + 8)
+  currentY += 18
+
+  doc.setTextColor(0, 0, 0)
+  doc.setFont('helvetica', 'normal')
+
+  for (const pillarName of PILLAR_NAMES) {
+    checkNewPage(60)
+
+    doc.setFontSize(14)
+    doc.setFont('helvetica', 'bold')
+    currentY = addText(pillarName, margin, currentY, pageWidth - 2 * margin, 14)
+    currentY += 5
+
+    doc.setFontSize(10)
+    doc.setFont('helvetica', 'normal')
+    const currentState = analysis.current_state[pillarName] || []
+
+    for (const point of currentState) {
+      currentY = addText(`\u2022 ${point}`, margin + 10, currentY, pageWidth - 2 * margin - 10, 10)
+      currentY += 2
+    }
+    currentY += 10
+  }
+
+  // Recommendations by Pillar
+  doc.addPage()
+  currentY = margin
+
+  doc.setFillColor(59, 130, 246)
+  doc.rect(margin, currentY, pageWidth - 2 * margin, 12, 'F')
+
+  doc.setTextColor(255, 255, 255)
+  doc.setFontSize(16)
+  doc.setFont('helvetica', 'bold')
+  doc.text('Recommendations by Pillar', margin + 5, currentY + 8)
+  currentY += 18
+
+  doc.setTextColor(0, 0, 0)
+  doc.setFont('helvetica', 'normal')
+
+  for (const pillarName of PILLAR_NAMES) {
+    checkNewPage(80)
+
+    doc.setFontSize(14)
+    doc.setFont('helvetica', 'bold')
+    currentY = addText(pillarName, margin, currentY, pageWidth - 2 * margin, 14)
+    currentY += 5
+
+    const pillarRecs = analysis.recommendations[pillarName]
+
+    doc.setFontSize(12)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(59, 130, 246)
+    currentY = addText('Short-term (3\u20136 months)', margin, currentY, pageWidth - 2 * margin, 12)
+    currentY += 3
+
+    doc.setFontSize(10)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(0, 0, 0)
+
+    for (const action of pillarRecs?.short_term || []) {
+      currentY = addText(`\u2022 ${action}`, margin + 10, currentY, pageWidth - 2 * margin - 10, 10)
+      currentY += 2
+    }
+    currentY += 5
+
+    doc.setFontSize(12)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(34, 197, 94)
+    currentY = addText('Mid-term (6\u201318 months)', margin, currentY, pageWidth - 2 * margin, 12)
+    currentY += 3
+
+    doc.setFontSize(10)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(0, 0, 0)
+
+    for (const action of pillarRecs?.mid_term || []) {
+      currentY = addText(`\u2022 ${action}`, margin + 10, currentY, pageWidth - 2 * margin - 10, 10)
+      currentY += 2
+    }
+    currentY += 15
+  }
+
+  // Next Steps
+  checkNewPage(60)
+  doc.setFillColor(59, 130, 246)
+  doc.rect(margin, currentY, pageWidth - 2 * margin, 12, 'F')
+
+  doc.setTextColor(255, 255, 255)
+  doc.setFontSize(16)
+  doc.setFont('helvetica', 'bold')
+  doc.text('Next Steps / Roadmap', margin + 5, currentY + 8)
+  currentY += 18
+
+  doc.setTextColor(0, 0, 0)
+  doc.setFont('helvetica', 'normal')
+  doc.setFontSize(11)
+
+  for (const step of analysis.next_steps || []) {
+    currentY = addText(`\u2022 ${step}`, margin + 10, currentY, pageWidth - 2 * margin - 10, 11)
+    currentY += 5
+  }
+
+  // Footer
+  const footerY = pageHeight - margin
+  doc.setFontSize(8)
+  doc.setTextColor(128, 128, 128)
+  doc.text('Generated by Orbys360.com AI-First GCC Assessment Platform', margin, footerY)
+  doc.text(`Report ID: ${assessmentId}`, margin, footerY + 5)
+
+  const fileName = `AI-First-GCC-Assessment-Report-${new Date().toISOString().split('T')[0]}.pdf`
+  doc.save(fileName)
+}

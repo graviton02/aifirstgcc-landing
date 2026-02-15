@@ -45,6 +45,7 @@ const BasicInfo = lazy(() => import('@/pages/provider/onboarding/BasicInfo'))
 const DetailedForm = lazy(() => import('@/pages/provider/onboarding/DetailedForm'))
 const GCCDashboard = lazy(() => import('@/pages/gcc/GCCDashboard'))
 const SelfAssessment = lazy(() => import('@/pages/gcc/SelfAssessment'))
+const SelfAssessmentResult = lazy(() => import('@/pages/gcc/SelfAssessmentResult'))
 const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'))
 
 // Minimal loading placeholder
@@ -308,6 +309,14 @@ function App() {
           element={
             <Suspense fallback={<PageLoader />}>
               <SelfAssessment />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/self-assessment/result/:assessmentId"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <SelfAssessmentResult />
             </Suspense>
           }
         />
