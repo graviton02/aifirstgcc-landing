@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from 'framer-motion'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'

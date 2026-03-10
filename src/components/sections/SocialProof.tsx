@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from 'framer-motion'
 import { Building2, Globe2, Users2, TrendingUp } from 'lucide-react'
 import { Container } from '@/components/shared/Container'

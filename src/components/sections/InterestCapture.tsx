@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
@@ -10,7 +12,8 @@ import { AnimatedSection } from '@/components/shared/AnimatedSection'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { submitEarlyAccess } from '@/lib/supabase'
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -21,6 +24,7 @@ type FormData = z.infer<typeof formSchema>
 export function InterestCapture() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const submitEmail = useMutation(api.earlyAccess.submit);
 
   const {
     register,
@@ -34,7 +38,7 @@ export function InterestCapture() {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true)
     try {
-      await submitEarlyAccess(data)
+      await submitEmail({ email: data.email })
       setIsSubmitted(true)
       reset()
       toast.success('Welcome to the Founding 100!', {

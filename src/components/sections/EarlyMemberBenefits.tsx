@@ -1,3 +1,5 @@
+"use client"
+
 // Motion gives access to framer-motion powered animation primitives.
 import { motion } from 'framer-motion'
 // Icon set used throughout the benefits cards.

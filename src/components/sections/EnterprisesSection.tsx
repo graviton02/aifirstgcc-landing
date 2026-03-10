@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from 'framer-motion'
 import { FlutedGlass } from '@paper-design/shaders-react'
 import { Container } from '@/components/shared/Container'
