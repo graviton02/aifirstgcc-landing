@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
+import { AgentSearchSection } from "@/components/sections/AgentSearchSection";
 import { ValueProposition } from "@/components/sections/ValueProposition";
 import { SevenMandates } from "@/components/sections/SevenMandates";
 import { EnterprisesSection } from "@/components/sections/EnterprisesSection";
@@ -15,7 +16,7 @@ export default function HomePage() {
     <>
       <Navbar />
       <Hero />
-      {/* Task 3.4 will add AgentSearchSection here */}
+      <AgentSearchSection />
       <ValueProposition />
       <SevenMandates />
       <EnterprisesSection />
