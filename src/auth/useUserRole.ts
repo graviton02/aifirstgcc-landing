@@ -1,4 +1,4 @@
-import { useUser } from '@clerk/clerk-react'
+import { useUser } from '@clerk/nextjs'
 
 export function useUserRole() {
   const { user, isLoaded } = useUser()

@@ -1,8 +1,11 @@
+"use client"
+
 import { useState, useEffect } from 'react'
-import { useLocation, useNavigate, Link } from 'react-router-dom'
+import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Sparkles, Linkedin, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, Lightbulb, ChevronDown } from 'lucide-react'
-import { useAuth, UserButton } from '@clerk/clerk-react'
+import { useAuth, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { useUserRole } from '@/auth/useUserRole'
 import { Container } from './Container'
@@ -14,22 +17,22 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isResourcesOpen, setIsResourcesOpen] = useState(false)
   const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false)
-  const location = useLocation()
-  const navigate = useNavigate()
+  const pathname = usePathname()
+  const router = useRouter()
   const { isLoaded: isAuthLoaded, isSignedIn } = useAuth()
   const { role } = useUserRole()
 
-  const isLandingPage = location.pathname === '/'
-  const isAppPage = APP_ROUTES.some(r => location.pathname === r || location.pathname.startsWith(r + '/'))
+  const isLandingPage = pathname === '/'
+  const isAppPage = APP_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
   const hasScrolledBg = isScrolled || (!isLandingPage)
-  const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/problems'].some(r => location.pathname.startsWith(r))
+  const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/problems'].some(r => pathname.startsWith(r))
 
   const resourcesItems = [
-    { to: '/ai-pulse', label: 'AI Pulse', icon: Newspaper },
-    { to: '/thought-leadership', label: 'Thought Leadership', icon: BookOpen },
-    { to: '/tools', label: 'Tools', icon: Wrench },
-    { to: '/providers', label: 'Provider Ecosystem', icon: Building2 },
-    { to: '/problems', label: 'Problem Statements', icon: Lightbulb },
+    { href: '/ai-pulse', label: 'AI Pulse', icon: Newspaper },
+    { href: '/thought-leadership', label: 'Thought Leadership', icon: BookOpen },
+    { href: '/tools', label: 'Tools', icon: Wrench },
+    { href: '/providers', label: 'Provider Ecosystem', icon: Building2 },
+    { href: '/problems', label: 'Problem Statements', icon: Lightbulb },
   ]
 
   useEffect(() => {
@@ -48,7 +51,7 @@ export function Navbar() {
     if (isLandingPage) {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
     } else {
-      navigate('/', { state: { scrollTo: id } })
+      router.push(`/#${id}`)
     }
   }
 
@@ -69,7 +72,7 @@ export function Navbar() {
         <Container size="wide">
           <nav className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link to="/">
+            <Link href="/">
               <motion.div
                 className="flex items-center group"
                 whileHover={{ scale: 1.02 }}
@@ -116,14 +119,14 @@ export function Navbar() {
                 Benefits
               </NavLink>
               <Link
-                to="/marketplace"
+                href="/directory"
                 className={`relative text-sm font-medium transition-colors duration-300 group flex items-center gap-1.5 ${
                   hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
-                } ${location.pathname.startsWith('/marketplace') ? 'text-purple-600' : ''}`}
+                } ${pathname.startsWith('/directory') ? 'text-purple-600' : ''}`}
               >
                 <Search className="w-4 h-4" />
-                Marketplace
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${location.pathname.startsWith('/marketplace') ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                Directory
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${pathname.startsWith('/directory') ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </Link>
 
               {/* Resources dropdown */}
@@ -153,12 +156,12 @@ export function Navbar() {
                     >
                       <div className="py-1.5">
                         {resourcesItems.map((item) => {
-                          const isActive = location.pathname.startsWith(item.to)
+                          const isActive = pathname.startsWith(item.href)
                           const Icon = item.icon
                           return (
                             <Link
-                              key={item.to}
-                              to={item.to}
+                              key={item.href}
+                              href={item.href}
                               onClick={() => setIsResourcesOpen(false)}
                               className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
                                 isActive
@@ -198,7 +201,7 @@ export function Navbar() {
               ) : isSignedIn ? (
                 <div className="flex items-center gap-3 ml-2">
                   <Link
-                    to={dashboardPath}
+                    href={dashboardPath}
                     className={`text-sm font-medium transition-colors duration-300 flex items-center gap-1.5 ${
                       hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
                     }`}
@@ -216,7 +219,7 @@ export function Navbar() {
                   />
                 </div>
               ) : (
-                <Link to="/auth?mode=signup" className="ml-2">
+                <Link href="/sign-up" className="ml-2">
                   <Button size="sm">
                     <Sparkles className="w-4 h-4" />
                     Join Now
@@ -266,14 +269,14 @@ export function Navbar() {
                     Benefits
                   </MobileNavLink>
                   <Link
-                    to="/marketplace"
+                    href="/directory"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center gap-2 w-full px-4 py-3 font-medium rounded-lg hover:bg-enterprise-50 transition-colors ${
-                      location.pathname.startsWith('/marketplace') ? 'text-purple-600 bg-purple-50' : 'text-enterprise-700'
+                      pathname.startsWith('/directory') ? 'text-purple-600 bg-purple-50' : 'text-enterprise-700'
                     }`}
                   >
                     <Search className="w-5 h-5" />
-                    Marketplace
+                    Directory
                   </Link>
 
                   {/* Mobile Resources section */}
@@ -290,12 +293,12 @@ export function Navbar() {
                     {isMobileResourcesOpen && (
                       <div className="ml-4 space-y-0.5">
                         {resourcesItems.map((item) => {
-                          const isActive = location.pathname.startsWith(item.to)
+                          const isActive = pathname.startsWith(item.href)
                           const Icon = item.icon
                           return (
                             <Link
-                              key={item.to}
-                              to={item.to}
+                              key={item.href}
+                              href={item.href}
                               onClick={() => { setIsMobileMenuOpen(false); setIsMobileResourcesOpen(false) }}
                               className={`flex items-center gap-2 w-full px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
                                 isActive ? 'text-purple-600 bg-purple-50' : 'text-enterprise-600 hover:bg-enterprise-50 hover:text-enterprise-700'
@@ -326,7 +329,7 @@ export function Navbar() {
                       {isSignedIn ? (
                         <div className="flex items-center justify-between px-4 py-3">
                           <Link
-                            to={dashboardPath}
+                            href={dashboardPath}
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="flex items-center gap-2 text-enterprise-700 font-medium"
                           >
@@ -343,7 +346,7 @@ export function Navbar() {
                           />
                         </div>
                       ) : (
-                        <Link to="/auth?mode=signup" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Link href="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
                           <Button className="w-full">
                             <Sparkles className="w-4 h-4" />
                             Join Now
