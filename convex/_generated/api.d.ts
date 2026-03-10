@@ -8,9 +8,20 @@
  * @module
  */
 
+import type * as admin from "../admin.js";
 import type * as agents from "../agents.js";
+import type * as claims from "../claims.js";
 import type * as companies from "../companies.js";
+import type * as companyEdits from "../companyEdits.js";
+import type * as companyMembers from "../companyMembers.js";
+import type * as earlyAccess from "../earlyAccess.js";
+import type * as gcc from "../gcc.js";
+import type * as gccProfiles from "../gccProfiles.js";
+import type * as http from "../http.js";
 import type * as lib_auth from "../lib/auth.js";
+import type * as notifications from "../notifications.js";
+import type * as shortlists from "../shortlists.js";
+import type * as storage from "../storage.js";
 
 import type {
   ApiFromModules,
@@ -19,9 +30,20 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  admin: typeof admin;
   agents: typeof agents;
+  claims: typeof claims;
   companies: typeof companies;
+  companyEdits: typeof companyEdits;
+  companyMembers: typeof companyMembers;
+  earlyAccess: typeof earlyAccess;
+  gcc: typeof gcc;
+  gccProfiles: typeof gccProfiles;
+  http: typeof http;
   "lib/auth": typeof lib_auth;
+  notifications: typeof notifications;
+  shortlists: typeof shortlists;
+  storage: typeof storage;
 }>;
 
 /**
