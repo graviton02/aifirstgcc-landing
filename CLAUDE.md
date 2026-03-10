@@ -1,88 +1,98 @@
-# Orbys360 Landing Page — Project Instructions
+# Orbys360 — Project Instructions
 
-> **Last updated:** 2026-02-11
+> **Last updated:** 2026-03-11
 
 ## Project Overview
 
-**Orbys360** (repo: `aifirstgcc-landing`) is a React + TypeScript landing page for an AI-first GCC advisory platform. It is deployed on **Vercel** from the `main` branch with automatic deployments on push.
+**Orbys360** is an AI-first GCC advisory platform with a directory of AI agents, company profiles, and tools for GCC buyers and providers. Deployed on **Vercel** from the `main` branch.
 
-- **Stack:** React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Supabase
+- **Stack:** Next.js 15 (App Router), TypeScript, Convex (backend), Clerk (auth), Tailwind CSS 3.4, Framer Motion
 - **Package manager:** npm
-- **Build:** `npm run build` (runs `tsc -b && vite build`)
-- **Dev server:** `npm run dev`
+- **Build:** `npm run build` (runs `next build`)
+- **Dev server:** `npm run dev` (Next.js) + `npx convex dev` (Convex, separate terminal)
 - **Lint:** `npm run lint`
-- **Deployment:** Vercel (auto-deploy from `main`), SPA rewrite via `vercel.json`
+- **Test:** `npm test` (Vitest + React Testing Library)
+- **Deployment:** Vercel (auto-deploy from `main`)
 
 ## Project Structure
 
 ```
 ├── src/
-│   ├── App.tsx              # Root app component
-│   ├── main.tsx             # Entry point
+│   ├── app/                    # Next.js App Router pages
+│   │   ├── layout.tsx          # Root layout (Clerk + Convex providers)
+│   │   ├── page.tsx            # Landing page
+│   │   ├── directory/          # Agent directory
+│   │   ├── agents/[slug]/      # Agent detail (SSR + ISR)
+│   │   ├── companies/[slug]/   # Company profiles (SSR + ISR)
+│   │   ├── categories/[slug]/  # Category pages
+│   │   ├── claim/[slug]/       # Claim profile flow
+│   │   ├── compare/            # Compare tool
+│   │   ├── shortlist/          # Shortlisted agents
+│   │   ├── gcc-dashboard/      # GCC buyer dashboard
+│   │   ├── dashboard/          # Provider dashboard
+│   │   ├── admin/              # Admin dashboard
+│   │   ├── onboarding/         # GCC onboarding
+│   │   ├── sign-in/            # Clerk sign-in
+│   │   ├── sign-up/            # Clerk sign-up
+│   │   └── [content pages]/    # AI Pulse, Thought Leadership, etc.
 │   ├── components/
-│   │   ├── sections/        # Landing page sections
-│   │   ├── pages/           # Full page components
-│   │   ├── shared/          # Reusable components
-│   │   ├── ui/              # Shadcn-style UI primitives
-│   │   └── ai-pulse/        # AI Pulse daily brief components
-│   ├── data/
-│   │   ├── aiPulseBriefs.ts # Daily brief content entries
-│   │   └── aiPulseTypes.ts  # TypeScript types for briefs
-│   └── lib/                 # Utilities
-├── public/                  # Static assets (logos, images, favicons)
-├── supabase/migrations/     # Supabase database migrations
-├── Icons/                   # Brand icon assets
-└── Orbis360 Transparent Icons/
+│   │   ├── sections/           # Landing page sections
+│   │   ├── shared/             # Reusable (Navbar, Footer, Container)
+│   │   ├── ui/                 # Shadcn-style UI primitives
+│   │   ├── directory/          # Directory components
+│   │   ├── agent-detail/       # Agent detail components
+│   │   ├── company/            # Company profile components
+│   │   ├── claim/              # Claim flow components
+│   │   ├── compare/            # Compare tool components
+│   │   ├── dashboard/          # Provider dashboard tabs
+│   │   ├── gcc-dashboard/      # GCC dashboard tabs
+│   │   ├── admin/              # Admin dashboard tabs
+│   │   └── onboarding/         # Onboarding form
+│   ├── hooks/                  # Custom hooks (useCompare, etc.)
+│   ├── lib/                    # Utilities (categories, email-validation, etc.)
+│   └── auth/                   # useUserRole hook
+├── convex/                     # Convex backend (schema, queries, mutations)
+├── tests/                      # Vitest tests
+├── middleware.ts               # Clerk auth middleware
+├── public/                     # Static assets
+└── docs/plans/                 # Implementation plans
 ```
 
 ## Git Branching Strategy
 
-Established 2026-02-11. Two long-lived branches:
-
 | Branch | Purpose | Deploys to |
 |--------|---------|------------|
-| `main` | Production-ready content. Daily briefs, copy, styling. | Vercel (auto) |
-| `develop` | Integration branch for new features and backend work. | — |
+| `main` | Production-ready code | Vercel (auto) |
+| `develop` | Integration branch for features | — |
 
 ### Workflow Rules
 
-1. **Landing page content** (daily briefs, copy changes, styling tweaks) → commit directly to `main` and push.
-2. **New features / backend work** → branch off `develop`:
-   ```
-   git checkout -b feature/<name> develop
-   # ... work ...
-   git checkout develop && git merge feature/<name>
-   ```
-3. **Releasing features to production** → merge `develop` into `main` when stable.
-4. **Never force-push to `main`** — it is the production branch.
-
-### Branch Protection Notes
-
-- `main` auto-deploys to Vercel. Every push is live.
-- Test and verify changes before merging to `main`.
-
-## Content Patterns
-
-### Adding a Daily Brief
-
-Daily briefs live in `src/data/aiPulseBriefs.ts`. Each entry follows the types in `src/data/aiPulseTypes.ts`. Add new entries at the top of the array (newest first). Commit to `main` with message format:
-```
-Add <Mon Day> daily brief: <topic1>, <topic2>, <topic3>
-```
+1. **Features** → branch off `develop`, merge back when ready.
+2. **Production releases** → merge `develop` into `main`.
+3. **Never force-push to `main`**.
 
 ## Key Conventions
 
-- Use TypeScript strictly — the build runs `tsc -b` before bundling.
-- Tailwind for all styling; avoid inline styles or CSS modules.
-- Framer Motion for animations.
-- Shadcn-style UI components in `src/components/ui/`.
-- Supabase for backend (email signups, future features).
-- Vercel Analytics enabled via `@vercel/analytics`.
+- **Next.js App Router** — `src/app/` for routes, `"use client"` for interactive components.
+- **Convex** for all backend operations — `useQuery()` / `useMutation()` from `convex/react`.
+- **Clerk** for auth — `@clerk/nextjs`, middleware protects dashboard routes.
+- **Tailwind CSS** for all styling. No CSS modules or inline styles.
+- **Framer Motion** for animations.
+- **Vitest + React Testing Library** for tests. TDD required.
+- Server-rendered detail pages use `fetchQuery` from `convex/nextjs` with ISR (`revalidate = 3600`).
+- Admin dashboard uses password-based token auth (not Clerk roles).
+- All company/agent edits go through admin review (pending → approved workflow).
 
 ## Environment Variables
 
-See `.env.example` for required variables. Never commit `.env` files.
+See `.env.example` for required variables. Key ones:
+- `NEXT_PUBLIC_CONVEX_URL` — Convex deployment URL
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` — Clerk publishable key
+- `CLERK_SECRET_KEY` — Clerk secret key
+- `CONVEX_DEPLOYMENT` — Convex deployment name
+
+Never commit `.env` or `.env.local` files.
 
 ---
 
-*This file is a living document. Update it whenever branching strategy, project structure, conventions, or workflows change.*
+*This file is a living document. Update it when architecture, conventions, or workflows change.*

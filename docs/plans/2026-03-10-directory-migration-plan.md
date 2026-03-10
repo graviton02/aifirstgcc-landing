@@ -1,0 +1,3301 @@
+# Directory Migration — Implementation Plan
+
+> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Migrate Orbys360 from a Vite SPA + Supabase backend to a Next.js App Router + Convex backend, with a directory-first model featuring scraped agents, company claim flow, content gating, and comparison tool — while preserving the existing UI design.
+
+**Architecture:** Next.js 15 App Router with server components for SEO-critical public pages (directory, agent detail, company, categories) and client components for authenticated flows (dashboards, compare, shortlist). Convex replaces Supabase entirely. Clerk magic link auth via `@clerk/nextjs`. Existing landing page UI preserved 1:1.
+
+**Tech Stack:** Next.js 15, React 18, TypeScript, Convex, Clerk (`@clerk/nextjs`), Tailwind CSS 3.4, Shadcn UI, Framer Motion, Vitest, React Testing Library
+
+**Starting point:** Commit `1028d45` on `develop` branch. Stashed work at `stash@{0}` contains partial migration (reference only).
+
+---
+
+## Chunk 1: Project Foundation
+
+### Phase 1: Next.js Project Setup
+
+---
+
+### Task 1.1: Create Feature Branch & Install Dependencies
+
+**Files:**
+- Modify: `package.json`
+- Modify: `package-lock.json`
+
+- [x] **Step 1: Create feature branch**
+
+```bash
+git checkout -b feature/nextjs-migration develop
+```
+
+- [x] **Step 2: Install Next.js and Convex dependencies**
+
+```bash
+npm install next@latest @clerk/nextjs convex
+npm install -D vitest @testing-library/react @testing-library/jest-dom @vitejs/plugin-react jsdom
+```
+
+- [x] **Step 3: Update package.json scripts**
+
+Replace the `scripts` section:
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest --watch"
+  }
+}
+```
+
+- [x] **Step 4: Commit**
+
+```bash
+git add package.json package-lock.json
+git commit -m "feat: install Next.js, Convex, and test dependencies"
+```
+
+---
+
+### Task 1.2: Configure Next.js & TypeScript
+
+**Files:**
+- Create: `next.config.ts`
+- Modify: `tsconfig.json`
+- Create: `src/app/layout.tsx`
+- Create: `src/app/page.tsx`
+- Create: `src/app/globals.css` (copy from existing `src/index.css`)
+
+- [x] **Step 1: Create `next.config.ts`**
+
+```typescript
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "**.convex.cloud" },
+    ],
+  },
+};
+
+export default nextConfig;
+```
+
+- [x] **Step 2: Update `tsconfig.json` for Next.js**
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+- [x] **Step 3: Create `src/app/globals.css`**
+
+Copy existing Tailwind base styles from `src/index.css` into `src/app/globals.css`. Ensure it has `@tailwind base; @tailwind components; @tailwind utilities;` plus any custom CSS.
+
+- [x] **Step 4: Create minimal root layout `src/app/layout.tsx`**
+
+```tsx
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Orbys360 | The AI-First GCC Platform",
+  description: "Discover, compare, and connect with 1000+ AI agents across industries and functions.",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+- [x] **Step 5: Create placeholder homepage `src/app/page.tsx`**
+
+```tsx
+export default function HomePage() {
+  return (
+    <main>
+      <h1>Orbys360 — Migration in progress</h1>
+    </main>
+  );
+}
+```
+
+- [x] **Step 6: Update `tailwind.config.js` content paths**
+
+Add Next.js app directory to content array:
+```javascript
+content: [
+  "./src/app/**/*.{js,ts,jsx,tsx}",
+  "./src/components/**/*.{js,ts,jsx,tsx}",
+  "./src/**/*.{js,ts,jsx,tsx}",
+],
+```
+
+- [x] **Step 7: Verify Next.js starts**
+
+```bash
+npm run dev
+# Visit http://localhost:3000 — should show "Orbys360 — Migration in progress"
+```
+
+- [x] **Step 8: Commit**
+
+```bash
+git add next.config.ts tsconfig.json src/app/ tailwind.config.js
+git commit -m "feat: configure Next.js App Router with Tailwind"
+```
+
+---
+
+### Task 1.3: Set Up Convex
+
+**Files:**
+- Create: `convex/` directory (auto-generated by `npx convex dev`)
+- Create: `.env.local` (environment variables)
+
+- [x] **Step 1: Initialize Convex**
+
+```bash
+npx convex dev --once
+```
+
+This creates `convex/_generated/` and `convex/` directory.
+
+- [x] **Step 2: Create `.env.local` with Convex + Clerk variables**
+
+```env
+NEXT_PUBLIC_CONVEX_URL=<your-convex-deployment-url>
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your-clerk-publishable-key>
+CLERK_SECRET_KEY=<your-clerk-secret-key>
+```
+
+- [x] **Step 3: Update `.env.example`**
+
+```env
+NEXT_PUBLIC_CONVEX_URL=your_convex_deployment_url
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+```
+
+- [x] **Step 4: Commit**
+
+```bash
+git add convex/ .env.example
+git commit -m "feat: initialize Convex backend"
+```
+
+---
+
+### Task 1.4: Wire Up Clerk + Convex Providers
+
+**Files:**
+- Create: `src/components/providers/ConvexClientProvider.tsx`
+- Modify: `src/app/layout.tsx`
+
+- [x] **Step 1: Create ConvexClientProvider**
+
+```tsx
+// src/components/providers/ConvexClientProvider.tsx
+"use client";
+
+import { ConvexProviderWithClerk } from "convex/react-clerk";
+import { ConvexReactClient } from "convex/react";
+import { useAuth } from "@clerk/nextjs";
+import { ReactNode } from "react";
+
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+
+export function ConvexClientProvider({ children }: { children: ReactNode }) {
+  return (
+    <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+      {children}
+    </ConvexProviderWithClerk>
+  );
+}
+```
+
+- [x] **Step 2: Update root layout with providers**
+
+```tsx
+// src/app/layout.tsx
+import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ConvexClientProvider } from "@/components/providers/ConvexClientProvider";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Orbys360 | The AI-First GCC Platform",
+  description: "Discover, compare, and connect with 1000+ AI agents across industries and functions.",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <ConvexClientProvider>
+            {children}
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
+  );
+}
+```
+
+- [x] **Step 3: Verify app loads with providers**
+
+```bash
+npm run dev
+# Visit http://localhost:3000 — page should render without errors
+# Check browser console for no provider errors
+```
+
+- [x] **Step 4: Commit**
+
+```bash
+git add src/components/providers/ src/app/layout.tsx
+git commit -m "feat: wire up Clerk + Convex providers in root layout"
+```
+
+---
+
+### Task 1.5: Set Up Vitest
+
+**Files:**
+- Create: `vitest.config.ts`
+- Create: `tests/setup.ts`
+
+- [x] **Step 1: Create `vitest.config.ts`**
+
+```typescript
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react";
+import path from "path";
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
+    globals: true,
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+```
+
+- [x] **Step 2: Create `tests/setup.ts`**
+
+```typescript
+import "@testing-library/jest-dom/vitest";
+```
+
+- [x] **Step 3: Create a smoke test**
+
+```typescript
+// tests/smoke.test.ts
+describe("smoke test", () => {
+  it("runs", () => {
+    expect(1 + 1).toBe(2);
+  });
+});
+```
+
+- [x] **Step 4: Run tests**
+
+```bash
+npm test
+# Expected: 1 test passed
+```
+
+- [x] **Step 5: Commit**
+
+```bash
+git add vitest.config.ts tests/
+git commit -m "feat: configure Vitest with jsdom and React Testing Library"
+```
+
+---
+
+### Task 1.6: Clerk Middleware for Protected Routes
+
+**Files:**
+- Create: `middleware.ts` (project root)
+
+- [x] **Step 1: Create Clerk middleware**
+
+```typescript
+// middleware.ts
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/gcc-dashboard(.*)",
+  "/shortlist(.*)",
+  "/compare(.*)",
+  "/onboarding(.*)",
+]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) {
+    await auth.protect();
+  }
+});
+
+export const config = {
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ],
+};
+```
+
+- [x] **Step 2: Verify middleware doesn't break public pages**
+
+```bash
+npm run dev
+# Visit http://localhost:3000 — should render without redirect
+```
+
+- [x] **Step 3: Commit**
+
+```bash
+git add middleware.ts
+git commit -m "feat: add Clerk middleware for protected routes"
+```
+
+---
+
+## Chunk 2: Convex Backend
+
+### Phase 2: Convex Schema & Backend Functions
+
+---
+
+### Task 2.1: Write Convex Schema
+
+**Files:**
+- Create: `convex/schema.ts`
+
+- [x] **Step 1: Write the full schema**
+
+```typescript
+// convex/schema.ts
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  // --- Early Access ---
+  earlyAccessSignups: defineTable({
+    email: v.string(),
+    created_at: v.number(),
+  }).index("by_email", ["email"]),
+
+  // --- Companies (scraped directory entries) ---
+  companies: defineTable({
+    slug: v.string(),
+    name: v.string(),
+    description: v.string(),
+    website: v.string(),
+    headquarters: v.string(),
+    founded: v.optional(v.number()),
+    company_size: v.string(),
+    logo_url: v.optional(v.string()),
+    primary_verticals: v.array(v.string()),
+    contact_email: v.optional(v.string()),
+    verification_status: v.union(v.literal("unverified"), v.literal("verified"), v.literal("flagged")),
+    claim_status: v.union(v.literal("unclaimed"), v.literal("pending"), v.literal("claimed")),
+    claimed_by_user_id: v.optional(v.string()),
+    claimed_at: v.optional(v.number()),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_claimStatus", ["claim_status"])
+    .index("by_claimedByUserId", ["claimed_by_user_id"])
+    .searchIndex("search_companies", {
+      searchField: "name",
+      filterFields: ["claim_status"],
+    }),
+
+  // --- Claim Requests ---
+  claimRequests: defineTable({
+    company_id: v.id("companies"),
+    claimant_name: v.string(),
+    claimant_email: v.string(),
+    claimant_linkedin: v.string(),
+    claimant_user_id: v.optional(v.string()),
+    status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
+    admin_notes: v.optional(v.string()),
+    reviewed_at: v.optional(v.number()),
+    created_at: v.number(),
+  })
+    .index("by_companyId", ["company_id"])
+    .index("by_status", ["status"]),
+
+  // --- Company Members ---
+  companyMembers: defineTable({
+    company_id: v.id("companies"),
+    user_id: v.optional(v.string()),
+    email: v.string(),
+    role: v.union(v.literal("owner"), v.literal("member")),
+    status: v.union(v.literal("pending"), v.literal("active")),
+    invited_by: v.optional(v.string()),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_companyId", ["company_id"])
+    .index("by_userId", ["user_id"])
+    .index("by_email", ["email"])
+    .index("by_companyAndEmail", ["company_id", "email"]),
+
+  // --- Company Edits ---
+  companyEdits: defineTable({
+    company_id: v.id("companies"),
+    user_id: v.string(),
+    payload: v.any(),
+    status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
+    admin_notes: v.optional(v.string()),
+    created_at: v.number(),
+    reviewed_at: v.optional(v.number()),
+  })
+    .index("by_companyId", ["company_id"])
+    .index("by_status", ["status"]),
+
+  // --- GCC Profiles (4 fields: name, org, email, industry) ---
+  gccProfiles: defineTable({
+    user_id: v.string(),
+    name: v.string(),
+    email: v.string(),
+    organization: v.string(),
+    industry: v.string(),
+    created_at: v.number(),
+    updated_at: v.number(),
+  }).index("by_userId", ["user_id"]),
+
+  // --- Agents (directory entries) ---
+  agents: defineTable({
+    slug: v.optional(v.string()),
+    agent_name: v.string(),
+    tagline: v.optional(v.string()),
+    description: v.string(),
+    category: v.string(),
+    company_id: v.optional(v.id("companies")),
+    logo_url: v.optional(v.string()),
+    tags: v.array(v.string()),
+    use_cases: v.array(v.any()),
+    industries: v.array(v.string()),
+    functional_categories: v.optional(v.array(v.string())),
+    industry_categories: v.optional(v.array(v.string())),
+    infrastructure_categories: v.optional(v.array(v.string())),
+    business_functions: v.optional(v.array(v.string())),
+    expected_outcomes: v.optional(v.array(v.string())),
+    integrations: v.optional(v.array(v.string())),
+    source_url: v.optional(v.string()),
+    integration_type: v.optional(v.string()),
+    supported_platforms: v.array(v.string()),
+    data_requirements: v.optional(v.string()),
+    impact_metrics: v.array(v.any()),
+    demo_url: v.optional(v.string()),
+    compliance_certifications: v.array(v.string()),
+    security_features: v.array(v.string()),
+    rating: v.number(),
+    review_count: v.number(),
+    status: v.union(v.literal("active"), v.literal("inactive")),
+    search_text: v.optional(v.string()),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status", ["status"])
+    .index("by_category", ["category"])
+    .index("by_companyId", ["company_id"])
+    .searchIndex("search_agents", {
+      searchField: "search_text",
+      filterFields: ["status", "category"],
+    }),
+
+  // --- Agent Submissions (pending admin approval) ---
+  agentSubmissions: defineTable({
+    user_id: v.string(),
+    company_id: v.optional(v.id("companies")),
+    slug: v.optional(v.string()),
+    agent_name: v.string(),
+    tagline: v.optional(v.string()),
+    description: v.string(),
+    category: v.string(),
+    logo_url: v.optional(v.string()),
+    tags: v.array(v.string()),
+    use_cases: v.array(v.any()),
+    industries: v.array(v.string()),
+    functional_categories: v.optional(v.array(v.string())),
+    industry_categories: v.optional(v.array(v.string())),
+    infrastructure_categories: v.optional(v.array(v.string())),
+    business_functions: v.optional(v.array(v.string())),
+    expected_outcomes: v.optional(v.array(v.string())),
+    integrations: v.optional(v.array(v.string())),
+    source_url: v.optional(v.string()),
+    integration_type: v.optional(v.string()),
+    supported_platforms: v.array(v.string()),
+    data_requirements: v.optional(v.string()),
+    impact_metrics: v.array(v.any()),
+    demo_url: v.optional(v.string()),
+    compliance_certifications: v.array(v.string()),
+    security_features: v.array(v.string()),
+    submission_status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected"),
+      v.literal("changes_requested")
+    ),
+    admin_notes: v.optional(v.string()),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_userId", ["user_id"])
+    .index("by_status", ["submission_status"]),
+
+  // --- Agent Edits ---
+  agentEdits: defineTable({
+    agent_id: v.id("agents"),
+    user_id: v.string(),
+    payload: v.any(),
+    status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
+    admin_notes: v.optional(v.string()),
+    created_at: v.number(),
+  })
+    .index("by_userId", ["user_id"])
+    .index("by_status", ["status"]),
+
+  // --- Agent Shortlists ---
+  agentShortlists: defineTable({
+    user_id: v.string(),
+    agent_id: v.id("agents"),
+    created_at: v.number(),
+  })
+    .index("by_userId", ["user_id"])
+    .index("by_userAndAgent", ["user_id", "agent_id"]),
+
+  // --- Contact Logs ---
+  contactLogs: defineTable({
+    gcc_user_id: v.string(),
+    agent_id: v.id("agents"),
+    company_id: v.optional(v.id("companies")),
+    contacted_at: v.number(),
+  }).index("by_gccUserId", ["gcc_user_id"]),
+
+  // --- Provider Requests (GCC to Provider, admin-gated) ---
+  providerRequests: defineTable({
+    company_id: v.optional(v.id("companies")),
+    gcc_user_email: v.string(),
+    gcc_user_id: v.string(),
+    agent_id: v.id("agents"),
+    message: v.optional(v.string()),
+    admin_notes: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending_admin"),
+      v.literal("approved"),
+      v.literal("rejected"),
+      v.literal("contacted"),
+      v.literal("archived")
+    ),
+    reviewed_at: v.optional(v.number()),
+    created_at: v.number(),
+  })
+    .index("by_gccUserId", ["gcc_user_id"])
+    .index("by_status", ["status"])
+    .index("by_companyId", ["company_id"]),
+
+  // --- Problem Statements ---
+  problemStatements: defineTable({
+    gcc_user_id: v.string(),
+    title: v.string(),
+    description: v.string(),
+    category: v.string(),
+    industry: v.string(),
+    desired_outcome: v.string(),
+    timeline: v.union(v.literal("immediate"), v.literal("short"), v.literal("medium"), v.literal("long")),
+    budget_range: v.string(),
+    status: v.union(v.literal("pending_review"), v.literal("approved"), v.literal("rejected")),
+    interest_count: v.number(),
+    rejection_reason: v.optional(v.string()),
+    created_at: v.number(),
+  })
+    .index("by_gccUserId", ["gcc_user_id"])
+    .index("by_status", ["status"]),
+
+  // --- Problem Statement Interests ---
+  problemStatementInterests: defineTable({
+    problem_statement_id: v.id("problemStatements"),
+    provider_user_id: v.string(),
+    provider_user_email: v.string(),
+    created_at: v.number(),
+  }).index("by_problemId", ["problem_statement_id"]),
+
+  // --- Admin Sessions ---
+  adminSessions: defineTable({
+    session_token: v.string(),
+    expires_at: v.number(),
+    created_at: v.number(),
+  }).index("by_token", ["session_token"]),
+});
+```
+
+- [x] **Step 2: Push schema to Convex**
+
+```bash
+npx convex dev --once
+```
+
+Expected: Schema deploys successfully.
+
+- [x] **Step 3: Commit**
+
+```bash
+git add convex/schema.ts
+git commit -m "feat: add Convex schema with all tables for directory model"
+```
+
+---
+
+### Task 2.2: Auth Helper & Convex Helpers
+
+**Files:**
+- Create: `convex/lib/auth.ts`
+- Create: `src/lib/convex-helpers.ts`
+
+- [x] **Step 1: Create auth helper**
+
+```typescript
+// convex/lib/auth.ts
+import { QueryCtx, MutationCtx, ActionCtx } from "../_generated/server";
+
+export async function requireAuth(
+  ctx: QueryCtx | MutationCtx | ActionCtx
+): Promise<string> {
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity) throw new Error("Unauthenticated");
+  return identity.subject;
+}
+
+export async function getAuthUserId(
+  ctx: QueryCtx | MutationCtx | ActionCtx
+): Promise<string | null> {
+  const identity = await ctx.auth.getUserIdentity();
+  return identity?.subject ?? null;
+}
+```
+
+- [x] **Step 2: Create frontend Convex helpers**
+
+```typescript
+// src/lib/convex-helpers.ts
+import { useMutation } from "convex/react";
+import { FunctionReference } from "convex/server";
+import { useCallback, useState } from "react";
+
+type MutateCallbacks<T> = {
+  onSuccess?: (data: T) => void;
+  onError?: (error: Error) => void;
+  onSettled?: () => void;
+};
+
+export function useWrappedMutation<Args extends Record<string, unknown>, Result>(
+  mutation: FunctionReference<"mutation", "public", Args, Result>
+) {
+  const rawMutate = useMutation(mutation);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const mutate = useCallback(
+    async (args: Args, callbacks?: MutateCallbacks<Result>) => {
+      setIsPending(true);
+      setError(null);
+      try {
+        const result = await rawMutate(args);
+        callbacks?.onSuccess?.(result);
+        return result;
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error(String(err));
+        setError(error);
+        callbacks?.onError?.(error);
+        throw error;
+      } finally {
+        setIsPending(false);
+        callbacks?.onSettled?.();
+      }
+    },
+    [rawMutate]
+  );
+
+  return { mutate, isPending, error };
+}
+
+// Map Convex _id to id for frontend consumption
+export function mapDoc<T extends { _id: string }>(
+  doc: T | null
+): (Omit<T, "_id"> & { id: string }) | null {
+  if (!doc) return null;
+  const { _id, ...rest } = doc;
+  return { ...rest, id: _id } as Omit<T, "_id"> & { id: string };
+}
+
+export function mapDocs<T extends { _id: string }>(
+  docs: T[]
+): (Omit<T, "_id"> & { id: string })[] {
+  return docs.map((d) => mapDoc(d)!);
+}
+```
+
+- [x] **Step 3: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 4: Commit**
+
+```bash
+git add convex/lib/ src/lib/convex-helpers.ts
+git commit -m "feat: add auth helper and Convex frontend utilities"
+```
+
+---
+
+### Task 2.3: Companies Module
+
+**Files:**
+- Create: `convex/companies.ts`
+- Create: `tests/convex/companies.test.ts`
+
+- [x] **Step 1: Write test for company queries**
+
+```typescript
+// tests/convex/companies.test.ts
+import { describe, it, expect } from "vitest";
+
+// Unit tests for slug generation and data validation
+// (Convex function integration tests require convex-test which we'll add later)
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+describe("Company utilities", () => {
+  it("generates correct slug from company name", () => {
+    expect(slugify("Sonata Software")).toBe("sonata-software");
+    expect(slugify("TCS & Partners")).toBe("tcs-partners");
+    expect(slugify("  Hello World  ")).toBe("hello-world");
+  });
+});
+```
+
+- [x] **Step 2: Run test to verify it passes**
+
+```bash
+npm test -- tests/convex/companies.test.ts
+```
+
+- [x] **Step 3: Write companies module**
+
+```typescript
+// convex/companies.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+export const list = query({
+  args: {
+    search: v.optional(v.string()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, { search, limit }) => {
+    const pageSize = limit ?? 20;
+    if (search && search.trim()) {
+      const results = await ctx.db
+        .query("companies")
+        .withSearchIndex("search_companies", (q) => q.search("name", search))
+        .take(pageSize);
+      return { data: results, count: results.length };
+    }
+    const all = await ctx.db.query("companies").collect();
+    return { data: all.slice(0, pageSize), count: all.length };
+  },
+});
+
+export const getBySlug = query({
+  args: { slug: v.string() },
+  handler: async (ctx, { slug }) => {
+    return await ctx.db
+      .query("companies")
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
+      .unique();
+  },
+});
+
+export const getById = query({
+  args: { id: v.id("companies") },
+  handler: async (ctx, { id }) => {
+    return await ctx.db.get(id);
+  },
+});
+
+export const listAllSlugs = query({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("companies").collect();
+    return all.map((c) => ({ slug: c.slug, updated_at: c.updated_at }));
+  },
+});
+
+export const seed = mutation({
+  args: {
+    slug: v.string(),
+    name: v.string(),
+    description: v.string(),
+    website: v.string(),
+    headquarters: v.string(),
+    founded: v.optional(v.number()),
+    company_size: v.string(),
+    primary_verticals: v.array(v.string()),
+    contact_email: v.optional(v.string()),
+    verification_status: v.optional(v.string()),
+    logo_url: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("companies")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .unique();
+    if (existing) return existing._id;
+
+    const now = Date.now();
+    return await ctx.db.insert("companies", {
+      ...args,
+      verification_status: (args.verification_status as "unverified" | "verified" | "flagged") ?? "unverified",
+      claim_status: "unclaimed",
+      created_at: now,
+      updated_at: now,
+    });
+  },
+});
+```
+
+- [x] **Step 4: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 5: Commit**
+
+```bash
+git add convex/companies.ts tests/convex/
+git commit -m "feat: add company queries and seed mutation"
+```
+
+---
+
+### Task 2.4: Agents Module
+
+**Files:**
+- Create: `convex/agents.ts`
+
+- [x] **Step 1: Write agents module**
+
+```typescript
+// convex/agents.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { requireAuth } from "./lib/auth";
+
+export const list = query({
+  args: {
+    search: v.optional(v.string()),
+    category: v.optional(v.string()),
+    functional_category: v.optional(v.string()),
+    industry_category: v.optional(v.string()),
+    infrastructure_category: v.optional(v.string()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const pageSize = args.limit ?? 12;
+
+    if (args.search && args.search.trim()) {
+      const results = await ctx.db
+        .query("agents")
+        .withSearchIndex("search_agents", (q) => {
+          let sq = q.search("search_text", args.search!);
+          sq = sq.eq("status", "active");
+          if (args.category) sq = sq.eq("category", args.category);
+          return sq;
+        })
+        .take(pageSize * 3);
+
+      const filtered = applyFilters(results, args);
+      return { data: filtered.slice(0, pageSize), count: filtered.length };
+    }
+
+    let q = ctx.db.query("agents").withIndex("by_status", (q) => q.eq("status", "active"));
+    const all = await q.collect();
+    const filtered = applyFilters(all, args);
+    return { data: filtered.slice(0, pageSize), count: filtered.length };
+  },
+});
+
+function applyFilters(agents: any[], args: any) {
+  return agents.filter((a) => {
+    if (args.category && a.category !== args.category) return false;
+    if (args.functional_category && !a.functional_categories?.includes(args.functional_category)) return false;
+    if (args.industry_category && !a.industry_categories?.includes(args.industry_category)) return false;
+    if (args.infrastructure_category && !a.infrastructure_categories?.includes(args.infrastructure_category)) return false;
+    return true;
+  });
+}
+
+export const getById = query({
+  args: { id: v.id("agents") },
+  handler: async (ctx, { id }) => {
+    return await ctx.db.get(id);
+  },
+});
+
+export const getBySlug = query({
+  args: { slug: v.string() },
+  handler: async (ctx, { slug }) => {
+    return await ctx.db
+      .query("agents")
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
+      .unique();
+  },
+});
+
+export const getByIds = query({
+  args: { ids: v.array(v.id("agents")) },
+  handler: async (ctx, { ids }) => {
+    const agents = await Promise.all(ids.map((id) => ctx.db.get(id)));
+    return agents.filter(Boolean);
+  },
+});
+
+export const getByCompany = query({
+  args: { company_id: v.id("companies") },
+  handler: async (ctx, { company_id }) => {
+    return await ctx.db
+      .query("agents")
+      .withIndex("by_companyId", (q) => q.eq("company_id", company_id))
+      .collect();
+  },
+});
+
+export const listAllSlugs = query({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db
+      .query("agents")
+      .withIndex("by_status", (q) => q.eq("status", "active"))
+      .collect();
+    return all
+      .filter((a) => a.slug)
+      .map((a) => ({ slug: a.slug!, updated_at: a.updated_at }));
+  },
+});
+
+export const getMySubmissions = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await requireAuth(ctx);
+    return await ctx.db
+      .query("agentSubmissions")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .collect();
+  },
+});
+
+export const getMyEdits = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await requireAuth(ctx);
+    return await ctx.db
+      .query("agentEdits")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .collect();
+  },
+});
+
+export const submit = mutation({
+  args: {
+    company_id: v.id("companies"),
+    agent_name: v.string(),
+    tagline: v.optional(v.string()),
+    description: v.string(),
+    category: v.string(),
+    logo_url: v.optional(v.string()),
+    tags: v.array(v.string()),
+    use_cases: v.array(v.any()),
+    industries: v.array(v.string()),
+    functional_categories: v.optional(v.array(v.string())),
+    industry_categories: v.optional(v.array(v.string())),
+    infrastructure_categories: v.optional(v.array(v.string())),
+    business_functions: v.optional(v.array(v.string())),
+    expected_outcomes: v.optional(v.array(v.string())),
+    integrations: v.optional(v.array(v.string())),
+    demo_url: v.optional(v.string()),
+    compliance_certifications: v.array(v.string()),
+    security_features: v.array(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const userId = await requireAuth(ctx);
+    const now = Date.now();
+    return await ctx.db.insert("agentSubmissions", {
+      ...args,
+      user_id: userId,
+      supported_platforms: [],
+      impact_metrics: [],
+      submission_status: "pending",
+      created_at: now,
+      updated_at: now,
+    });
+  },
+});
+
+export const createEdit = mutation({
+  args: {
+    agent_id: v.id("agents"),
+    payload: v.any(),
+  },
+  handler: async (ctx, { agent_id, payload }) => {
+    const userId = await requireAuth(ctx);
+    return await ctx.db.insert("agentEdits", {
+      agent_id,
+      user_id: userId,
+      payload,
+      status: "pending",
+      created_at: Date.now(),
+    });
+  },
+});
+
+export const softDelete = mutation({
+  args: { agent_id: v.id("agents") },
+  handler: async (ctx, { agent_id }) => {
+    await requireAuth(ctx);
+    await ctx.db.patch(agent_id, { status: "inactive", updated_at: Date.now() });
+  },
+});
+
+export const seed = mutation({
+  args: {
+    slug: v.string(),
+    agent_name: v.string(),
+    tagline: v.optional(v.string()),
+    description: v.string(),
+    company_id: v.id("companies"),
+    category: v.optional(v.string()),
+    functional_categories: v.optional(v.array(v.string())),
+    industry_categories: v.optional(v.array(v.string())),
+    infrastructure_categories: v.optional(v.array(v.string())),
+    use_cases: v.optional(v.array(v.any())),
+    business_functions: v.optional(v.array(v.string())),
+    expected_outcomes: v.optional(v.array(v.string())),
+    integrations: v.optional(v.array(v.string())),
+    source_url: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("agents")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .unique();
+    if (existing) return existing._id;
+
+    const now = Date.now();
+    const searchText = [
+      args.agent_name,
+      args.description,
+      args.tagline ?? "",
+      ...(args.functional_categories ?? []),
+      ...(args.industry_categories ?? []),
+      ...(args.integrations ?? []),
+    ].join(" ");
+
+    return await ctx.db.insert("agents", {
+      slug: args.slug,
+      agent_name: args.agent_name,
+      tagline: args.tagline,
+      description: args.description,
+      category: args.category ?? "general",
+      company_id: args.company_id,
+      functional_categories: args.functional_categories,
+      industry_categories: args.industry_categories,
+      infrastructure_categories: args.infrastructure_categories,
+      use_cases: args.use_cases ?? [],
+      business_functions: args.business_functions,
+      expected_outcomes: args.expected_outcomes,
+      integrations: args.integrations,
+      source_url: args.source_url,
+      industries: args.industry_categories ?? [],
+      tags: [],
+      supported_platforms: [],
+      impact_metrics: [],
+      compliance_certifications: [],
+      security_features: [],
+      rating: 0,
+      review_count: 0,
+      status: "active",
+      search_text: searchText,
+      created_at: now,
+      updated_at: now,
+    });
+  },
+});
+```
+
+- [x] **Step 2: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 3: Commit**
+
+```bash
+git add convex/agents.ts
+git commit -m "feat: add agent queries, mutations, and seed function"
+```
+
+---
+
+### Task 2.5: Claims Module
+
+**Files:**
+- Create: `convex/claims.ts`
+- Create: `src/lib/email-validation.ts`
+- Create: `tests/lib/email-validation.test.ts`
+
+- [x] **Step 1: Write email validation test**
+
+```typescript
+// tests/lib/email-validation.test.ts
+import { describe, it, expect } from "vitest";
+import { isFreeEmailProvider } from "@/lib/email-validation";
+
+describe("isFreeEmailProvider", () => {
+  it("returns true for gmail", () => {
+    expect(isFreeEmailProvider("user@gmail.com")).toBe(true);
+  });
+  it("returns true for yahoo", () => {
+    expect(isFreeEmailProvider("user@yahoo.com")).toBe(true);
+  });
+  it("returns false for corporate email", () => {
+    expect(isFreeEmailProvider("user@sonata-software.com")).toBe(false);
+  });
+  it("returns true for empty domain", () => {
+    expect(isFreeEmailProvider("invalid-email")).toBe(true);
+  });
+});
+```
+
+- [x] **Step 2: Write email validation utility**
+
+```typescript
+// src/lib/email-validation.ts
+const FREE_EMAIL_DOMAINS = new Set([
+  "gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "live.com",
+  "aol.com", "icloud.com", "mail.com", "protonmail.com", "zoho.com",
+  "yandex.com", "gmx.com", "fastmail.com", "tutanota.com", "yahoo.co.uk",
+  "yahoo.co.in", "rediffmail.com", "msn.com",
+]);
+
+export function isFreeEmailProvider(email: string): boolean {
+  const domain = email.split("@")[1]?.toLowerCase();
+  return !domain || FREE_EMAIL_DOMAINS.has(domain);
+}
+```
+
+- [x] **Step 3: Run test**
+
+```bash
+npm test -- tests/lib/email-validation.test.ts
+```
+
+Expected: All 4 tests pass.
+
+- [x] **Step 4: Write claims module**
+
+```typescript
+// convex/claims.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+const FREE_EMAIL_DOMAINS = new Set([
+  "gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "live.com",
+  "aol.com", "icloud.com", "mail.com", "protonmail.com", "zoho.com",
+  "yandex.com", "gmx.com", "fastmail.com", "tutanota.com",
+]);
+
+export const submitClaim = mutation({
+  args: {
+    company_id: v.id("companies"),
+    claimant_name: v.string(),
+    claimant_email: v.string(),
+    claimant_linkedin: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const domain = args.claimant_email.split("@")[1]?.toLowerCase();
+    if (!domain || FREE_EMAIL_DOMAINS.has(domain)) {
+      throw new Error("Please use a company email address, not a free email provider.");
+    }
+
+    const company = await ctx.db.get(args.company_id);
+    if (!company) throw new Error("Company not found");
+    if (company.claim_status === "claimed") throw new Error("This company has already been claimed.");
+
+    const existing = await ctx.db
+      .query("claimRequests")
+      .withIndex("by_companyId", (q) => q.eq("company_id", args.company_id))
+      .collect();
+    const pendingClaim = existing.find((c) => c.status === "pending");
+    if (pendingClaim) throw new Error("A claim request is already pending for this company.");
+
+    const id = await ctx.db.insert("claimRequests", {
+      ...args,
+      status: "pending",
+      created_at: Date.now(),
+    });
+
+    await ctx.db.patch(args.company_id, {
+      claim_status: "pending",
+      updated_at: Date.now(),
+    });
+
+    return id;
+  },
+});
+
+export const getClaimStatus = query({
+  args: { company_id: v.id("companies") },
+  handler: async (ctx, { company_id }) => {
+    return await ctx.db
+      .query("claimRequests")
+      .withIndex("by_companyId", (q) => q.eq("company_id", company_id))
+      .collect();
+  },
+});
+```
+
+- [x] **Step 5: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 6: Commit**
+
+```bash
+git add convex/claims.ts src/lib/email-validation.ts tests/lib/
+git commit -m "feat: add claim submission with email validation"
+```
+
+---
+
+### Task 2.6: GCC Profiles Module
+
+**Files:**
+- Create: `convex/gccProfiles.ts`
+
+- [x] **Step 1: Write GCC profiles module**
+
+```typescript
+// convex/gccProfiles.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { requireAuth } from "./lib/auth";
+
+export const getProfile = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+    const userId = identity.subject;
+    return await ctx.db
+      .query("gccProfiles")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .unique();
+  },
+});
+
+export const createProfile = mutation({
+  args: {
+    name: v.string(),
+    email: v.string(),
+    organization: v.string(),
+    industry: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await requireAuth(ctx);
+    const existing = await ctx.db
+      .query("gccProfiles")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .unique();
+    if (existing) return existing._id;
+
+    const now = Date.now();
+    return await ctx.db.insert("gccProfiles", {
+      ...args,
+      user_id: userId,
+      created_at: now,
+      updated_at: now,
+    });
+  },
+});
+```
+
+- [x] **Step 2: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 3: Commit**
+
+```bash
+git add convex/gccProfiles.ts
+git commit -m "feat: add GCC profile creation with 4-field onboarding"
+```
+
+---
+
+### Task 2.7: Company Members, Company Edits, Shortlists Modules
+
+**Files:**
+- Create: `convex/companyMembers.ts`
+- Create: `convex/companyEdits.ts`
+- Create: `convex/shortlists.ts`
+
+- [x] **Step 1: Write company members module**
+
+```typescript
+// convex/companyMembers.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { requireAuth } from "./lib/auth";
+
+export const getMyCompany = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+    const userId = identity.subject;
+    const membership = await ctx.db
+      .query("companyMembers")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .first();
+    if (!membership || membership.status !== "active") return null;
+    const company = await ctx.db.get(membership.company_id);
+    return { membership, company };
+  },
+});
+
+export const getMembers = query({
+  args: { company_id: v.id("companies") },
+  handler: async (ctx, { company_id }) => {
+    return await ctx.db
+      .query("companyMembers")
+      .withIndex("by_companyId", (q) => q.eq("company_id", company_id))
+      .collect();
+  },
+});
+
+export const inviteMember = mutation({
+  args: { company_id: v.id("companies"), email: v.string() },
+  handler: async (ctx, { company_id, email }) => {
+    const userId = await requireAuth(ctx);
+    const membership = await ctx.db
+      .query("companyMembers")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .first();
+    if (!membership || membership.company_id !== company_id || membership.role !== "owner") {
+      throw new Error("Only the company owner can invite members");
+    }
+    const now = Date.now();
+    return await ctx.db.insert("companyMembers", {
+      company_id,
+      email: email.toLowerCase(),
+      role: "member",
+      status: "pending",
+      invited_by: userId,
+      created_at: now,
+      updated_at: now,
+    });
+  },
+});
+
+export const removeMember = mutation({
+  args: { member_id: v.id("companyMembers") },
+  handler: async (ctx, { member_id }) => {
+    const userId = await requireAuth(ctx);
+    const member = await ctx.db.get(member_id);
+    if (!member) throw new Error("Member not found");
+    if (member.role === "owner") throw new Error("Cannot remove the company owner");
+    const callerMembership = await ctx.db
+      .query("companyMembers")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .first();
+    if (!callerMembership || callerMembership.role !== "owner") {
+      throw new Error("Only the company owner can remove members");
+    }
+    await ctx.db.delete(member_id);
+  },
+});
+```
+
+- [x] **Step 2: Write company edits module**
+
+```typescript
+// convex/companyEdits.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { requireAuth } from "./lib/auth";
+
+export const create = mutation({
+  args: { company_id: v.id("companies"), payload: v.any() },
+  handler: async (ctx, { company_id, payload }) => {
+    const userId = await requireAuth(ctx);
+    const membership = await ctx.db
+      .query("companyMembers")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .first();
+    if (!membership || membership.company_id !== company_id || membership.status !== "active") {
+      throw new Error("Not authorized to edit this company");
+    }
+    return await ctx.db.insert("companyEdits", {
+      company_id,
+      user_id: userId,
+      payload,
+      status: "pending",
+      created_at: Date.now(),
+    });
+  },
+});
+
+export const getByCompany = query({
+  args: { company_id: v.id("companies") },
+  handler: async (ctx, { company_id }) => {
+    return await ctx.db
+      .query("companyEdits")
+      .withIndex("by_companyId", (q) => q.eq("company_id", company_id))
+      .collect();
+  },
+});
+```
+
+- [x] **Step 3: Write shortlists module**
+
+```typescript
+// convex/shortlists.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { requireAuth } from "./lib/auth";
+
+export const getMine = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return [];
+    const userId = identity.subject;
+    const shortlists = await ctx.db
+      .query("agentShortlists")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .collect();
+    const agents = await Promise.all(shortlists.map((s) => ctx.db.get(s.agent_id)));
+    return agents.filter(Boolean);
+  },
+});
+
+export const isShortlisted = query({
+  args: { agent_id: v.id("agents") },
+  handler: async (ctx, { agent_id }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return false;
+    const userId = identity.subject;
+    const existing = await ctx.db
+      .query("agentShortlists")
+      .withIndex("by_userAndAgent", (q) => q.eq("user_id", userId).eq("agent_id", agent_id))
+      .unique();
+    return !!existing;
+  },
+});
+
+export const add = mutation({
+  args: { agent_id: v.id("agents") },
+  handler: async (ctx, { agent_id }) => {
+    const userId = await requireAuth(ctx);
+    const existing = await ctx.db
+      .query("agentShortlists")
+      .withIndex("by_userAndAgent", (q) => q.eq("user_id", userId).eq("agent_id", agent_id))
+      .unique();
+    if (existing) return existing._id;
+    return await ctx.db.insert("agentShortlists", {
+      user_id: userId,
+      agent_id,
+      created_at: Date.now(),
+    });
+  },
+});
+
+export const remove = mutation({
+  args: { agent_id: v.id("agents") },
+  handler: async (ctx, { agent_id }) => {
+    const userId = await requireAuth(ctx);
+    const existing = await ctx.db
+      .query("agentShortlists")
+      .withIndex("by_userAndAgent", (q) => q.eq("user_id", userId).eq("agent_id", agent_id))
+      .unique();
+    if (existing) await ctx.db.delete(existing._id);
+  },
+});
+```
+
+- [x] **Step 4: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 5: Commit**
+
+```bash
+git add convex/companyMembers.ts convex/companyEdits.ts convex/shortlists.ts
+git commit -m "feat: add company members, company edits, and shortlists modules"
+```
+
+---
+
+### Task 2.8: GCC Module (Problems, Contact Requests)
+
+**Files:**
+- Create: `convex/gcc.ts`
+
+- [x] **Step 1: Write GCC module**
+
+```typescript
+// convex/gcc.ts
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { requireAuth } from "./lib/auth";
+
+export const getMyContactRequests = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await requireAuth(ctx);
+    return await ctx.db
+      .query("providerRequests")
+      .withIndex("by_gccUserId", (q) => q.eq("gcc_user_id", userId))
+      .collect();
+  },
+});
+
+export const createContactRequest = mutation({
+  args: {
+    agent_id: v.id("agents"),
+    gcc_user_email: v.string(),
+    message: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const userId = await requireAuth(ctx);
+    const agent = await ctx.db.get(args.agent_id);
+    if (!agent) throw new Error("Agent not found");
+
+    return await ctx.db.insert("providerRequests", {
+      company_id: agent.company_id,
+      gcc_user_email: args.gcc_user_email,
+      gcc_user_id: userId,
+      agent_id: args.agent_id,
+      message: args.message,
+      status: "pending_admin",
+      created_at: Date.now(),
+    });
+  },
+});
+
+export const getMyProblems = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await requireAuth(ctx);
+    return await ctx.db
+      .query("problemStatements")
+      .withIndex("by_gccUserId", (q) => q.eq("gcc_user_id", userId))
+      .collect();
+  },
+});
+
+export const getApprovedProblems = query({
+  args: {
+    search: v.optional(v.string()),
+    category: v.optional(v.string()),
+    timeline: v.optional(v.string()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const pageSize = args.limit ?? 20;
+    const all = await ctx.db
+      .query("problemStatements")
+      .withIndex("by_status", (q) => q.eq("status", "approved"))
+      .collect();
+
+    const filtered = all.filter((p) => {
+      if (args.category && p.category !== args.category) return false;
+      if (args.timeline && p.timeline !== args.timeline) return false;
+      if (args.search) {
+        const q = args.search.toLowerCase();
+        if (!p.title.toLowerCase().includes(q) && !p.description.toLowerCase().includes(q)) return false;
+      }
+      return true;
+    });
+
+    return { data: filtered.slice(0, pageSize), count: filtered.length };
+  },
+});
+
+export const submitProblem = mutation({
+  args: {
+    title: v.string(),
+    description: v.string(),
+    category: v.string(),
+    industry: v.string(),
+    desired_outcome: v.string(),
+    timeline: v.union(v.literal("immediate"), v.literal("short"), v.literal("medium"), v.literal("long")),
+    budget_range: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await requireAuth(ctx);
+    return await ctx.db.insert("problemStatements", {
+      ...args,
+      gcc_user_id: userId,
+      status: "pending_review",
+      interest_count: 0,
+      created_at: Date.now(),
+    });
+  },
+});
+
+export const expressInterest = mutation({
+  args: {
+    problem_statement_id: v.id("problemStatements"),
+    provider_user_email: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await requireAuth(ctx);
+    const existing = await ctx.db
+      .query("problemStatementInterests")
+      .withIndex("by_problemId", (q) => q.eq("problem_statement_id", args.problem_statement_id))
+      .collect();
+    if (existing.some((e) => e.provider_user_id === userId)) {
+      return { duplicate: true };
+    }
+    await ctx.db.insert("problemStatementInterests", {
+      problem_statement_id: args.problem_statement_id,
+      provider_user_id: userId,
+      provider_user_email: args.provider_user_email,
+      created_at: Date.now(),
+    });
+    const problem = await ctx.db.get(args.problem_statement_id);
+    if (problem) {
+      await ctx.db.patch(args.problem_statement_id, {
+        interest_count: problem.interest_count + 1,
+      });
+    }
+    return { duplicate: false };
+  },
+});
+```
+
+- [x] **Step 2: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 3: Commit**
+
+```bash
+git add convex/gcc.ts
+git commit -m "feat: add GCC contact requests, problems, and interest expression"
+```
+
+---
+
+### Task 2.9: Admin Module
+
+**Files:**
+- Create: `convex/admin.ts`
+
+- [x] **Step 1: Write admin module**
+
+This is a large module. Key functions:
+- `login` (action): validates password hash, creates session
+- `checkSession` (query): validates token
+- `logout` (mutation): deletes session
+- `getPendingAgents`, `approveAgent`, `rejectAgent`
+- `getPendingClaims`, `approveClaim`, `rejectClaim`
+- `getPendingCompanyEdits`, `approveCompanyEdit`, `rejectCompanyEdit`
+- `getPendingAgentEdits`, `approveAgentEdit`, `rejectAgentEdit`
+- `getPendingContactRequests`, `approveContactRequest`, `rejectContactRequest`
+- `getPendingProblems`, `approveProblem`, `rejectProblem`
+- `getDirectoryStats`
+
+Write `convex/admin.ts` with all functions above. Reference the existing `supabase/functions/admin-manage-submissions/index.ts` for business logic patterns (approval creates agent from submission, rejection sets status, etc.).
+
+Key patterns:
+- All queries/mutations take `token: v.string()` and call `requireAdmin(ctx, token)` helper
+- `requireAdmin` validates session token against `adminSessions` table
+- `approveClaim` creates a `companyMember` with role "owner" and status "active", patches company to "claimed"
+- `approveAgent` copies from `agentSubmissions` to `agents` table, sets `submission_status: "approved"`
+- `approveCompanyEdit` applies `payload` to company record via `ctx.db.patch`
+
+- [x] **Step 2: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 3: Commit**
+
+```bash
+git add convex/admin.ts
+git commit -m "feat: add admin module with claims, edits, and submission management"
+```
+
+---
+
+### Task 2.10: Remaining Backend Modules
+
+**Files:**
+- Create: `convex/earlyAccess.ts`
+- Create: `convex/storage.ts`
+- Create: `convex/notifications.ts`
+- Create: `convex/http.ts`
+
+- [x] **Step 1: Write early access module**
+
+```typescript
+// convex/earlyAccess.ts
+import { mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+export const submit = mutation({
+  args: { email: v.string() },
+  handler: async (ctx, { email }) => {
+    const existing = await ctx.db
+      .query("earlyAccessSignups")
+      .withIndex("by_email", (q) => q.eq("email", email))
+      .unique();
+    if (existing) return { success: true, duplicate: true };
+    await ctx.db.insert("earlyAccessSignups", { email, created_at: Date.now() });
+    return { success: true, duplicate: false };
+  },
+});
+```
+
+- [x] **Step 2: Write storage module**
+
+```typescript
+// convex/storage.ts
+import { mutation, query } from "./_generated/server";
+import { requireAuth } from "./lib/auth";
+
+export const generateUploadUrl = mutation({
+  handler: async (ctx) => {
+    await requireAuth(ctx);
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+export const getUrl = query({
+  args: { storageId: v.id("_storage") },
+  handler: async (ctx, { storageId }) => {
+    return await ctx.storage.getUrl(storageId);
+  },
+});
+```
+
+Note: Import `v` from `convex/values` in storage.ts.
+
+- [x] **Step 3: Write notifications module stub**
+
+```typescript
+// convex/notifications.ts
+"use node";
+
+import { internalAction } from "./_generated/server";
+import { v } from "convex/values";
+
+export const sendAdminAlert = internalAction({
+  args: {
+    type: v.string(),
+    submission_id: v.optional(v.string()),
+  },
+  handler: async (_ctx, args) => {
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
+    if (!resendApiKey || !adminEmail) return;
+
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Orbys360 <noreply@orbys360.com>",
+        to: adminEmail,
+        subject: `New ${args.type} submission on Orbys360`,
+        html: `<p>A new ${args.type} has been submitted. Please review it in the admin dashboard.</p>`,
+      }),
+    });
+  },
+});
+```
+
+- [x] **Step 4: Write HTTP module for Clerk webhook**
+
+```typescript
+// convex/http.ts
+import { httpRouter } from "convex/server";
+import { httpAction } from "./_generated/server";
+
+const http = httpRouter();
+
+http.route({
+  path: "/clerk-webhook",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.text();
+    // Webhook verification and user sync logic
+    // Will be implemented when Clerk webhook is configured
+    return new Response("OK", { status: 200 });
+  }),
+});
+
+export default http;
+```
+
+- [x] **Step 5: Push and verify**
+
+```bash
+npx convex dev --once
+```
+
+- [x] **Step 6: Commit**
+
+```bash
+git add convex/earlyAccess.ts convex/storage.ts convex/notifications.ts convex/http.ts
+git commit -m "feat: add early access, storage, notifications, and HTTP modules"
+```
+
+---
+
+## Chunk 3: Frontend Migration — Landing Page & Shared Components
+
+### Phase 3: Port Existing UI to Next.js
+
+> **Principle:** Copy existing component code. Only change imports (`react-router-dom` → `next/link`, `next/navigation`). Add `"use client"` where hooks are used. Keep all Tailwind classes and Framer Motion animations identical.
+
+---
+
+### Task 3.1: Migrate Shared Components (Navbar, Footer)
+
+**Files:**
+- Modify: `src/components/shared/Navbar.tsx`
+- Modify: `src/components/sections/Footer.tsx`
+
+- [ ] **Step 1: Update Navbar imports**
+
+In `src/components/shared/Navbar.tsx`:
+- Replace `import { Link, useNavigate, useLocation } from 'react-router-dom'` with:
+  ```tsx
+  import Link from "next/link";
+  import { useRouter, usePathname } from "next/navigation";
+  ```
+- Replace all `<Link to="...">` with `<Link href="...">`
+- Replace `useNavigate()` with `useRouter()` and `navigate(path)` with `router.push(path)`
+- Replace `useLocation().pathname` with `usePathname()`
+- Replace `import { useAuth, UserButton } from '@clerk/clerk-react'` with `import { useAuth, UserButton } from '@clerk/nextjs'`
+- Add `"use client"` at top of file
+
+- [ ] **Step 2: Update Footer imports**
+
+In `src/components/sections/Footer.tsx`:
+- Replace any `Link` imports from react-router with `next/link`
+- Add `"use client"` if it uses any hooks
+
+- [ ] **Step 3: Verify components render**
+
+Create a test route to render Navbar:
+```bash
+npm run dev
+# Navigate to http://localhost:3000 and verify Navbar renders
+```
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add src/components/shared/Navbar.tsx src/components/sections/Footer.tsx
+git commit -m "feat: migrate Navbar and Footer to Next.js imports"
+```
+
+---
+
+### Task 3.2: Migrate All Landing Page Sections
+
+**Files to modify (add `"use client"` and fix imports for each):**
+- `src/components/sections/Hero.tsx`
+- `src/components/sections/ValueProposition.tsx`
+- `src/components/sections/SevenMandates.tsx`
+- `src/components/sections/EnterprisesSection.tsx`
+- `src/components/sections/ProvidersSection.tsx`
+- `src/components/sections/EarlyMemberBenefits.tsx`
+- `src/components/sections/InterestCapture.tsx`
+- `src/components/sections/SocialProof.tsx`
+- `src/components/sections/WhySection.tsx`
+
+- [ ] **Step 1: Add `"use client"` to all sections that use hooks**
+
+Each section using `useState`, `useEffect`, `useRef`, Framer Motion `motion.*`, or `useInView` needs `"use client"` at the top.
+
+- [ ] **Step 2: Fix any react-router imports**
+
+Replace any `Link` from `react-router-dom` with `Link` from `next/link`. Replace `to=` with `href=`.
+
+- [ ] **Step 3: Fix InterestCapture.tsx Supabase call**
+
+In `InterestCapture.tsx`, replace the Supabase `submitEarlyAccess` call with a Convex mutation:
+```tsx
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+// ...
+const submitEmail = useMutation(api.earlyAccess.submit);
+// In handler:
+await submitEmail({ email });
+```
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add src/components/sections/
+git commit -m "feat: migrate all landing page sections to Next.js"
+```
+
+---
+
+### Task 3.3: Create Landing Page Route
+
+**Files:**
+- Modify: `src/app/page.tsx`
+- Modify: `src/app/layout.tsx`
+
+- [x] **Step 1: Write the landing page**
+
+```tsx
+// src/app/page.tsx
+import dynamic from "next/dynamic";
+import { Hero } from "@/components/sections/Hero";
+import { Navbar } from "@/components/shared/Navbar";
+import { Footer } from "@/components/sections/Footer";
+
+const ValueProposition = dynamic(() => import("@/components/sections/ValueProposition").then(m => ({ default: m.ValueProposition ?? m.default })));
+const SevenMandates = dynamic(() => import("@/components/sections/SevenMandates").then(m => ({ default: m.SevenMandates ?? m.default })));
+const EnterprisesSection = dynamic(() => import("@/components/sections/EnterprisesSection").then(m => ({ default: m.EnterprisesSection ?? m.default })));
+const ProvidersSection = dynamic(() => import("@/components/sections/ProvidersSection").then(m => ({ default: m.ProvidersSection ?? m.default })));
+const EarlyMemberBenefits = dynamic(() => import("@/components/sections/EarlyMemberBenefits").then(m => ({ default: m.EarlyMemberBenefits ?? m.default })));
+const InterestCapture = dynamic(() => import("@/components/sections/InterestCapture").then(m => ({ default: m.InterestCapture ?? m.default })));
+const SocialProof = dynamic(() => import("@/components/sections/SocialProof").then(m => ({ default: m.SocialProof ?? m.default })));
+const WhySection = dynamic(() => import("@/components/sections/WhySection").then(m => ({ default: m.WhySection ?? m.default })));
+
+export default function HomePage() {
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      {/* Task 3.4 will add AgentSearchSection here */}
+      <ValueProposition />
+      <SevenMandates />
+      <EnterprisesSection />
+      <ProvidersSection />
+      <EarlyMemberBenefits />
+      <InterestCapture />
+      <SocialProof />
+      <WhySection />
+      <Footer />
+    </>
+  );
+}
+```
+
+- [x] **Step 2: Add Google Fonts to layout**
+
+```tsx
+// In src/app/layout.tsx, add font preloads in <head>
+// Use next/font or manual <link> tags matching the existing index.html
+```
+
+- [x] **Step 3: Verify landing page renders identically**
+
+```bash
+npm run dev
+# Visit http://localhost:3000
+# Verify: Hero, all sections, Navbar, Footer render correctly
+# Verify: Animations work (Framer Motion)
+# Verify: Responsive design works (mobile/desktop)
+```
+
+- [x] **Step 4: Commit**
+
+```bash
+git add src/app/
+git commit -m "feat: wire up landing page with all sections in Next.js"
+```
+
+---
+
+### Task 3.4: Add "Search for Your Agent" Section (NEW)
+
+**Files:**
+- Create: `src/components/sections/AgentSearchSection.tsx`
+- Create: `src/components/directory/FeaturedAgentCard.tsx`
+- Modify: `src/app/page.tsx`
+
+- [x] **Step 1: Write test for AgentSearchSection**
+
+```typescript
+// tests/components/sections/AgentSearchSection.test.tsx
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}));
+
+// Mock convex/react
+vi.mock("convex/react", () => ({
+  useQuery: () => [],
+}));
+
+describe("AgentSearchSection", () => {
+  it("renders search bar and heading", async () => {
+    const { AgentSearchSection } = await import("@/components/sections/AgentSearchSection");
+    render(<AgentSearchSection />);
+    expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
+    expect(screen.getByText(/search for your agent/i)).toBeInTheDocument();
+  });
+});
+```
+
+- [x] **Step 2: Run test to verify it fails**
+
+```bash
+npm test -- tests/components/sections/AgentSearchSection.test.tsx
+```
+
+Expected: FAIL — module not found.
+
+- [x] **Step 3: Write AgentSearchSection component**
+
+```tsx
+// src/components/sections/AgentSearchSection.tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
+import { motion } from "framer-motion";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { FeaturedAgentCard } from "@/components/directory/FeaturedAgentCard";
+
+export function AgentSearchSection() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const featuredAgents = useQuery(api.agents.list, { limit: 6 });
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/directory?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      router.push("/directory");
+    }
+  };
+
+  return (
+    <section className="py-20 bg-gradient-to-b from-enterprise-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-display-md text-enterprise-900 mb-4">
+            Search for Your Agent
+          </h2>
+          <p className="text-lg text-enterprise-600 max-w-2xl mx-auto">
+            Discover AI agents across industries and functions to transform your operations.
+          </p>
+        </motion.div>
+
+        <form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-16">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-enterprise-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search agents by name, category, or industry..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-32 py-4 rounded-xl border border-enterprise-200 bg-white text-enterprise-900 placeholder:text-enterprise-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-card text-lg"
+            />
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+
+        {featuredAgents?.data && featuredAgents.data.length > 0 && (
+          <div>
+            <h3 className="text-xl font-semibold text-enterprise-800 mb-6 text-center">
+              Featured Agents
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredAgents.data.slice(0, 6).map((agent) => (
+                <FeaturedAgentCard key={agent._id} agent={agent} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+```
+
+- [x] **Step 4: Write FeaturedAgentCard**
+
+```tsx
+// src/components/directory/FeaturedAgentCard.tsx
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+interface Agent {
+  _id: string;
+  slug?: string;
+  agent_name: string;
+  tagline?: string;
+  category: string;
+  functional_categories?: string[];
+}
+
+export function FeaturedAgentCard({ agent }: { agent: Agent }) {
+  const href = agent.slug ? `/agents/${agent.slug}` : `/agents/${agent._id}`;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <Link href={href} className="block p-6 bg-white rounded-xl border border-enterprise-200 shadow-card hover:shadow-card-hover transition-shadow">
+        <h4 className="font-semibold text-enterprise-900 mb-1">{agent.agent_name}</h4>
+        {agent.tagline && (
+          <p className="text-sm text-enterprise-600 mb-3 line-clamp-2">{agent.tagline}</p>
+        )}
+        <div className="flex flex-wrap gap-2">
+          <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">
+            {agent.category}
+          </span>
+          {agent.functional_categories?.slice(0, 2).map((cat) => (
+            <span key={cat} className="px-2 py-0.5 bg-enterprise-100 text-enterprise-600 text-xs rounded-full">
+              {cat}
+            </span>
+          ))}
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+```
+
+- [x] **Step 5: Run test**
+
+```bash
+npm test -- tests/components/sections/AgentSearchSection.test.tsx
+```
+
+Expected: PASS
+
+- [x] **Step 6: Add section to landing page**
+
+In `src/app/page.tsx`, add after `<Hero />`:
+```tsx
+import { AgentSearchSection } from "@/components/sections/AgentSearchSection";
+// ...
+<Hero />
+<AgentSearchSection />
+<ValueProposition />
+```
+
+- [x] **Step 7: Verify visually**
+
+```bash
+npm run dev
+# Visit http://localhost:3000
+# Verify: "Search for Your Agent" section appears after Hero
+# Verify: Search bar works and navigates to /directory
+```
+
+- [x] **Step 8: Commit**
+
+```bash
+git add src/components/sections/AgentSearchSection.tsx src/components/directory/ src/app/page.tsx tests/
+git commit -m "feat: add 'Search for Your Agent' section on landing page"
+```
+
+---
+
+## Chunk 4: Auth, Onboarding & Directory Pages
+
+### Phase 4: Auth Pages & GCC Onboarding
+
+---
+
+### Task 4.1: Sign-In and Sign-Up Pages
+
+**Files:**
+- Create: `src/app/sign-in/[[...sign-in]]/page.tsx`
+- Create: `src/app/sign-up/[[...sign-up]]/page.tsx`
+
+- [x] **Step 1: Create sign-in page**
+
+```tsx
+// src/app/sign-in/[[...sign-in]]/page.tsx
+import { SignIn } from "@clerk/nextjs";
+
+export default function SignInPage() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-enterprise-50">
+      <SignIn afterSignInUrl="/" />
+    </div>
+  );
+}
+```
+
+- [x] **Step 2: Create sign-up page**
+
+```tsx
+// src/app/sign-up/[[...sign-up]]/page.tsx
+import { SignUp } from "@clerk/nextjs";
+
+export default function SignUpPage() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-enterprise-50">
+      <SignUp afterSignUpUrl="/onboarding" />
+    </div>
+  );
+}
+```
+
+- [x] **Step 3: Commit**
+
+```bash
+git add src/app/sign-in/ src/app/sign-up/
+git commit -m "feat: add Clerk sign-in and sign-up pages"
+```
+
+---
+
+### Task 4.2: GCC Onboarding Page
+
+**Files:**
+- Create: `src/app/onboarding/page.tsx`
+- Create: `src/components/onboarding/GccOnboardingForm.tsx`
+- Create: `tests/components/onboarding/GccOnboardingForm.test.tsx`
+
+- [x] **Step 1: Write test**
+
+```typescript
+// tests/components/onboarding/GccOnboardingForm.test.tsx
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+
+vi.mock("convex/react", () => ({
+  useMutation: () => vi.fn(),
+}));
+vi.mock("@clerk/nextjs", () => ({
+  useUser: () => ({ user: { primaryEmailAddress: { emailAddress: "test@test.com" } } }),
+}));
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}));
+
+describe("GccOnboardingForm", () => {
+  it("renders all 4 fields", async () => {
+    const { GccOnboardingForm } = await import("@/components/onboarding/GccOnboardingForm");
+    render(<GccOnboardingForm />);
+    expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/organization/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/industry/i)).toBeInTheDocument();
+  });
+});
+```
+
+- [x] **Step 2: Write GccOnboardingForm**
+
+```tsx
+// src/components/onboarding/GccOnboardingForm.tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { useUser } from "@clerk/nextjs";
+import { api } from "../../../convex/_generated/api";
+
+const INDUSTRIES = [
+  "Healthcare & Life Sciences", "Financial Services (BFSI)", "Manufacturing",
+  "Automotive & Mobility", "Retail & E-commerce", "Telecom & Media",
+  "Energy & Utilities", "Real Estate & Construction", "Logistics & Transportation",
+  "Government & Public Sector", "Education", "Agriculture & AgriTech",
+  "Aerospace & Defense", "Other",
+];
+
+export function GccOnboardingForm() {
+  const router = useRouter();
+  const { user } = useUser();
+  const createProfile = useMutation(api.gccProfiles.createProfile);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [form, setForm] = useState({
+    name: "",
+    organization: "",
+    email: user?.primaryEmailAddress?.emailAddress ?? "",
+    industry: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.organization || !form.email || !form.industry) return;
+    setIsSubmitting(true);
+    try {
+      await createProfile(form);
+      router.push("/");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold text-enterprise-900">Complete Your Profile</h1>
+      <p className="text-enterprise-600">Tell us about yourself to get started.</p>
+
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-enterprise-700 mb-1">Name</label>
+        <input id="name" type="text" required value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          className="w-full px-3 py-2 border border-enterprise-300 rounded-lg focus:ring-2 focus:ring-primary" />
+      </div>
+
+      <div>
+        <label htmlFor="organization" className="block text-sm font-medium text-enterprise-700 mb-1">Organization</label>
+        <input id="organization" type="text" required value={form.organization}
+          onChange={(e) => setForm({ ...form, organization: e.target.value })}
+          className="w-full px-3 py-2 border border-enterprise-300 rounded-lg focus:ring-2 focus:ring-primary" />
+      </div>
+
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-enterprise-700 mb-1">Email</label>
+        <input id="email" type="email" required value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          className="w-full px-3 py-2 border border-enterprise-300 rounded-lg focus:ring-2 focus:ring-primary" />
+      </div>
+
+      <div>
+        <label htmlFor="industry" className="block text-sm font-medium text-enterprise-700 mb-1">Industry</label>
+        <select id="industry" required value={form.industry}
+          onChange={(e) => setForm({ ...form, industry: e.target.value })}
+          className="w-full px-3 py-2 border border-enterprise-300 rounded-lg focus:ring-2 focus:ring-primary">
+          <option value="">Select your industry</option>
+          {INDUSTRIES.map((ind) => (
+            <option key={ind} value={ind}>{ind}</option>
+          ))}
+        </select>
+      </div>
+
+      <button type="submit" disabled={isSubmitting}
+        className="w-full py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark disabled:opacity-50">
+        {isSubmitting ? "Setting up..." : "Get Started"}
+      </button>
+    </form>
+  );
+}
+```
+
+- [x] **Step 3: Create onboarding page**
+
+```tsx
+// src/app/onboarding/page.tsx
+import { GccOnboardingForm } from "@/components/onboarding/GccOnboardingForm";
+
+export default function OnboardingPage() {
+  return (
+    <div className="min-h-screen bg-enterprise-50 flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-card p-8 w-full max-w-lg">
+        <GccOnboardingForm />
+      </div>
+    </div>
+  );
+}
+```
+
+- [x] **Step 4: Run test**
+
+```bash
+npm test -- tests/components/onboarding/GccOnboardingForm.test.tsx
+```
+
+- [x] **Step 5: Commit**
+
+```bash
+git add src/app/onboarding/ src/components/onboarding/ tests/components/onboarding/
+git commit -m "feat: add GCC onboarding with 4-field form"
+```
+
+---
+
+### Phase 5: Directory & Agent Detail Pages
+
+---
+
+### Task 5.1: Directory Page
+
+**Files:**
+- Create: `src/app/directory/page.tsx`
+- Create: `src/components/directory/AgentGrid.tsx`
+- Create: `src/components/directory/AgentCard.tsx`
+- Create: `src/components/directory/SearchBar.tsx`
+- Create: `src/components/directory/FilterSidebar.tsx`
+- Create: `src/lib/categories.ts`
+
+- [x] **Step 1: Write category taxonomy**
+
+```typescript
+// src/lib/categories.ts
+export const FUNCTIONAL_CATEGORIES = [
+  "Customer Experience", "Sales & Marketing", "Finance & Accounting",
+  "HR & Workforce", "Engineering & DevOps", "IT Operations",
+  "Data & Analytics", "Legal & Compliance", "Operations & Supply Chain",
+] as const;
+
+export const INDUSTRY_CATEGORIES = [
+  "Healthcare & Life Sciences", "Financial Services (BFSI)", "Manufacturing",
+  "Automotive & Mobility", "Retail & E-commerce", "Telecom & Media",
+  "Energy & Utilities", "Real Estate & Construction", "Logistics & Transportation",
+  "Government & Public Sector", "Education", "Agriculture & AgriTech",
+  "Aerospace & Defense",
+] as const;
+
+export const INFRASTRUCTURE_CATEGORIES = [
+  "Agent Platforms & Builders", "AI Infrastructure & Models", "Agent Tooling & Monitoring",
+] as const;
+
+export const ALL_CATEGORIES = [
+  ...FUNCTIONAL_CATEGORIES, ...INDUSTRY_CATEGORIES, ...INFRASTRUCTURE_CATEGORIES,
+] as const;
+
+export function slugifyCategory(category: string): string {
+  return category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+export function categoryFromSlug(slug: string): string | undefined {
+  return ALL_CATEGORIES.find((c) => slugifyCategory(c) === slug);
+}
+```
+
+- [x] **Step 2: Write AgentCard test**
+
+```typescript
+// tests/components/directory/AgentCard.test.tsx
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { AgentCard } from "@/components/directory/AgentCard";
+
+const mockAgent = {
+  _id: "123" as any,
+  slug: "test-agent",
+  agent_name: "TestAgent",
+  tagline: "AI for testing",
+  category: "Testing",
+  functional_categories: ["Engineering & DevOps"],
+};
+
+describe("AgentCard", () => {
+  it("renders agent name", () => {
+    render(<AgentCard agent={mockAgent} />);
+    expect(screen.getByText("TestAgent")).toBeInTheDocument();
+  });
+
+  it("links to agent detail page", () => {
+    render(<AgentCard agent={mockAgent} />);
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", "/agents/test-agent");
+  });
+});
+```
+
+- [x] **Step 3: Write AgentCard, SearchBar, FilterSidebar, AgentGrid, and directory page**
+
+Create all directory components. The directory page is a client component that:
+- Reads `?search=` from URL params
+- Uses `useQuery(api.agents.list, { search, functional_category, ... })`
+- Renders SearchBar + FilterSidebar + AgentGrid
+
+- [x] **Step 4: Run tests**
+
+```bash
+npm test -- tests/components/directory/
+```
+
+- [x] **Step 5: Commit**
+
+```bash
+git add src/app/directory/ src/components/directory/ src/lib/categories.ts tests/components/directory/
+git commit -m "feat: add directory page with search, filters, and agent grid"
+```
+
+---
+
+### Task 5.2: Agent Detail Page with Content Gating
+
+**Files:**
+- Create: `src/app/agents/[slug]/page.tsx`
+- Create: `src/components/agent-detail/GatedSection.tsx`
+- Create: `src/components/agent-detail/AgentHero.tsx`
+- Create: `tests/components/agent-detail/GatedSection.test.tsx`
+
+- [x] **Step 1: Write GatedSection test**
+
+```typescript
+// tests/components/agent-detail/GatedSection.test.tsx
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+
+vi.mock("@clerk/nextjs", () => ({
+  useAuth: () => ({ isSignedIn: false }),
+}));
+
+describe("GatedSection (anonymous)", () => {
+  it("shows sign-up prompt when not signed in", async () => {
+    const { GatedSection } = await import("@/components/agent-detail/GatedSection");
+    render(
+      <GatedSection title="Use Cases" count={4}>
+        <p>Hidden content</p>
+      </GatedSection>
+    );
+    expect(screen.getByText(/free account/i)).toBeInTheDocument();
+  });
+});
+```
+
+- [x] **Step 2: Write GatedSection**
+
+```tsx
+// src/components/agent-detail/GatedSection.tsx
+"use client";
+
+import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
+
+interface Props {
+  title: string;
+  count: number;
+  children: React.ReactNode;
+}
+
+export function GatedSection({ title, count, children }: Props) {
+  const { isSignedIn } = useAuth();
+
+  if (isSignedIn) {
+    return (
+      <section className="mb-8">
+        <h2 className="text-xl font-semibold text-enterprise-900 mb-4">{title}</h2>
+        {children}
+      </section>
+    );
+  }
+
+  return (
+    <section className="relative mb-8">
+      <h2 className="text-xl font-semibold text-enterprise-900 mb-4">
+        {title} <span className="text-enterprise-400">({count})</span>
+      </h2>
+      <div className="relative overflow-hidden max-h-40">
+        <div className="blur-sm pointer-events-none select-none" aria-hidden>
+          {children}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white flex items-end justify-center pb-8">
+          <Link href="/sign-up" className="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark">
+            Create a free account to see full details
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+- [x] **Step 3: Write agent detail page (server component with ISR)**
+
+```tsx
+// src/app/agents/[slug]/page.tsx
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
+import type { Metadata } from "next";
+import { Navbar } from "@/components/shared/Navbar";
+import { AgentHero } from "@/components/agent-detail/AgentHero";
+import { GatedSection } from "@/components/agent-detail/GatedSection";
+
+interface Props { params: Promise<{ slug: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const agent = await fetchQuery(api.agents.getBySlug, { slug });
+  if (!agent) return { title: "Agent Not Found" };
+  return {
+    title: `${agent.agent_name} — AI Agent | Orbys360`,
+    description: agent.tagline || agent.description.slice(0, 160),
+  };
+}
+
+export default async function AgentDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const agent = await fetchQuery(api.agents.getBySlug, { slug });
+  if (!agent) return <div>Agent not found</div>;
+
+  const company = agent.company_id
+    ? await fetchQuery(api.companies.getById, { id: agent.company_id })
+    : null;
+
+  return (
+    <>
+      <Navbar />
+      <main className="max-w-5xl mx-auto px-4 py-8 pt-24">
+        <AgentHero agent={agent} company={company} />
+
+        <GatedSection title="Use Cases" count={agent.use_cases?.length ?? 0}>
+          <ul className="space-y-2">
+            {agent.use_cases?.map((uc: any, i: number) => (
+              <li key={i} className="p-3 bg-enterprise-50 rounded-lg">
+                <strong>{uc.title}</strong>: {uc.description}
+              </li>
+            ))}
+          </ul>
+        </GatedSection>
+
+        <GatedSection title="Integrations" count={agent.integrations?.length ?? 0}>
+          <div className="flex flex-wrap gap-2">
+            {agent.integrations?.map((int: string) => (
+              <span key={int} className="px-3 py-1 bg-enterprise-100 rounded-full text-sm">{int}</span>
+            ))}
+          </div>
+        </GatedSection>
+
+        <GatedSection title="Expected Outcomes" count={agent.expected_outcomes?.length ?? 0}>
+          <ul className="list-disc pl-5 space-y-1">
+            {agent.expected_outcomes?.map((o: string, i: number) => (
+              <li key={i}>{o}</li>
+            ))}
+          </ul>
+        </GatedSection>
+      </main>
+    </>
+  );
+}
+
+export const revalidate = 3600;
+```
+
+- [x] **Step 4: Run tests**
+
+```bash
+npm test -- tests/components/agent-detail/
+```
+
+- [x] **Step 5: Commit**
+
+```bash
+git add src/app/agents/ src/components/agent-detail/ tests/components/agent-detail/
+git commit -m "feat: add agent detail page with SSR/ISR and content gating"
+```
+
+---
+
+### Task 5.3: Company Profile Page
+
+**Files:**
+- Create: `src/app/companies/[slug]/page.tsx`
+- Create: `src/components/company/CompanyHeader.tsx`
+- Create: `src/components/company/ClaimProfileButton.tsx`
+
+Create server-rendered company page showing company info + agents list + "Claim This Profile" button if unclaimed. Similar pattern to agent detail page with `fetchQuery`, `generateMetadata`, and `revalidate = 3600`.
+
+- [x] **Step 1: Write company page, header, and claim button**
+- [x] **Step 2: Verify visually**
+- [x] **Step 3: Commit**
+
+```bash
+git add src/app/companies/ src/components/company/
+git commit -m "feat: add company profile page with claim button"
+```
+
+---
+
+### Task 5.4: Claim Form Page
+
+**Files:**
+- Create: `src/app/claim/[slug]/page.tsx`
+- Create: `src/components/claim/ClaimForm.tsx`
+
+Create claim form page at `/claim/[company-slug]` with fields: Full Name, Company Email (validates against free providers), LinkedIn URL. On submit calls `api.claims.submitClaim`.
+
+- [x] **Step 1: Write ClaimForm test (validates email rejection)**
+- [x] **Step 2: Write ClaimForm component**
+- [x] **Step 3: Create claim page**
+- [x] **Step 4: Commit**
+
+```bash
+git add src/app/claim/ src/components/claim/
+git commit -m "feat: add claim profile form with email validation"
+```
+
+---
+
+### Task 5.5: Category Pages & SEO
+
+**Files:**
+- Create: `src/app/categories/[slug]/page.tsx`
+- Create: `src/app/sitemap.ts`
+- Create: `src/app/robots.ts`
+
+- [x] **Step 1: Create category page with `generateStaticParams`**
+- [x] **Step 2: Create dynamic sitemap**
+- [x] **Step 3: Create robots.txt**
+- [x] **Step 4: Commit**
+
+```bash
+git add src/app/categories/ src/app/sitemap.ts src/app/robots.ts
+git commit -m "feat: add category pages, sitemap, and robots.txt"
+```
+
+---
+
+## Chunk 5: Dashboards & Content Migration
+
+### Phase 6: GCC Dashboard
+
+---
+
+### Task 6.1: GCC Dashboard
+
+**Files:**
+- Create: `src/app/gcc-dashboard/page.tsx`
+- Migrate: `src/components/gcc/ShortlistedAgentsTab.tsx`
+- Migrate: `src/components/gcc/CurrentRequestsTab.tsx`
+- Migrate: `src/components/gcc/ProblemHubTab.tsx`
+- Migrate: `src/components/gcc/ProblemSubmitModal.tsx`
+
+- [x] **Step 1: Update GCC component imports**
+
+For each component in `src/components/gcc/`:
+- Replace `import { Link } from 'react-router-dom'` → `import Link from 'next/link'`
+- Replace `to=` → `href=`
+- Add `"use client"`
+- Replace Supabase hooks with Convex hooks:
+  - `useShortlist(orgId)` → `useQuery(api.shortlists.getMine)`
+  - `useAddToShortlist()` → `useMutation(api.shortlists.add)`
+  - `useMyProblems(orgId)` → `useQuery(api.gcc.getMyProblems)`
+  - `useSubmitProblem()` → `useMutation(api.gcc.submitProblem)`
+  - `useMyContactRequests(userId)` → `useQuery(api.gcc.getMyContactRequests)`
+
+- [x] **Step 2: Create GCC dashboard page**
+
+```tsx
+// src/app/gcc-dashboard/page.tsx
+"use client";
+
+import { useState } from "react";
+import { Navbar } from "@/components/shared/Navbar";
+import { ShortlistedAgentsTab } from "@/components/gcc/ShortlistedAgentsTab";
+import { CurrentRequestsTab } from "@/components/gcc/CurrentRequestsTab";
+import { ProblemHubTab } from "@/components/gcc/ProblemHubTab";
+
+const TABS = ["Shortlisted Agents", "Current Requests", "Problem Hub"] as const;
+
+export default function GCCDashboardPage() {
+  const [activeTab, setActiveTab] = useState<typeof TABS[number]>("Shortlisted Agents");
+
+  return (
+    <>
+      <Navbar />
+      <main className="max-w-7xl mx-auto px-4 py-8 pt-24">
+        <h1 className="text-2xl font-bold text-enterprise-900 mb-6">GCC Dashboard</h1>
+        <div className="flex gap-4 border-b border-enterprise-200 mb-6">
+          {TABS.map((tab) => (
+            <button key={tab} onClick={() => setActiveTab(tab)}
+              className={`pb-2 px-1 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === tab ? "border-primary text-primary" : "border-transparent text-enterprise-500 hover:text-enterprise-700"
+              }`}>
+              {tab}
+            </button>
+          ))}
+        </div>
+        {activeTab === "Shortlisted Agents" && <ShortlistedAgentsTab />}
+        {activeTab === "Current Requests" && <CurrentRequestsTab />}
+        {activeTab === "Problem Hub" && <ProblemHubTab />}
+      </main>
+    </>
+  );
+}
+```
+
+- [x] **Step 3: Verify dashboard works**
+- [x] **Step 4: Commit**
+
+```bash
+git add src/app/gcc-dashboard/ src/components/gcc/
+git commit -m "feat: migrate GCC dashboard to Next.js with Convex hooks"
+```
+
+---
+
+### Phase 7: Provider Dashboard
+
+---
+
+### Task 7.1: Provider Dashboard
+
+**Files:**
+- Create: `src/app/dashboard/page.tsx`
+- Create: `src/components/dashboard/ProfileTab.tsx`
+- Create: `src/components/dashboard/AgentsTab.tsx`
+- Create: `src/components/dashboard/TeamTab.tsx`
+
+Provider dashboard with 3 tabs: Profile (view/edit company info), Agents (view/edit agents, submit new), Team (invite/remove members). All edits create pending requests — not direct updates.
+
+Uses:
+- `useQuery(api.companyMembers.getMyCompany)` to get company
+- `useQuery(api.agents.getByCompany, { company_id })` for agents list
+- `useMutation(api.companyEdits.create)` for profile edits
+- `useMutation(api.agents.createEdit)` for agent edits
+- `useMutation(api.agents.submit)` for new agent submissions
+- `useMutation(api.companyMembers.inviteMember)` for team invites
+
+- [x] **Step 1: Write ProfileTab, AgentsTab, TeamTab components**
+- [x] **Step 2: Write dashboard page**
+- [x] **Step 3: Verify dashboard works**
+- [x] **Step 4: Commit**
+
+```bash
+git add src/app/dashboard/ src/components/dashboard/
+git commit -m "feat: add provider dashboard with profile, agents, and team tabs"
+```
+
+---
+
+### Phase 8: Admin Dashboard
+
+---
+
+### Task 8.1: Migrate Admin Dashboard
+
+**Files:**
+- Create: `src/app/admin/page.tsx`
+- Migrate: `src/components/admin/AgentsTab.tsx`
+- Migrate: `src/components/admin/ProblemsTab.tsx`
+- Create: `src/components/admin/ClaimsTab.tsx`
+- Create: `src/components/admin/CompanyEditsTab.tsx`
+- Create: `src/components/admin/DirectoryOverviewTab.tsx`
+
+- [x] **Step 1: Migrate existing admin tabs to Convex hooks**
+
+Replace Supabase admin API calls with Convex:
+- `usePendingAgentSubmissions(token)` → `useQuery(api.admin.getPendingAgents, { token })`
+- `useAdminApproveAgent()` → `useMutation(api.admin.approveAgent)`
+- etc.
+
+- [x] **Step 2: Create new ClaimsTab**
+
+Shows pending claim requests with claimant info + company name. Approve/Reject buttons.
+
+- [x] **Step 3: Create CompanyEditsTab**
+
+Shows pending company edits with diff view (old vs new). Approve/Reject.
+
+- [x] **Step 4: Create DirectoryOverviewTab**
+
+Dashboard cards: Total Agents, Total Companies, Claimed %, Pending Claims, Total GCCs.
+
+- [x] **Step 5: Wire up admin page**
+
+6 tabs: Claims, Company Edits, Agents, Problems, Contact Requests, Directory Overview.
+
+- [x] **Step 6: Commit**
+
+```bash
+git add src/app/admin/ src/components/admin/
+git commit -m "feat: migrate admin dashboard with claims, edits, and overview tabs"
+```
+
+---
+
+### Phase 9: Compare Tool & Shortlist
+
+---
+
+### Task 9.1: Compare Tool
+
+**Files:**
+- Create: `src/hooks/useCompare.ts`
+- Create: `src/components/compare/CompareTray.tsx`
+- Create: `src/components/compare/AddToCompareButton.tsx`
+- Create: `src/app/compare/page.tsx`
+- Create: `tests/hooks/useCompare.test.ts`
+
+- [x] **Step 1: Write useCompare test**
+
+```typescript
+// tests/hooks/useCompare.test.ts
+import { describe, it, expect, beforeEach } from "vitest";
+
+// Test the pure logic (localStorage mocked)
+describe("compare logic", () => {
+  const MAX_COMPARE = 4;
+
+  it("limits to 4 agents", () => {
+    const slugs = ["a", "b", "c", "d"];
+    const next = [...slugs, "e"];
+    expect(next.length > MAX_COMPARE).toBe(true);
+  });
+
+  it("prevents duplicate slugs", () => {
+    const slugs = ["a", "b"];
+    const slug = "a";
+    expect(slugs.includes(slug)).toBe(true);
+  });
+});
+```
+
+- [x] **Step 2: Write useCompare hook, CompareTray, compare page**
+- [x] **Step 3: Add CompareTray to layout**
+- [x] **Step 4: Commit**
+
+```bash
+git add src/hooks/useCompare.ts src/components/compare/ src/app/compare/ tests/hooks/
+git commit -m "feat: add compare tool with tray and side-by-side page"
+```
+
+---
+
+### Task 9.2: Shortlist Page
+
+**Files:**
+- Create: `src/app/shortlist/page.tsx`
+
+- [x] **Step 1: Create shortlist page**
+
+Grid of shortlisted agents using `useQuery(api.shortlists.getMine)`. Each card has a remove button.
+
+- [x] **Step 2: Commit**
+
+```bash
+git add src/app/shortlist/
+git commit -m "feat: add shortlist page with agent grid"
+```
+
+---
+
+### Phase 10: Content Pages Migration
+
+---
+
+### Task 10.1: Migrate Content Pages
+
+**Files:**
+- Create: `src/app/ai-pulse/page.tsx`
+- Create: `src/app/ai-pulse/[slug]/page.tsx`
+- Create: `src/app/orbyt/page.tsx`
+- Create: `src/app/thought-leadership/page.tsx`
+- Create: `src/app/thought-leadership/[slug]/page.tsx`
+- Create: `src/app/tools/page.tsx`
+- Create: `src/app/benchmarks/page.tsx`
+- Create: `src/app/problems/page.tsx`
+
+For each content page:
+1. Create the Next.js page component
+2. Import existing components (they're already migrated in Task 3.2)
+3. Add `"use client"` where needed
+4. Replace react-router `useParams` with `params` prop
+5. Add SEO metadata via `generateMetadata`
+
+- [x] **Step 1: Migrate AI Pulse pages**
+- [x] **Step 2: Migrate Orbyt landing page**
+- [x] **Step 3: Migrate Thought Leadership**
+- [x] **Step 4: Migrate Tools, Benchmarks, Problems**
+- [x] **Step 5: Commit**
+
+```bash
+git add src/app/ai-pulse/ src/app/orbyt/ src/app/thought-leadership/ src/app/tools/ src/app/benchmarks/ src/app/problems/
+git commit -m "feat: migrate all content pages to Next.js"
+```
+
+---
+
+## Chunk 6: Cleanup & Verification
+
+### Phase 11: Cleanup & Final Verification
+
+---
+
+### Task 11.1: Remove Old Code
+
+**Files to delete:**
+- `vite.config.ts`
+- `index.html`
+- `src/main.tsx`
+- `src/App.tsx`
+- `src/auth/` (all files — replaced by Clerk middleware)
+- `src/layouts/` (all files — replaced by Next.js layouts)
+- `src/lib/api/` (all files — replaced by Convex)
+- `src/lib/supabase.ts`
+- `src/lib/supabase-auth.ts`
+- `src/hooks/use-assessment.ts`
+- `src/components/provider/wizard/` (all 10 wizard pages)
+- `src/components/provider/OnboardingBanner.tsx`
+- `src/pages/` (all files — replaced by `src/app/`)
+- `src/pages/gcc/SelfAssessment.tsx`
+- `src/pages/gcc/SelfAssessmentResult.tsx`
+- `src/pages/provider/onboarding/` (all files)
+- `src/data/thoughtLeadershipContent.ts` (if migrated to new location)
+- `src/vite-env.d.ts`
+- `vercel.json` (Next.js handles routing natively)
+
+- [ ] **Step 1: Delete old files**
+- [ ] **Step 2: Remove unused npm dependencies**
+
+```bash
+npm uninstall @clerk/clerk-react react-router-dom @supabase/supabase-js vite @vitejs/plugin-react
+```
+
+Note: Keep `@vitejs/plugin-react` if Vitest needs it.
+
+- [ ] **Step 3: Run build**
+
+```bash
+npm run build
+```
+
+Fix any TypeScript or build errors.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add -A
+git commit -m "chore: remove Vite, Supabase, and deprecated code after Next.js migration"
+```
+
+---
+
+### Task 11.2: Update Configuration Files
+
+**Files:**
+- Modify: `CLAUDE.md`
+- Modify: `.env.example`
+
+- [ ] **Step 1: Update CLAUDE.md**
+
+Update to reflect:
+- Stack: Next.js 15, TypeScript, Convex, Clerk (`@clerk/nextjs`), Tailwind CSS
+- Build: `npm run build` (runs `next build`)
+- Dev: `npm run dev` + `npx convex dev` in separate terminal
+- New project structure with `src/app/` directory
+- Convex environment variables
+- Updated hooks pattern (Convex `useQuery`/`useMutation`)
+
+- [ ] **Step 2: Update .env.example**
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add CLAUDE.md .env.example
+git commit -m "docs: update CLAUDE.md for Next.js + Convex architecture"
+```
+
+---
+
+### Task 11.3: End-to-End Verification
+
+- [ ] **Step 1: Verify all public pages**
+
+```
+/ — Landing page with Hero + "Search for Your Agent" + all sections
+/directory — Agent directory with search and filters
+/agents/[slug] — Agent detail with gated content
+/companies/[slug] — Company page with claim button
+/categories/[slug] — Category listing
+/ai-pulse — AI Pulse listing
+/orbyt — Orbyt landing page
+/problems — Problems listing
+/sitemap.xml — Dynamic sitemap
+```
+
+- [ ] **Step 2: Verify auth flows**
+
+```
+/sign-up → Clerk sign-up → /onboarding (4 fields) → redirect to /
+/sign-in → Clerk sign-in → redirect to /
+```
+
+- [ ] **Step 3: Verify GCC dashboard**
+
+```
+/gcc-dashboard — 3 tabs: Shortlisted Agents, Current Requests, Problem Hub
+```
+
+- [ ] **Step 4: Verify claim flow**
+
+```
+/claim/[slug] — Claim form with email validation → admin approval
+```
+
+- [ ] **Step 5: Verify provider dashboard**
+
+```
+/dashboard — 3 tabs: Profile, Agents, Team (only accessible after claim approval)
+```
+
+- [ ] **Step 6: Verify admin dashboard**
+
+```
+/admin — 6 tabs: Claims, Company Edits, Agents, Problems, Contact Requests, Overview
+```
+
+- [ ] **Step 7: Verify compare tool**
+
+```
+/compare?agents=slug1,slug2 — Side-by-side comparison
+```
+
+- [ ] **Step 8: Run full test suite**
+
+```bash
+npm test
+npm run build
+```
+
+- [ ] **Step 9: Final commit**
+
+```bash
+git add -A
+git commit -m "chore: complete end-to-end verification of Next.js migration"
+```
+
+---
+
+## Dependency Graph
+
+```
+Phase 1 (Next.js Setup) ─────────────────────┐
+                                               ↓
+Phase 2 (Convex Backend) ────────────────────→ All frontend phases
+                                               ↓
+Phase 3 (Landing Page + Agent Search) ────────┐
+                                               ↓
+Phase 4 (Auth + GCC Onboarding) ──────────────┤
+                                               ↓
+Phase 5 (Directory + Agent Detail) ───────────┤
+         (Company Pages + Claim Flow)          ↓
+                                              Phase 6 (GCC Dashboard)
+                                              Phase 7 (Provider Dashboard)
+                                              Phase 8 (Admin Dashboard)
+                                              Phase 9 (Compare + Shortlist)
+                                               ↓
+Phase 10 (Content Pages) ←── can run in parallel with Phases 6-9
+                                               ↓
+Phase 11 (Cleanup) ←── requires all phases complete
+```
+
+## How to Verify Each Task
+
+After each task commit, verify as follows:
+
+| Task | How to verify |
+|------|--------------|
+| 1.1-1.6 | `npm run dev` loads Next.js at localhost:3000 |
+| 2.1-2.10 | `npx convex dev --once` deploys without errors |
+| 3.1-3.3 | Landing page renders identically to current site |
+| 3.4 | "Search for Your Agent" section visible after Hero |
+| 4.1 | `/sign-in` and `/sign-up` show Clerk forms |
+| 4.2 | `/onboarding` shows 4-field form |
+| 5.1 | `/directory` shows agent grid with search/filter |
+| 5.2 | `/agents/[slug]` shows agent detail, blurred sections for anonymous |
+| 5.3 | `/companies/[slug]` shows company with agent list |
+| 5.4 | `/claim/[slug]` validates email and submits claim |
+| 6.1 | `/gcc-dashboard` shows 3 tabs with data |
+| 7.1 | `/dashboard` shows 3 tabs (post-claim only) |
+| 8.1 | `/admin` shows 6 tabs with pending items |
+| 9.1 | Compare tray appears, `/compare` shows table |
+| 10.1 | All content pages render at their routes |
+| 11.1-11.3 | `npm run build` succeeds, all routes work |
