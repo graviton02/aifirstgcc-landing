@@ -47,6 +47,16 @@ function applyFilters(agents: any[], args: any) {
   });
 }
 
+export const listAll = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("agents")
+      .withIndex("by_status", (q) => q.eq("status", "active"))
+      .collect();
+  },
+});
+
 export const getById = query({
   args: { id: v.id("agents") },
   handler: async (ctx, { id }) => {
@@ -125,9 +135,7 @@ export const submit = mutation({
     description: v.string(),
     category: v.string(),
     logo_url: v.optional(v.string()),
-    tags: v.array(v.string()),
     use_cases: v.array(v.any()),
-    industries: v.array(v.string()),
     functional_categories: v.optional(v.array(v.string())),
     industry_categories: v.optional(v.array(v.string())),
     infrastructure_categories: v.optional(v.array(v.string())),
@@ -135,8 +143,7 @@ export const submit = mutation({
     expected_outcomes: v.optional(v.array(v.string())),
     integrations: v.optional(v.array(v.string())),
     demo_url: v.optional(v.string()),
-    compliance_certifications: v.array(v.string()),
-    security_features: v.array(v.string()),
+    source_url: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const userId = await requireAuth(ctx);
@@ -144,8 +151,6 @@ export const submit = mutation({
     return await ctx.db.insert("agentSubmissions", {
       ...args,
       user_id: userId,
-      supported_platforms: [],
-      impact_metrics: [],
       submission_status: "pending",
       created_at: now,
       updated_at: now,
@@ -207,9 +212,12 @@ export const seed = mutation({
       args.agent_name,
       args.description,
       args.tagline ?? "",
+      args.category ?? "",
       ...(args.functional_categories ?? []),
       ...(args.industry_categories ?? []),
+      ...(args.business_functions ?? []),
       ...(args.integrations ?? []),
+      ...(args.expected_outcomes ?? []),
     ].join(" ");
 
     return await ctx.db.insert("agents", {
@@ -227,14 +235,6 @@ export const seed = mutation({
       expected_outcomes: args.expected_outcomes,
       integrations: args.integrations,
       source_url: args.source_url,
-      industries: args.industry_categories ?? [],
-      tags: [],
-      supported_platforms: [],
-      impact_metrics: [],
-      compliance_certifications: [],
-      security_features: [],
-      rating: 0,
-      review_count: 0,
       status: "active",
       search_text: searchText,
       created_at: now,
