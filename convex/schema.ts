@@ -21,7 +21,7 @@ export default defineSchema({
     primary_verticals: v.array(v.string()),
     contact_email: v.optional(v.string()),
     verification_status: v.union(v.literal("unverified"), v.literal("verified"), v.literal("flagged")),
-    claim_status: v.union(v.literal("unclaimed"), v.literal("pending"), v.literal("claimed")),
+    claim_status: v.union(v.literal("unclaimed"), v.literal("pending"), v.literal("approved"), v.literal("claimed")),
     claimed_by_user_id: v.optional(v.string()),
     claimed_at: v.optional(v.number()),
     created_at: v.number(),
@@ -40,14 +40,63 @@ export default defineSchema({
     company_id: v.id("companies"),
     claimant_name: v.string(),
     claimant_email: v.string(),
-    claimant_linkedin: v.string(),
+    claimant_linkedin: v.optional(v.string()),
     claimant_user_id: v.optional(v.string()),
-    status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected"),
+      v.literal("activated")
+    ),
     admin_notes: v.optional(v.string()),
     reviewed_at: v.optional(v.number()),
+    magic_link_token: v.optional(v.string()),
+    magic_link_sent_at: v.optional(v.number()),
+    magic_link_expires_at: v.optional(v.number()),
+    activated_at: v.optional(v.number()),
     created_at: v.number(),
   })
     .index("by_companyId", ["company_id"])
+    .index("by_claimantUserId", ["claimant_user_id"])
+    .index("by_status", ["status"])
+    .index("by_magicLinkToken", ["magic_link_token"]),
+
+  // --- Provider Profiles ---
+  providerProfiles: defineTable({
+    user_id: v.string(),
+    onboarding_path: v.optional(v.union(v.literal("claim_existing"), v.literal("create_new"))),
+    // Legacy provider-profile fields preserved for backward compatibility
+    // with older deployments that stored provider wizard data here.
+    organization_id: v.optional(v.string()),
+    company_name: v.optional(v.string()),
+    location: v.optional(v.string()),
+    company_size: v.optional(v.string()),
+    logo_url: v.optional(v.string()),
+    website: v.optional(v.string()),
+    category: v.optional(v.string()),
+    status: v.optional(v.string()),
+    created_at: v.number(),
+    updated_at: v.number(),
+  }).index("by_userId", ["user_id"]),
+
+  // --- New Company Submissions ---
+  companySubmissions: defineTable({
+    user_id: v.string(),
+    contact_email: v.string(),
+    company_name: v.string(),
+    website: v.string(),
+    description: v.string(),
+    headquarters: v.string(),
+    company_size: v.string(),
+    primary_verticals: v.array(v.string()),
+    status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
+    admin_notes: v.optional(v.string()),
+    reviewed_at: v.optional(v.number()),
+    created_company_id: v.optional(v.id("companies")),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_userId", ["user_id"])
     .index("by_status", ["status"]),
 
   // --- Company Members ---
@@ -99,9 +148,9 @@ export default defineSchema({
     category: v.string(),
     company_id: v.optional(v.id("companies")),
     logo_url: v.optional(v.string()),
-    tags: v.array(v.string()),
+    tags: v.optional(v.array(v.string())),
     use_cases: v.array(v.any()),
-    industries: v.array(v.string()),
+    industries: v.optional(v.array(v.string())),
     functional_categories: v.optional(v.array(v.string())),
     industry_categories: v.optional(v.array(v.string())),
     infrastructure_categories: v.optional(v.array(v.string())),
@@ -110,14 +159,14 @@ export default defineSchema({
     integrations: v.optional(v.array(v.string())),
     source_url: v.optional(v.string()),
     integration_type: v.optional(v.string()),
-    supported_platforms: v.array(v.string()),
+    supported_platforms: v.optional(v.array(v.string())),
     data_requirements: v.optional(v.string()),
-    impact_metrics: v.array(v.any()),
+    impact_metrics: v.optional(v.array(v.any())),
     demo_url: v.optional(v.string()),
-    compliance_certifications: v.array(v.string()),
-    security_features: v.array(v.string()),
-    rating: v.number(),
-    review_count: v.number(),
+    compliance_certifications: v.optional(v.array(v.string())),
+    security_features: v.optional(v.array(v.string())),
+    rating: v.optional(v.number()),
+    review_count: v.optional(v.number()),
     status: v.union(v.literal("active"), v.literal("inactive")),
     search_text: v.optional(v.string()),
     created_at: v.number(),
@@ -144,9 +193,9 @@ export default defineSchema({
     description: v.string(),
     category: v.string(),
     logo_url: v.optional(v.string()),
-    tags: v.array(v.string()),
+    tags: v.optional(v.array(v.string())),
     use_cases: v.array(v.any()),
-    industries: v.array(v.string()),
+    industries: v.optional(v.array(v.string())),
     functional_categories: v.optional(v.array(v.string())),
     industry_categories: v.optional(v.array(v.string())),
     infrastructure_categories: v.optional(v.array(v.string())),
@@ -155,12 +204,12 @@ export default defineSchema({
     integrations: v.optional(v.array(v.string())),
     source_url: v.optional(v.string()),
     integration_type: v.optional(v.string()),
-    supported_platforms: v.array(v.string()),
+    supported_platforms: v.optional(v.array(v.string())),
     data_requirements: v.optional(v.string()),
-    impact_metrics: v.array(v.any()),
+    impact_metrics: v.optional(v.array(v.any())),
     demo_url: v.optional(v.string()),
-    compliance_certifications: v.array(v.string()),
-    security_features: v.array(v.string()),
+    compliance_certifications: v.optional(v.array(v.string())),
+    security_features: v.optional(v.array(v.string())),
     submission_status: v.union(
       v.literal("pending"),
       v.literal("approved"),
@@ -168,6 +217,7 @@ export default defineSchema({
       v.literal("changes_requested")
     ),
     admin_notes: v.optional(v.string()),
+    reviewed_at: v.optional(v.number()),
     created_at: v.number(),
     updated_at: v.number(),
     // Legacy field from old schema
@@ -183,6 +233,7 @@ export default defineSchema({
     payload: v.any(),
     status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
     admin_notes: v.optional(v.string()),
+    reviewed_at: v.optional(v.number()),
     created_at: v.number(),
   })
     .index("by_userId", ["user_id"])
@@ -235,34 +286,6 @@ export default defineSchema({
     .index("by_gccUserId", ["gcc_user_id"])
     .index("by_status", ["status"])
     .index("by_companyId", ["company_id"]),
-
-  // --- Problem Statements ---
-  problemStatements: defineTable({
-    gcc_user_id: v.string(),
-    title: v.string(),
-    description: v.string(),
-    category: v.string(),
-    industry: v.string(),
-    desired_outcome: v.string(),
-    timeline: v.union(v.literal("immediate"), v.literal("short"), v.literal("medium"), v.literal("long")),
-    budget_range: v.string(),
-    status: v.union(v.literal("pending_review"), v.literal("approved"), v.literal("rejected")),
-    interest_count: v.number(),
-    rejection_reason: v.optional(v.string()),
-    created_at: v.number(),
-    // Legacy fields from old schema
-    gcc_org_id: v.optional(v.string()),
-  })
-    .index("by_gccUserId", ["gcc_user_id"])
-    .index("by_status", ["status"]),
-
-  // --- Problem Statement Interests ---
-  problemStatementInterests: defineTable({
-    problem_statement_id: v.id("problemStatements"),
-    provider_user_id: v.string(),
-    provider_user_email: v.string(),
-    created_at: v.number(),
-  }).index("by_problemId", ["problem_statement_id"]),
 
   // --- Admin Sessions ---
   adminSessions: defineTable({
