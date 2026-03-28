@@ -1,0 +1,324 @@
+{
+  "companies": [
+    {
+      "name": "Rocketlane",
+      "slug": "rocketlane",
+      "website": "https://www.rocketlane.com",
+      "headquarters": "San Francisco, USA",
+      "founded": 2020,
+      "company_size": "scaleup",
+      "description": "Rocketlane is an agentic Professional Services Automation (PSA) platform that helps services teams automate delivery workflows, customer onboarding, and project execution. The platform embeds AI agents directly into project workflows rather than layering AI on top of traditional tracking tools, serving SaaS, fintech, marketing, and IT services companies.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "contact_email": "care@rocketlane.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "DevRev",
+      "slug": "devrev",
+      "website": "https://devrev.ai",
+      "headquarters": "Palo Alto, California, USA",
+      "founded": 2020,
+      "company_size": "midmarket",
+      "description": "DevRev builds Computer, an AI-native platform that unifies enterprise data across support, product, and engineering workflows through a proprietary knowledge graph and real-time data sync engine. The platform powers autonomous AI agents for customer support, IT service desk, and product development, serving technology companies and SaaS businesses globally.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Spyne",
+      "slug": "spyne",
+      "website": "https://www.spyne.ai",
+      "headquarters": "Gurugram, India",
+      "founded": 2018,
+      "company_size": "scaleup",
+      "description": "Spyne builds an AI-powered automotive retail platform that combines generative AI visual merchandising with conversational AI agents to help car dealerships source, list, market, and sell vehicles. The platform serves over 3,200 dealerships across 40+ countries, processing more than 10 million vehicles through its integrated suite of tools spanning imagery, inventory, websites, CRM, and autonomous customer engagement.",
+      "primary_verticals": [
+        "Automotive"
+      ],
+      "contact_email": "sales@spyne.ai",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Nitro",
+      "slug": "nitro",
+      "company_slug": "rocketlane",
+      "tagline": "An agentic execution platform that deploys AI agents to execute, govern, and de-risk professional services delivery end-to-end.",
+      "description": "Nitro is Rocketlane's agentic execution platform that deploys a network of specialized AI agents directly within professional services project workflows. Rather than simply tracking tasks, Nitro's agents autonomously execute repeatable billable work including data migrations, system configurations, documentation generation, testing, and validation — with human oversight for judgment-critical decisions. The platform operates across three layers: Work Execution agents that handle frontline delivery tasks, Delivery Governance agents that generate project plans and continuously monitor delivery signals to surface risks weeks in advance, and Operations Automation agents that enforce resourcing rules, time policies, financial controls, and compliance. Specialized agent types include Migration Agents, Configuration Agents, Resourcing Agents, Financial Control Agents, Governance Agents, and Signals Agents that monitor customer conversations for churn risks and escalations.",
+      "use_cases": [
+        {
+          "title": "Automating customer onboarding and implementation workflows for SaaS companies",
+          "description": ""
+        },
+        {
+          "title": "resourcing and staffing optimization with AI-driven skill matching, reallocation recommendations, and backfill management",
+          "description": ""
+        },
+        {
+          "title": "proactive risk detection across customer accounts by mining calls, emails, and chats for escalation signals and scope creep",
+          "description": ""
+        },
+        {
+          "title": "automating post-meeting documentation, SOW creation, status reports, and client communications",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Operations & Supply Chain",
+        "Finance & Accounting"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduce delivery effort by up to 50% and surface project risks weeks earlier",
+        "scale service delivery revenue without proportional headcount increases",
+        "protect margins through automated financial controls and governance enforcement"
+      ],
+      "integrations": [
+        "Slack",
+        "Salesforce",
+        "HubSpot",
+        "Zapier",
+        "Jira",
+        "Workato",
+        "Zoom",
+        "Microsoft Teams",
+        "Google Meet",
+        "Gong"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/rocketlane-launches-nitro-the-industrys-first-agentic-execution-platform-for-professional-services-302702084.html"
+    },
+    {
+      "agent_name": "Computer",
+      "slug": "computer",
+      "company_slug": "devrev",
+      "tagline": "An AI teammate that unifies enterprise data into a knowledge graph and deploys autonomous agents that search, reason, and take action across support, product, and engineering workflows.",
+      "description": "Computer is DevRev's flagship conversational AI platform that functions as an intelligent enterprise teammate. It is powered by two patented technologies: Computer Memory, a permission-aware knowledge graph that maps complex relationships between teams, customers, and products across the organization, and Computer AirSync, a bidirectional real-time synchronization engine that connects 30+ enterprise data sources while preserving access permissions and compliance requirements. The platform delivers sub-200ms query response times at petabyte scale through multi-region architecture and distributed caching, with proprietary vectorization supporting semantic search across billions of records. Computer includes three purpose-built applications — Support App for automated ticket triage and resolution, Build App for AI-augmented product development and sprint management, and Observe App for session replay analytics and user behavior insights.",
+      "use_cases": [
+        {
+          "title": "Automated customer support with up to 85% ticket auto-resolution across email, chat, and messaging channels",
+          "description": ""
+        },
+        {
+          "title": "IT service desk automation including password resets, software provisioning, and access management",
+          "description": ""
+        },
+        {
+          "title": "AI-powered product development with automated sprint planning, issue routing, and cross-team coordination",
+          "description": ""
+        },
+        {
+          "title": "real-time product analytics with session replays, funnel analysis, and A/B testing",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Engineering & DevOps",
+        "Data & Analytics",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Up to 85% of support tickets resolved automatically with no human intervention",
+        "50% reduction in support costs and 4x faster issue resolution times",
+        "10 hours saved per employee per week through automated workflows and intelligent search"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Jira",
+        "Zendesk",
+        "Freshdesk",
+        "ServiceNow",
+        "HubSpot",
+        "Slack",
+        "Microsoft Teams",
+        "GitHub",
+        "Confluence",
+        "Notion",
+        "Google Drive",
+        "Linear",
+        "ClickUp",
+        "Azure Boards",
+        "Monday.com",
+        "Asana",
+        "Intercom",
+        "Figma",
+        "Okta"
+      ],
+      "source_url": "https://devrev.ai/meet-computer"
+    },
+    {
+      "agent_name": "Computer Agent Studio",
+      "slug": "computer-agent-studio",
+      "company_slug": "devrev",
+      "tagline": "A no-code platform for building, deploying, and governing custom enterprise AI agents using Computer's shared knowledge graph.",
+      "description": "Computer Agent Studio is DevRev's agent builder platform that enables enterprises to create, customize, deploy, and manage specialized AI agents without writing code. Users describe their requirements in natural language and Agent Studio generates functional agents in minutes, leveraging Computer Memory's full business context to ground agent behavior in organizational knowledge. The platform supports the complete agent lifecycle including automatic version control for safe experimentation and rollback, real-time performance monitoring with instant behavioral adjustments, and comprehensive decision logging that provides full visibility into agent reasoning and data access patterns. Agent Studio enforces enterprise-grade security by default — all agents automatically inherit existing organizational permissions and security frameworks without additional configuration, and connects to external systems through Computer AirSync's native integrations and Model Context Protocol (MCP).",
+      "use_cases": [
+        {
+          "title": "Building custom customer-facing support agents that match brand voice and resolve tickets across email, chat, and WhatsApp",
+          "description": ""
+        },
+        {
+          "title": "creating internal IT helpdesk agents with no-code templates for password resets, software provisioning, and access approvals",
+          "description": ""
+        },
+        {
+          "title": "deploying specialized agents for sales teams that automate administrative tasks, update records, and surface customer insights",
+          "description": ""
+        },
+        {
+          "title": "governing fleet-wide agent behavior with centralized guardrails, permission enforcement, and audit logging",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Engineering & DevOps",
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Minutes-to-deploy custom AI agents without engineering resources",
+        "enterprise-grade governance and audit trails for all agent actions",
+        "scalable agent fleet management with centralized monitoring and version control"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Jira",
+        "ServiceNow",
+        "Slack",
+        "Microsoft Teams",
+        "HubSpot",
+        "Zendesk",
+        "Freshdesk",
+        "Okta",
+        "GitHub",
+        "Confluence",
+        "Google Drive",
+        "MCP-compatible tools"
+      ],
+      "source_url": "https://devrev.ai/agent-studio"
+    },
+    {
+      "agent_name": "Vini AI",
+      "slug": "vini-ai",
+      "company_slug": "spyne",
+      "tagline": "An always-on conversational AI platform that deploys specialized autonomous agents to handle sales, service, BDC, parts, and finance engagements across every dealership department.",
+      "description": "Vini AI is Spyne's conversational AI platform purpose-built for automotive dealerships. It manages real-time customer interactions across phone, chat, SMS, and email channels through five specialized agent personas: a Sales Agent that captures buyers, qualifies leads, and provides pricing and inventory information; a Service Agent that handles appointment scheduling, rescheduling, reminders, and post-service follow-ups; a BDC Agent that engages leads from multiple sources and converts them into appointments; a Parts Agent that processes parts inquiries, checks availability, and arranges fulfillment; and a Finance Agent that educates customers on financing options and processes credit applications. The platform features 20+ customizable agent types with configurable voice, personality, and dealership-specific scripts, along with omnichannel coverage that ensures no lead goes unanswered. Vini includes intuitive performance dashboards tracking total calls, hours worked, resolution rates, and response quality, with seamless integration into existing dealership CRM, DMS, and inventory management systems.",
+      "use_cases": [
+        {
+          "title": "24/7 inbound and outbound lead engagement across phone, chat, and email with automatic appointment scheduling and follow-up",
+          "description": ""
+        },
+        {
+          "title": "after-hours call handling and overflow management to ensure every customer inquiry receives an immediate response",
+          "description": ""
+        },
+        {
+          "title": "automated service appointment booking, rescheduling, reminders, and post-service satisfaction follow-ups",
+          "description": ""
+        },
+        {
+          "title": "parts inquiry processing with real-time availability checks and order fulfillment coordination",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Automotive & Mobility"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "25% increase in sales within weeks of implementation",
+        "30-40% improvement in lead-to-deal conversion rates",
+        "40% improvement in lead engagement through automated multi-channel follow-up",
+        "reduced appointment no-shows and increased service bay utilization"
+      ],
+      "integrations": [
+        "CRM systems",
+        "DMS (Dealer Management Systems)",
+        "IMS (Inventory Management Systems)",
+        "50+ system integrations supported"
+      ],
+      "source_url": "https://www.spyne.ai/conversational-ai"
+    },
+    {
+      "agent_name": "Retail AI",
+      "slug": "retail-ai",
+      "company_slug": "spyne",
+      "tagline": "An end-to-end AI-powered automotive retail suite that unifies vehicle sourcing, visual merchandising, website management, and lead engagement into a single integrated platform for dealerships.",
+      "description": "Retail AI is Spyne's comprehensive dealership operations platform that brings together four specialized AI modules under one unified dashboard. Studio AI transforms raw smartphone photos into professional-grade marketing content including studio-quality images with virtual backgrounds, 360-degree interactive spins, and automated video tours. Inventory AI provides AI-driven vehicle sourcing from auctions and marketplaces, VIN decoding, competitive pricing analysis, automated description generation, and multi-platform distribution across dealer websites, marketplaces, and social media. AutoWeb AI builds SEO-optimized dealership websites with drag-and-drop editors, integrated inventory feeds, Google Reviews integration, and built-in chatbot functionality. Connect AI serves as the CRM backbone, capturing leads from calls, forms, and bulk uploads, then automating personalized follow-up sequences, call recording, and AI-powered lead scoring across channels. All modules feed data into a centralized dashboard with behavioral context and engagement insights attached to each lead.",
+      "use_cases": [
+        {
+          "title": "Transforming raw vehicle photos into studio-quality listings with AI background replacement, number plate masking, and 360-degree spin creation",
+          "description": ""
+        },
+        {
+          "title": "automating inventory sourcing, competitive pricing, and multi-channel distribution from a single platform",
+          "description": ""
+        },
+        {
+          "title": "building and maintaining SEO-optimized dealership websites with real-time inventory synchronization",
+          "description": ""
+        },
+        {
+          "title": "centralizing lead capture and automating personalized nurturing workflows across all customer touchpoints",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Automotive & Mobility"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Reduce dealership operational costs by up to 70%",
+        "42% increase in customer engagement through professional visual merchandising",
+        "faster vehicle listings and streamlined sales cycles through automated inventory management",
+        "increased online traffic and lead generation through SEO-optimized web presence"
+      ],
+      "integrations": [
+        "Major automotive marketplaces",
+        "social media platforms",
+        "Google Reviews",
+        "dealership DMS and CRM systems"
+      ],
+      "source_url": "https://www.spyne.ai/products/retailai"
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import type { Agent, Company } from "@/lib/types";
 import { CATEGORY_COLORS } from "@/lib/category-colors";
 import { CompanyLogo } from "./CompanyLogo";
 import { useCompare } from "@/hooks/useCompare";
+import { ShortlistButton } from "@/components/shared/ShortlistButton";
 
 interface AgentCardProps {
   agent: Agent;
@@ -44,7 +45,7 @@ export function AgentCard({ agent, company, index = 0 }: AgentCardProps) {
       {/* Card wrapper — relative so the compare button can be positioned absolutely */}
       <div className="relative group">
         <Link href={href} className="block">
-          <div className="relative p-7 pb-8 rounded-2xl bg-white border border-enterprise-200/60 hover:border-enterprise-300/80 transition-[transform,border-color,box-shadow] duration-300 hover:shadow-[0_8px_30px_-6px_rgba(0,0,0,0.06)] hover:-translate-y-[2px] active:translate-y-0 active:scale-[0.99] flex flex-col min-h-[338px]">
+          <div className="relative p-7 pb-14 rounded-2xl bg-white border border-enterprise-200/60 hover:border-enterprise-300/80 transition-[transform,border-color,box-shadow] duration-300 hover:shadow-[0_8px_30px_-6px_rgba(0,0,0,0.06)] hover:-translate-y-[2px] active:translate-y-0 active:scale-[0.99] flex flex-col min-h-[338px]">
             {/* Header row */}
             <div className="flex items-start gap-4 mb-6">
               <CompanyLogo company={company} size="sm" />
@@ -84,6 +85,12 @@ export function AgentCard({ agent, company, index = 0 }: AgentCardProps) {
             </div>
           </div>
         </Link>
+
+        <ShortlistButton
+          agentId={agent._id}
+          variant="card"
+          className="absolute bottom-4 left-4 z-10 px-2.5 py-1.5 text-xs"
+        />
 
         {/* Compare button — outside the Link, positioned bottom-right */}
         <button

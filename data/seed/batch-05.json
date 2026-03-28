@@ -1,0 +1,514 @@
+{
+  "companies": [
+    {
+      "name": "L&T Technology Services (LTTS)",
+      "slug": "l-t-technology-services-ltts",
+      "website": "https://www.ltts.com",
+      "headquarters": "Vadodara, India",
+      "founded": 2006,
+      "company_size": "enterprise",
+      "description": "L&T Technology Services is a global pure-play engineering R&D services company and a subsidiary of Larsen & Toubro, specializing in digital engineering, product development, and embedded systems across mobility, sustainability, and technology verticals. The company delivers engineering intelligence solutions that integrate physical and digital AI for industrial and enterprise clients.",
+      "primary_verticals": [
+        "Automotive & Mobility",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities",
+        "Telecom & Media",
+        "Aerospace & Defense"
+      ],
+      "contact_email": "info@ltts.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Tata Elxsi",
+      "slug": "tata-elxsi",
+      "website": "https://www.tataelxsi.com",
+      "headquarters": "Bangalore, India",
+      "founded": 1989,
+      "company_size": "enterprise",
+      "description": "Tata Elxsi is a design and technology services company that integrates digital technologies across automotive, media, healthcare, and communications industries. It combines deep domain expertise with AI, IoT, cloud, and design capabilities to deliver end-to-end product engineering and solutions.",
+      "primary_verticals": [
+        "Automotive & Mobility",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Aerospace & Defense"
+      ],
+      "contact_email": "info@tataelxsi.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Sonata Software",
+      "slug": "sonata-software",
+      "website": "https://www.sonata-software.com",
+      "headquarters": "Bangalore, India",
+      "founded": 1986,
+      "company_size": "enterprise",
+      "description": "Sonata Software is a global IT services and technology modernization company specializing in digital transformation, cloud engineering, and AI-driven enterprise solutions. The company serves industries including BFSI, healthcare, retail, manufacturing, and telecom, with a strong focus on responsible AI adoption and Microsoft ecosystem expertise.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Telecom & Media"
+      ],
+      "contact_email": "info@sonata-software.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "PLxAI",
+      "slug": "plxai",
+      "company_slug": "l-t-technology-services-ltts",
+      "tagline": "A proprietary GenAI framework that accelerates the entire product development lifecycle from concept design to aftermarket support.",
+      "description": "PLxAI is LTTS's enterprise-grade generative AI framework that combines Generative AI with conventional AI and agentic workflows to optimize the full Product Development Lifecycle (PDLC). The platform uses a RAG architecture to capture and leverage organizational and tribal knowledge, delivering context-aware insights that enhance product engineering across five lifecycle stages: concept, design, development, production, and after-market. Key capabilities include a Patent Assistant, Innovation Assistant, automated DFMEA generation using organizational templates, digital twin integration supporting physical and virtual testing workflows, and agentic workflows that automate multi-step engineering tasks. The framework has been deployed across more than 36 use cases spanning automotive, aerospace, industrial machinery, consumer electronics, and general manufacturing domains.",
+      "use_cases": [
+        {
+          "title": "Automated concept benchmarking and technology scouting for new product innovation",
+          "description": ""
+        },
+        {
+          "title": "customizable failure mode and effects analysis (FMEA) generation using organizational templates",
+          "description": ""
+        },
+        {
+          "title": "digital twin integration for design validation combining physical and virtual testing",
+          "description": ""
+        },
+        {
+          "title": "automated supplier RFQ processing and compliance checking during production planning.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Automotive & Mobility",
+        "Aerospace & Defense",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "36+ use cases deployed across multiple PDLC stages",
+        "acceleration of innovation rates and cost optimization across product development cycles."
+      ],
+      "integrations": [
+        "Digital twin platforms",
+        "CAD automation tools",
+        "Microsoft Azure"
+      ],
+      "source_url": "https://www.ltts.com/solutions/PlxAI"
+    },
+    {
+      "agent_name": "DevStudio.ai",
+      "slug": "devstudio-ai",
+      "company_slug": "tata-elxsi",
+      "tagline": "A multi-agent GenAI co-engineer that accelerates automotive software development across the entire ASPICE V-cycle.",
+      "description": "DevStudio.ai is a multi-agentic generative AI platform purpose-built to accelerate the automotive software development lifecycle for OEMs, system suppliers, and semiconductor companies. It supports all key stages of the ASPICE V-cycle, including system and software requirements, architecture, implementation, testing, and qualification, while maintaining end-to-end traceability across the engineering lifecycle. The platform operates with multiple large language models and integrates seamlessly with existing OEM and Tier-1 engineering toolchains. A key architectural highlight is its ability to operate on both cloud-based infrastructure and air-gapped on-premise environments, delivering deployment flexibility aligned with enterprise infrastructure and AI policies.",
+      "use_cases": [
+        {
+          "title": "Automated requirements generation and traceability for automotive software",
+          "description": ""
+        },
+        {
+          "title": "AI-assisted code implementation and architecture design for SDV platforms",
+          "description": ""
+        },
+        {
+          "title": "automated test case generation and qualification for ASPICE compliance",
+          "description": ""
+        },
+        {
+          "title": "multi-agent engineering collaboration across body, chassis, and infotainment domains.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Automotive & Mobility",
+        "Manufacturing",
+        "Aerospace & Defense"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Operations & Supply Chain",
+        "Legal & Compliance"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Clear speed-to-market and productivity gains demonstrated across early deployments with global OEMs and Tier-1 suppliers."
+      ],
+      "integrations": [
+        "OEM and Tier-1 engineering toolchains",
+        "cloud platforms",
+        "on-premise infrastructure"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/tata-elxsi-launches-devstudioai-a-multi-agent-aspice-aligned-genai-platform-to-accelerate-automotive-software-engineering-302705217.html"
+    },
+    {
+      "agent_name": "TEDAX",
+      "slug": "tedax",
+      "company_slug": "tata-elxsi",
+      "tagline": "A GenAI and Agentic AI-powered data analytics platform that unifies siloed data and automates intelligent decision-making at scale.",
+      "description": "TEDAX is Tata Elxsi's advanced data analytics platform powered by generative and agentic AI that unifies data from multiple sources, automates insights, and optimizes workflows. It supports real-time and batch processing of structured, semi-structured, and unstructured data, delivering descriptive, diagnostic, predictive, and prescriptive analytics. The platform features a low-code/no-code drag-and-drop interface for rapid pipeline deployment, automated anomaly detection with root cause analysis, and cloud-agnostic architecture supporting AWS, Azure, GCP, and on-premise environments. TEDAX processes over 50 terabytes of data daily and complies with GDPR, CCPA, HIPAA, SOC 2, and ISO 27001 standards.",
+      "use_cases": [
+        {
+          "title": "Fleet management with fuel optimization and real-time vehicle monitoring",
+          "description": ""
+        },
+        {
+          "title": "audience sentiment analysis and content strategy optimization for media companies",
+          "description": ""
+        },
+        {
+          "title": "predictive network diagnostics and anomaly detection for telecom operators",
+          "description": ""
+        },
+        {
+          "title": "operational cost reduction through automated data pipeline orchestration.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Logistics & Transportation",
+        "Telecom & Media",
+        "Manufacturing",
+        "Energy & Utilities",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "20% faster operations through automation",
+        "50% faster issue resolution via anomaly detection",
+        "40% reduction in operational costs."
+      ],
+      "integrations": [
+        "AWS",
+        "Azure",
+        "GCP",
+        "on-premise environments",
+        "90+ data table formats"
+      ],
+      "source_url": "https://www.tataelxsi.com/platforms/tedax-advanced-data-analytics-platform"
+    },
+    {
+      "agent_name": "NEURON",
+      "slug": "neuron",
+      "company_slug": "tata-elxsi",
+      "tagline": "An autonomous network platform that uses AI/ML and digital twins to enable zero-touch automation for telecom operators worldwide.",
+      "description": "NEURON is Tata Elxsi's autonomous network platform comprising two core components: NEURON Telco Cloud for lifecycle management of network elements, and NEURON Dark NOC for AI/ML-driven automation of network operations. The platform extends DevOps principles to construct intent-driven, cloud-native networks, integrating seamlessly with legacy systems, IT infrastructure, and OSS/BSS. It supports Gen AI and Digital Twin capabilities, enabling operators to manage secure, multi-domain, multi-cloud networks while significantly reducing operational expenditures. NEURON manages over 10,000 virtualized and containerized network functions serving millions of subscribers globally across 4G, 5G, and fixed network deployments.",
+      "use_cases": [
+        {
+          "title": "Zero-touch network operations automation for 4G/5G operators",
+          "description": ""
+        },
+        {
+          "title": "private 5G deployment and management for enterprise use cases",
+          "description": ""
+        },
+        {
+          "title": "predictive maintenance and anomaly detection for telecom infrastructure",
+          "description": ""
+        },
+        {
+          "title": "connected vehicle and smart factory network orchestration.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Telecom & Media",
+        "Automotive & Mobility",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Operations & Supply Chain"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Significant OPEX cost savings for telecom operators",
+        "support for 10,000+ virtualized network functions across global data centers."
+      ],
+      "integrations": [
+        "OSS/BSS systems",
+        "legacy telecom infrastructure",
+        "multi-cloud environments",
+        "4G/5G network elements"
+      ],
+      "source_url": "https://www.tataelxsi.com/news-and-events/tata-elxsi-s-neuron-autonomous-network-platform-paves-the-way-for-the-world-s-largest-telecom-operators-to-progress-towards-zero-touch-automation"
+    },
+    {
+      "agent_name": "AIVA",
+      "slug": "aiva",
+      "company_slug": "tata-elxsi",
+      "tagline": "An AI-powered video analytics platform that auto-tags, extracts highlights, and curates content with up to 90% detection accuracy.",
+      "description": "AIVA (Artificial Intelligence Video Analytics) automates video content processing using deep learning techniques including CNN, LSTM, and NLP to perform face recognition, action detection, scene classification, and sentiment analysis. The platform auto-tags videos, extracts highlights and \"Magic Moments,\" generates captions, and curates customized clips for broadcast, OTT, sports, and news workflows. Beyond media, AIVA extends to industrial and urban surveillance with real-time incident detection, behavioral analytics, and crowd monitoring capabilities. It supports cloud, on-premise, and hybrid deployment options with low-code interfaces and edge AI capabilities.",
+      "use_cases": [
+        {
+          "title": "Automated sports highlights and short-form content creation for broadcasters",
+          "description": ""
+        },
+        {
+          "title": "content moderation and safety compliance for OTT platforms",
+          "description": ""
+        },
+        {
+          "title": "real-time surveillance and public safety monitoring for smart cities",
+          "description": ""
+        },
+        {
+          "title": "dynamic advertisement insertion and audience engagement optimization.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Telecom & Media",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Legal & Compliance"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "50-60% faster video processing",
+        "up to 90% accuracy in face and eye-gaze detection",
+        "20-30% cost savings through workflow automation."
+      ],
+      "integrations": [
+        "OTT platforms",
+        "broadcast systems",
+        "edge AI infrastructure",
+        "cloud and on-premise environments"
+      ],
+      "source_url": "https://www.tataelxsi.com/platforms/aiva-advanced-video-analytics-platform"
+    },
+    {
+      "agent_name": "TECare",
+      "slug": "tecare",
+      "company_slug": "tata-elxsi",
+      "tagline": "An AI-enabled digital therapeutics platform that delivers personalized, evidence-based care through AR/VR, gamification, and remote patient engagement.",
+      "description": "TECare is Tata Elxsi's digital therapeutics (DTx) platform that serves as a foundational system for hosting and integrating disease-specific therapeutic modules. It uses AI/ML, AR/VR/XR, gamification, and Internet of Medical Things (IoMT) technologies to deliver evidence-based interventions for conditions including neurodiversity and mental health. The platform features a hierarchical architecture with a core layer integrating pre-built modules for patient enrollment, telehealth, vital signs monitoring, chat, alerts, and notifications, while upper layers can be tailored to specific diseases and therapies. For mental health applications, TECare incorporates standardized assessment methods, digital biomarkers, gaming features, and eLearning modules.",
+      "use_cases": [
+        {
+          "title": "Personalized neurodiversity support with phygital interventions for children with autism",
+          "description": ""
+        },
+        {
+          "title": "remote patient monitoring and telehealth engagement for chronic conditions",
+          "description": ""
+        },
+        {
+          "title": "AI-driven mental health assessment and digital biomarker tracking",
+          "description": ""
+        },
+        {
+          "title": "evidence-based therapeutic module delivery for healthcare providers.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Personalized care delivery at scale through modular DTx architecture",
+        "improved remote patient engagement via IoMT integration."
+      ],
+      "integrations": [
+        "IoMT devices",
+        "telehealth systems",
+        "vital signs monitoring hardware",
+        "AR/VR/XR platforms"
+      ],
+      "source_url": "https://www.tataelxsi.com/product/digital-therapeutics-platform"
+    },
+    {
+      "agent_name": "AgentBridge",
+      "slug": "agentbridge",
+      "company_slug": "sonata-software",
+      "tagline": "An enterprise-grade agentic AI framework for building, orchestrating, and scaling autonomous AI-driven workflows across the enterprise.",
+      "description": "AgentBridge is a cloud-agnostic, industry-neutral multi-agent orchestration platform that enables creation, deployment, and lifecycle management of AI-powered workflows from a centralized, enterprise-grade marketplace. It features a visual drag-and-drop Agent Builder with industry-specific blueprints, an Agent Marketplace for discovering and managing reusable AI agents, and configurable workflow logic supporting MCP and Agent-to-Agent (A2A) interactions with full execution traceability. The platform provides real-time observability dashboards, drift analytics, compliance tools, and ROI tracking across all deployed agents. AgentBridge supports multi-cloud and multi-model deployment, connecting seamlessly with major cloud providers, ERP systems, and enterprise databases while maintaining built-in governance and security.",
+      "use_cases": [
+        {
+          "title": "Automating KYC/AML compliance and fraud detection workflows in banking",
+          "description": ""
+        },
+        {
+          "title": "orchestrating multi-agent supply chain optimization and predictive maintenance in manufacturing",
+          "description": ""
+        },
+        {
+          "title": "deploying patient recruitment and clinical trial protocol assistance agents in life sciences",
+          "description": ""
+        },
+        {
+          "title": "personalizing customer engagement and inventory management across retail operations.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Engineering & DevOps",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Accelerated AI agent deployment through ready-to-use frameworks and one-click publishing",
+        "reduced operational costs via automated workflow orchestration replacing manual processes."
+      ],
+      "integrations": [
+        "Microsoft Azure",
+        "AWS",
+        "Google Cloud",
+        "SAP",
+        "enterprise ERP systems",
+        "Jira",
+        "Azure DevOps"
+      ],
+      "source_url": "https://www.sonata-software.com/platformation-services/agentbridge"
+    },
+    {
+      "agent_name": "IntellQA",
+      "slug": "intellqa",
+      "company_slug": "sonata-software",
+      "tagline": "An AI-powered test acceleration platform that transforms software quality assurance through intelligent automation and responsible AI practices.",
+      "description": "IntellQA is a Harmoni.AI-powered testing automation and acceleration platform that modernizes enterprise quality assurance processes using AI and machine learning. The platform addresses key QA challenges including limited automation expertise, fragmented tooling, escalating framework development costs, and constant script maintenance burdens from frequent application updates. It provides scalable and customizable testing frameworks aligned with business requirements, enabling enterprises to embrace Agile and DevOps practices while delivering high-quality software faster. IntellQA incorporates a responsible AI framework that ensures ethical, efficient testing practices to meet evolving regulatory and operational demands.",
+      "use_cases": [
+        {
+          "title": "Accelerating test automation for enterprise software modernization programs",
+          "description": ""
+        },
+        {
+          "title": "reducing manual testing effort and costs in CI/CD pipeline environments",
+          "description": ""
+        },
+        {
+          "title": "enabling broader test coverage with fewer resources during Agile sprints",
+          "description": ""
+        },
+        {
+          "title": "automating regression testing across complex enterprise application portfolios.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Reduced costs associated with labor-intensive QA tasks and legacy framework maintenance",
+        "accelerated software delivery lifecycles in Agile and DevOps environments."
+      ],
+      "integrations": [
+        "Jira",
+        "Azure DevOps",
+        "Xray",
+        "CI/CD pipelines"
+      ],
+      "source_url": "https://www.sonata-software.com/newsroom/press-release/sonata-software-launches-harmoniai-powered-test-acceleration-platform"
+    },
+    {
+      "agent_name": "Harmoni.AI",
+      "slug": "harmoni-ai",
+      "company_slug": "sonata-software",
+      "tagline": "A responsible-by-design generative AI platform that enables enterprises to adopt and scale AI with built-in ethics, governance, and compliance guardrails.",
+      "description": "Harmoni.AI is Sonata Software's comprehensive generative AI platform that provides a data governance and acceleration engine with access to industry-leading large language models including models on Azure OpenAI, Amazon Bedrock, SageMaker, Llama2, and HuggingFace. The platform offers secure integration with enterprise data sources, LLM Ops services for model validation, fine-tuning, and deployment, along with auditing, telemetry, and consumption dashboards. It includes nine pre-built GenAI solutions spanning legal contract extraction, multimodal multilingual bots, e-commerce order inquiry, vendor onboarding automation, medical claim assistance, recruiter assistance, and support companion tools. Harmoni.AI distinguishes itself through its \"Responsible by Design\" philosophy, embedding ethics, privacy, security, and compliance at the core of every AI deployment.",
+      "use_cases": [
+        {
+          "title": "Automating legal contract extraction and summarization for enterprise MSAs",
+          "description": ""
+        },
+        {
+          "title": "deploying multimodal and multilingual customer support bots across channels",
+          "description": ""
+        },
+        {
+          "title": "accelerating vendor onboarding with automated document processing",
+          "description": ""
+        },
+        {
+          "title": "evaluating medical insurance claim eligibility through AI-driven claim assist.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Legal & Compliance",
+        "HR & Workforce",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "Data & Analytics",
+        "Engineering & DevOps"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Faster time-to-market for enterprise AI use cases through pre-built solutions and accelerators",
+        "responsible AI adoption ensuring regulatory compliance and risk mitigation across deployments."
+      ],
+      "integrations": [
+        "Microsoft Azure OpenAI Service",
+        "Azure Machine Learning",
+        "Azure Cognitive Services",
+        "Amazon Bedrock",
+        "Amazon SageMaker",
+        "SAP Commerce Cloud",
+        "Llama2",
+        "HuggingFace"
+      ],
+      "source_url": "https://www.sonata-software.com/platformation-services/emerging-technologies-generative-ai"
+    }
+  ]
+}

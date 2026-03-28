@@ -17,10 +17,10 @@ describe("ClaimForm", () => {
     const { ClaimForm } = await import("@/components/claim/ClaimForm");
     render(<ClaimForm companySlug="test-company" />);
 
-    const emailInput = screen.getByLabelText(/company email/i);
+    const emailInput = screen.getByLabelText(/corporate email/i);
     fireEvent.change(emailInput, { target: { value: "user@gmail.com" } });
     fireEvent.blur(emailInput);
 
-    expect(screen.getByText(/corporate email/i)).toBeInTheDocument();
+    expect(screen.getByText(/please use a corporate email address/i)).toBeInTheDocument();
   });
 });

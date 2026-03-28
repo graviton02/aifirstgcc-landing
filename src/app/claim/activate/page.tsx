@@ -6,6 +6,7 @@ import { useQuery, useMutation } from "convex/react";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import { Navbar } from "@/components/shared/Navbar";
+import { getErrorMessage } from "@/lib/report-error";
 import { Loader2, CheckCircle, XCircle, LogIn } from "lucide-react";
 import Link from "next/link";
 
@@ -69,7 +70,7 @@ function ActivateContent() {
         setActivated(true);
         setTimeout(() => router.push("/dashboard"), 2000);
       } catch (err: any) {
-        setError(err.message || "Activation failed. Please try again.");
+        setError(getErrorMessage(err, "Activation failed. Please try again."));
       } finally {
         setActivating(false);
       }

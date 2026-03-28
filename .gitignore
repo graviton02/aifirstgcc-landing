@@ -1,8 +1,15 @@
 # Dependencies
 node_modules/
 
+# Superpowers brainstorm mockups
+.superpowers/
+
 # Build output
 dist/
+.next/
+coverage/
+playwright-report/
+test-results/
 
 # Environment variables
 .env
@@ -23,11 +30,20 @@ Thumbs.db
 *.log
 npm-debug.log*
 
-# Playwright MCP
-.playwright-mcp/
-
 # TypeScript build info
 *.tsbuildinfo
 
-# Claude
+# Playwright / browser testing
+.playwright-mcp/
+
+# AI tool configs
 .claude/
+.xhawk/
+.agent/
+.agents/
+.factory/
+.kiro/
+.opencode/
+
+# QA / dogfood output
+dogfood-output/

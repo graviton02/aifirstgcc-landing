@@ -1,0 +1,318 @@
+{
+  "companies": [
+    {
+      "name": "Krutrim AI",
+      "slug": "krutrim-ai",
+      "website": "https://www.olakrutrim.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 2023,
+      "company_size": "scaleup",
+      "description": "Krutrim AI, founded by Ola's Bhavish Aggarwal, builds foundational AI models, a sovereign cloud platform, and agentic AI products optimized for Indian languages and markets. The company is India's first AI unicorn, offering enterprise and consumer AI solutions across multiple verticals.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Logistics & Transportation",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "contact_email": "contact@olakrutrim.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "TrueFoundry",
+      "slug": "truefoundry",
+      "website": "https://www.truefoundry.com",
+      "headquarters": "San Francisco, USA",
+      "founded": 2021,
+      "company_size": "scaleup",
+      "description": "TrueFoundry is a Kubernetes-native AI infrastructure company that provides enterprise-grade gateways and deployment tools for building, governing, and scaling agentic AI systems. Its platform serves Fortune 500 enterprises across regulated industries with SOC 2, HIPAA, and GDPR compliance.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Mad Street Den",
+      "slug": "mad-street-den",
+      "website": "https://www.vue.ai",
+      "headquarters": "Chennai, India",
+      "founded": 2013,
+      "company_size": "scaleup",
+      "description": "Mad Street Den builds Vue.ai, an enterprise AI orchestration platform that combines computer vision, NLP, and generative AI to automate document processing, personalization, and data workflows across industries. The company serves retail, BFSI, healthcare, and logistics verticals with a full-stack AI platform.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation"
+      ],
+      "contact_email": "sales@madstreetden.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Kruti",
+      "slug": "kruti",
+      "company_slug": "krutrim-ai",
+      "tagline": "India's first agentic AI assistant that goes beyond chatbots to autonomously execute real-world tasks across services.",
+      "description": "Kruti is a Gen 2 multimodal AI assistant that processes text, voice, images, and files to perform actions on behalf of users rather than simply answering questions. It breaks user queries into smaller sub-tasks executed via agent-to-agent protocols, reportedly achieving over 90% accuracy. The assistant supports 13 Indian languages with both voice and text input, learns user preferences over time, and adapts responses in tone, length, and language based on context. A developer SDK enables third parties to build and deploy custom agents on the Kruti platform, leveraging Model Context Protocols (MCPs) for enterprise data access.",
+      "use_cases": [
+        {
+          "title": "Booking rides and ordering food through natural language",
+          "description": ""
+        },
+        {
+          "title": "paying bills and managing daily tasks hands-free",
+          "description": ""
+        },
+        {
+          "title": "generating images and conducting multi-step research",
+          "description": ""
+        },
+        {
+          "title": "enterprise workflow automation via custom agent development",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Logistics & Transportation",
+        "Financial Services (BFSI)",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Operations & Supply Chain",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced friction in consumer task completion through autonomous multi-step execution",
+        "accelerated enterprise agent development via open SDK and platform"
+      ],
+      "integrations": [
+        "Ola (ride-hailing)",
+        "food delivery services",
+        "bill payment platforms",
+        "Krutrim Cloud"
+      ],
+      "source_url": "https://inc42.com/buzz/krutrim-launches-its-agentic-ai-assistant-kruti/"
+    },
+    {
+      "agent_name": "Contact Center AI",
+      "slug": "contact-center-ai",
+      "company_slug": "krutrim-ai",
+      "tagline": "Multilingual AI-powered contact center platform that deploys intelligent agents to automate customer support across channels.",
+      "description": "Contact Center AI is an enterprise platform that centralizes multi-channel customer interactions and deploys intelligent AI agents capable of adapting to user inputs, language preferences, and communication styles. The platform automates knowledge extraction, categorization, and tagging to keep support systems current without manual intervention. It includes sentiment recognition for handling customer emotions, predictive analytics for forecasting customer needs, and real-time fraud detection alerts. The system supports configurable bot personas to match brand voice across 22+ Indian languages and uses NLP-driven conversation analytics for actionable insights.",
+      "use_cases": [
+        {
+          "title": "Automating customer support with multilingual AI agents across chat, voice, and messaging channels",
+          "description": ""
+        },
+        {
+          "title": "detecting fraud in real time during customer interactions",
+          "description": ""
+        },
+        {
+          "title": "forecasting customer needs and service trends with predictive analytics",
+          "description": ""
+        },
+        {
+          "title": "rapidly deploying branded support chatbots within hours",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Operations & Supply Chain",
+        "Legal & Compliance"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Significant reduction in support costs through decreased agent call dependency",
+        "improved customer experience via personalized, multilingual, context-aware interactions"
+      ],
+      "integrations": [
+        "Krutrim Cloud",
+        "multi-channel communication platforms (chat, voice, messaging)",
+        "enterprise knowledge bases"
+      ],
+      "source_url": "https://www.olakrutrim.com/contact-center-ai"
+    },
+    {
+      "agent_name": "TrueFoundry AI Gateway",
+      "slug": "truefoundry-ai-gateway",
+      "company_slug": "truefoundry",
+      "tagline": "A unified control plane that connects, governs, and monitors all enterprise LLM and agentic AI workloads through a single API.",
+      "description": "TrueFoundry AI Gateway is an enterprise-grade middleware platform that sits between applications and AI model providers, providing unified API access to 250+ LLMs including OpenAI, Claude, Gemini, and self-hosted models through a single OpenAI-compatible endpoint. The platform includes the Agent Gateway component, which serves as a dedicated execution layer for agentic AI, managing agent memory, multi-step reasoning, tool orchestration, and action planning through a centralized protocol for stateful agent sessions. It enforces governance through role-based access control, rate limiting, token and cost quotas, PII filtering, toxicity detection, and prompt injection prevention with immutable audit logging. The gateway supports agents built on LangGraph, CrewAI, AutoGen, or custom frameworks, providing step-level execution tracing, retry policies, fallback paths, and timeout safeguards across agent workflows.",
+      "use_cases": [
+        {
+          "title": "Centralized governance and observability for enterprise AI agents",
+          "description": ""
+        },
+        {
+          "title": "secure routing and cost optimization across multiple LLM providers",
+          "description": ""
+        },
+        {
+          "title": "orchestrating multi-agent systems with tool access controls and compliance enforcement",
+          "description": ""
+        },
+        {
+          "title": "deploying internal copilots and AI assistants with full audit trails",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Manufacturing",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Operations & Supply Chain",
+        "Legal & Compliance",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 30% reduction in AI infrastructure costs through intelligent routing and batching",
+        "accelerated time-to-production for enterprise AI agents with built-in governance and compliance"
+      ],
+      "integrations": [
+        "OpenAI",
+        "Anthropic Claude",
+        "Google Gemini",
+        "Groq",
+        "Mistral",
+        "vLLM",
+        "SGLang",
+        "KServe",
+        "LangGraph",
+        "CrewAI",
+        "AutoGen",
+        "Slack",
+        "GitHub",
+        "Confluence",
+        "Datadog",
+        "Langfuse",
+        "AWS",
+        "Kubernetes"
+      ],
+      "source_url": "https://www.truefoundry.com/ai-gateway"
+    },
+    {
+      "agent_name": "TrueFoundry MCP Gateway",
+      "slug": "truefoundry-mcp-gateway",
+      "company_slug": "truefoundry",
+      "tagline": "A discoverable registry of tools and APIs that enables AI agents to securely access enterprise services through the Model Context Protocol.",
+      "description": "TrueFoundry MCP Gateway provides a structured, searchable registry of tools and APIs that AI agents can discover and invoke, with built-in schema validation and fine-grained access controls governing which agents can access which tools. It routes all agent tool calls through registered MCP Servers, enforcing OAuth2 authentication and metadata-based policies on every invocation while maintaining complete audit trails. The gateway includes Prompt Lifecycle Management capabilities to version, test, and monitor prompts across environments, ensuring consistent and repeatable agent behavior at scale. It integrates with enterprise systems such as databases, internal services, and collaboration tools, serving as the secure bridge between agentic AI systems and organizational resources.",
+      "use_cases": [
+        {
+          "title": "Providing agents with governed access to enterprise tools and internal APIs",
+          "description": ""
+        },
+        {
+          "title": "managing and versioning prompts for consistent agent behavior across teams",
+          "description": ""
+        },
+        {
+          "title": "enforcing security policies on agent-to-tool interactions in regulated industries",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Operations & Supply Chain",
+        "IT Operations",
+        "Legal & Compliance"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Reduced risk of unauthorized agent actions through centralized tool access governance",
+        "faster agent development cycles with a discoverable, self-service tool registry"
+      ],
+      "integrations": [
+        "Slack",
+        "GitHub",
+        "Confluence",
+        "Datadog",
+        "REST APIs",
+        "OAuth2 providers",
+        "enterprise databases"
+      ],
+      "source_url": "https://www.truefoundry.com/blog/truefoundry-mcp-gateway-critical-infrastructure-for-productive-and-secure-enterprise-ai-in-2026"
+    },
+    {
+      "agent_name": "Vue.ai",
+      "slug": "vue-ai",
+      "company_slug": "mad-street-den",
+      "tagline": "A full-stack AI orchestration platform that unifies data, models, workflows, and AI agents to deliver enterprise-wide AI transformation.",
+      "description": "Vue.ai is an enterprise AI orchestration platform built on three architectural layers: a data orchestration layer for ingestion, enrichment, and analytics across 200+ data source connectors; a workflow orchestration layer for model building, MLOps, and AI agent development; and a native application and marketplace layer with plug-and-play models, apps, and agents. The platform is natively agentic and generative-AI-enabled, supporting straight-through processing with human-in-the-loop controls for complex cases. It organizes its capabilities into four solution hubs — Data Hub (product tagging, content moderation, data cleanup), Customer Hub (1:1 personalization, audience segmentation, journey orchestration), Automation Hub (intelligent document processing, workflow automation), and Optimization Hub (analytics, experimentation, demand forecasting). The platform employs active learning, federated models, and one-shot learning to minimize training data requirements while continuously improving accuracy.",
+      "use_cases": [
+        {
+          "title": "Automated intelligent document processing for loan applications, insurance claims, and invoice matching",
+          "description": ""
+        },
+        {
+          "title": "real-time 1:1 customer personalization and product recommendations across retail channels",
+          "description": ""
+        },
+        {
+          "title": "AI-powered product tagging, cataloging, and on-model fashion imagery generation for e-commerce",
+          "description": ""
+        },
+        {
+          "title": "demand forecasting, excess inventory optimization, and sales efficiency analytics",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "IT Operations"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "50% cost reduction and 10x faster implementation timelines for document processing workflows",
+        "85% reduction in manual data organization time with 90% extraction accuracy"
+      ],
+      "integrations": [
+        "Microsoft Azure (Azure OpenAI Service, Cosmos DB)",
+        "200+ data source connectors",
+        "100+ analytics apps"
+      ],
+      "source_url": "https://www.vue.ai/"
+    }
+  ]
+}

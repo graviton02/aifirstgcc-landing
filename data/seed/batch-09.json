@@ -1,0 +1,600 @@
+{
+  "companies": [
+    {
+      "name": "Haptik",
+      "slug": "haptik",
+      "website": "https://www.haptik.ai",
+      "headquarters": "Mumbai, India",
+      "founded": 2013,
+      "company_size": "scaleup",
+      "description": "Haptik is a conversational AI platform that builds enterprise-grade AI agents for customer experience across chat, voice, and messaging channels. The platform supports 100+ languages across 10+ channels and serves industries including retail, fintech, healthcare, travel, and education.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Education"
+      ],
+      "contact_email": "enterprise@haptik.ai",
+      "verification_status": "verified"
+    },
+    {
+      "name": "CoRover.ai",
+      "slug": "corover-ai",
+      "website": "https://corover.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2016,
+      "company_size": "scaleup",
+      "description": "CoRover.ai is a conversational and agentic AI platform company that builds multilingual, multi-modal AI assistants and copilots for enterprises and government organizations. The platform supports 100+ languages across text, voice, and video channels and is notable for its sovereign language model BharatGPT and CMMI Level 5 certification.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Education",
+        "Energy & Utilities"
+      ],
+      "contact_email": "chat@corover.ai",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Kapture CX",
+      "slug": "kapture-cx",
+      "website": "https://www.kapture.cx",
+      "headquarters": "Bengaluru, India",
+      "founded": 2014,
+      "company_size": "scaleup",
+      "description": "Kapture CX is an AI-powered customer experience platform that uses agentic AI trained on over one billion real conversations to automate support workflows across voice, email, chat, and social channels. The platform serves enterprises in regulated and high-volume industries with modular self-service, agent productivity, and analytics solutions.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities",
+        "Telecom & Media"
+      ],
+      "contact_email": "enquiries@kapture.cx",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Contakt",
+      "slug": "contakt",
+      "company_slug": "haptik",
+      "tagline": "A generative AI-powered customer experience suite that unifies AI assistants, agent co-pilots, and intelligent analytics into a single platform.",
+      "description": "Contakt is Haptik's LLM-first customer experience suite comprising three core components: AI Assistant, Agent Co-Pilot, and Intelligent Analytics. The AI Assistant uses generative AI to resolve customer queries by fetching information from websites, knowledge bases, and CRM/API integrations, handling both pre-sales and post-sales inquiries with personalized, context-aware responses. The Agent Co-Pilot provides human agents with real-time AI-powered chat summaries, sentiment analysis, intent identification, and suggested responses to accelerate query resolution. Intelligent Analytics delivers custom dashboards with 360-degree views of bot and agent performance metrics. The platform supports deployment across WhatsApp, Instagram Direct, Facebook Messenger, SMS, RCS, and web channels in 100+ languages, with compliance certifications including ISO, HIPAA, GDPR, CCPA, and SOC 2.",
+      "use_cases": [
+        {
+          "title": "Automating customer support ticket resolution across omnichannel touchpoints",
+          "description": ""
+        },
+        {
+          "title": "empowering human agents with AI-suggested responses and real-time chat summaries",
+          "description": ""
+        },
+        {
+          "title": "generating actionable analytics on customer satisfaction and agent performance",
+          "description": ""
+        },
+        {
+          "title": "enabling AI-driven product discovery and purchase recommendations in e-commerce",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Significant reduction in support ticket volume and agent handling time",
+        "measurable improvement in customer satisfaction (NPS) and support cost savings",
+        "increased agent productivity through AI-assisted workflows"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Zendesk",
+        "Freshdesk",
+        "Zoho SalesIQ",
+        "Shopify",
+        "WhatsApp Business API",
+        "Facebook Messenger",
+        "Instagram Direct",
+        "RCS Business Messaging",
+        "SMS"
+      ],
+      "source_url": "https://www.haptik.ai/contakt"
+    },
+    {
+      "agent_name": "Voice AI Agents",
+      "slug": "voice-ai-agents",
+      "company_slug": "haptik",
+      "tagline": "Enterprise-grade AI voice agents that handle inbound and outbound calls with sub-second latency and human-like conversation.",
+      "description": "Voice AI Agents is Haptik's platform for building and deploying AI-powered voice agents that automate customer phone interactions across telephone, mobile apps, and web. The platform processes speech with sub-second latency and adapts in real time to nuanced, multi-turn dialogues, moving beyond traditional scripted IVR systems. It supports customization of brand personality attributes including tone, gender, accent, and voice depth, and operates in 100+ languages and dialects. The system includes confidence-driven handover to human agents when queries exceed AI capability, along with PII protection through end-to-end encryption and compliance with GDPR, CCPA, and ISO standards.",
+      "use_cases": [
+        {
+          "title": "Automating inbound customer support calls with natural language understanding",
+          "description": ""
+        },
+        {
+          "title": "conducting outbound campaigns for payment reminders, appointment confirmations, and proactive outreach",
+          "description": ""
+        },
+        {
+          "title": "qualifying leads and scheduling appointments through conversational voice interactions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduction in call center operational costs through automated call handling",
+        "improved customer experience through natural, low-latency voice interactions",
+        "increased lead conversion through AI-driven outbound calling campaigns"
+      ],
+      "integrations": [
+        "CRM systems (via REST APIs)",
+        "payment gateways",
+        "custom LLM integration",
+        "enterprise backend systems",
+        "knowledge bases"
+      ],
+      "source_url": "https://www.haptik.ai/voice-ai-agents"
+    },
+    {
+      "agent_name": "Interakt",
+      "slug": "interakt",
+      "company_slug": "haptik",
+      "tagline": "A WhatsApp-first AI agent platform that brings enterprise-grade automation to small and medium businesses.",
+      "description": "Interakt is Haptik's WhatsApp-native CRM, marketing, and support platform that deploys ready-to-use AI agents as \"AI Employees\" on WhatsApp for SMBs. Powered by large language models, these agents hold natural, human-like conversations with customers and can automate up to 80% of customer queries, with accuracy improving as the system learns over time. The platform offers a suite of pre-built AI agents for handling FAQs, qualifying leads, driving sales, and managing customer support, all accessible through WhatsApp Business. Interakt is designed to make AI agent automation accessible to service-led businesses like clinics, schools, real estate firms, salons, and cafes.",
+      "use_cases": [
+        {
+          "title": "Automating patient care reminders and appointment scheduling for healthcare providers via WhatsApp",
+          "description": ""
+        },
+        {
+          "title": "qualifying real estate leads and managing property inquiries through conversational AI",
+          "description": ""
+        },
+        {
+          "title": "driving retail sales with AI-powered product recommendations and order management on WhatsApp",
+          "description": ""
+        },
+        {
+          "title": "handling customer FAQs and post-purchase support for service businesses",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Education",
+        "Real Estate & Construction",
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "20-25% increase in lead-to-sale conversions",
+        "30-40% reduction in manual support costs",
+        "significant expansion of customer reach through WhatsApp-native engagement"
+      ],
+      "integrations": [
+        "WhatsApp Business Platform",
+        "payment gateways",
+        "CRM systems"
+      ],
+      "source_url": "https://www.haptik.ai/interakt"
+    },
+    {
+      "agent_name": "Smart Agent Chat",
+      "slug": "smart-agent-chat",
+      "company_slug": "haptik",
+      "tagline": "An omnichannel live agent workspace with built-in AI co-pilot that augments human agents with real-time intelligence.",
+      "description": "Smart Agent Chat is Haptik's unified agent workspace that combines live chat management with AI co-pilot capabilities to help human agents handle customer interactions more efficiently. The platform provides a single interface across multiple communication channels with real-time chat summaries, sentiment analysis, and AI-generated response suggestions for consistent, high-quality customer interactions. It includes administrative controls for role and permission management, PII masking for data protection, automated SLA monitoring with alerts, and comprehensive analytics covering chat statistics, missed chats, agent concurrency, and SLA performance. The system connects to major CRM and support platforms via webhooks for real-time data synchronization.",
+      "use_cases": [
+        {
+          "title": "Providing human agents with AI-suggested responses and chat summaries to reduce average handling time",
+          "description": ""
+        },
+        {
+          "title": "managing omnichannel customer conversations through a unified agent workspace",
+          "description": ""
+        },
+        {
+          "title": "monitoring SLA compliance and agent performance in real time with automated alerts",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced average handling time per agent through AI-powered response suggestions",
+        "improved customer satisfaction through consistent, sentiment-aware interactions",
+        "enhanced operational visibility through real-time SLA and performance analytics"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Zendesk",
+        "Zoho (via webhooks)"
+      ],
+      "source_url": "https://www.haptik.ai/products/smart-agent-chat"
+    },
+    {
+      "agent_name": "BharatGPT",
+      "slug": "bharatgpt",
+      "company_slug": "corover-ai",
+      "tagline": "India's sovereign generative AI platform powering multilingual enterprise virtual assistants across text, voice, and video.",
+      "description": "BharatGPT is CoRover.ai's indigenous large language model and no-code/low-code AI studio that enables enterprises to build and deploy multilingual virtual assistants in minutes. The platform supports 14+ Indian languages for voice and 22+ languages for text, with omni-channel deployment across ChatBots, VoiceBots, VideoBots, IVR Bots, WhatsApp, Signal, SMS, email, and social media. It features multi-intent recognition with contextual awareness, integrated payment gateways, Aadhar-based KYC authentication, document-to-text conversion, sentiment analysis, and real-time analytics dashboards. The platform uses a multi-layered NLP approach combining deep learning with generative AI, supervised learning, and context-based auto-suggestion to reduce GPU overhead while maintaining accuracy.",
+      "use_cases": [
+        {
+          "title": "Automated multilingual customer support across channels for banks and insurers",
+          "description": ""
+        },
+        {
+          "title": "citizen services and grievance handling for government departments",
+          "description": ""
+        },
+        {
+          "title": "AI-powered ticket booking and travel assistance",
+          "description": ""
+        },
+        {
+          "title": "intelligent self-service portals for healthcare and education institutions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Education",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Aerospace & Defense"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "HR & Workforce"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Up to 70% reduction in customer support costs through automated multilingual interactions",
+        "significant increase in customer engagement and self-service resolution rates",
+        "rapid deployment of new AI-powered use cases in hours via no-code platform"
+      ],
+      "integrations": [
+        "Google Cloud Platform",
+        "Google Vertex AI",
+        "WhatsApp",
+        "Signal",
+        "Telegram",
+        "Facebook",
+        "Twitter",
+        "ServiceNow",
+        "ERP/CRM systems via APIs",
+        "IVR systems"
+      ],
+      "source_url": "https://corover.ai/bharatgpt/"
+    },
+    {
+      "agent_name": "CoroAssist",
+      "slug": "coroassist",
+      "company_slug": "corover-ai",
+      "tagline": "A secure generative AI copilot for enterprise information retrieval powered by RAG and BharatGPT.",
+      "description": "CoroAssist is CoRover.ai's enterprise copilot that functions as a secure generative AI information retrieval system built on an LLM-based Retrieval-Augmented Generation (RAG) framework. It pulls real-time, role-based information from diverse enterprise sources including websites, documents, videos, ERP/CRM systems, and APIs, delivering contextual answers with proper source references. The system is designed to minimize hallucinations by grounding responses in verified, up-to-date data sources, and supports deployment in less than a day using industry-specific RAG configurations. CoroAssist operates across 22+ Indian languages and is built to mitigate reputational, compliance, and financial risks in regulated industries.",
+      "use_cases": [
+        {
+          "title": "Secure information retrieval for banking compliance and regulatory queries",
+          "description": ""
+        },
+        {
+          "title": "enterprise knowledge management across distributed document repositories",
+          "description": ""
+        },
+        {
+          "title": "real-time decision support for healthcare providers accessing patient protocols",
+          "description": ""
+        },
+        {
+          "title": "governance and audit trail maintenance for compliance-heavy organizations",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Legal & Compliance",
+        "Data & Analytics",
+        "IT Operations",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Faster and more accurate enterprise information retrieval with reduced hallucination risk",
+        "improved compliance and governance through transparent source-referenced AI responses"
+      ],
+      "integrations": [
+        "BharatGPT LLM",
+        "ERP/CRM systems",
+        "enterprise document management systems",
+        "APIs"
+      ],
+      "source_url": "https://cxotoday.com/media-coverage/corover-ai-launches-coroassist-a-secure-genai-co-pilot-for-enterprise-information-retrieval-powered-by-bharatgpt/"
+    },
+    {
+      "agent_name": "BharatGPT DeskAI Appliance",
+      "slug": "bharatgpt-deskai-appliance",
+      "company_slug": "corover-ai",
+      "tagline": "A fully offline, on-device AI appliance for enterprises requiring air-gapped data sovereignty and secure local inference.",
+      "description": "BharatGPT DeskAI Appliance is a compact, on-device AI system that operates entirely without internet connectivity, ensuring all data processing and inference remain local and secure. Built on NVIDIA's Grace Blackwell architecture, the appliance comes pre-installed with NVIDIA DGX OS Software Stack and is bundled with CoRover's BharatGPT Mini foundational small language model with 534 million parameters supporting 14 Indic languages. It can be deployed on NVIDIA GB10 systems and can be custom-trained for domain-specific use cases in defense, BFSI, and public sector environments. The appliance addresses the critical enterprise need for secure AI compute without cloud dependency.",
+      "use_cases": [
+        {
+          "title": "Offline AI inference for defense and classified government operations",
+          "description": ""
+        },
+        {
+          "title": "secure on-premises banking AI for institutions with strict data residency requirements",
+          "description": ""
+        },
+        {
+          "title": "air-gapped enterprise knowledge assistants in regulated industries",
+          "description": ""
+        },
+        {
+          "title": "edge AI deployment in low-connectivity environments",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Aerospace & Defense",
+        "Financial Services (BFSI)",
+        "Government & Public Sector",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Data & Analytics",
+        "Legal & Compliance",
+        "Customer Experience"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Complete data sovereignty with zero cloud dependency for sensitive AI workloads",
+        "secure AI deployment in air-gapped and low-infrastructure environments without compromising multilingual capabilities"
+      ],
+      "integrations": [
+        "NVIDIA Grace Blackwell architecture",
+        "NVIDIA DGX OS Software Stack",
+        "NVIDIA DGX Spark",
+        "Dell Pro Max"
+      ],
+      "source_url": "https://inc42.com/buzz/corover-launches-offline-ai-device-bharatgpt-deskai-appliance/"
+    },
+    {
+      "agent_name": "eSevak",
+      "slug": "esevak",
+      "company_slug": "corover-ai",
+      "tagline": "An AI-powered conversational grievance management system that connects citizens directly with government officials via WhatsApp.",
+      "description": "eSevak is CoRover.ai's AI-powered grievance management chatbot built on the BharatGPT platform, designed for government and public sector organizations. It enables citizens to submit grievances through WhatsApp, which are automatically categorized by relevance and routed to the appropriate department heads for resolution. Every action in the grievance lifecycle, including forwarding, responses, and official comments, triggers instant alerts to the citizen concerned, ensuring full transparency. The system leverages CoRover's multilingual conversational AI capabilities to serve citizens in their local languages, removing language barriers in public service delivery.",
+      "use_cases": [
+        {
+          "title": "District-level citizen grievance management and tracking",
+          "description": ""
+        },
+        {
+          "title": "automated complaint routing and categorization for municipal services",
+          "description": ""
+        },
+        {
+          "title": "transparent government service delivery with real-time citizen notifications",
+          "description": ""
+        },
+        {
+          "title": "multilingual public feedback collection for state and central government programs",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Faster grievance resolution through automated routing and real-time alerts",
+        "improved citizen trust through transparent, trackable governance processes"
+      ],
+      "integrations": [
+        "WhatsApp",
+        "BharatGPT"
+      ],
+      "source_url": "https://www.crn.in/news/esevak-corover-powered-ai-chatbot-launched-in-jammu-by-samba-deputy-commissioner-abhishek-sharma/"
+    },
+    {
+      "agent_name": "Self Serve 2.0",
+      "slug": "self-serve-2-0",
+      "company_slug": "kapture-cx",
+      "tagline": "AI-powered self-service that auto-resolves up to 90% of customer queries across every digital channel.",
+      "description": "Self Serve 2.0 is Kapture's customer-facing AI agent platform powered by vertical LLMs with industry-specific training. It deploys autonomous AI agents across web, mobile, WhatsApp, Instagram, email, and social media channels to handle customer inquiries without human intervention. The platform uses anticipatory AI to analyze customer data and predict potential issues before they escalate. It integrates with customer data platforms to deliver personalized, context-aware responses and provides seamless human handoff when queries exceed the AI's resolution scope.",
+      "use_cases": [
+        {
+          "title": "Automated FAQ and routine query deflection across digital channels",
+          "description": ""
+        },
+        {
+          "title": "order tracking and returns processing without agent involvement",
+          "description": ""
+        },
+        {
+          "title": "account verification and self-service transactions in banking",
+          "description": ""
+        },
+        {
+          "title": "proactive issue detection and resolution for subscription services",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Customer Experience"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Up to 90% ticket deflection reducing support costs",
+        "improved customer satisfaction through instant 24/7 resolution"
+      ],
+      "integrations": [
+        "WhatsApp",
+        "Instagram",
+        "Email",
+        "Web",
+        "Mobile App"
+      ],
+      "source_url": "https://www.kapture.cx/self-serve/"
+    },
+    {
+      "agent_name": "Agent Suite (with Agent Co-pilot)",
+      "slug": "agent-suite-with-agent-co-pilot",
+      "company_slug": "kapture-cx",
+      "tagline": "Unified AI-powered agent console that frees up 60% of agent capacity through real-time AI assistance and smart automation.",
+      "description": "Agent Suite is Kapture's unified workspace for human support agents, combining AI co-pilot capabilities, advanced ticketing, and Customer 360 views into a single console. The embedded AI Co-pilot delivers real-time next-best-action recommendations, interaction summaries, and knowledge base suggestions during live conversations to accelerate resolution. The platform includes smart ticket routing that automatically assigns cases based on agent skill, workload, and customer context. It supports multi-channel operations across voice, email, chat, WhatsApp, and social media with consistent context carry-over between channels.",
+      "use_cases": [
+        {
+          "title": "Real-time agent guidance during complex customer interactions",
+          "description": ""
+        },
+        {
+          "title": "intelligent ticket routing and prioritization across support teams",
+          "description": ""
+        },
+        {
+          "title": "multi-channel support coordination with unified customer context",
+          "description": ""
+        },
+        {
+          "title": "reducing average handle time for contact center operations",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "60% improvement in agent capacity utilization",
+        "28% reduction in average handling time",
+        "improved first-call resolution rates"
+      ],
+      "integrations": [
+        "Email",
+        "WhatsApp",
+        "Instagram",
+        "voice systems",
+        "CRM platforms"
+      ],
+      "source_url": "https://www.kapture.cx/agent-suite/agent-copilot/"
+    },
+    {
+      "agent_name": "AI Voice Agents",
+      "slug": "ai-voice-agents",
+      "company_slug": "kapture-cx",
+      "tagline": "Low-latency voice AI agents that handle inbound and outbound calls with identity verification and autonomous task completion.",
+      "description": "Kapture's AI Voice Agents are autonomous voice-based AI systems designed for both inbound and outbound customer service calls. They handle routine call types including identity verification, account inquiries, payment processing, and service requests with low-latency natural language processing. The agents can be deployed in under ten minutes using a no-code configuration interface, allowing enterprises to scale voice support rapidly. When conversations exceed the AI's capabilities, the system performs contextual handoff to human agents with full conversation history preserved.",
+      "use_cases": [
+        {
+          "title": "Automating high-volume inbound call handling for billing and account inquiries",
+          "description": ""
+        },
+        {
+          "title": "outbound call campaigns for payment reminders and appointment confirmations",
+          "description": ""
+        },
+        {
+          "title": "identity verification and authentication during phone interactions",
+          "description": ""
+        },
+        {
+          "title": "overflow call management during peak support periods",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Customer Experience"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Significant reduction in call center staffing costs through automation of routine calls",
+        "faster call resolution with reduced customer wait times"
+      ],
+      "integrations": [
+        "Voice telephony systems",
+        "CRM platforms"
+      ],
+      "source_url": "https://www.kapture.cx/ai-agent-customer-service/"
+    }
+  ]
+}

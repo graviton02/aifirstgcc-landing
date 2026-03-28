@@ -102,6 +102,14 @@ function clear() {
   emit();
 }
 
+function replace(slugs: string[], names: Record<string, string> = {}) {
+  _slugs = [...new Set(slugs)].slice(0, MAX_COMPARE);
+  _names = Object.fromEntries(
+    Object.entries(names).filter(([slug]) => _slugs.includes(slug))
+  );
+  emit();
+}
+
 // ── Hook ────────────────────────────────────────────────────────
 
 export function useCompare() {
@@ -120,6 +128,7 @@ export function useCompare() {
     add,
     remove,
     clear,
+    replace,
     has,
   };
 }

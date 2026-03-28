@@ -1,6 +1,7 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { getAuthUserId, requireAuth } from "./lib/auth";
+import { appError } from "./lib/errors";
 import { upsertProviderProfile } from "./providerProfiles";
 
 const FREE_EMAIL_DOMAINS = new Set([
@@ -19,21 +20,23 @@ export const submitClaim = mutation({
     // Name validation
     const trimmedName = args.claimant_name.trim();
     if (trimmedName.length < 2) {
-      throw new Error("Name must be at least 2 characters.");
+      appError("claim_name_short", "Name must be at least 2 characters.", 400);
     }
     if (trimmedName.includes("@")) {
-      throw new Error("Please enter a name, not an email address.");
+      appError("claim_name_invalid", "Please enter a name, not an email address.", 400);
     }
 
     // Corporate email validation
     const domain = args.claimant_email.split("@")[1]?.toLowerCase();
     if (!domain || FREE_EMAIL_DOMAINS.has(domain)) {
-      throw new Error("Please use a company email address, not a free email provider.");
+      appError("claim_email_free_provider", "Please use a company email address, not a free email provider.", 400);
     }
 
     const company = await ctx.db.get(args.company_id);
-    if (!company) throw new Error("Company not found");
-    if (company.claim_status === "claimed") throw new Error("This company has already been claimed.");
+    if (!company) appError("claim_company_not_found", "Company not found", 404);
+    if (company.claim_status === "claimed") {
+      appError("claim_company_claimed", "This company has already been claimed.", 409);
+    }
     const userId = await getAuthUserId(ctx);
 
     // Check for existing pending claim
@@ -42,7 +45,9 @@ export const submitClaim = mutation({
       .withIndex("by_companyId", (q) => q.eq("company_id", args.company_id))
       .collect();
     const pendingClaim = existing.find((c) => c.status === "pending" || c.status === "approved");
-    if (pendingClaim) throw new Error("A claim request is already pending for this company.");
+    if (pendingClaim) {
+      appError("claim_already_pending", "A claim request is already pending for this company.", 409);
+    }
 
     if (userId) {
       await upsertProviderProfile(ctx, userId, "claim_existing");
@@ -136,10 +141,12 @@ export const activateClaim = mutation({
       .withIndex("by_magicLinkToken", (q) => q.eq("magic_link_token", token))
       .unique();
 
-    if (!claim) throw new Error("Invalid activation link");
-    if (claim.status !== "approved") throw new Error("This link has already been used");
+    if (!claim) appError("claim_link_invalid", "Invalid activation link", 400);
+    if (claim.status !== "approved") {
+      appError("claim_link_used", "This link has already been used", 400);
+    }
     if (claim.magic_link_expires_at && claim.magic_link_expires_at < Date.now()) {
-      throw new Error("This activation link has expired");
+      appError("claim_link_expired", "This activation link has expired", 400);
     }
 
     const now = Date.now();

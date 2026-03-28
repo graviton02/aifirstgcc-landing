@@ -1,0 +1,479 @@
+{
+  "companies": [
+    {
+      "name": "Mihup",
+      "slug": "mihup",
+      "website": "https://mihup.ai",
+      "headquarters": "Kolkata, India",
+      "founded": 2016,
+      "company_size": "scaleup",
+      "description": "Mihup is a conversational AI company that builds a Gen AI-powered Voice AI platform for enterprises, specializing in contact center intelligence and in-vehicle voice assistants. The platform combines proprietary ASR technology with generative AI to deliver real-time interaction analytics, agent assistance, and automated virtual agents across 120+ languages.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Automotive & Mobility",
+        "Telecom & Media",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "contact_email": "marketing@mihup.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Senseforth.ai",
+      "slug": "senseforth-ai",
+      "website": "https://www.senseforth.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2017,
+      "company_size": "scaleup",
+      "description": "Senseforth.ai is a conversational AI company (acquired by Fractal Analytics) that enables enterprises to automate customer and employee experiences through its patented A.ware platform. It serves global enterprises across banking, insurance, healthcare, and retail with AI-powered virtual assistants, speech analytics, and agent assist solutions.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Government & Public Sector"
+      ],
+      "contact_email": "sales@senseforth.ai",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Sarvam AI",
+      "slug": "sarvam-ai",
+      "website": "https://www.sarvam.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2023,
+      "company_size": "startup",
+      "description": "Sarvam AI is an Indian artificial intelligence company that builds foundational AI models and agentic platforms optimized for Indian languages and regional contexts. The company offers a sovereign AI stack spanning large language models, speech, vision, and enterprise-grade conversational and orchestration platforms.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Mihup Interaction Analytics (MIA)",
+      "slug": "mihup-interaction-analytics-mia",
+      "company_slug": "mihup",
+      "tagline": "AI-powered conversation intelligence that analyzes 100% of contact center interactions to uncover customer insights and drive agent performance.",
+      "description": "Mihup Interaction Analytics is a speech and conversation analytics platform that captures and analyzes every voice, chat, and email interaction in a contact center. It uses proprietary ASR and NLP to detect customer sentiment, emotion, and intent in real time across 120+ languages and dialects. The platform automates quality audits by scoring 100% of interactions against configurable compliance and performance parameters, replacing manual sampling. It provides personalized agent coaching recommendations based on conversation patterns and identifies sales, upsell, and retention opportunities from customer conversations.",
+      "use_cases": [
+        {
+          "title": "Automated quality assurance auditing across all customer calls",
+          "description": ""
+        },
+        {
+          "title": "voice-of-customer analysis to identify recurring complaints and product feedback",
+          "description": ""
+        },
+        {
+          "title": "compliance monitoring for regulated industries such as banking and insurance",
+          "description": ""
+        },
+        {
+          "title": "agent performance benchmarking and coaching management",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Legal & Compliance",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "100% interaction coverage replacing manual QA sampling",
+        "improved agent performance through data-driven coaching",
+        "faster identification of compliance risks and revenue opportunities"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Zoho",
+        "HubSpot",
+        "Freshdesk",
+        "LeadSquared",
+        "Microsoft Dynamics 365",
+        "Genesys",
+        "Cisco",
+        "Avaya",
+        "Dialpad",
+        "RingCentral",
+        "Twilio",
+        "Talkdesk",
+        "Exotel",
+        "Ameyo",
+        "Freshcaller"
+      ],
+      "source_url": "https://mihup.ai/"
+    },
+    {
+      "agent_name": "Mihup Agent Assist (MAA)",
+      "slug": "mihup-agent-assist-maa",
+      "company_slug": "mihup",
+      "tagline": "Real-time AI copilot that listens, understands, and guides contact center agents during live customer conversations.",
+      "description": "Mihup Agent Assist is a real-time AI assistant that monitors live customer calls and provides agents with contextual prompts, objection-handling rebuttals, and upsell suggestions as the conversation unfolds. It automatically generates call transcriptions, bookmarks important moments, and produces post-call summaries categorized by intent, outcome, and next steps. The platform includes four specialized modules: Sales Assist for conversion optimization, CX Assist for escalation detection and empathy guidance, Collections Assist for compliant debt recovery, and Supervisor Assist for real-time team oversight. It automatically updates CRM fields and triggers downstream workflows, reducing manual after-call work.",
+      "use_cases": [
+        {
+          "title": "Real-time sales coaching with contextual rebuttals during live financial product calls",
+          "description": ""
+        },
+        {
+          "title": "automated call documentation and CRM updates to eliminate manual after-call work",
+          "description": ""
+        },
+        {
+          "title": "collections compliance monitoring with empathetic negotiation guidance",
+          "description": ""
+        },
+        {
+          "title": "supervisor dashboards for real-time escalation alerts and intervention across agent teams",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Legal & Compliance",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "20% increase in sales conversions through real-time guidance",
+        "25% faster agent onboarding with AI-assisted training",
+        "5 hours per week saved per agent through automated documentation"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Zoho",
+        "HubSpot",
+        "Freshdesk",
+        "LeadSquared",
+        "Microsoft Dynamics 365",
+        "Genesys",
+        "Cisco",
+        "Avaya",
+        "Dialpad",
+        "RingCentral",
+        "Twilio",
+        "Talkdesk",
+        "Exotel",
+        "Ameyo",
+        "Freshcaller",
+        "Slack",
+        "Microsoft Outlook",
+        "Gmail"
+      ],
+      "source_url": "https://mihup.ai/agent-assist/"
+    },
+    {
+      "agent_name": "Mihup Voice Agent",
+      "slug": "mihup-voice-agent",
+      "company_slug": "mihup",
+      "tagline": "Autonomous AI voice agent that handles end-to-end customer interactions for sales, support, renewals, and collections.",
+      "description": "Mihup Voice Agent is an AI-powered virtual agent that automates routine and complex customer interactions through intelligent, multilingual voice conversations. It handles outbound campaigns for lead qualification, payment reminders, and renewal calls, as well as inbound Tier-1 support queries such as password resets, order status updates, and FAQ responses. The agent uses generative AI to understand natural speech, decipher intent, and provide contextually accurate responses across multiple languages and dialects. It can autonomously execute transactional tasks such as processing payments and updating account details, escalating to human agents only when necessary.",
+      "use_cases": [
+        {
+          "title": "Automated outbound collections calls with secure payment processing",
+          "description": ""
+        },
+        {
+          "title": "lead qualification and warm handoff to human sales representatives",
+          "description": ""
+        },
+        {
+          "title": "Tier-1 customer support automation for high-volume contact centers",
+          "description": ""
+        },
+        {
+          "title": "renewal and retention campaigns with personalized outreach",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Significant reduction in agent handle time for routine interactions",
+        "increased contact rates for outbound campaigns through 24/7 availability",
+        "lower cost-per-interaction through automation of Tier-1 queries"
+      ],
+      "integrations": [
+        "CRM platforms",
+        "contact center diallers (Genesys, Cisco, Avaya, Twilio, Talkdesk)",
+        "payment processing systems"
+      ],
+      "source_url": "https://mihup.ai/"
+    },
+    {
+      "agent_name": "Mihup AVA (Automotive Voice Agent)",
+      "slug": "mihup-ava-automotive-voice-agent",
+      "company_slug": "mihup",
+      "tagline": "Always-on, fully embedded in-vehicle voice assistant that enables hands-free driving experiences in local, natural languages.",
+      "description": "Mihup AVA is an embedded voice assistant purpose-built for automotive OEMs that allows drivers and passengers to control vehicle functions, navigate, access infotainment, and connect to services through natural voice commands. It combines on-device speech processing for low-latency response with cloud-based Gen AI for complex queries, ensuring functionality in both online and offline modes. The system supports 120+ languages, accents, and dialects with 95% accuracy even in noisy in-cabin environments, and personalizes responses by identifying individual passengers. It processes compound commands (multiple requests in a single utterance) and continuously learns from past conversations to improve contextual awareness.",
+      "use_cases": [
+        {
+          "title": "Hands-free vehicle control including climate, windows, and seat adjustments via voice",
+          "description": ""
+        },
+        {
+          "title": "in-car navigation and infotainment access without touchscreen distraction",
+          "description": ""
+        },
+        {
+          "title": "multilingual voice interaction for global automotive OEM deployments",
+          "description": ""
+        },
+        {
+          "title": "passenger-specific personalization for shared vehicle environments",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Automotive & Mobility",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Engineering & DevOps"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Enhanced driver safety through reduced touchscreen interaction",
+        "differentiated in-car experience for automotive OEMs across multilingual markets",
+        "reliable voice control in connectivity-limited areas through offline capability"
+      ],
+      "integrations": [
+        "Automotive OEM infotainment systems",
+        "navigation services",
+        "vehicle CAN bus controls"
+      ],
+      "source_url": "https://mihup.ai/"
+    },
+    {
+      "agent_name": "A.ware",
+      "slug": "a-ware",
+      "company_slug": "senseforth-ai",
+      "tagline": "A patented zero-code conversational AI platform that converges six specialized engines to automate enterprise customer experience across digital touchpoints.",
+      "description": "A.ware is Senseforth.ai's proprietary conversational AI platform that mimics human cognitive abilities in reading, comprehending, interpreting, and actioning user intent. The platform converges six specialized engines to identify user intent through natural language input via text or voice, and automatically responds through knowledge repositories or dynamic API calls. A.ware includes a zero-code bot builder and a Bot Store with approximately 20 pre-built enterprise bots covering sales, customer support, knowledge management, employee engagement, IT support, and analytics use cases. The platform provides a unified command center for enterprises to activate or deactivate bots, manage access controls, and perform updates, while four analytics modules track user conversations, customer profiles, agent performance, and response quality. A.ware supports multi-channel deployment across websites, mobile apps, messaging platforms, social channels, collaboration tools, and voice assistants.",
+      "use_cases": [
+        {
+          "title": "Automating customer support inquiries for banking and insurance enterprises",
+          "description": ""
+        },
+        {
+          "title": "deploying AI virtual assistants for government citizen services",
+          "description": ""
+        },
+        {
+          "title": "enabling semantic search and knowledge management across enterprise content",
+          "description": ""
+        },
+        {
+          "title": "providing real-time agent assist to contact center representatives during live customer interactions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "IT Operations",
+        "HR & Workforce",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduction in customer service costs through automated handling at 90%+ accuracy",
+        "improved agent productivity through real-time AI-assisted support and automated routing"
+      ],
+      "integrations": [
+        "Web",
+        "Mobile Apps",
+        "WhatsApp",
+        "Facebook Messenger",
+        "voice assistants",
+        "collaboration platforms"
+      ],
+      "source_url": "https://www.senseforth.ai/aware/"
+    },
+    {
+      "agent_name": "Sarvam Samvaad",
+      "slug": "sarvam-samvaad",
+      "company_slug": "sarvam-ai",
+      "tagline": "Multilingual conversational AI agents that connect to enterprise tools, use business data, take action, and deliver insights across voice, WhatsApp, and web channels.",
+      "description": "Sarvam Samvaad is an enterprise conversational AI platform that deploys intelligent, human-like agents capable of handling complex workflows in 11 Indian languages plus English. The platform supports multi-agent orchestration, cross-channel memory and context retention, and real-time sentiment and intent analytics with sub-500ms latency. It integrates with enterprise systems including CRMs, banking platforms, and payment systems to automate customer-facing and back-office workflows. Deployment options include fully managed cloud, private cloud/VPC, and on-premises air-gapped environments for regulated industries.",
+      "use_cases": [
+        {
+          "title": "Automated payment collection and loan follow-up calls",
+          "description": ""
+        },
+        {
+          "title": "inbound customer support and helpdesk across voice and messaging",
+          "description": ""
+        },
+        {
+          "title": "cart recovery and appointment booking for retail and healthcare",
+          "description": ""
+        },
+        {
+          "title": "citizen services automation for government agencies",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain",
+        "Finance & Accounting"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduction in customer service costs through automated multilingual conversations",
+        "increased sales conversion rates via proactive outbound agent engagement",
+        "improved citizen service accessibility through vernacular language support"
+      ],
+      "integrations": [
+        "WhatsApp",
+        "CRM platforms",
+        "banking systems",
+        "payment gateways",
+        "enterprise databases"
+      ],
+      "source_url": "https://www.sarvam.ai/products/conversational-agents/"
+    },
+    {
+      "agent_name": "Sarvam Arya",
+      "slug": "sarvam-arya",
+      "company_slug": "sarvam-ai",
+      "tagline": "A multi-agent orchestration stack that makes autonomous AI systems reliable enough for production-scale enterprise workflows.",
+      "description": "Sarvam Arya is an agent orchestration infrastructure built around eight composable primitives: LLM, Agent, MCP, Node, Ledger, Task Graph, Code Interpreter, and Artefact. The platform separates the control plane from the data plane, where code handles iteration, branching, error recovery, and scheduling while the model handles judgment and reasoning. It manages state through an immutable append-only ledger, enabling clean checkpoint restarts without data corruption when processes fail. Arya is designed for complex multi-agent workflows such as structured data extraction from documents, backend automation, and ETL pipelines at enterprise scale.",
+      "use_cases": [
+        {
+          "title": "Extracting structured financial metrics and management commentary from company reports",
+          "description": ""
+        },
+        {
+          "title": "automating document processing and data extraction pipelines",
+          "description": ""
+        },
+        {
+          "title": "orchestrating multi-step backend workflows requiring judgment and reasoning",
+          "description": ""
+        },
+        {
+          "title": "building production-grade autonomous agents for regulated industries",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Government & Public Sector",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "Legal & Compliance"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Higher accuracy in automated data extraction at lower cost compared to agent swarm approaches",
+        "reduced manual intervention in document processing and ETL workflows",
+        "production-grade reliability for autonomous agent systems operating at scale"
+      ],
+      "integrations": [
+        "MCP (Model Context Protocol) compatible tools"
+      ],
+      "source_url": "https://www.sarvam.ai/blogs/introducing-sarvam-arya/"
+    },
+    {
+      "agent_name": "Indus",
+      "slug": "indus",
+      "company_slug": "sarvam-ai",
+      "tagline": "India's multilingual AI assistant built for complex reasoning and everyday tasks in 22 Indian languages.",
+      "description": "Indus is a consumer and enterprise AI assistant powered by Sarvam's 105-billion-parameter mixture-of-experts model, available on iOS, Android, and web. The assistant supports both text and voice interaction with seamless mid-conversation language switching across 22 Indian languages. It includes document analysis capabilities, allowing users to upload PDFs and images for summarization, question answering, and content review. Indus also supports AI agent functionality to automate certain tasks, combining reasoning, multilingual understanding, and productivity tools in a single interface.",
+      "use_cases": [
+        {
+          "title": "Multilingual document summarization and analysis for enterprise teams",
+          "description": ""
+        },
+        {
+          "title": "voice-first AI assistance for field workers and non-English-speaking users",
+          "description": ""
+        },
+        {
+          "title": "content creation and editing in Indian languages",
+          "description": ""
+        },
+        {
+          "title": "automated task execution through built-in agent capabilities",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Education",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "HR & Workforce",
+        "Data & Analytics",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Increased AI accessibility for India's non-English-speaking workforce",
+        "improved productivity through multilingual document processing and content generation"
+      ],
+      "integrations": [
+        "iOS",
+        "Android",
+        "Web"
+      ],
+      "source_url": "https://www.sarvam.ai/"
+    }
+  ]
+}

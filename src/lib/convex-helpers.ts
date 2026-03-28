@@ -11,7 +11,7 @@ type MutateCallbacks<T> = {
 export function useWrappedMutation<Args extends Record<string, unknown>, Result>(
   mutation: FunctionReference<"mutation", "public", Args, Result>
 ) {
-  const rawMutate = useMutation(mutation);
+  const rawMutate = useMutation(mutation) as unknown as (args: Args) => Promise<Result>;
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 

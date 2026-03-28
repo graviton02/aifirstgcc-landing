@@ -69,11 +69,15 @@ async function getLatestCompanySubmissionForUser(ctx: ProviderProfileReaderCtx, 
   const createdCompany = latestSubmission.created_company_id
     ? await ctx.db.get(latestSubmission.created_company_id)
     : null;
+  const initialAgentSubmission = latestSubmission.initial_agent_submission_id
+    ? await ctx.db.get(latestSubmission.initial_agent_submission_id)
+    : null;
 
   return {
     ...latestSubmission,
     created_company_name: createdCompany?.name ?? null,
     created_company_slug: createdCompany?.slug ?? null,
+    initial_agent_submission: initialAgentSubmission,
   };
 }
 

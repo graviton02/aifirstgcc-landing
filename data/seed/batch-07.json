@@ -1,0 +1,298 @@
+{
+  "companies": [
+    {
+      "name": "Simform",
+      "slug": "simform",
+      "website": "https://www.simform.com",
+      "headquarters": "Orlando, FL, USA",
+      "founded": 2010,
+      "company_size": "midmarket",
+      "description": "Simform is a product engineering company specializing in AI/ML, cloud, and data solutions that help enterprises modernize and scale with intelligent automation. The company builds proprietary AI accelerator platforms alongside custom engineering services for clients across multiple industries.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Logistics & Transportation"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Talentica Software",
+      "slug": "talentica-software",
+      "website": "https://www.talentica.com",
+      "headquarters": "Pune, India",
+      "founded": 2003,
+      "company_size": "midmarket",
+      "description": "Talentica Software is a product engineering services company that builds software products for startups and enterprises, specializing in AI-native development, cloud engineering, and DevSecOps. The company offers proprietary prefab solutions alongside custom product engineering across multiple verticals.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing"
+      ],
+      "contact_email": "info@talentica.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Q3 Technologies",
+      "slug": "q3-technologies",
+      "website": "https://www.q3tech.com",
+      "headquarters": "Walpole, MA, USA",
+      "founded": 1998,
+      "company_size": "midmarket",
+      "description": "Q3 Technologies is a global IT solutions and digital transformation company offering software development, AI-driven solutions, managed IT services, and enterprise system implementations across 17+ industries. The company holds Microsoft Gold Partner, ISO 27001, CMMI, and Salesforce Consulting Partner certifications.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Energy & Utilities",
+        "Education",
+        "Logistics & Transportation",
+        "Real Estate & Construction",
+        "Telecom & Media"
+      ],
+      "contact_email": "sales@q3tech.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "ThoughtMesh",
+      "slug": "thoughtmesh",
+      "company_slug": "simform",
+      "tagline": "A no-code GenAI accelerator that enables enterprises to build, deploy, and orchestrate intelligent AI agents at scale with built-in governance.",
+      "description": "ThoughtMesh is a no-code GenAI accelerator platform that enables enterprises to build, deploy, and orchestrate intelligent AI agents at scale. It provides a visual drag-and-drop UI for creating multi-agent workflows, integrates RAG capabilities with corrective validation to minimize hallucinations, and supports knowledge base creation from structured and unstructured data. The platform enforces namespace-driven governance so only authorized users can access underlying data, even across shared workflows. ThoughtMesh reduces GenAI development time by up to 80% through pre-built templates and composable agent components.",
+      "use_cases": [
+        {
+          "title": "Enterprise knowledge base creation and conversational querying across unstructured documents",
+          "description": ""
+        },
+        {
+          "title": "multi-agent workflow orchestration for complex business processes",
+          "description": ""
+        },
+        {
+          "title": "RAG-powered intelligent assistants with hallucination guardrails",
+          "description": ""
+        },
+        {
+          "title": "no-code AI agent prototyping for business users",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Customer Experience",
+        "Engineering & DevOps"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Up to 80% reduction in GenAI development time",
+        "improved data governance through namespace-driven access controls"
+      ],
+      "integrations": [],
+      "source_url": "https://www.simform.com/accelerators/thoughtmesh/"
+    },
+    {
+      "agent_name": "NeuVantage",
+      "slug": "neuvantage",
+      "company_slug": "simform",
+      "tagline": "An AI-powered modernization accelerator that uses customizable AI agents to analyze legacy codebases, map dependencies, and generate cloud-ready architecture blueprints.",
+      "description": "NeuVantage is an AI-powered modernization accelerator that uses customizable AI agents to analyze legacy codebases, map dependencies, flag redundant code, and generate modernization blueprints. It employs semantic code chunking and AI-assisted comprehension to replace weeks of manual discovery with automated analysis, producing actionable insights and cloud-ready architecture diagrams. The platform maps modernization paths using the 5R strategy framework (rehost, refactor, rearchitect, rebuild, replace) and can accelerate application modernization by up to 40%. NeuVantage's AI agents are adaptable to specific organizational workflows and technology stacks.",
+      "use_cases": [
+        {
+          "title": "Legacy application assessment and modernization planning",
+          "description": ""
+        },
+        {
+          "title": "automated dependency mapping and redundant code detection",
+          "description": ""
+        },
+        {
+          "title": "cloud migration architecture blueprint generation",
+          "description": ""
+        },
+        {
+          "title": "technical debt quantification and reduction strategy",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 40% faster application modernization",
+        "reduced manual discovery effort through AI-assisted code comprehension"
+      ],
+      "integrations": [],
+      "source_url": "https://www.simform.com/accelerators/neuvantage/"
+    },
+    {
+      "agent_name": "TrueMorph",
+      "slug": "truemorph",
+      "company_slug": "simform",
+      "tagline": "An AI-powered data warehouse modernization platform with self-healing pipelines that autonomously detect and correct data errors during migration.",
+      "description": "TrueMorph is an AI-powered data warehouse modernization platform featuring self-healing pipelines that autonomously detect and correct data errors in real time during migration. It uses machine learning to continuously learn from data patterns, predict pipeline failures, and generate reusable validation rules without manual intervention. The platform automatically identifies and masks sensitive information (PHI/PII) while maintaining audit trails and compliance. TrueMorph implements a Medallion Architecture (Bronze-Silver-Gold) with built-in transformation scripts, enabling up to 60% faster migration with minimal downtime.",
+      "use_cases": [
+        {
+          "title": "Enterprise data warehouse migration to modern cloud platforms",
+          "description": ""
+        },
+        {
+          "title": "autonomous data quality monitoring and error correction during ETL processes",
+          "description": ""
+        },
+        {
+          "title": "PHI/PII detection and masking for compliance during data migration",
+          "description": ""
+        },
+        {
+          "title": "legacy data platform modernization with minimal downtime",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Legal & Compliance",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Up to 60% faster data migration",
+        "autonomous error detection and correction reducing manual QA effort",
+        "built-in compliance for PHI/PII handling"
+      ],
+      "integrations": [],
+      "source_url": "https://www.simform.com/accelerators/truemorph/"
+    },
+    {
+      "agent_name": "CVE Copilot",
+      "slug": "cve-copilot",
+      "company_slug": "talentica-software",
+      "tagline": "An AI-assisted vulnerability remediation engine that automates end-to-end detection, prioritization, testing, and patching across enterprise codebases.",
+      "description": "CVE Copilot is an AI-assisted prefab product that automates end-to-end vulnerability remediation across detection, prioritization, testing, and reporting. It operates as a full-stack engine with four modular AI components: Scanner for vulnerability detection via tools like Trivy and Prisma, Analyzer for risk prioritization, Migration Guide for recommending code changes, and Fixer for deploying patches. The platform supports multiple AI models including OpenAI, Azure OpenAI, and Google Gemini, and can be deployed either as a GitHub Action within CI/CD pipelines or as a standalone SaaS solution. It is designed for mid-to-large enterprises in regulated industries with active DevSecOps practices, targeting Security Engineers, Developers, and CISOs.",
+      "use_cases": [
+        {
+          "title": "Automated vulnerability scanning and prioritization across enterprise repositories",
+          "description": ""
+        },
+        {
+          "title": "AI-driven code patch recommendations and deployment",
+          "description": ""
+        },
+        {
+          "title": "CI/CD pipeline-integrated security remediation",
+          "description": ""
+        },
+        {
+          "title": "compliance-driven vulnerability management for regulated industries",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Legal & Compliance"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Reduced mean time to remediate vulnerabilities",
+        "automated patch generation reducing manual developer effort",
+        "continuous security posture improvement through CI/CD integration"
+      ],
+      "integrations": [
+        "GitHub Actions",
+        "Trivy",
+        "Prisma",
+        "OpenAI",
+        "Azure OpenAI",
+        "Google Gemini",
+        "CI/CD pipelines"
+      ],
+      "source_url": "https://www.talentica.com/cve/"
+    },
+    {
+      "agent_name": "Volt",
+      "slug": "volt",
+      "company_slug": "q3-technologies",
+      "tagline": "A rapid AI development framework that compresses enterprise AI solution deployment from months to 8-12 weeks.",
+      "description": "Volt is Q3 Technologies' proprietary Rapid AI Development (RAD) framework designed to accelerate enterprise AI application development. It provides pre-built data pipelines, pre-trained AI models, and integrated DataOps/MLOps workflows that reduce development overhead by approximately 50% and cut costs by up to 40%. The framework leverages Retrieval-Augmented Generation (RAG) technology to ground AI outputs in proprietary organizational data, and supports agentic architecture for structured reasoning through sequential event processing. Volt includes model evaluation tools with cost prediction functionality, emphasizes data security and AI explainability, and deploys flexibly across cloud, on-premises, or hybrid infrastructure.",
+      "use_cases": [
+        {
+          "title": "Predictive analytics and forecasting for enterprise decision-making",
+          "description": ""
+        },
+        {
+          "title": "intelligent AI agents and virtual assistants",
+          "description": ""
+        },
+        {
+          "title": "multi-modal content generation (text, audio, video)",
+          "description": ""
+        },
+        {
+          "title": "intelligent document processing and extraction",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 40% reduction in AI development costs",
+        "50% faster delivery timelines (8-12 weeks vs. months)"
+      ],
+      "integrations": [
+        "Cloud platforms (cloud-agnostic)",
+        "on-premises infrastructure"
+      ],
+      "source_url": "https://www.q3tech.com/volt-a-rapid-ai-development-framework/"
+    }
+  ]
+}

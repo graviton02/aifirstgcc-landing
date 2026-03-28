@@ -1,0 +1,606 @@
+{
+  "companies": [
+    {
+      "name": "HCLTech",
+      "slug": "hcltech",
+      "website": "https://www.hcltech.com",
+      "headquarters": "Noida, India",
+      "founded": 1976,
+      "company_size": "enterprise",
+      "description": "HCLTech is a global IT services and consulting company operating across 60 countries, offering digital transformation, engineering, cloud, and AI services to enterprises worldwide. The company has been aggressively building agentic AI platforms, integrating with major hyperscaler ecosystems across manufacturing, telecom, financial services, and healthcare.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Automotive & Mobility",
+        "Aerospace & Defense",
+        "Energy & Utilities"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Tech Mahindra",
+      "slug": "tech-mahindra",
+      "website": "https://www.techmahindra.com",
+      "headquarters": "Pune, India",
+      "founded": 1986,
+      "company_size": "enterprise",
+      "description": "Tech Mahindra is a global IT services and consulting company and part of the Mahindra Group, delivering digital transformation, consulting, and business re-engineering services across industries. The company has been aggressively building agentic AI platforms and solutions with a strong focus on telecom, financial services, and healthcare verticals.",
+      "primary_verticals": [
+        "Telecom & Media",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities",
+        "Retail & E-commerce"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "LTIMindtree",
+      "slug": "ltimindtree",
+      "website": "https://www.ltm.com",
+      "headquarters": "Mumbai, India",
+      "founded": 1996,
+      "company_size": "enterprise",
+      "description": "LTIMindtree is an Indian multinational IT services and consulting company and a subsidiary of Larsen & Toubro. It operates across 30+ countries, focusing on digital transformation, cloud, and AI-driven enterprise solutions for financial services, healthcare, manufacturing, and retail clients.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Energy & Utilities",
+        "Telecom & Media"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "HCLTech AI Force",
+      "slug": "hcltech-ai-force",
+      "company_slug": "hcltech",
+      "tagline": "A patented enterprise platform that deploys agentic AI across software engineering, IT operations, and business processes to automate 70% of complex procedures.",
+      "description": "AI Force is HCLTech's flagship GenAI and Agentic AI automation platform that augments workflows across software engineering, data engineering, IT operations, and enterprise business processes. It features modular sub-platforms (AI Force.Software, AI Force.Ops, AI Force.Data, AI Force for SAP) and supports agent lifecycle management, multi-agent orchestration, and multi-LLM flexibility. The platform includes 50+ pre-built agentic recipes across requirements, development, testing, DevOps, and technical support. It brings prompts, RAG, tools, autonomous agents, governance, and responsible AI together in a single extensible platform that integrates smoothly with existing IT environments.",
+      "use_cases": [
+        {
+          "title": "Automated code generation and legacy application modernization",
+          "description": ""
+        },
+        {
+          "title": "AI-driven test case generation and DevSecOps pipeline orchestration",
+          "description": ""
+        },
+        {
+          "title": "cloud migration automation (rehost, re-factor, re-platform)",
+          "description": ""
+        },
+        {
+          "title": "service desk modernization with agentic transformation and autonomous ticket resolution",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Automotive & Mobility",
+        "Aerospace & Defense",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Automating 70% of complex procedures",
+        "improving productivity by 25-30%",
+        "extracting document data with 95% accuracy (F1 score)."
+      ],
+      "integrations": [
+        "GitHub Copilot",
+        "Google Gemini",
+        "Azure OpenAI",
+        "Anthropic Claude (AWS Bedrock)",
+        "Meta Llama 3",
+        "IBM Granite",
+        "NVIDIA AI Enterprise",
+        "SAP",
+        "ServiceNow",
+        "Mistral"
+      ],
+      "source_url": "https://www.hcltech.com/ai-force"
+    },
+    {
+      "agent_name": "HCLTech Insight",
+      "slug": "hcltech-insight",
+      "company_slug": "hcltech",
+      "tagline": "An agentic AI-powered manufacturing solution that detects product defects and anomalies in real time using Google Cloud's Cortex Framework.",
+      "description": "HCLTech Insight is an agentic AI-powered Industry Focused Repeatable Solution (IFRS) built on Google Cloud's Cortex Framework, Manufacturing Data Engine (MDE), Vertex AI, and Agentic Framework. It equips manufacturers with advanced data insights and analytics capabilities through real-time defect detection and anomaly analysis on production lines. The solution provides interactive dashboards and AI-powered virtual assistance to respond to defects in real time, boosting production quality and cost efficiency. It serves enterprises across automotive, aerospace, and electronics manufacturing verticals.",
+      "use_cases": [
+        {
+          "title": "Real-time product defect detection and anomaly analysis on production lines",
+          "description": ""
+        },
+        {
+          "title": "production quality monitoring with interactive AI-powered dashboards",
+          "description": ""
+        },
+        {
+          "title": "automated root cause analysis for manufacturing process issues",
+          "description": ""
+        },
+        {
+          "title": "predictive analytics for production efficiency optimization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Automotive & Mobility",
+        "Aerospace & Defense"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Reduced defect escape rates through real-time anomaly detection",
+        "improved production quality and lower scrap/rework costs",
+        "faster time-to-insight for manufacturing operations teams."
+      ],
+      "integrations": [
+        "Google Cloud Cortex Framework",
+        "Google Manufacturing Data Engine (MDE)",
+        "Google Vertex AI",
+        "Google Agentspace"
+      ],
+      "source_url": "https://www.hcltech.com/press-releases/hcltech-launches-agentic-ai-powered-smart-manufacturing-solution-google-cloud"
+    },
+    {
+      "agent_name": "HCLTech NetSight",
+      "slug": "hcltech-netsight",
+      "company_slug": "hcltech",
+      "tagline": "A GenAI-powered virtual network troubleshooting agent that detects telecom anomalies in near real time and recommends corrective actions before customers are impacted.",
+      "description": "NetSight is an AI-powered virtual network troubleshooting agent for telecom operators, powered by Google Cloud Gemini and Vertex AI. It continuously analyzes network data streams using advanced machine learning algorithms to detect anomalies in near real time, identify root causes, uncover performance bottlenecks, and suggest corrective actions such as network configuration modifications. The platform brings predictive insights based on historical demand patterns, ticket logs, and external data sources, correlating faults from fault management systems with network performance spikes. It is listed on Google Cloud's Agent Finder marketplace and enables operators to shift from reactive to proactive network management.",
+      "use_cases": [
+        {
+          "title": "Proactive network anomaly detection and automated root cause analysis",
+          "description": ""
+        },
+        {
+          "title": "real-time performance bottleneck identification across RAN networks",
+          "description": ""
+        },
+        {
+          "title": "predictive network demand forecasting based on historical patterns",
+          "description": ""
+        },
+        {
+          "title": "customer experience optimization through preemptive fault resolution",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Shift from reactive to proactive network operations",
+        "reduced mean time to resolution (MTTR) for network incidents",
+        "improved quality of experience (QoE) for end-users."
+      ],
+      "integrations": [
+        "Google Cloud",
+        "Google Gemini",
+        "Google Vertex AI",
+        "fault management systems"
+      ],
+      "source_url": "https://www.hcltech.com/netsight"
+    },
+    {
+      "agent_name": "Fluid Contact Center",
+      "slug": "fluid-contact-center",
+      "company_slug": "hcltech",
+      "tagline": "An AI-powered unified contact center platform built with Cisco that replaces legacy systems with multilingual virtual agents and predictive CX monitoring.",
+      "description": "Fluid Contact Center is an AI-powered unified contact center solution combining Cisco's Webex Contact Center platform with HCLTech's CCaaS transformation expertise. It delivers full AI-driven interaction automation across voice, chat, and digital channels with multilingual virtual agents, conversational IVR, agent-assist tools, analytics, and proactive monitoring. The solution offers enterprises a guided migration path that removes friction from major infrastructure overhauls, enabling adoption of advanced AI features without being locked into legacy ecosystems. It supports omnichannel orchestration with real-time conversation summarization and next-best-action recommendations for live agents.",
+      "use_cases": [
+        {
+          "title": "AI-driven customer interaction automation across omnichannel touchpoints",
+          "description": ""
+        },
+        {
+          "title": "multilingual virtual agent handling of routine inquiries at scale",
+          "description": ""
+        },
+        {
+          "title": "real-time agent-assist with conversation summarization and next-best-action",
+          "description": ""
+        },
+        {
+          "title": "predictive monitoring to proactively identify and resolve CX issues",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Customer Experience"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced average handle time and cost-per-interaction",
+        "improved first-contact resolution rates",
+        "seamless legacy-to-cloud contact center migration with minimal disruption."
+      ],
+      "integrations": [
+        "Cisco Webex Contact Center"
+      ],
+      "source_url": "https://www.hcltech.com/press-releases/hcltech-and-cisco-launch-ai-powered-fluid-contact-center-solution"
+    },
+    {
+      "agent_name": "TechM Orion",
+      "slug": "techm-orion",
+      "company_slug": "tech-mahindra",
+      "tagline": "An enterprise agentic AI platform that lets businesses deploy autonomous AI agents across complex workflows without needing ML expertise.",
+      "description": "TechM Orion is Tech Mahindra's next-generation agentic AI platform built on NVIDIA accelerated computing. It enables intelligent, autonomous execution of complex business workflows through reusable agents that can reason, plan, and act across enterprise systems by combining large language models, structured data access, and real-time decision-making. The platform features a no-code/low-code interface for business users, plug-and-play integration with enterprise systems, and dual-layer guardrails through TechM VerifAI for monitoring hallucinations, bias, and agent performance. TechM Orion supports flexible deployment across Azure, AWS, GCP, private cloud, or on-premises environments, with a marketplace offering a catalog of autonomous, platform-agnostic agents for enterprise use cases.",
+      "use_cases": [
+        {
+          "title": "Automating multi-step IT operations workflows",
+          "description": ""
+        },
+        {
+          "title": "orchestrating customer service processes across channels",
+          "description": ""
+        },
+        {
+          "title": "deploying domain-specific reasoning agents integrated with existing enterprise data lakes and tools",
+          "description": ""
+        },
+        {
+          "title": "centralizing AI governance across an organization's agent deployments",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Customer Experience",
+        "Engineering & DevOps",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Finance & Accounting"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Faster time-to-value for AI deployments with reduced operational costs",
+        "improved operational consistency through autonomous agent execution",
+        "reduced complexity in managing enterprise AI at scale."
+      ],
+      "integrations": [
+        "ServiceNow",
+        "SharePoint",
+        "CrewAI",
+        "LangGraph",
+        "Google ADK",
+        "Microsoft Autogen",
+        "NVIDIA AI Enterprise"
+      ],
+      "source_url": "https://www.techmahindra.com/platform/techm-orion/"
+    },
+    {
+      "agent_name": "agentX (agentAssistX)",
+      "slug": "agentx-agentassistx",
+      "company_slug": "tech-mahindra",
+      "tagline": "A GenAI-powered suite that automates IT and end-user support by replacing traditional Level 1 support with touchless, AI-driven ticket resolution.",
+      "description": "agentX is Tech Mahindra's comprehensive suite of GenAI solutions, with agentAssistX as its core offering. agentAssistX transforms IT and end-user support by leveraging conversational AI to automatically create, manage, and resolve support tickets without human touchpoints, effectively phasing out traditional L1 support. The solution automates critical functions including meeting room technology operations, software and device management, access and security management, real-time monitoring, knowledge management, and cloud and data center operations. It integrates with conversational AI tools such as Microsoft Copilot, AWS Business Q, and Google Gemini to deliver a seamless, agentless support experience.",
+      "use_cases": [
+        {
+          "title": "Automating enterprise IT helpdesk operations end-to-end",
+          "description": ""
+        },
+        {
+          "title": "managing software provisioning and device lifecycle without manual intervention",
+          "description": ""
+        },
+        {
+          "title": "automating access control and security management workflows",
+          "description": ""
+        },
+        {
+          "title": "real-time monitoring and knowledge management for cloud and data center operations",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Telecom & Media",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Customer Experience",
+        "HR & Workforce",
+        "Engineering & DevOps"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Enhanced productivity by up to 70% through automation of complex IT tasks",
+        "improved compliance and risk mitigation",
+        "significant reduction in mean time to resolution for IT support tickets."
+      ],
+      "integrations": [
+        "Microsoft Copilot",
+        "AWS Business Q",
+        "Google Gemini",
+        "ITSM platforms",
+        "enterprise security systems",
+        "cloud management tools"
+      ],
+      "source_url": "https://www.techmahindra.com/insights/press-releases/tech-mahindra-launches-agentx-comprehensive-suite-genai-solutions/"
+    },
+    {
+      "agent_name": "Telco Network Operations Reasoning Agent",
+      "slug": "telco-network-operations-reasoning-agent",
+      "company_slug": "tech-mahindra",
+      "tagline": "An AI reasoning agent that transforms telecom network operations centers into autonomous, closed-loop systems capable of self-healing at Level 4+ autonomy.",
+      "description": "This AI-powered reasoning agent is designed to help Communication Service Providers accelerate their journey toward Level 4+ autonomous networks. It performs autonomous alarm validation, root-cause analysis, and resolution across Operations Support Systems and Business Support Systems environments. The agent is built using NVIDIA NeMo with synthetic and anonymized data and deployed as an NVIDIA NIM inference microservice, demonstrating a 2-3x improvement in accuracy compared to non-fine-tuned models. Delivered through the TechM Orion platform, it ensures enterprise-grade trust without using customer PII, allowing CSPs to safely operationalize AI while maintaining data privacy and governance.",
+      "use_cases": [
+        {
+          "title": "Autonomous alarm triage and root-cause analysis in telecom NOCs",
+          "description": ""
+        },
+        {
+          "title": "closed-loop incident resolution across OSS/BSS environments",
+          "description": ""
+        },
+        {
+          "title": "accelerating transition from manual to L4+ autonomous network operations",
+          "description": ""
+        },
+        {
+          "title": "reducing mean time to repair for network faults",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Operations & Supply Chain"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "2-3x improvement in reasoning accuracy over non-fine-tuned models",
+        "faster incident handling with greater operational consistency",
+        "reduced dependency on manual NOC operations staff."
+      ],
+      "integrations": [
+        "NVIDIA AI Enterprise",
+        "NVIDIA NeMo",
+        "NVIDIA NIM",
+        "TechM Orion platform",
+        "existing CSP data lakes and OSS/BSS tools"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/tech-mahindra-advances-ai-driven-autonomous-network-operations-for-csps-globally-with-nvidia-302702431.html"
+    },
+    {
+      "agent_name": "Agentic Payment Assistance & Collections Optimization",
+      "slug": "agentic-payment-assistance-collections-optimization",
+      "company_slug": "tech-mahindra",
+      "tagline": "An agentic AI solution that autonomously manages telecom payment workflows, from risk monitoring to multichannel customer follow-ups, to protect revenue and reduce churn.",
+      "description": "Available on the AWS Marketplace, this solution transforms human-intensive payment processes into intelligent, agent-driven workflows for global telecom operators. It uses agentic AI to analyze payment behavior, monitor potential payment risks, autonomously assess customer eligibility, and trigger actions such as setting up payment arrangements or initiating follow-ups across messaging platforms, chat, voice, and SMS. The solution integrates with leading billing and CRM platforms, reasoning across multiple data signals, taking autonomous actions, and continuously learning to improve recommendations over time. It balances automation with human oversight for vulnerable customers and complex cases, maintaining regulatory compliance throughout.",
+      "use_cases": [
+        {
+          "title": "Automating payment risk assessment and collections outreach for telecom subscribers",
+          "description": ""
+        },
+        {
+          "title": "orchestrating multichannel follow-ups for overdue accounts",
+          "description": ""
+        },
+        {
+          "title": "setting up autonomous payment arrangements based on customer eligibility analysis",
+          "description": ""
+        },
+        {
+          "title": "reducing involuntary churn through proactive payment intervention",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Enhanced revenue protection without compromising customer trust",
+        "reduced customer churn through proactive payment management",
+        "measurable improvement in collections efficiency with faster deployment via AWS Marketplace availability."
+      ],
+      "integrations": [
+        "Amazon Bedrock",
+        "Amazon Connect",
+        "AWS Step Functions",
+        "billing platforms",
+        "CRM platforms"
+      ],
+      "source_url": "https://www.techmahindra.com/insights/press-releases/techm-launches-agentic-payment-assistance-for-telcos/"
+    },
+    {
+      "agent_name": "BlueVerse",
+      "slug": "blueverse",
+      "company_slug": "ltimindtree",
+      "tagline": "An AI-native ecosystem that unifies intelligent agents, modular architecture, and built-in governance to move enterprises from AI concept to measurable value.",
+      "description": "BlueVerse is LTIMindtree's flagship agentic AI platform operated as a dedicated business unit. The platform comprises BlueVerse Foundry, a no-code/pro-code agent composition studio for building and deploying AI agents, RAG pipelines, and intelligent workflows; BlueVerse Marketplace, which hosts 325+ pre-built domain-specific agent blueprints and solution accelerators; and the Agent Orchestration Engine, which manages multi-agent lifecycle and interactions. It includes a centralized policy engine for role-based access control, an Explainability API for step-by-step reasoning trails, and immutable cryptographically signed audit logs for full governance. The platform supports composable agent deployment across enterprise functions with built-in observability and cost tracking.",
+      "use_cases": [
+        {
+          "title": "Supply chain optimization and demand forecasting",
+          "description": ""
+        },
+        {
+          "title": "customer support ticket automation with autonomous triage and resolution",
+          "description": ""
+        },
+        {
+          "title": "procurement workflow automation with spending guardrails",
+          "description": ""
+        },
+        {
+          "title": "predictive service management and proactive maintenance scheduling",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Energy & Utilities",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Customer Experience",
+        "Operations & Supply Chain",
+        "Sales & Marketing",
+        "HR & Workforce",
+        "Finance & Accounting"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "45% reduction in manual support tickets",
+        "80% faster task cycle time",
+        "90% SLA compliance improvement."
+      ],
+      "integrations": [
+        "Slack",
+        "Microsoft Teams",
+        "Jira",
+        "Kafka",
+        "REST APIs",
+        "AWS Marketplace"
+      ],
+      "source_url": "https://www.ltimindtree.com/agentic-ai-platform/"
+    },
+    {
+      "agent_name": "BlueVerse INS AI",
+      "slug": "blueverse-ins-ai",
+      "company_slug": "ltimindtree",
+      "tagline": "An enterprise-grade agentic AI ecosystem that orchestrates autonomous insurance agents across the full policy and claims value chain.",
+      "description": "BlueVerse INS AI is LTIMindtree's insurance-specific AI platform built within the BlueVerse ecosystem. It delivers over 50 insurance-specific AI agents out of a broader catalog of 300+ agents, covering functions from underwriting to claims processing. The platform includes automated data pipelines for structured and unstructured data extraction, intelligent document processing, multi-modal content extraction, and domain-specific insurance data APIs. It provides model lifecycle management with automated feedback collection, fine-tuning, reinforcement learning, and governance capabilities built in.",
+      "use_cases": [
+        {
+          "title": "First Notice of Loss (FNOL) automation that performs real-time loss data validation, customer/policy validation, case creation, and claims note summarization",
+          "description": ""
+        },
+        {
+          "title": "KYC copilot that analyzes customer information and identifies discrepancies across structured and unstructured data",
+          "description": ""
+        },
+        {
+          "title": "insurance agent marketplace for configuring and orchestrating line-of-business-specific AI agents",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "Customer Experience",
+        "Legal & Compliance"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Reduced manual effort and error rates in claims intake",
+        "real-time fraud detection during FNOL processing."
+      ],
+      "integrations": [
+        "BlueVerse Foundry",
+        "BlueVerse Marketplace",
+        "RAG pipelines"
+      ],
+      "source_url": "https://www.ltimindtree.com/industries/insurance/insurance-ai-platform/"
+    },
+    {
+      "agent_name": "Navisource.AI",
+      "slug": "navisource-ai",
+      "company_slug": "ltimindtree",
+      "tagline": "A GenAI-powered autonomous sourcing copilot that streamlines indirect procurement from market research through negotiation.",
+      "description": "Navisource.AI is LTIMindtree's procurement-focused AI copilot built on the BlueVerse platform. It functions as an autonomous sourcing assistant that performs market research, pricing intelligence, supplier recommendations, and AI-driven negotiation. The platform eliminates manual touchpoints across the procurement cycle and enhances collaboration between suppliers, procurement functions, and requestors. It uses GenAI to understand requirements and determine optimal sourcing strategies with cost efficiency as a core objective.",
+      "use_cases": [
+        {
+          "title": "Automated market research and supplier discovery for indirect procurement",
+          "description": ""
+        },
+        {
+          "title": "AI-driven pricing intelligence and negotiation support",
+          "description": ""
+        },
+        {
+          "title": "end-to-end sourcing strategy recommendation from requirement intake to supplier selection",
+          "description": ""
+        },
+        {
+          "title": "procurement cost benchmarking and optimization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Finance & Accounting"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "10-15% reduction in overall procurement cost."
+      ],
+      "integrations": [
+        "SAP Ariba",
+        "SAP S/4HANA",
+        "BlueVerse/Canvas.AI"
+      ],
+      "source_url": "https://www.businesswire.com/news/home/20240219584708/en/LTIMindtree-Unveils-Navisource.AI-Revolutionizing-Procurement-CoPilot-on-Canvas.AI-Platform"
+    }
+  ]
+}

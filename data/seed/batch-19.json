@@ -1,0 +1,518 @@
+{
+  "companies": [
+    {
+      "name": "Pixis AI",
+      "slug": "pixis-ai",
+      "website": "https://pixis.ai",
+      "headquarters": "Chicago, Illinois, USA",
+      "founded": 2018,
+      "company_size": "scaleup",
+      "description": "Pixis develops a codeless AI infrastructure platform for performance marketing, combining creative generation, campaign optimization, and cross-channel intelligence to help consumer brands and agencies maximize advertising ROI at scale. The platform is built on over 200 proprietary AI models trained on more than 3 billion data points spanning a decade of marketing performance data.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Observe.AI",
+      "slug": "observe-ai",
+      "website": "https://www.observe.ai",
+      "headquarters": "Redwood City, California, USA",
+      "founded": 2017,
+      "company_size": "scaleup",
+      "description": "Observe.AI is an agentic AI platform for contact centers that unifies autonomous voice and chat AI agents, real-time human-agent copilots, and GenAI-powered conversation intelligence to automate customer interactions, augment live agents, and analyze 100% of conversations across enterprise support channels. The platform serves 350+ enterprise customers and supports 250+ out-of-the-box integrations with CCaaS, CRM, BI, and workforce systems.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation",
+        "Energy & Utilities",
+        "Retail & E-commerce"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Redacto AI",
+      "slug": "redacto-ai",
+      "website": "https://www.redacto.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2025,
+      "company_size": "startup",
+      "description": "Redacto (legal entity: VertexTech Labs) is an AI-agentic privacy, security, and third-party risk technology platform built for BFSI and HealthTech teams. The platform automates data discovery, vendor risk management, consent management, and privacy compliance workflows using AI agents and automated risk scoring, supporting DPDPA, GDPR, and CCPA compliance.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Automotive & Mobility",
+        "Retail & E-commerce"
+      ],
+      "contact_email": "dpo@redacto.io",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Prism",
+      "slug": "prism",
+      "company_slug": "pixis-ai",
+      "tagline": "AI-native marketing command center that coordinates specialized agents across ad platforms for real-time campaign intelligence.",
+      "description": "Prism is an AI-native marketing operating system that replaces passive dashboards with an intelligent, always-on decision layer built on Model Context Protocol (MCP) architecture. The platform coordinates multiple specialized AI agents — including Meta, Google, TikTok, YouTube, competitor intelligence, and creative agents — through a unified intelligence layer that enables secure, real-time data communication across marketing systems. Users interact via a conversational interface to query ad performance, audit budgets, detect audience fatigue, simulate campaign outcomes, and generate creative briefs using natural language. Prism is available both as an in-house enterprise tool for brands and as a white-label solution for agencies managing client campaigns.",
+      "use_cases": [
+        {
+          "title": "Real-time campaign performance monitoring and anomaly detection",
+          "description": ""
+        },
+        {
+          "title": "cross-channel budget optimization and spend analysis",
+          "description": ""
+        },
+        {
+          "title": "audience fatigue detection and targeting refinement",
+          "description": ""
+        },
+        {
+          "title": "competitive ad intelligence and benchmarking",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "30x faster insight-to-decision time",
+        "70% reduction in campaign audit time",
+        "12% ROAS lift from fatigue detection",
+        "100+ team hours saved monthly"
+      ],
+      "integrations": [
+        "Meta Ads",
+        "Google Ads",
+        "TikTok Ads",
+        "YouTube Ads",
+        "Shopify",
+        "HubSpot",
+        "Salesforce",
+        "Zoho",
+        "SEMrush",
+        "Google Sheets",
+        "Appsflyer",
+        "AWS Marketplace"
+      ],
+      "source_url": "https://pixis.ai/products/prism/"
+    },
+    {
+      "agent_name": "Adroom",
+      "slug": "adroom",
+      "company_slug": "pixis-ai",
+      "tagline": "AI creative studio that generates on-brand advertising assets at scale in seconds.",
+      "description": "Adroom is an AI-powered creative studio that enables marketing teams to generate high-quality, brand-aligned advertising assets at scale in seconds. The platform enforces brand guidelines across fonts, colors, design elements, and voice to ensure visual and messaging consistency across all outputs. It supports bulk creation for A/B testing, multi-channel feed generation with platform-specific formatting, mood and occasion-based creative variations, and dynamic optimization for different audience segments. Adroom includes a copy generator for headlines and calls-to-action, PSD import functionality, customizable approval workflows, and an asset library for organization and storage.",
+      "use_cases": [
+        {
+          "title": "On-brand ad creative generation at scale",
+          "description": ""
+        },
+        {
+          "title": "multi-channel campaign asset production",
+          "description": ""
+        },
+        {
+          "title": "A/B test variant creation and creative experimentation",
+          "description": ""
+        },
+        {
+          "title": "audience-specific creative personalization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Scaled creative production without team expansion",
+        "3x faster creative refresh cycles",
+        "stabilized cost-per-purchase through consistent on-brand creative"
+      ],
+      "integrations": [
+        "Meta Ads",
+        "Google Ads",
+        "Prism (Pixis)"
+      ],
+      "source_url": "https://pixis.ai/products/creative-ai/"
+    },
+    {
+      "agent_name": "AdVance",
+      "slug": "advance",
+      "company_slug": "pixis-ai",
+      "tagline": "AI-powered ad optimization platform that automates bid management, budget allocation, and audience targeting across channels.",
+      "description": "AdVance is Pixis's performance optimization platform that automates bid management, budget allocation, and audience targeting across advertising channels using AI. The system provides 24/7 monitoring with real-time bid adjustments to ensure optimal impression value, and automatically reallocates spend toward top-performing campaigns and audiences without manual intervention. AdVance draws on extensive campaign performance datasets to refine targeting strategy with AI-powered confidence scores that predict which creative, audiences, and approaches will perform best. The platform generates context-based ad copy that adapts messaging for different audience segments and provides unified cross-platform performance reporting.",
+      "use_cases": [
+        {
+          "title": "Real-time bid and budget optimization across ad platforms",
+          "description": ""
+        },
+        {
+          "title": "AI-powered audience segmentation and targeting refinement",
+          "description": ""
+        },
+        {
+          "title": "performance prediction with confidence scoring",
+          "description": ""
+        },
+        {
+          "title": "automated campaign scaling of top-performing strategies",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Maximized ROAS without expanding budgets",
+        "reduced manual optimization workload",
+        "improved audience targeting precision",
+        "faster campaign scaling"
+      ],
+      "integrations": [
+        "Meta Ads",
+        "Google Ads",
+        "Adroom (Pixis)"
+      ],
+      "source_url": "https://pixis.ai/products/performance-ai/"
+    },
+    {
+      "agent_name": "VoiceAI Agents",
+      "slug": "voiceai-agents",
+      "company_slug": "observe-ai",
+      "tagline": "Autonomous voice AI agents that resolve customer calls end-to-end with accuracy, empathy, and speed while seamlessly routing to human agents when needed.",
+      "description": "VoiceAI Agents is Observe.AI's flagship autonomous voice product that handles inbound and outbound customer phone calls without human intervention. The agents use customized speech-to-text technology built for noisy, multi-speaker contact center environments, accurately capturing names, numbers, dates, amounts, emails, and IDs even through accents and interruptions. They employ task-specific large language models with multi-step reasoning and reinforcement learning to execute complete workflows, enforce compliance steps, and make real-time decisions. The agents deliver natural text-to-speech with human-like tone, correct acronym pronunciation, and spoken language understanding that interprets disfluencies and emotions, operating in 25+ languages.",
+      "use_cases": [
+        {
+          "title": "Automating routine inbound customer service calls with end-to-end resolution",
+          "description": ""
+        },
+        {
+          "title": "handling outbound appointment confirmations, payment reminders, and follow-ups at scale",
+          "description": ""
+        },
+        {
+          "title": "intelligent call routing and triage that captures caller intent and transfers complex cases to the right human agent",
+          "description": ""
+        },
+        {
+          "title": "claims intake and first-notice-of-loss processing for insurance and healthcare payers",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduction in average handle time for routine calls",
+        "24/7 customer support coverage without additional staffing",
+        "decreased call abandonment rates through immediate response"
+      ],
+      "integrations": [
+        "Amazon Connect",
+        "Avaya",
+        "8x8",
+        "Aircall",
+        "CallRail",
+        "Salesforce",
+        "ADP Workforce Now",
+        "BambooHR",
+        "Jira",
+        "Confluence",
+        "Asana",
+        "250+ total integrations"
+      ],
+      "source_url": "https://www.observe.ai/voice-ai-agents"
+    },
+    {
+      "agent_name": "ChatAI Agents",
+      "slug": "chatai-agents",
+      "company_slug": "observe-ai",
+      "tagline": "AI-powered chat agents that resolve customer issues and drive leads across web chat, SMS, and social channels while maintaining full conversational context.",
+      "description": "ChatAI Agents is Observe.AI's autonomous text-based agent product that powers natural, human-like conversations across web chat, in-app messaging, SMS, and social media platforms. The agents retain full conversational context across channels, manage multiple customer intents within a single interaction, and escalate to voice or human agents when necessary without requiring customers to repeat information. ChatAI Agents include a no-code Widget Builder that allows teams to launch branded, responsive chat experiences with configurable fonts, color palettes, icons, layout templates, and animations without writing code. The platform provides built-in evaluations and governance frameworks with real-time monitoring and alerting.",
+      "use_cases": [
+        {
+          "title": "Deflecting routine support inquiries across web, in-app, and messaging channels with full self-service resolution",
+          "description": ""
+        },
+        {
+          "title": "qualifying and nurturing inbound leads through conversational engagement",
+          "description": ""
+        },
+        {
+          "title": "providing cross-channel continuity where chat conversations seamlessly escalate to voice with full context",
+          "description": ""
+        },
+        {
+          "title": "deploying branded, multilingual chat interfaces across digital properties without engineering resources",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced contact center volume through automated chat deflection",
+        "increased lead conversion through always-on conversational engagement",
+        "improved customer satisfaction through seamless cross-channel handoffs"
+      ],
+      "integrations": [
+        "Web chat",
+        "in-app messaging",
+        "SMS",
+        "social media platforms",
+        "CCaaS platforms",
+        "CRM systems",
+        "250+ total integrations"
+      ],
+      "source_url": "https://www.observe.ai/chatai-agents"
+    },
+    {
+      "agent_name": "Agent Copilot",
+      "slug": "agent-copilot",
+      "company_slug": "observe-ai",
+      "tagline": "A real-time AI copilot that guides human agents through every live customer conversation with contextual prompts, compliance enforcement, and automated after-call work.",
+      "description": "Agent Copilot is Observe.AI's real-time assistance product that works alongside live human agents during customer interactions. It surfaces contextual guidance in the moment, keeping agents on script with natural talk tracks while providing next-best-action recommendations tailored to the specific conversation flow. The copilot handles objection management by delivering real-time prompts when agents encounter customer pushback, and enforces compliance by monitoring conversations against regulatory and company policy requirements as they happen. After each interaction, Agent Copilot automatically generates call summaries and handles after-call work documentation, reducing cognitive load on agents.",
+      "use_cases": [
+        {
+          "title": "Providing real-time script adherence and next-best-action guidance during complex customer interactions",
+          "description": ""
+        },
+        {
+          "title": "automating compliance monitoring and enforcement during regulated conversations",
+          "description": ""
+        },
+        {
+          "title": "generating automatic post-call summaries and dispositioning to reduce after-call work",
+          "description": ""
+        },
+        {
+          "title": "supporting new agent onboarding by delivering contextual coaching prompts during live calls",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Legal & Compliance"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "23% reduction in average handle time",
+        "97% improvement in compliance adherence",
+        "55% reduction in after-call work through automated summarization"
+      ],
+      "integrations": [
+        "CCaaS platforms",
+        "CRM systems",
+        "knowledge bases",
+        "HRIS systems",
+        "250+ total integrations"
+      ],
+      "source_url": "https://www.observe.ai/ai-copilots"
+    },
+    {
+      "agent_name": "Coaching Copilot",
+      "slug": "coaching-copilot",
+      "company_slug": "observe-ai",
+      "tagline": "An always-on AI coaching engine that transforms everyday customer interactions into personalized learning opportunities for agents at scale.",
+      "description": "Coaching Copilot is Observe.AI's performance management product that analyzes completed customer interactions to identify individual agent skill gaps and deliver targeted coaching feedback. It transforms routine calls into learning opportunities by evaluating agent performance against best practices, identifying specific behavioral patterns that need improvement, and generating personalized coaching recommendations for each agent. The platform enables contact center managers to deliver consistent, data-driven coaching at scale rather than relying on random call sampling and subjective evaluations. Coaching Copilot reinforces best practices by surfacing examples of successful interactions alongside areas for improvement, creating a continuous feedback loop.",
+      "use_cases": [
+        {
+          "title": "Identifying and closing individual agent skill gaps through automated performance analysis across 100% of interactions",
+          "description": ""
+        },
+        {
+          "title": "scaling supervisor coaching capacity by automating feedback generation",
+          "description": ""
+        },
+        {
+          "title": "reducing customer escalations by proactively addressing agent behavioral patterns",
+          "description": ""
+        },
+        {
+          "title": "accelerating new hire ramp time through targeted coaching plans",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "HR & Workforce"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "20% uplift in agent conversation quality",
+        "increased coaching coverage from sampled interactions to 100% of conversations",
+        "faster new agent proficiency through targeted development plans"
+      ],
+      "integrations": [
+        "CCaaS platforms",
+        "CRM systems",
+        "HRIS systems",
+        "BI platforms",
+        "250+ total integrations"
+      ],
+      "source_url": "https://www.observe.ai/ai-copilots"
+    },
+    {
+      "agent_name": "Insights Copilot",
+      "slug": "insights-copilot",
+      "company_slug": "observe-ai",
+      "tagline": "A conversational intelligence engine that converts 100% of customer interactions into actionable business insights through natural-language queries and trend analysis.",
+      "description": "Insights Copilot is Observe.AI's analytics and business intelligence product that transforms customer conversation data into enterprise-wide strategic insights. It includes AskObserve, a natural-language AI agent that allows teams to ask questions like \"What's driving complaints about our billing process?\" and receive real-time, structured answers backed by actual conversation data. The platform performs multi-level contact reason analysis, breaking down conversations into categories to identify root causes, behavioral trends, and emerging patterns. It also includes AI Studio, a no-code command center where teams can configure AI-powered services including free-text summaries, competitor mention detection, key moment identification, and topic categorization. Insights Copilot provides turn-by-turn sentiment analysis showing how customer emotions shift throughout interactions.",
+      "use_cases": [
+        {
+          "title": "Identifying root causes behind rising complaint volumes or customer churn through multi-level analysis",
+          "description": ""
+        },
+        {
+          "title": "detecting emerging product issues, competitor threats, or policy gaps from voice-of-customer patterns",
+          "description": ""
+        },
+        {
+          "title": "enabling product, marketing, and operations teams to query interaction data in natural language",
+          "description": ""
+        },
+        {
+          "title": "configuring custom AI monitors for specific business events like competitor mentions or compliance risks",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Enterprise-wide visibility into voice-of-customer intelligence from 100% of interactions",
+        "faster identification of product, process, and policy issues",
+        "democratized access to conversation insights across non-technical business teams"
+      ],
+      "integrations": [
+        "BI platforms",
+        "CRM systems",
+        "data lakes",
+        "Amazon S3",
+        "CCaaS platforms",
+        "250+ total integrations"
+      ],
+      "source_url": "https://www.observe.ai/platform/conversational-intelligence"
+    },
+    {
+      "agent_name": "Redacto",
+      "slug": "redacto",
+      "company_slug": "redacto-ai",
+      "tagline": "An AI-agentic unified privacy management platform that automates compliance, data discovery, vendor risk, and consent management for enterprises.",
+      "description": "Redacto is a unified AI-powered privacy and data governance platform that deploys AI agents to automate and orchestrate privacy operations end-to-end. It auto-discovers, classifies, and maps sensitive data across an organization using AI-powered intelligent tagging. Its AI agents evaluate vendor security postures through automated risk scoring, answer security and privacy questionnaires, and resolve over 1,000 compliance checks in minutes. The platform includes nine core modules: Unified Consent Management, Automated DSAR Management, Privacy Impact Assessment Automation (with claimed 98.5% accuracy), AI-Driven Data Discovery and Mapping, Anonymization and Pseudonymization, CI/CD Privacy Scanner, Intelligent Vendor Risk Management, Audit and Reporting, and a Unified Privacy and Security Trust Center.",
+      "use_cases": [
+        {
+          "title": "Automated DPDPA, GDPR, and CCPA compliance management",
+          "description": ""
+        },
+        {
+          "title": "AI-powered sensitive data discovery and classification across enterprise systems",
+          "description": ""
+        },
+        {
+          "title": "third-party vendor risk assessment and continuous compliance monitoring",
+          "description": ""
+        },
+        {
+          "title": "automated data subject access request fulfillment",
+          "description": ""
+        },
+        {
+          "title": "CI/CD pipeline privacy scanning",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Automotive & Mobility",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Legal & Compliance",
+        "IT Operations",
+        "Data & Analytics",
+        "Engineering & DevOps"
+      ],
+      "category": "Legal & Compliance",
+      "expected_outcomes": [
+        "Up to 75% reduction in regulatory risk through automated compliance workflows",
+        "75% productivity improvement in privacy operations",
+        "real-time visibility into organizational privacy posture"
+      ],
+      "integrations": [
+        "Multi-regulation frameworks (DPDPA, GDPR, CCPA)",
+        "CI/CD pipeline integration"
+      ],
+      "source_url": "https://www.redacto.ai/en-in"
+    }
+  ]
+}

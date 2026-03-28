@@ -1,0 +1,740 @@
+{
+  "companies": [
+    {
+      "name": "Persistent Systems",
+      "slug": "persistent-systems",
+      "website": "https://www.persistent.com",
+      "headquarters": "Pune, India",
+      "founded": 1990,
+      "company_size": "enterprise",
+      "description": "Persistent Systems is an Indian multinational technology services company specializing in digital engineering, cloud computing, data analytics, and enterprise AI solutions. The company serves clients across multiple industries globally, with particular strength in healthcare, financial services, and software product engineering.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "contact_email": "info@persistent.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Mphasis",
+      "slug": "mphasis",
+      "website": "https://www.mphasis.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 2000,
+      "company_size": "enterprise",
+      "description": "Mphasis is an IT services and consulting company applying next-generation technology to help enterprises transform businesses globally. The company specializes in cloud, cognitive computing, and AI-driven solutions across banking, insurance, healthcare, and other industries.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Government & Public Sector"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Happiest Minds",
+      "slug": "happiest-minds",
+      "website": "https://www.happiestminds.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 2011,
+      "company_size": "enterprise",
+      "description": "Happiest Minds Technologies is an AI-first digital engineering and IT services company operating across 43 global offices. The company specializes in product engineering, cybersecurity, analytics, and automation platforms, serving clients across financial services, healthcare, retail, and manufacturing.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Education",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Logistics & Transportation"
+      ],
+      "contact_email": "business@happiestminds.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "SASVA 2.0",
+      "slug": "sasva-2-0",
+      "company_slug": "persistent-systems",
+      "tagline": "AI-powered platform that integrates generative and deterministic AI to revolutionize the entire software development lifecycle from ideation to post-deployment.",
+      "description": "SASVA 2.0 is Persistent Systems' flagship AI-powered software engineering platform that provides a fully integrated end-to-end solution spanning ideation, assessment, development, deployment, and post-deployment operations. The platform conducts comprehensive project assessments covering technology maturity, security posture, technical debt, and cost/effort forecasting. It uses AI-assisted coding, bug fixing, security enhancements, and context-driven roadmap creation leveraging historical data and market trends. SASVA 2.0 takes a deterministic approach to AI, built around affordability, security, personalization, and responsible AI principles.",
+      "use_cases": [
+        {
+          "title": "AI-assisted code generation, bug fixing, and security vulnerability remediation",
+          "description": ""
+        },
+        {
+          "title": "automated product roadmap creation and release planning for product managers",
+          "description": ""
+        },
+        {
+          "title": "comprehensive project assessment and technical debt analysis",
+          "description": ""
+        },
+        {
+          "title": "real-time customer support insights and dynamic knowledge base management.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "25-35% reduction in release times with improved quality",
+        "boost in Annual Recurring Revenue (ARR) and Net Revenue Retention (NRR)."
+      ],
+      "integrations": [
+        "AWS",
+        "Azure",
+        "GCP (multi-cloud)",
+        "IDE integrations"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/persistent-unveils-sasva-2-0-revolutionizing-ai-driven-software-development-and-business-acceleration-302280306.html"
+    },
+    {
+      "agent_name": "GenAI Hub",
+      "slug": "genai-hub",
+      "company_slug": "persistent-systems",
+      "tagline": "Enterprise platform for creating, deploying, and governing generative AI applications quickly, efficiently, and responsibly across multiple LLMs.",
+      "description": "GenAI Hub is Persistent's platform engineered to accelerate the development and deployment of generative AI applications in enterprises. It integrates with existing organizational infrastructure and data while supporting multiple Large Language Models without vendor lock-in. The platform comprises five core components: Playground (a no-code interface for domain experts), Agents Framework (using LangChain and LlamaIndex for RAG solutions), Evaluation Framework (AI-to-validate-AI with drift and bias detection), Gateway (LLM routing with load balancing and cost analysis), and Custom Model Pipelines (for building proprietary LLMs and SLMs). Agent Studio, a companion no-code platform for building AI agents, extends GenAI Hub with visual agent composition and deployment capabilities.",
+      "use_cases": [
+        {
+          "title": "Enterprise-wide generative AI application development without vendor lock-in",
+          "description": ""
+        },
+        {
+          "title": "no-code AI agent creation for business users via Agent Studio",
+          "description": ""
+        },
+        {
+          "title": "secure generative AI chatbot deployment for employee productivity",
+          "description": ""
+        },
+        {
+          "title": "LLM cost optimization and governance with token-level usage tracking.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Customer Experience",
+        "Engineering & DevOps",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Accelerated time-to-market for AI applications",
+        "reduced operational costs through cross-LLM strategy optimization."
+      ],
+      "integrations": [
+        "Azure OpenAI",
+        "AWS Bedrock",
+        "Google Gemini",
+        "Hugging Face (LLaMA2, Mistral)",
+        "LangChain",
+        "LlamaIndex"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/persistent-launches-genai-hub-to-power-new-era-of-enterprise-ai-adoption-302166012.html"
+    },
+    {
+      "agent_name": "iAURA 2.0",
+      "slug": "iaura-2-0",
+      "company_slug": "persistent-systems",
+      "tagline": "Agentic AI suite that reimagines how enterprises monitor, maintain, govern, and scale their data ecosystems.",
+      "description": "iAURA 2.0 is Persistent's agentic AI-driven data management platform that introduces intelligent, automated capabilities for enterprise data operations in the generative AI era. It provides natural-language \"talk to your data\" interfaces that auto-generate KPIs and visualizations, agentic BI migration tools for moving from legacy platforms (Business Objects, MicroStrategy, Tableau, Spotfire) to modern ones (Power BI, Qlik, QuickSight), and agentic managed services that auto-triage support tickets and resolve data pipeline issues. The platform also includes an AI Data Modeler that parses OLTP data models and recommends data warehouse schemas, and an AI Data Mapper that auto-generates source-to-target data mappings.",
+      "use_cases": [
+        {
+          "title": "Automated data warehouse modernization and ETL migration",
+          "description": ""
+        },
+        {
+          "title": "natural-language business intelligence querying and KPI generation",
+          "description": ""
+        },
+        {
+          "title": "agentic triage and auto-resolution of data pipeline support tickets",
+          "description": ""
+        },
+        {
+          "title": "legacy BI platform migration to modern cloud-native tools.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Finance & Accounting"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "55-65% productivity gain in BI migration projects",
+        "70% of issues auto-resolved via agentic managed services."
+      ],
+      "integrations": [
+        "AWS",
+        "Snowflake",
+        "Databricks",
+        "GCP BigQuery",
+        "Airflow",
+        "Tableau",
+        "Power BI",
+        "Qlik",
+        "QuickSight",
+        "MicroStrategy",
+        "Spotfire",
+        "Business Objects",
+        "Jira",
+        "Confluence"
+      ],
+      "source_url": "https://www.persistent.com/ai/persistent-iaura/"
+    },
+    {
+      "agent_name": "OpsPAilot",
+      "slug": "opspailot",
+      "company_slug": "persistent-systems",
+      "tagline": "Multi-agent AI platform built to automate, orchestrate, and elevate service management across IT, HR, Finance, and Procurement.",
+      "description": "OpsPAilot is Persistent's AI agent platform designed for enterprise service management automation. It boosts agent productivity with real-time, context-enriched answers, smart summarization, and next-best-action recommendations integrated directly within ITSM platforms. The platform uses proprietary reasoning engines and domain-trained models to ensure accuracy and cost efficiency across multiple business functions. It features the TRAPS+ Framework for built-in audit trails, privacy, and governance meeting regulatory and ethical standards. OpsPAilot's open architecture supports any environment including AWS, Azure, GCP, hybrid, or on-premises deployments.",
+      "use_cases": [
+        {
+          "title": "Automated IT service desk ticket resolution with next-best-action guidance",
+          "description": ""
+        },
+        {
+          "title": "HR and finance service request automation and orchestration",
+          "description": ""
+        },
+        {
+          "title": "cross-functional procurement workflow management",
+          "description": ""
+        },
+        {
+          "title": "intelligent escalation and knowledge summarization for support agents.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "HR & Workforce",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "80% faster processing",
+        "90% accuracy gains",
+        "50% cost reduction."
+      ],
+      "integrations": [
+        "AWS",
+        "Azure",
+        "GCP",
+        "hybrid/on-premises environments",
+        "ITSM platforms"
+      ],
+      "source_url": "https://www.persistent.com/services/cloud-and-infrastructure/persistent-intelligent-it-operations/opspailot-ai-agent-platform/"
+    },
+    {
+      "agent_name": "ContractAssIst",
+      "slug": "contractassist",
+      "company_slug": "persistent-systems",
+      "tagline": "AI-driven contract management solution that consolidates workflows into a centralized Microsoft Teams dashboard with conversational AI.",
+      "description": "ContractAssIst is an AI-powered contract management solution that addresses enterprise challenges in tracking and managing high-volume contracts from multiple vendors. It features an AI-powered chatbot enabling conversational queries and intelligent suggestions within Microsoft Teams group chats, a centralized dashboard for unified contract access, real-time version tracking, contract comparison capabilities, and automated approval summaries. The solution leverages GPT-3.5 and GPT-4 via Azure OpenAI Service for natural language contract analysis, with Elastic and Application Insights for observability. ContractAssIst is available on the Microsoft AppSource marketplace.",
+      "use_cases": [
+        {
+          "title": "Centralized multi-vendor contract tracking and compliance management",
+          "description": ""
+        },
+        {
+          "title": "AI-powered contract comparison and clause analysis",
+          "description": ""
+        },
+        {
+          "title": "automated approval workflow management with instant notifications",
+          "description": ""
+        },
+        {
+          "title": "conversational contract querying within Microsoft Teams.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Energy & Utilities",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Legal & Compliance",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "Legal & Compliance",
+      "expected_outcomes": [
+        "95% reduction in email communication overhead",
+        "20-25 minutes saved per user daily through streamlined workflows."
+      ],
+      "integrations": [
+        "Microsoft Azure",
+        "Microsoft 365 Copilot",
+        "Microsoft Teams",
+        "Azure OpenAI Service (GPT-3.5, GPT-4)",
+        "Elastic",
+        "Application Insights"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/persistent-launches-contractassist-using-microsoft-365-copilot-to-streamline-contract-management-302351631.html"
+    },
+    {
+      "agent_name": "NeoIP",
+      "slug": "neoip",
+      "company_slug": "mphasis",
+      "tagline": "A unified AI platform that orchestrates agentic solutions to perpetually rewire enterprise core systems for continuous transformation.",
+      "description": "Mphasis NeoIP is a unified AI platform that integrates multiple Mphasis AI solutions into a single orchestration layer for end-to-end enterprise transformation. It is powered by the Ontosphere, a dynamic ontology-based knowledge graph that encodes contextual enterprise intelligence across domain-specific areas. The platform connects via Model Context Protocol (MCP) and Agent2Agent (A2A) standards for cross-enterprise orchestration. NeoIP spans the full IT value chain from application modernization and development to IT operations, coordinating sub-agents such as NeoZeta, NeoSaBa, NeoCrux, NeoRigal, and AIOps.",
+      "use_cases": [
+        {
+          "title": "End-to-end legacy modernization orchestration across distributed teams",
+          "description": ""
+        },
+        {
+          "title": "continuous AI-driven application development and quality automation",
+          "description": ""
+        },
+        {
+          "title": "proactive IT operations management with self-healing capabilities",
+          "description": ""
+        },
+        {
+          "title": "enterprise-wide knowledge capture and reuse through ontology-powered graphs.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Government & Public Sector",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 60% improvement in development and modernization efficiency",
+        "50% reduction in mean time to detect and resolve incidents",
+        "3-5 hours early warning for major outages via anomaly detection."
+      ],
+      "integrations": [
+        "Google Gemini",
+        "GitHub Copilot",
+        "Amazon Q",
+        "Sourcegraph Cody",
+        "JIRA",
+        "Azure DevOps",
+        "GitLab",
+        "Nvidia GPU acceleration",
+        "MCP and A2A protocol connectors"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/mphasis-launches-neoip-a-unified-ai-platform-for-continuous-enterprise-transformation-302595188.html"
+    },
+    {
+      "agent_name": "NeoZeta",
+      "slug": "neozeta",
+      "company_slug": "mphasis",
+      "tagline": "A generative AI-based enterprise modernization platform that transforms legacy application re-learning from a black-box process into a transparent, knowledge-graph-driven journey.",
+      "description": "Mphasis NeoZeta is a proprietary generative AI platform natively powered by Google Gemini that addresses the challenge of enterprise application modernization. It harvests business knowledge from both code and non-code technical artifacts, building an evergreen knowledge graph of applications that enables efficient querying and retrieval of critical application information. The platform functions as an IDE extension, reducing re-learning time by over 50% while supporting multiple legacy languages including COBOL, C++, Natural, and Java. NeoZeta avoids black-box conversions, providing users with full transparency into the modernization process and enabling subject matter expert validations throughout the journey.",
+      "use_cases": [
+        {
+          "title": "Mainframe-to-cloud migration with preserved business logic",
+          "description": ""
+        },
+        {
+          "title": "legacy COBOL application modernization with knowledge extraction",
+          "description": ""
+        },
+        {
+          "title": "cross-language application re-platforming with transparent traceability",
+          "description": ""
+        },
+        {
+          "title": "enterprise knowledge graph creation from decades-old codebases.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "60%+ reduction in modernization time and costs",
+        "over 50% reduction in re-learning time through AI-assisted knowledge extraction."
+      ],
+      "integrations": [
+        "Google Gemini",
+        "IDE extensions",
+        "Mphasis NeoSaBa"
+      ],
+      "source_url": "https://www.mphasis.ai/home/neozeta-generative-ai-enterprise-modernization-platform.html"
+    },
+    {
+      "agent_name": "NeoCrux",
+      "slug": "neocrux",
+      "company_slug": "mphasis",
+      "tagline": "A GenAI-powered modern engineering platform that unifies fragmented development tools into a single ecosystem with AI-assisted coding and quality automation.",
+      "description": "Mphasis NeoCrux is a generative AI-powered engineering platform that consolidates disparate SDLC tools into a single-pane-of-glass view, eliminating tool-switching overhead for developers. The platform orchestrates multiple third-party AI coding assistants including GitHub Copilot, Amazon Q, Google Gemini Code Assist, and Sourcegraph Cody under a unified interface. Its Intelligent Context Generation engine provides task-specific prompts that normalize AI usage quality across developer experience levels. NeoCrux also features GPU-accelerated code generation with Nvidia support and value stream integration for seamless data exchange across development lifecycle stages.",
+      "use_cases": [
+        {
+          "title": "Accelerated enterprise software delivery with AI-assisted coding across multiple models",
+          "description": ""
+        },
+        {
+          "title": "unified developer experience across fragmented engineering toolchains",
+          "description": ""
+        },
+        {
+          "title": "security incident response through consolidated visibility",
+          "description": ""
+        },
+        {
+          "title": "reusable asset discovery and adoption across engineering teams.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Telecom & Media",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "3X go-to-market acceleration",
+        "40% productivity enhancement via GenAI automation",
+        "30% increase in reusable asset adoption."
+      ],
+      "integrations": [
+        "GitHub Copilot",
+        "Amazon Q",
+        "Google Gemini Code Assist",
+        "Sourcegraph Cody",
+        "Nvidia GPU",
+        "JIRA",
+        "Azure DevOps",
+        "GitLab"
+      ],
+      "source_url": "https://www.mphasis.ai/home/neocrux-generative-ai-engineering-platform.html"
+    },
+    {
+      "agent_name": "NeoSaBa",
+      "slug": "neosaba",
+      "company_slug": "mphasis",
+      "tagline": "An agentic AI platform that transforms legacy system insights and product visions into structured agile artifacts with automated epic, story, and test case generation.",
+      "description": "Mphasis NeoSaBa is an agentic AI platform designed to empower product owners and domain experts by automating the creation of agile development artifacts. It generates INVEST-compliant epics, features, user stories, and tasks from knowledge bases, with built-in validation and improvement suggestions. The platform integrates with NeoZeta to map legacy system dependencies, business logic, and capabilities, preserving domain knowledge as structured agile requirements. NeoSaBa also automatically generates Gherkin test cases for user stories and captures business process flows with embedded rules. It supports both greenfield product development and legacy modernization scenarios with bi-directional synchronization to project management tools.",
+      "use_cases": [
+        {
+          "title": "Greenfield product development from vision to detailed agile specifications",
+          "description": ""
+        },
+        {
+          "title": "architecture modernization with automated requirement extraction from legacy codebases",
+          "description": ""
+        },
+        {
+          "title": "agile enablement for IT teams transitioning from waterfall methodologies",
+          "description": ""
+        },
+        {
+          "title": "automated test case generation from user stories for behavior-driven development.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Accelerated delivery through automated artifact generation",
+        "reduced ambiguity and improved traceability in modernization projects."
+      ],
+      "integrations": [
+        "JIRA (bi-directional)",
+        "Azure DevOps",
+        "GitLab",
+        "Mphasis NeoZeta"
+      ],
+      "source_url": "https://www.mphasis.ai/home/neosaba-generative-ai-agents-for-product-owners-and-business-analysts.html"
+    },
+    {
+      "agent_name": "AIOps",
+      "slug": "aiops",
+      "company_slug": "mphasis",
+      "tagline": "An integrated agentic IT operations platform that shifts enterprises from reactive incident management to proactive, self-healing automation powered by AI.",
+      "description": "Mphasis AIOps is an enterprise platform that modernizes IT operations through agentic AI-driven automation, observability, and service reliability engineering. It processes logs, metrics, traces, and events to perform event correlation, automated root cause analysis, and full incident lifecycle management. The platform features self-healing automation with anomaly detection and automated remediation, along with a generative AI-powered service desk with conversational bots integrated across chat, voice, and email channels. AIOps also includes Digital Employee Experience tools enabling end-user self-service and intelligent routing with contextual knowledge delivery.",
+      "use_cases": [
+        {
+          "title": "Proactive incident prediction and prevention with 3-5 hour early warning for major outages",
+          "description": ""
+        },
+        {
+          "title": "automated root cause analysis and self-healing remediation for infrastructure incidents",
+          "description": ""
+        },
+        {
+          "title": "AI-powered service desk with omni-channel conversational support",
+          "description": ""
+        },
+        {
+          "title": "DevSecOps pipeline integration for secure and scalable operations management.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Government & Public Sector",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Customer Experience"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "67% accuracy in major incident prediction",
+        "50% reduction in mean time to resolution",
+        "up to 40% reduction in operational effort and 30% savings in infrastructure management costs."
+      ],
+      "integrations": [
+        "ITSM platforms",
+        "ITOM tools",
+        "observability platforms",
+        "cloud services",
+        "DevOps toolchains"
+      ],
+      "source_url": "https://www.mphasis.ai/home/mphasis-neoip-enterprise-transformation-with-ai-and-automation/mphasis-aiops-it-operational-excellence-powered-by-ai-and-automation.html"
+    },
+    {
+      "agent_name": "Intelligent Quality Engineer (IQE)",
+      "slug": "intelligent-quality-engineer-iqe",
+      "company_slug": "happiest-minds",
+      "tagline": "An agentic AI platform that reasons through quality engineering requests and dynamically orchestrates testing capabilities across the entire software development lifecycle.",
+      "description": "IQE is a four-layer AI-powered quality engineering solution that provides total quality orchestration from development through post-release monitoring. It delivers persona-centric, context-aware experiences tailored to different user roles (developers, QA leads, executives) within a modular and extensible architecture. The platform includes a Prompt Engineering Studio for AI-driven test creation, an API Journey Builder for customizable API testing, and a Unified Test Intelligence Hub aggregating functional, performance, security, and digital experience testing. It combines rule-based approaches with cognitive AI methods using machine learning and NLP-powered quality analytics, and integrates into enterprise DevOps/CI/CD processes.",
+      "use_cases": [
+        {
+          "title": "Automated test generation and execution across enterprise applications",
+          "description": ""
+        },
+        {
+          "title": "quality assurance for COTS platforms such as Salesforce and Workday",
+          "description": ""
+        },
+        {
+          "title": "continuous post-deployment quality monitoring and anomaly detection",
+          "description": ""
+        },
+        {
+          "title": "GenAI-powered request/response validation for API and business process testing.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Reduced manual test creation effort through AI-driven prompt-based test generation",
+        "accelerated release cycles via unified test intelligence and continuous monitoring."
+      ],
+      "integrations": [
+        "Salesforce",
+        "Workday",
+        "CI/CD pipelines",
+        "DevOps toolchains"
+      ],
+      "source_url": "https://www.happiestminds.com/solutions/intelligent-quality-engineer-iqe/"
+    },
+    {
+      "agent_name": "GenAI Research Companion",
+      "slug": "genai-research-companion",
+      "company_slug": "happiest-minds",
+      "tagline": "A scalable generative AI solution that automates labor-intensive research workflows and enables real-time collaboration across organizations.",
+      "description": "GenAI Research Companion is a proprietary platform that automates tasks such as summarizing research papers, managing research projects, and facilitating real-time collaboration across teams. The solution includes enterprise-grade security with advanced authentication protocols, real-time notifications, and robust feedback modules for iterative improvement. The platform is designed as a reusable solution that can be adapted across different research domains and organizational contexts, supporting both medical and corporate research workflows. It handles multi-format document ingestion, structured summarization, and cross-team knowledge sharing within a governed environment.",
+      "use_cases": [
+        {
+          "title": "Automated medical research documentation analysis and paper summarization",
+          "description": ""
+        },
+        {
+          "title": "cross-functional team collaboration on complex research initiatives",
+          "description": ""
+        },
+        {
+          "title": "project management and synthesis for research organizations",
+          "description": ""
+        },
+        {
+          "title": "legal and financial research document analysis and insight generation.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Legal & Compliance"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Enhanced research efficiency through automated paper summarization",
+        "streamlined time-intensive project management and cross-team collaboration processes."
+      ],
+      "integrations": [
+        "Enterprise authentication systems",
+        "collaboration platforms"
+      ],
+      "source_url": "https://www.happiestminds.com/press-releases/happiest-minds-reusable-generative-ai-solution-transforming-research-across-industries/"
+    },
+    {
+      "agent_name": "Secureline360",
+      "slug": "secureline360",
+      "company_slug": "happiest-minds",
+      "tagline": "A Gen-AI-powered managed detection and response platform that identifies and remediates cyber threats at three times the speed of traditional processes.",
+      "description": "Secureline360 is a packaged MDR (Managed Detection and Response) service built on the Gen-AI-powered CRPP platform. It employs behavioral threat analytics, AI-driven detection, and automated remediation assistance to provide real-time threat visibility and 24/7 monitoring. The platform integrates with the proprietary SecAiGenie engine for handling complex and unprecedented security incidents, and maps threats against the MITRE ATT&CK framework. Secureline360 is offered in three deployment models: MSSP NGSIEM MDR (QRadar-based), XDR MDR, and MS Sentinel-based MDR services.",
+      "use_cases": [
+        {
+          "title": "24/7 automated threat hunting and proactive cyber defense for enterprises",
+          "description": ""
+        },
+        {
+          "title": "real-time incident detection, triage, and automated remediation",
+          "description": ""
+        },
+        {
+          "title": "compliance monitoring and security posture management with customized playbooks",
+          "description": ""
+        },
+        {
+          "title": "threat intelligence integration with MITRE ATT&CK mapping.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Legal & Compliance",
+        "Engineering & DevOps"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "3X faster remediation time compared to traditional MDR processes",
+        "98% reduction in alert noise."
+      ],
+      "integrations": [
+        "IBM QRadar",
+        "Microsoft Sentinel",
+        "XDR platforms",
+        "Threat Intelligence Platforms",
+        "MITRE ATT&CK framework",
+        "SecAiGenie"
+      ],
+      "source_url": "https://www.happiestminds.com/services/happiest-minds-secureline360/"
+    }
+  ]
+}

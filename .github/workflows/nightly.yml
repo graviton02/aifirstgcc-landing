@@ -1,0 +1,64 @@
+name: Nightly E2E
+
+on:
+  schedule:
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      PLAYWRIGHT_BASE_URL: ${{ vars.PLAYWRIGHT_BASE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check preview URL
+        id: preview
+        run: |
+          if [ -z "$PLAYWRIGHT_BASE_URL" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "PLAYWRIGHT_BASE_URL is not configured; skipping nightly E2E."
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            echo "Using preview URL: $PLAYWRIGHT_BASE_URL"
+          fi
+
+      - name: Install dependencies
+        if: steps.preview.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Install Playwright browsers
+        if: steps.preview.outputs.ready == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Wait for preview to be ready
+        if: steps.preview.outputs.ready == 'true'
+        run: node scripts/wait-for-url.js "$PLAYWRIGHT_BASE_URL"
+
+      - name: Run full Playwright suite
+        if: steps.preview.outputs.ready == 'true'
+        run: npm run test:e2e
+
+      - name: Upload Playwright artifacts
+        if: always() && steps.preview.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-nightly-${{ github.sha }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

@@ -1,0 +1,535 @@
+{
+  "companies": [
+    {
+      "name": "Zensar",
+      "slug": "zensar",
+      "website": "https://www.zensar.com",
+      "headquarters": "Pune, India",
+      "founded": 2000,
+      "company_size": "enterprise",
+      "description": "Zensar Technologies is a digital solutions and technology services company, a subsidiary of RPG Group, serving clients across experience, engineering, and data domains. The company operates globally with offices in the US, UK, Europe, South Africa, and India, specializing in AI-driven modernization and automation solutions.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "contact_email": "info@zensar.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Hexaware",
+      "slug": "hexaware",
+      "website": "https://hexaware.com",
+      "headquarters": "Navi Mumbai, India",
+      "founded": 1990,
+      "company_size": "enterprise",
+      "description": "Hexaware Technologies is a global IT services and digital transformation company serving industries including financial services, healthcare, manufacturing, retail, and telecom. It is known for its platform-led approach to automation, AI, and cloud modernization, with proprietary platforms spanning software engineering, IT operations, and enterprise AI agents.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Logistics & Transportation"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Coforge",
+      "slug": "coforge",
+      "website": "https://www.coforge.com",
+      "headquarters": "Greater Noida, India",
+      "founded": 1992,
+      "company_size": "enterprise",
+      "description": "Coforge is an IT services and digital solutions company serving industries including banking, insurance, travel and transportation, manufacturing, and healthcare. The company is notable for its suite of proprietary AI-native platforms spanning enterprise AI orchestration, autonomous IT operations, and AI-driven software engineering.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation",
+        "Manufacturing",
+        "Retail & E-commerce"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "ZenseAI",
+      "slug": "zenseai",
+      "company_slug": "zensar",
+      "tagline": "An enterprise agentic AI platform that converts fragmented data, code, and knowledge into connected intelligence with human-like understanding.",
+      "description": "ZenseAI is Zensar's next-generation agentic AI platform designed to accelerate enterprise-wide AI adoption in a responsible and transparent manner. The platform uses a modular, composable architecture with specialized extensions — ZenseAI.Engineering for software development and IT modernization, and ZenseAI.Data for agentic data automation, annotation, and modernization. ZenseAI.Engineering includes over 150 pre-built AI agents with guided execution and supports custom agent creation, while ZenseAI.Data automates metadata harvesting, code translation, pipeline generation, and validation across ETL/EDW systems. The platform is LLM/SLM-agnostic, deploys across any cloud, and includes a responsible AI framework with prompt guardrails and agent observability engines.",
+      "use_cases": [
+        {
+          "title": "Modernizing legacy monolithic systems into cloud-native microservices with AI-driven code analysis",
+          "description": ""
+        },
+        {
+          "title": "automating enterprise incident management through multi-agent orchestration",
+          "description": ""
+        },
+        {
+          "title": "accelerating data modernization by automating ETL pipeline migration and validation",
+          "description": ""
+        },
+        {
+          "title": "enabling multi-modal enterprise search across code, documentation, and ticketing systems.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities",
+        "Telecom & Media",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "30-50% increase in time-to-value",
+        "30-40% decrease in cost-to-serve",
+        "40-50% increase in operational efficiency",
+        "processing time reduction from 36 hours to 2 hours for document automation (Fortune 500 client case)",
+        "30-40% reduction in data modernization timelines."
+      ],
+      "integrations": [
+        "Azure OpenAI",
+        "Databricks",
+        "Google Cloud",
+        "AWS",
+        "IDE plugins",
+        "ServiceNow"
+      ],
+      "source_url": "https://www.zensar.com/tech-services/artificial-intelligence/zenseai"
+    },
+    {
+      "agent_name": "ECHO (Enterprise Cognitive Hyper-Automated Operations)",
+      "slug": "echo-enterprise-cognitive-hyper-automated-operations",
+      "company_slug": "zensar",
+      "tagline": "A human-centered AI automation framework that reimagines enterprise operations by integrating cognitive intelligence where it is most effective.",
+      "description": "ECHO is Zensar's AI-driven automation platform that takes a human-centered approach to enterprise operations, prioritizing experience and process design before applying automation. The platform operates under the principle that automation should address root inefficiencies rather than magnify systemic flaws. ECHO includes several named sub-offerings: Project Avatar (a digital persona with emotional intelligence), Business Avatar (a framework for building industry-specific intelligent assistants), PolicyBot (an NLP-powered HR chatbot for policy documentation), and an RFP Multimodal GenAI-BOT for multi-format document processing. The platform is actively marketed across the US, UK, and South Africa for banking, financial services, and other enterprise verticals.",
+      "use_cases": [
+        {
+          "title": "Automating repetitive customer inquiry handling to free knowledge workers for strategic tasks",
+          "description": ""
+        },
+        {
+          "title": "deploying intelligent HR policy assistants that answer employee questions using NLP",
+          "description": ""
+        },
+        {
+          "title": "generating and processing RFP responses across multiple document formats",
+          "description": ""
+        },
+        {
+          "title": "building industry-specific digital avatars with emotional intelligence for customer interaction.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "HR & Workforce",
+        "Operations & Supply Chain",
+        "IT Operations",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced knowledge worker time spent on repetitive content tasks",
+        "improved employee experience through AI-powered self-service HR and policy assistants."
+      ],
+      "integrations": [
+        "AR/VR platforms",
+        "IoT systems",
+        "NLP engines"
+      ],
+      "source_url": "https://www.zensar.com/tech-services/artificial-intelligence/echo-ai-services"
+    },
+    {
+      "agent_name": "AgentVerse",
+      "slug": "agentverse",
+      "company_slug": "hexaware",
+      "tagline": "An enterprise platform with 560+ pre-built AI agents that automate conversations, process documents, and execute back-office actions across business operations.",
+      "description": "AgentVerse is a multi-agent orchestration platform that deploys intelligent AI agents across enterprise operations. It routes work to specialist agents — including retrievers, planners, reasoners, and tool users — using contextual retrieval and policy-aware tool usage. The platform provides enterprise governance features such as role-based access controls, privacy filters, audit trails, and human-in-the-loop functionality for sensitive decisions. It supports automation across chat, voice, email, and SMS channels, with KPI instrumentation measuring accuracy, cycle time, customer satisfaction, and cost savings. The agent catalog includes 560+ pre-built agents with pre-built connectors for CRM, ITSM, knowledge tools, data platforms, telephony, and collaboration systems.",
+      "use_cases": [
+        {
+          "title": "Customer experience automation across chat, voice, email, and SMS",
+          "description": ""
+        },
+        {
+          "title": "IT service desk ticket resolution and knowledge retrieval",
+          "description": ""
+        },
+        {
+          "title": "clinical data orchestration and regulatory submission processing",
+          "description": ""
+        },
+        {
+          "title": "inventory management and supply chain coordination.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "HR & Workforce",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "40-60% productivity improvement in knowledge and service workflows",
+        "60-80% faster responses across communication channels",
+        "20-35% higher customer or user satisfaction."
+      ],
+      "integrations": [
+        "CRM systems",
+        "ITSM platforms",
+        "knowledge management tools",
+        "file stores",
+        "data platforms",
+        "telephony systems",
+        "collaboration tools"
+      ],
+      "source_url": "https://hexaware.com/platforms/agentverse/"
+    },
+    {
+      "agent_name": "RapidX",
+      "slug": "rapidx",
+      "company_slug": "hexaware",
+      "tagline": "An agentic AI platform that accelerates software engineering by using AI agents to build, maintain, and modernize enterprise applications.",
+      "description": "RapidX is an agentic AI platform for software engineering that embeds AI-driven automation throughout the development lifecycle. It deploys specialized AI agents for design and architecture, development, quality enforcement, troubleshooting, and product roadmap creation. The platform features a Cognitive Mesh Architecture that weaves automation throughout development workflows, AI-Powered Virtual Gurus that serve as embedded project advisors, and ripple effect analysis that evaluates downstream impacts of code changes. It reverse-engineers legacy applications by extracting business rules, dependencies, and workflows to generate actionable modernization blueprints, while also supporting automated test generation and code intelligence for dependency mapping.",
+      "use_cases": [
+        {
+          "title": "Legacy application modernization and migration planning",
+          "description": ""
+        },
+        {
+          "title": "accelerated new application development from natural-language prompts",
+          "description": ""
+        },
+        {
+          "title": "automated quality assurance and test generation",
+          "description": ""
+        },
+        {
+          "title": "technical debt assessment and reduction.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 10x faster delivery cycles",
+        "up to 70% reduction in development costs",
+        "50% fewer defects in production."
+      ],
+      "integrations": [
+        "AWS",
+        "Replit",
+        "Microsoft Azure"
+      ],
+      "source_url": "https://hexaware.com/platforms/rapidx/"
+    },
+    {
+      "agent_name": "Zero License",
+      "slug": "zero-license",
+      "company_slug": "hexaware",
+      "tagline": "An agentic AI offering that replaces bloated SaaS workflows with AI agents, turning them into cloud-native or agent-driven applications in months.",
+      "description": "Zero License is an enterprise agentic AI offering that introduces an AI operating layer over existing systems to replace traditional SaaS workflows. It targets low-code and no-code SaaS platforms with non-complex workflows, using AI and reverse engineering to rewrite those workflows as either AI agents or cloud-native applications. The platform handles intake, data capture, routing, execution, and follow-ups autonomously while maintaining core platforms as systems of record. It focuses on eliminating unnecessary software licenses and reducing integration overhead by making AI agents the primary execution layer rather than adding another software tool.",
+      "use_cases": [
+        {
+          "title": "Replacing SaaS form-based workflows with autonomous AI agents",
+          "description": ""
+        },
+        {
+          "title": "healthcare claims automation, prior authorizations, and provider workflows",
+          "description": ""
+        },
+        {
+          "title": "insurance intake, triage, adjudication, and claims follow-ups",
+          "description": ""
+        },
+        {
+          "title": "banking KYC processes, onboarding, reconciliations, and exception handling.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "Customer Experience"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Measurable reductions in software license spending",
+        "faster execution cycles through AI-driven workflow automation",
+        "simplified technology landscapes with reduced integration overhead."
+      ],
+      "integrations": [
+        "Pega",
+        "ServiceNow",
+        "Salesforce Force.com",
+        "legacy middleware platforms"
+      ],
+      "source_url": "https://hexaware.com/press-release/hexaware-launches-zero-license-to-help-enterprises-replace-saas-with-agentic-ai-in-months-not-years/"
+    },
+    {
+      "agent_name": "Quasar AI",
+      "slug": "quasar-ai",
+      "company_slug": "coforge",
+      "tagline": "Enterprise-grade AI foundation that unifies intelligence, automation, and governance across the organization.",
+      "description": "Quasar AI is a composable, interoperable AI platform that integrates four interconnected systems: AI Studio for development and deployment of generative AI, foundation models, RAG, and agentic systems; AgentSphere for multi-agent orchestration with Semantic Kernel and CrewAI compatibility; Quasar Marketplace for curated, ready-to-deploy enterprise AI solutions; and Trust AI for governance including bias detection, PII anonymization, and toxicity monitoring. The platform provides 100+ pre-built APIs, an LLM Router for intelligent model selection across GPT-4o, Claude 3.5, and Gemini 2.0, and RAG-as-a-Service with abstracted chunking and retrieval. AgentSphere features a knowledge and memory layer powered by LlamaIndex, Model Context Protocol (MCP) for safe tool execution, and connectors enabling agents to trigger workflows and access enterprise systems.",
+      "use_cases": [
+        {
+          "title": "Building and deploying enterprise AI agents with multi-agent orchestration",
+          "description": ""
+        },
+        {
+          "title": "AI-powered compliance checking for banking",
+          "description": ""
+        },
+        {
+          "title": "governed GenAI experimentation and production deployment",
+          "description": ""
+        },
+        {
+          "title": "automating business workflows through agent marketplace discovery and orchestration.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Logistics & Transportation",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Customer Experience",
+        "Legal & Compliance",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "300+ paid AI deployments and 200+ industry-specific solutions delivered through the platform."
+      ],
+      "integrations": [
+        "AWS",
+        "Microsoft Azure",
+        "Google Cloud Platform",
+        "NVIDIA NIM",
+        "OpenAI GPT-4o",
+        "Anthropic Claude",
+        "Google Gemini",
+        "LlamaIndex",
+        "Semantic Kernel",
+        "CrewAI"
+      ],
+      "source_url": "https://www.coforge.com/what-we-do/capabilities/quasar-ai"
+    },
+    {
+      "agent_name": "EvolveOps.AI",
+      "slug": "evolveops-ai",
+      "company_slug": "coforge",
+      "tagline": "Agentic AI-powered IT operations platform delivering end-to-end autonomous operations from edge to cloud.",
+      "description": "EvolveOps.AI is an autonomous IT operations management platform that combines fine-tuned Small Language Models with deterministic models to deliver intelligent operations across hybrid and multi-cloud environments. The platform features 28 agentic personas performing tasks across the IT operations lifecycle, including SRE agents, Infrastructure and Cloud Engineering agents, Network Engineering agents, Kubernetes Engineering agents, Command Center agents, Service Management agents, and FinOps agents. Its four core modules are Hybrid Cloud Manager for multi-cloud orchestration, AI Control Tower for real-time AIOps with autonomous root cause analysis, Ops Insights for anomaly detection and pattern recognition, and Bot Factory with hundreds of pre-built resolver bots and low-code automation tools. The platform operates on a \"Mission Zero\" philosophy with configurable guardrails allowing enterprises to toggle between human-in-the-loop and fully autonomous operations modes.",
+      "use_cases": [
+        {
+          "title": "Autonomous IT incident detection, diagnosis, and resolution across hybrid cloud estates",
+          "description": ""
+        },
+        {
+          "title": "cloud cost optimization and FinOps automation",
+          "description": ""
+        },
+        {
+          "title": "proactive infrastructure monitoring and anomaly prevention",
+          "description": ""
+        },
+        {
+          "title": "automated deployment and environment provisioning.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation",
+        "Manufacturing",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Finance & Accounting",
+        "Data & Analytics"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "97.5% reduction in environmental noise",
+        "40% reduction in IT operational expenses",
+        "60% reduction in Mean Time to Detection and Mean Time to Resolution."
+      ],
+      "integrations": [
+        "AWS",
+        "Microsoft Azure",
+        "Google Cloud Platform",
+        "Oracle Cloud Infrastructure",
+        "120+ observability and ITSM platforms",
+        "ServiceNow"
+      ],
+      "source_url": "https://www.coforge.com/ai-services/ai-platforms/evolveops-ai"
+    },
+    {
+      "agent_name": "CodeInsightAI",
+      "slug": "codeinsightai",
+      "company_slug": "coforge",
+      "tagline": "Agentic AI-powered code intelligence platform that automates reverse and forward engineering for enterprise modernization.",
+      "description": "CodeInsightAI is an AI-first platform built to accelerate enterprise modernization by automating both reverse and forward engineering of legacy codebases. For reverse engineering, it automatically extracts original intent, business logic, and dependency flows from legacy code, producing audit-ready business requirements and technical specifications through semantic code understanding. For forward engineering, it provides full-stack code generation with architecture blueprints, microservices design patterns, and interactive feedback loops for iterative refinement. The platform supports complex legacy languages including COBOL, TPF Assembler, C/C++, PL/I, Tandem COBOL, RPG, PL/SQL, and Universe BASIC, generating output across Java, .NET, Python, and other modern stacks. It features deterministic dependency graphs to reduce rework, configurable prompt templates for organizational consistency, and a cloud- and LLM-agnostic architecture.",
+      "use_cases": [
+        {
+          "title": "Mainframe and legacy system modernization to cloud-native microservices",
+          "description": ""
+        },
+        {
+          "title": "automated technical documentation generation from legacy codebases",
+          "description": ""
+        },
+        {
+          "title": "technical debt reduction through structured AI analysis",
+          "description": ""
+        },
+        {
+          "title": "accelerated development via integration with low-code platforms like Pega and Appian.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Operations & Supply Chain"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 30% cost savings in modernization projects."
+      ],
+      "integrations": [
+        "AWS Marketplace",
+        "Azure Marketplace",
+        "Pega",
+        "Appian",
+        "Jira",
+        "LeanIX",
+        "Ardoq",
+        "ServiceNow"
+      ],
+      "source_url": "https://www.coforge.com/who-we-are/newsroom/press-release/coforge-expands-codeinsightai-with-agentic-ai-capabilities-for-enterprise-modernization"
+    },
+    {
+      "agent_name": "Forge-X",
+      "slug": "forge-x",
+      "company_slug": "coforge",
+      "tagline": "AI-native delivery platform that orchestrates autonomous agents across the entire software development and product delivery lifecycle.",
+      "description": "Forge-X is an integrated engineering and delivery platform built on agentic AI principles that transforms how enterprise software is delivered at scale. The platform orchestrates autonomous AI agents purpose-built for every engineering role, from product owners and architects to developers, testers, and operations, ensuring every phase of the software development lifecycle is context-aware and automated. It integrates four flagship modules: CodeInsightAI for code intelligence, BlueSwan for AI-driven quality engineering and adaptive regression testing, NORTHSTAR for CI/CD and observability pipelines, and EvolveOps.AI for autonomous IT operations. The platform embeds deep domain expertise so that engineering decisions are informed by industry semantics and contextual awareness, and includes decision logs and human override controls by design.",
+      "use_cases": [
+        {
+          "title": "End-to-end AI-driven software delivery lifecycle automation",
+          "description": ""
+        },
+        {
+          "title": "continuous integration and deployment pipeline orchestration",
+          "description": ""
+        },
+        {
+          "title": "automated quality assurance with AI-generated test cases",
+          "description": ""
+        },
+        {
+          "title": "portfolio modernization and cloud migration at scale.",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Logistics & Transportation",
+        "Manufacturing",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 30% cost savings in pilot estimates",
+        "40% faster time to market."
+      ],
+      "integrations": [
+        "Jira",
+        "LeanIX",
+        "Ardoq",
+        "ServiceNow",
+        "AWS",
+        "Microsoft Azure",
+        "Google Cloud Platform"
+      ],
+      "source_url": "https://www.coforge.com/who-we-are/newsroom/press-release/coforge-unveils-forge-x-an-integrated-engineering-and-delivery-platform-to-revolutionize-ai-driven-software-delivery-at-scale"
+    }
+  ]
+}

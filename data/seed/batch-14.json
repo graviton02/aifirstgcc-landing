@@ -1,0 +1,274 @@
+{
+  "companies": [
+    {
+      "name": "Unscript.ai",
+      "slug": "unscript-ai",
+      "website": "https://www.unscript.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2021,
+      "company_size": "startup",
+      "description": "Unscript AI is an AI-powered video creation platform that uses lifelike AI avatars, automated scriptwriting, and personalization to produce studio-quality marketing and onboarding videos at scale. The platform serves brands across FMCG, e-commerce, financial services, and other verticals.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media"
+      ],
+      "contact_email": "contact@unscript.ai",
+      "verification_status": "verified"
+    },
+    {
+      "name": "DhiWise",
+      "slug": "dhiwise",
+      "website": "https://www.dhiwise.com",
+      "headquarters": "Surat, India",
+      "founded": 2021,
+      "company_size": "startup",
+      "description": "DhiWise (operating as Rocket.new) is a multi-agent AI software development platform that automates full-stack application creation through natural language input and Figma design conversion. The platform supports React, Next.js, Flutter, and HTML/CSS, generating production-ready, developer-owned source code with no vendor lock-in.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "contact_email": "help@dhiwise.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Hasura",
+      "slug": "hasura",
+      "website": "https://hasura.io",
+      "headquarters": "San Francisco, USA",
+      "founded": 2017,
+      "company_size": "scaleup",
+      "description": "Hasura builds data access infrastructure for modern applications and AI, offering the open-source GraphQL Engine, the Data Delivery Network (DDN), and PromptQL — an AI analyst platform that enables natural-language querying and automation across fragmented enterprise data sources.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Manufacturing",
+        "Aerospace & Defense",
+        "Government & Public Sector"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Unscript AI Video Agent",
+      "slug": "unscript-ai-video-agent",
+      "company_slug": "unscript-ai",
+      "tagline": "An AI-driven virtual agent that automates end-to-end video creation from script to screen in minutes using lifelike avatars and personalization.",
+      "description": "Unscript AI Video Agent is a semi-autonomous system that automates the entire video production workflow including scriptwriting, b-roll selection, graphics, music synchronization, voiceover generation, and editing. The agent uses machine learning, computer vision, and deep learning to process millions of transitions, animations, and cuts in real-time, delivering polished videos without manual intervention at each step. It operates through goal initialization (setting objectives based on target demographics and messaging), tool reasoning (assembling content from footage and text prompts), and learning/reflection (improving through feedback analysis). The platform creates hyper-realistic AI avatars that support over 140 languages with native-quality dubbing and lip-syncing, enabling dynamic personalization of names, locations, and offers across video campaigns at scale.",
+      "use_cases": [
+        {
+          "title": "Personalized video marketing campaigns at scale",
+          "description": ""
+        },
+        {
+          "title": "employee and customer onboarding video generation",
+          "description": ""
+        },
+        {
+          "title": "UGC and product demo video automation",
+          "description": ""
+        },
+        {
+          "title": "brand storytelling and ad variation creation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "HR & Workforce",
+        "Customer Experience"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Reduction in video production costs by up to 80-90% compared to traditional shoots",
+        "5X improvement in conversion rates through personalized video engagement",
+        "accelerated content delivery from weeks to minutes"
+      ],
+      "integrations": [
+        "LMS platforms",
+        "CMS platforms",
+        "CRM systems",
+        "Google Tag Manager",
+        "Apollo.io",
+        "SalesPanel"
+      ],
+      "source_url": "https://www.unscript.ai/ai-agent"
+    },
+    {
+      "agent_name": "Rocket.new",
+      "slug": "rocket-new",
+      "company_slug": "dhiwise",
+      "tagline": "AI-powered platform that builds full-stack web and mobile apps from a single natural language prompt.",
+      "description": "Rocket.new is DhiWise's flagship agentic AI development platform that generates complete, production-ready applications from plain English descriptions. The platform orchestrates multiple AI agents — combining models from Anthropic, OpenAI, and Google Gemini with DhiWise's proprietary deep learning systems — to handle architecture planning, UI design, backend configuration, database schema generation, authentication setup, and API endpoint creation autonomously. It supports React, Next.js, Flutter, HTML/TailwindCSS, and Python, with one-click deployment to Netlify and GitHub integration for continuous deployment workflows. The platform generates clean, modular, human-readable source code that developers fully own and can customize in any IDE, with enterprise-grade security certifications including GDPR, ISO, CCPA, and AICPA compliance.",
+      "use_cases": [
+        {
+          "title": "Rapidly prototyping and deploying internal enterprise dashboards and tools from plain-text requirements",
+          "description": ""
+        },
+        {
+          "title": "converting Figma designs into production-ready full-stack applications with integrated backends",
+          "description": ""
+        },
+        {
+          "title": "building e-commerce, fintech, and SaaS applications with authentication, payments, and API integrations from natural language specs",
+          "description": ""
+        },
+        {
+          "title": "enabling non-technical product managers to generate functional MVPs for validation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Sales & Marketing"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Reduce full-stack application development time from weeks to minutes for standard web and mobile apps",
+        "eliminate vendor lock-in by generating clean, exportable source code",
+        "lower prototyping and MVP costs by enabling rapid iteration without dedicated engineering resources"
+      ],
+      "integrations": [
+        "GitHub",
+        "Netlify",
+        "Figma",
+        "Supabase",
+        "Stripe",
+        "Google Analytics",
+        "Resend",
+        "OpenAI",
+        "Anthropic Claude",
+        "Google Gemini"
+      ],
+      "source_url": "https://www.dhiwise.com/"
+    },
+    {
+      "agent_name": "WiseGPT",
+      "slug": "wisegpt",
+      "company_slug": "dhiwise",
+      "tagline": "AI coding assistant for VS Code that analyzes your entire codebase to generate context-aware, production-ready code without writing prompts.",
+      "description": "WiseGPT is DhiWise's AI-powered coding assistant available as a VS Code extension that provides promptless, codebase-aware code generation and intelligent development automation. The extension analyzes entire repositories locally to deliver context-specific code suggestions, real-time autocomplete, and task-to-code conversion that transforms project management tasks into executable code. It includes an interactive AI chat for coding questions, smart commands for refactoring and code quality improvement, and predefined commands for unit test generation, comment creation, readability improvement, and TODO-based code generation. WiseGPT integrates with Figma to convert designs into structured code components, supporting all major programming languages and frameworks.",
+      "use_cases": [
+        {
+          "title": "Accelerating day-to-day coding with codebase-aware autocomplete and intelligent code suggestions",
+          "description": ""
+        },
+        {
+          "title": "automating boilerplate generation and code refactoring for large enterprise codebases",
+          "description": ""
+        },
+        {
+          "title": "converting project management tasks directly into functional code without manual prompt engineering",
+          "description": ""
+        },
+        {
+          "title": "generating unit tests and improving code quality through automated analysis",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Increase developer productivity by automating repetitive coding tasks, boilerplate generation, and test writing",
+        "improve code consistency and quality across development teams through AI-enforced best practices"
+      ],
+      "integrations": [
+        "VS Code",
+        "Figma",
+        "GitHub"
+      ],
+      "source_url": "https://marketplace.visualstudio.com/items?itemName=dhiwisepvtltd.dhiwisecodesync"
+    },
+    {
+      "agent_name": "PromptQL",
+      "slug": "promptql",
+      "company_slug": "hasura",
+      "tagline": "AI analyst platform that connects to fragmented enterprise data and answers real business questions with 100% accuracy.",
+      "description": "PromptQL is Hasura's AI data access agent that enables teams to query, analyze, and act on business data using natural language. It operates through an agentic semantic metadata layer that centralizes data collections, operations, relationships, and permissions, creating and executing query plans across databases, APIs, spreadsheets, and SaaS tools without requiring data movement or pipelines. The platform features a collaborative \"multiplayer\" model where multiple team members contribute to analyses in threaded conversations, building shared institutional knowledge through an operational wiki that captures business context. PromptQL enforces enterprise-grade security with attribute-based access control at the row, column, and field level, human-in-the-loop approval workflows for write operations, and compliance certifications including SOC 2 Type II, HIPAA, GDPR, and ISO 27001.",
+      "use_cases": [
+        {
+          "title": "Cross-source data analysis and reporting across databases, APIs, and SaaS tools",
+          "description": ""
+        },
+        {
+          "title": "customer health monitoring with API call tracking, compute metrics, and ticket analysis",
+          "description": ""
+        },
+        {
+          "title": "what-if scenario modeling and impact stress-testing",
+          "description": ""
+        },
+        {
+          "title": "automated operational workflows such as vendor contract comparison across regions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Manufacturing",
+        "Aerospace & Defense",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Engineering & DevOps",
+        "Operations & Supply Chain",
+        "Customer Experience",
+        "Finance & Accounting"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Reduced time-to-insight by enabling natural-language querying across fragmented data without building pipelines",
+        "improved decision accuracy through deterministic query plans and enterprise-grade security controls",
+        "lower engineering overhead by replacing manual API coding with declarative data modeling"
+      ],
+      "integrations": [
+        "PostgreSQL",
+        "MongoDB",
+        "MySQL",
+        "Snowflake",
+        "BigQuery",
+        "ClickHouse",
+        "Salesforce",
+        "Slack",
+        "Google Drive",
+        "GitHub",
+        "OpenAPI/REST APIs",
+        "GraphQL APIs",
+        "Model Context Protocol (MCP) servers",
+        "Hasura DDN connectors"
+      ],
+      "source_url": "https://promptql.io/"
+    }
+  ]
+}

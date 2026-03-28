@@ -1,0 +1,670 @@
+{
+  "companies": [
+    {
+      "name": "Nanonets",
+      "slug": "nanonets",
+      "website": "https://nanonets.com",
+      "headquarters": "San Francisco, California, USA",
+      "founded": 2017,
+      "company_size": "scaleup",
+      "description": "Nanonets is an AI-powered intelligent document processing and workflow automation company that builds autonomous AI agents for enterprise back-office operations. The platform combines deep learning, OCR, and agentic AI to automate document-heavy business processes with a focus on guaranteed straight-through processing at over 90% accuracy across millions of documents monthly. Nanonets serves over 34% of Fortune 500 companies across finance, healthcare, insurance, and logistics, and holds HIPAA, SOC 2, ISO 27001, and GDPR compliance certifications.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Insurance",
+        "Logistics & Transportation",
+        "Retail & E-commerce"
+      ],
+      "contact_email": "support@nanonets.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Tungsten Automation (formerly Kofax)",
+      "slug": "tungsten-automation-formerly-kofax",
+      "website": "https://www.tungstenautomation.com",
+      "headquarters": "Irvine, California, USA",
+      "founded": 1985,
+      "company_size": "enterprise",
+      "description": "Tungsten Automation, formerly Kofax, is an intelligent workflow automation software provider that uses AI and machine learning to automate data-intensive business processes including document processing, accounts payable, and process orchestration. The company serves financial services, healthcare, government, and insurance verticals across 32 countries.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Logistics & Transportation"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "EdgeVerve",
+      "slug": "edgeverve",
+      "website": "https://www.edgeverve.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 2014,
+      "company_size": "enterprise",
+      "description": "EdgeVerve Systems is a wholly owned product subsidiary of Infosys that develops AI and automation software platforms for enterprise digital transformation. Its portfolio spans agentic AI orchestration, intelligent document processing, digital banking, supply chain networks, and robotic process automation.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Logistics & Transportation"
+      ],
+      "contact_email": "contact@edgeverve.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Nanonets Turing",
+      "slug": "nanonets-turing",
+      "company_slug": "nanonets",
+      "tagline": "An autonomous AI agent platform for GTM and sales teams that creates and adapts workflows using intelligent pathfinding instead of rigid flowcharts.",
+      "description": "Nanonets Turing is an AI agent platform designed for go-to-market and sales teams that deploys specialized autonomous agents to scale revenue operations. The platform uses Decision AI with intelligent pathfinding to adapt workflows based on goals and real-time conditions, eliminating the need for predefined flowcharts or complex manual configurations. Turing includes purpose-built agents such as a Lead Sourcing Agent for top-of-funnel data scraping, a Cold-Calling Agent with voice AI for instant pre-qualification, a Lead Qualification Agent for in-depth prospect research, and a Business Analyst Agent for competitor analysis and benchmarking. The platform features internet browsing capabilities for human-like task execution and built-in feedback loops where agents learn from corrections instantly without retraining.",
+      "use_cases": [
+        {
+          "title": "Automated lead sourcing and top-of-funnel enrichment for sales teams",
+          "description": ""
+        },
+        {
+          "title": "AI-powered cold calling with voice pre-qualification and custom prompts",
+          "description": ""
+        },
+        {
+          "title": "In-depth prospect and account research at scale",
+          "description": ""
+        },
+        {
+          "title": "Competitive intelligence and market benchmarking for strategy teams",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Technology",
+        "Professional Services",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "82% faster response times to quotes",
+        "15% higher win rates",
+        "ROI achieved within two months of deployment"
+      ],
+      "integrations": [
+        "300+ tools including CRM",
+        "email",
+        "and business intelligence platforms"
+      ],
+      "source_url": "https://nanonets.com/turing"
+    },
+    {
+      "agent_name": "Nanonets Health",
+      "slug": "nanonets-health",
+      "company_slug": "nanonets",
+      "tagline": "Purpose-built AI agents for healthcare revenue cycle management that automate intake, verification, authorization, scheduling, and billing around the clock.",
+      "description": "Nanonets Health is a healthcare-specific AI platform that deploys named AI agents across the entire revenue cycle management workflow. The platform includes five specialized agents: Sam (patient intake), Susan (eligibility and benefits verification), Steve (pre-authorization coordination with insurance providers), Selena (scheduling and EMR synchronization), and Spencer (billing, claims processing, and DNFB reduction). These agents process over 20 document types including insurance cards, lab reports, and patient forms while maintaining full HIPAA, SOC 2, and ISO 27001 compliance. The platform learns and adapts to each organization's unique business processes, serving verticals including physical therapy, behavioral health, dental, dermatology, radiology, DME providers, and skilled nursing facilities.",
+      "use_cases": [
+        {
+          "title": "Automated patient intake and insurance document processing",
+          "description": ""
+        },
+        {
+          "title": "Real-time eligibility and benefits verification before patient visits",
+          "description": ""
+        },
+        {
+          "title": "Prior authorization coordination with insurance providers",
+          "description": ""
+        },
+        {
+          "title": "Claims processing, billing optimization, and denial reduction",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Accounts receivable days reduced from 54 to 42",
+        "Denial rates reduced from 12% to 7%",
+        "Claims processing throughput increased from 2 to 5+ per hour",
+        "$700,000+ annual savings on outsourced coding"
+      ],
+      "integrations": [
+        "AthenaHealth",
+        "eClinicalWorks",
+        "GE Healthcare",
+        "Healthie",
+        "and other EHR/EMR systems"
+      ],
+      "source_url": "https://www.nanonets.health/"
+    },
+    {
+      "agent_name": "Nanonets Intelligent Automation Platform",
+      "slug": "nanonets-intelligent-automation-platform",
+      "company_slug": "nanonets",
+      "tagline": "An AI-powered document processing and workflow automation platform that guarantees straight-through processing with over 90% accuracy on millions of documents monthly.",
+      "description": "The Nanonets Intelligent Automation Platform combines machine learning, AI-driven OCR, and robotic process automation to create end-to-end autonomous business workflows for document-heavy operations. The platform extracts data from unstructured documents including invoices, receipts, purchase orders, contracts, claims, and forms using advanced AI extractors that operate without predefined templates, achieving over 90% straight-through processing rates. It features natural-language workflow creation, auto-approval and routing logic, drag-and-drop workflow builders, real-time validation, and human-in-the-loop checkpoints for complex decisions. The platform connects to over 5,000 apps through native integrations and APIs, enabling seamless data synchronization across enterprise systems with HIPAA, SOC 2, ISO 27001, and GDPR compliance.",
+      "use_cases": [
+        {
+          "title": "End-to-end accounts payable automation from invoice capture to ERP posting",
+          "description": ""
+        },
+        {
+          "title": "Purchase order matching and financial reconciliation",
+          "description": ""
+        },
+        {
+          "title": "Identity document verification and KYC processing",
+          "description": ""
+        },
+        {
+          "title": "Insurance claims intake and document classification",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Logistics & Transportation",
+        "Real Estate & Construction",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Operations & Supply Chain",
+        "Legal & Compliance",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Over 90% straight-through processing rate with minimal manual intervention",
+        "88% reduction in manual processing effort",
+        "Invoice processing time reduced from 15 minutes to under 1 minute",
+        "10x productivity increase in document-heavy workflows"
+      ],
+      "integrations": [
+        "QuickBooks",
+        "SAP",
+        "Salesforce",
+        "Zoho",
+        "NetSuite",
+        "Stripe",
+        "Sage",
+        "Slack",
+        "Notion",
+        "Google Suite",
+        "Zendesk",
+        "UiPath",
+        "and 5,000+ apps via API"
+      ],
+      "source_url": "https://nanonets.com/intelligent-automation-platform"
+    },
+    {
+      "agent_name": "Tungsten Automation Platform (TAP)",
+      "slug": "tungsten-automation-platform-tap",
+      "company_slug": "tungsten-automation-formerly-kofax",
+      "tagline": "A unified enterprise platform that brings together document automation, workflow orchestration, and knowledge discovery with customizable AI agents and GenAI-powered copilots.",
+      "description": "Tungsten Automation Platform is a unified enterprise automation platform that combines document automation, workflow orchestration, and knowledge discovery under a single orchestration layer. It features a Poly AI approach supporting multiple large language models, allowing enterprises to select best-fit models without vendor lock-in. The platform provides Quick AI Agents for rapid custom automation deployment, Knowledge Discovery with RAG-powered question-answering agents, and generative AI copilots for contextual assistance. Its modular three-tier architecture (Standard, Advanced, Enterprise) enables organizations to scale capabilities based on their automation maturity.",
+      "use_cases": [
+        {
+          "title": "Enterprise-wide intelligent document processing and workflow automation",
+          "description": ""
+        },
+        {
+          "title": "Rapid deployment of custom AI agents for domain-specific tasks",
+          "description": ""
+        },
+        {
+          "title": "RAG-powered knowledge discovery across enterprise document repositories",
+          "description": ""
+        },
+        {
+          "title": "Multi-agent orchestration for complex business processes",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "IT Operations",
+        "Data & Analytics",
+        "Legal & Compliance"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Accelerated automation deployment through modular Quick AI Agents",
+        "Reduced vendor dependency through model-agnostic Poly AI approach",
+        "Improved decision-making through AI-powered knowledge discovery"
+      ],
+      "integrations": [
+        "Azure OpenAI",
+        "OpenAI",
+        "SAP",
+        "Microsoft Dynamics 365",
+        "Oracle",
+        "NetSuite",
+        "Coupa"
+      ],
+      "source_url": "https://www.tungstenautomation.com/about/press-releases/2025/tungsten-automation-platform-purposeful-ai-for-smarter-automation"
+    },
+    {
+      "agent_name": "TotalAgility Knowledge Discovery Agent",
+      "slug": "totalagility-knowledge-discovery-agent",
+      "company_slug": "tungsten-automation-formerly-kofax",
+      "tagline": "A multi-agent system that transforms raw, unstructured data into actionable intelligence through semantic search and RAG-powered question answering.",
+      "description": "TotalAgility Knowledge Discovery Agent is a multi-agent system that mines and interprets unstructured enterprise data to deliver actionable intelligence. It employs a managing agent that orchestrates specialized worker agents including a Semantic Agent, Data Agent, Page Agent, and Evaluator Agent, each handling different aspects of document understanding. The system uses retrieval-augmented generation with semantic chunking and grounding to prevent hallucinations while delivering accurate answers. Human-in-the-loop governance ensures oversight at critical decision points, and a centralized AI knowledge base accumulates organizational intelligence over time.",
+      "use_cases": [
+        {
+          "title": "Intelligent document mining and semantic search across enterprise repositories",
+          "description": ""
+        },
+        {
+          "title": "RAG-powered Q&A for compliance and regulatory document review",
+          "description": ""
+        },
+        {
+          "title": "Multi-agent document analysis for contract intelligence",
+          "description": ""
+        },
+        {
+          "title": "Knowledge extraction from complex, multi-format document collections",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Legal & Compliance",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Faster access to actionable insights from unstructured document collections",
+        "Reduced manual document review effort through automated knowledge extraction",
+        "Improved accuracy through grounded, hallucination-resistant AI responses"
+      ],
+      "integrations": [
+        "TotalAgility 8 platform",
+        "Azure OpenAI",
+        "enterprise document management systems"
+      ],
+      "source_url": "https://www.tungstenautomation.com/learn/blog/building-an-intelligent-knowledge-discovery-agent"
+    },
+    {
+      "agent_name": "TotalAgility Copilot for Extraction",
+      "slug": "totalagility-copilot-for-extraction",
+      "company_slug": "tungsten-automation-formerly-kofax",
+      "tagline": "A GenAI-powered copilot that replaces days of extraction model training with seconds of natural language instruction.",
+      "description": "TotalAgility Copilot for Extraction uses generative AI to automate the creation and management of document extraction models within the TotalAgility platform. Users describe in natural language what data they want to extract, and the copilot analyzes the document and delivers results within seconds, supporting all document types and languages. It includes zero-shot capability for automatic field extraction from previously unseen document formats. Documents remain under the user's control and do not enter the language model, preserving data privacy and security. A growing Document Library of pre-trained models covers thousands of document types.",
+      "use_cases": [
+        {
+          "title": "Automated invoice data extraction for accounts payable",
+          "description": ""
+        },
+        {
+          "title": "KYC document processing in banking onboarding",
+          "description": ""
+        },
+        {
+          "title": "Claims document extraction for insurance processing",
+          "description": ""
+        },
+        {
+          "title": "Tax form and bank statement data capture",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Government & Public Sector",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Operations & Supply Chain",
+        "Legal & Compliance",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Up to 80% reduction in extraction model development time",
+        "Hundreds of work hours saved by converting multi-hour extraction tasks into seconds-long processes"
+      ],
+      "integrations": [
+        "TotalAgility 8",
+        "Azure OpenAI",
+        "Document Library"
+      ],
+      "source_url": "https://www.tungstenautomation.com/learn/blog/the-totalagility-copilot-for-extraction"
+    },
+    {
+      "agent_name": "TotalAgility Copilot for Development",
+      "slug": "totalagility-copilot-for-development",
+      "company_slug": "tungsten-automation-formerly-kofax",
+      "tagline": "A generative AI copilot that transforms natural language descriptions and whiteboard sketches into fully functional automation workflows.",
+      "description": "TotalAgility Copilot for Development enables users to create working processes, case definitions, forms, business rules, and data models by typing requests in natural language or uploading hand-drawn diagrams and whiteboard photos. The multi-modal workflow creator interprets these inputs and auto-generates the corresponding workflow code within the TotalAgility platform. It serves as a low-code accelerator allowing both technical and non-technical users to build enterprise automation solutions without extensive programming knowledge. The copilot integrates directly into the TotalAgility 8 design environment as part of the standard development workflow.",
+      "use_cases": [
+        {
+          "title": "Rapid prototyping of customer onboarding workflows",
+          "description": ""
+        },
+        {
+          "title": "Automated creation of sales order processing pipelines",
+          "description": ""
+        },
+        {
+          "title": "Building claims processing case definitions from business requirements",
+          "description": ""
+        },
+        {
+          "title": "Digital mailroom workflow generation from process sketches",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Up to 70% time savings in workflow development compared to pre-GenAI methods",
+        "Accelerated time-to-deployment for enterprise automation projects"
+      ],
+      "integrations": [
+        "TotalAgility 8",
+        "Azure OpenAI",
+        "custom LLMs"
+      ],
+      "source_url": "https://www.tungstenautomation.com/about/press-releases/2024/tungsten-automation-launches-generative-ai-capabilities-to-accelerate-customer-returns-on-investment"
+    },
+    {
+      "agent_name": "InvoiceAgility",
+      "slug": "invoiceagility",
+      "company_slug": "tungsten-automation-formerly-kofax",
+      "tagline": "An agentic AI-powered invoice processing platform that automates end-to-end accounts payable with autonomous routing and PO matching.",
+      "description": "InvoiceAgility is an AI-powered invoice processing platform that automates end-to-end accounts payable workflows with autonomous agents for invoice routing and PO matching. It achieves 90%+ straight-through processing rates by combining AI-driven OCR, intelligent data extraction, and automated validation against purchase orders and contracts. The platform supports global e-invoicing compliance across multiple jurisdictions, with multi-language support and configurable business rules. InvoiceAgility integrates directly with major ERP systems for seamless data flow from invoice capture through payment approval.",
+      "use_cases": [
+        {
+          "title": "End-to-end AP automation from invoice capture to payment approval",
+          "description": ""
+        },
+        {
+          "title": "Automated PO matching and three-way reconciliation",
+          "description": ""
+        },
+        {
+          "title": "Global e-invoicing compliance across multiple jurisdictions",
+          "description": ""
+        },
+        {
+          "title": "High-volume invoice processing for shared services centers",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "90%+ straight-through processing rates",
+        "Up to 80% cost reduction in AP operations",
+        "Reduced manual touchpoints by over 90%"
+      ],
+      "integrations": [
+        "SAP",
+        "Oracle",
+        "Microsoft Dynamics 365",
+        "NetSuite",
+        "Coupa",
+        "global e-invoicing networks"
+      ],
+      "source_url": "https://www.businesswire.com/news/home/20240731969925/en/Introducing-InvoiceAgility"
+    },
+    {
+      "agent_name": "EdgeVerve AI Next",
+      "slug": "edgeverve-ai-next",
+      "company_slug": "edgeverve",
+      "tagline": "A unified agentic AI platform that orchestrates multi-agent ecosystems across enterprise workflows with a PolyAI approach that prevents vendor lock-in.",
+      "description": "EdgeVerve AI Next is a unified, scalable platform that enables enterprises to build, deploy, and manage AI agent workforces across critical business processes. It features a PolyAI architecture supporting a wide range of AI models from multiple providers, giving enterprises flexibility without vendor lock-in. The platform provides no-code/low-code agent creation, hierarchical and sequential orchestration frameworks for complex multi-agent workflows, and a centralized hub with real-time analytics and audit trails. Built-in responsible AI controls, human-in-the-loop interfaces, and secure enterprise data access ensure ethical and transparent agent operations.",
+      "use_cases": [
+        {
+          "title": "Accounts receivable processing automation",
+          "description": ""
+        },
+        {
+          "title": "Contract digitization and negotiation workflows",
+          "description": ""
+        },
+        {
+          "title": "Enterprise-wide document processing across banking and insurance",
+          "description": ""
+        },
+        {
+          "title": "Conversion of manual Excel-based operational processes into AI-driven workflows",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "Customer Experience",
+        "IT Operations",
+        "Data & Analytics",
+        "Legal & Compliance"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Up to 60% reduction in financial processing time",
+        "80% faster process discovery with intelligent analytics",
+        "Up to 25% hyper-productivity improvement across enterprise operations"
+      ],
+      "integrations": [
+        "AWS",
+        "Google Cloud",
+        "Microsoft Azure",
+        "multiple LLM providers (Llama 3, GPT-4)",
+        "enterprise ERP and BPM systems"
+      ],
+      "source_url": "https://www.edgeverve.com/ai-next/"
+    },
+    {
+      "agent_name": "EdgeVerve AI Next OSM",
+      "slug": "edgeverve-ai-next-osm",
+      "company_slug": "edgeverve",
+      "tagline": "An agentic AI-powered operations management solution that combines service request handling, case management, and workforce orchestration for global business services.",
+      "description": "EdgeVerve AI Next OSM is a comprehensive solution built for Global Business Services and Global Capability Centers that unifies cross-channel automation, agentic AI-powered smart workflows, and real-time analytics on a single platform. It delivers AI-driven service request handling, intelligent case management, dynamic workforce allocation, and persona-based real-time dashboards. The solution combines reusable components and agentic workflows with end-to-end orchestration to drive faster time-to-value across enterprise operations. It shifts organizations from cost-centric shared services to a value-driven operating model.",
+      "use_cases": [
+        {
+          "title": "Automated service request handling and intelligent case management for shared services centers",
+          "description": ""
+        },
+        {
+          "title": "Dynamic workforce allocation and workload balancing across GBS operations",
+          "description": ""
+        },
+        {
+          "title": "Real-time operational analytics and compliance monitoring for multi-country finance and accounting",
+          "description": ""
+        },
+        {
+          "title": "Cross-channel process orchestration for telecom and healthcare back-office operations",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Logistics & Transportation",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "HR & Workforce",
+        "IT Operations",
+        "Customer Experience"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Accelerated GBS transformation from cost-centric to value-centric models",
+        "Improved operational efficiency through end-to-end AI-driven process management",
+        "Enhanced service quality with real-time analytics and intelligent workforce allocation"
+      ],
+      "integrations": [
+        "EdgeVerve AI Next platform",
+        "enterprise ERP and ITSM systems",
+        "email",
+        "EDI",
+        "web channels"
+      ],
+      "source_url": "https://www.edgeverve.com/ai-next/global-business-services-transformation/"
+    },
+    {
+      "agent_name": "XtractEdge 4.0",
+      "slug": "xtractedge-4-0",
+      "company_slug": "edgeverve",
+      "tagline": "A generative AI-powered intelligent document processing platform that transforms structured, unstructured, and semi-structured documents into actionable enterprise data.",
+      "description": "XtractEdge 4.0 is an intelligent document processing platform powered by generative AI that extracts, processes, and structures data from complex enterprise documents. It employs an ensemble of machine learning, deep learning, NLP, and computer vision techniques alongside generative AI to adapt to new or unseen document types. The platform features three modular components that democratize document digitization for both business and IT users, enabling accelerated processing. XtractEdge handles legal contracts, insurance papers, invoices, handwritten notes, and scanned PDFs with contextual understanding and precise insights.",
+      "use_cases": [
+        {
+          "title": "Commercial insurance document extraction and claims processing",
+          "description": ""
+        },
+        {
+          "title": "Legal contract analysis and digitization",
+          "description": ""
+        },
+        {
+          "title": "Pharmaceutical and healthcare document comprehension",
+          "description": ""
+        },
+        {
+          "title": "Enterprise invoice processing and accounts payable automation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Telecom & Media",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Improved document processing accuracy and speed through generative AI adaptation",
+        "Reduced manual data entry errors with automated extraction",
+        "Faster business intake processes with automated submission handling"
+      ],
+      "integrations": [
+        "EdgeVerve AssistEdge RPA",
+        "enterprise document management systems"
+      ],
+      "source_url": "https://www.edgeverve.com/xtractedge/xtractedge-platform/"
+    },
+    {
+      "agent_name": "Finacle Data and AI Suite",
+      "slug": "finacle-data-and-ai-suite",
+      "company_slug": "edgeverve",
+      "tagline": "A banking-specific AI platform with pre-built generative AI assistants that enables financial institutions to build, deploy, and scale AI solutions from data readiness through production.",
+      "description": "The Finacle Data and AI Suite helps banks infuse AI into digital operations through the Finacle Data Platform, Finacle AI Platform, and Finacle Generative AI Offerings. The AI Platform provides a unified interface for building, training, deploying, monitoring, and optimizing AI solutions with a no-code generative AI-driven approach and pre-trained models. It includes the Finacle Knowledge AI Assistant for NLP-based information extraction from document repositories and the Finacle Support AI Assistant for expediting ticket resolution by analyzing past tickets and generating tailored responses. The suite includes bias and drift detection, model comparators, what-if simulations, and patent-pending synthetic data generation for privacy protection.",
+      "use_cases": [
+        {
+          "title": "NLP-based knowledge retrieval from banking document repositories",
+          "description": ""
+        },
+        {
+          "title": "Automated support ticket resolution for bank operations teams",
+          "description": ""
+        },
+        {
+          "title": "Predictive and generative AI model development for credit risk and customer analytics",
+          "description": ""
+        },
+        {
+          "title": "Data readiness and AI industrialization for enterprise banking",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Data & Analytics",
+        "Finance & Accounting",
+        "Legal & Compliance"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Accelerated AI adoption across banking operations through low-code platform and pre-trained models",
+        "Improved support team efficiency through AI-powered ticket resolution",
+        "Enhanced data privacy with synthetic data generation and built-in bias detection"
+      ],
+      "integrations": [
+        "Microsoft Azure",
+        "Azure OpenAI Service"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/infosys-finacle-launches-data-and-ai-suite-to-help-banks-accelerate-their-ai-journey-302291390.html"
+    }
+  ]
+}

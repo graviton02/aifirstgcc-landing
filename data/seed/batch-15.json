@@ -1,0 +1,329 @@
+{
+  "companies": [
+    {
+      "name": "Postman",
+      "slug": "postman",
+      "website": "https://www.postman.com",
+      "headquarters": "San Francisco, USA",
+      "founded": 2014,
+      "company_size": "scaleup",
+      "description": "Postman is an API platform for building, testing, and using APIs, serving over 30 million registered users. The platform has evolved into an AI-native development environment with tools for building, testing, and deploying AI agents powered by APIs and the Model Context Protocol (MCP).",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Razorpay",
+      "slug": "razorpay",
+      "website": "https://razorpay.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 2014,
+      "company_size": "scaleup",
+      "description": "Razorpay is a full-stack payments and financial services platform serving businesses across India and internationally, providing payment gateway, payroll, banking, and lending products. The company has expanded into AI-powered payments infrastructure through its RAY assistant and Agentic Payments product lines.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "contact_email": "pr-storytellers@razorpay.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Freshworks",
+      "slug": "freshworks",
+      "website": "https://www.freshworks.com",
+      "headquarters": "San Mateo, California, USA",
+      "founded": 2010,
+      "company_size": "enterprise",
+      "description": "Freshworks provides cloud-based SaaS for customer service, IT service management, and CRM, unified by the Freddy AI agentic platform that spans its Freshdesk, Freshservice, and Freshsales product lines. The company is publicly traded on NASDAQ (FRSH) and serves over 68,000 businesses globally.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Logistics & Transportation",
+        "Manufacturing"
+      ],
+      "contact_email": "sales@freshworks.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Postman AI Agent Builder",
+      "slug": "postman-ai-agent-builder",
+      "company_slug": "postman",
+      "tagline": "A comprehensive suite for building, testing, and deploying production-ready AI agents powered by trusted APIs and MCP servers.",
+      "description": "Postman AI Agent Builder is a platform that enables developers and non-technical users to construct, test, and deploy AI agents using APIs from over 18,000 publishers on the Postman API Network. It provides a visual drag-and-drop canvas (via Postman Flows) for building multi-step agentic workflows without writing code, while also supporting custom logic and model configurations for advanced users. The platform includes centralized LLM testing and evaluation across models from OpenAI, Anthropic, Google, Cohere, and Meta, as well as instant MCP server generation that converts any API into an agent-consumable server without boilerplate code. Pre-built agent templates are available for customer support, marketing, DevOps, and sales workflows, with serverless deployment and API-triggered execution.",
+      "use_cases": [
+        {
+          "title": "Building customer support agents that triage tickets and suggest replies across Zendesk and Slack",
+          "description": ""
+        },
+        {
+          "title": "creating DevOps automation agents that summarize GitHub issues and create Jira tickets",
+          "description": ""
+        },
+        {
+          "title": "developing sales agents that prepare call briefings from HubSpot and Salesforce data",
+          "description": ""
+        },
+        {
+          "title": "generating and testing MCP servers for AI agent integrations",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Customer Experience",
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Accelerated AI agent development through no-code visual workflows and pre-built templates",
+        "improved agent reliability via integrated testing and evaluation of LLMs and APIs",
+        "reduced time-to-production for agentic solutions by leveraging 18,000+ verified APIs"
+      ],
+      "integrations": [
+        "OpenAI",
+        "Anthropic Claude",
+        "Google Gemini",
+        "Meta Llama",
+        "Cohere",
+        "Zendesk",
+        "Slack",
+        "GitHub",
+        "Jira",
+        "PagerDuty",
+        "HubSpot",
+        "Salesforce",
+        "VS Code",
+        "Cursor",
+        "Windsurf"
+      ],
+      "source_url": "https://www.postman.com/product/ai-agent-builder/"
+    },
+    {
+      "agent_name": "Postman Agent Mode",
+      "slug": "postman-agent-mode",
+      "company_slug": "postman",
+      "tagline": "An AI-powered assistant that automates API workflows through natural language, acting as both a coach and hands-on collaborator across the entire API lifecycle.",
+      "description": "Postman Agent Mode is an AI assistant embedded within the Postman platform that uses natural language to automate API development, testing, debugging, and documentation tasks. It provides context-aware assistance by analyzing currently open tabs, requests, folders, collections, and workspaces, and offers task-specific sub-agents that users can invoke directly for specialized operations. The system connects to over 70 tools across Postman and supports MCP server integration for advanced tool execution, with safety controls that require approval before modifying data. Agent Mode generates complete API notebooks from natural-language prompts, creates Jira and GitHub issues with relevant context carried over automatically, and produces accurate API documentation with examples and schemas.",
+      "use_cases": [
+        {
+          "title": "Diagnosing and resolving API errors by analyzing prior requests",
+          "description": ""
+        },
+        {
+          "title": "generating end-to-end API notebooks from natural-language descriptions",
+          "description": ""
+        },
+        {
+          "title": "automating API documentation generation with examples and schemas",
+          "description": ""
+        },
+        {
+          "title": "organizing collections, writing tests, and syncing code with API collections via Git integration",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Faster API debugging and resolution through AI-powered diagnostics",
+        "reduced manual effort in documentation, testing, and issue tracking",
+        "improved developer productivity with natural-language-driven API workflow automation"
+      ],
+      "integrations": [
+        "Jira",
+        "GitHub",
+        "Git repositories",
+        "MCP servers",
+        "Claude",
+        "Cursor",
+        "VS Code",
+        "Windsurf"
+      ],
+      "source_url": "https://www.postman.com/product/postbot/"
+    },
+    {
+      "agent_name": "RAY (Razorpay Assistant for You)",
+      "slug": "ray-razorpay-assistant-for-you",
+      "company_slug": "razorpay",
+      "tagline": "AI-powered payments concierge that monitors, codes, and onboards so merchants can focus on growth.",
+      "description": "RAY is Razorpay's unified AI assistant suite encompassing three core modules: RAY Concierge, RAY Co-Pilot, and RAY Onboarding Assistant. RAY Concierge functions as a 24/7 real-time payment analyst that monitors over 20 critical metrics, detects anomalies, and alerts businesses before payment failures occur. RAY Co-Pilot is a developer-facing AI tool that generates integration code for Razorpay's payment gateway, tests setups, and simplifies the entire development workflow. RAY Onboarding Assistant accelerates merchant onboarding through AI-powered document analysis, automatic extraction of business and banking details, and auto-filling of application forms. The suite is accessible via WhatsApp, the Razorpay Mobile App, and the merchant Dashboard.",
+      "use_cases": [
+        {
+          "title": "Real-time payment failure detection and alerting",
+          "description": ""
+        },
+        {
+          "title": "automated merchant onboarding with AI document verification",
+          "description": ""
+        },
+        {
+          "title": "payment gateway code generation and integration testing",
+          "description": ""
+        },
+        {
+          "title": "conversational business analytics and reporting",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Finance & Accounting",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "10x faster merchant onboarding",
+        "reduced payment failures through proactive monitoring",
+        "accelerated developer integration cycles"
+      ],
+      "integrations": [
+        "WhatsApp",
+        "Razorpay Dashboard",
+        "Razorpay Mobile App",
+        "RazorpayX Payroll"
+      ],
+      "source_url": "https://razorpay.com/blog/meet-r-a-y-your-24-7-on-demand-ai-concierge/"
+    },
+    {
+      "agent_name": "Razorpay Agentic Payments",
+      "slug": "razorpay-agentic-payments",
+      "company_slug": "razorpay",
+      "tagline": "AI-powered conversational payment infrastructure that lets AI agents execute real transactions inside any conversation.",
+      "description": "Razorpay Agentic Payments is a payments infrastructure layer that enables AI agents to initiate, process, and complete financial transactions within conversational interfaces — including chat, voice, and LLM-based assistants — without redirecting users to checkout pages. The platform is built on Razorpay's Model Context Protocol (MCP) Server, which provides over 35 specialized tools covering payments, orders, refunds, settlements, and reporting, enabling any AI agent to interact with Razorpay's payment APIs through natural language. The system supports UPI one-time payments, UPI Reserve Pay mandates for recurring payments, and dynamic payment link generation, all with PCI-DSS compliance and no PII storage by the AI layer. Agentic Payments integrates natively with ChatGPT and Claude through NPCI partnership.",
+      "use_cases": [
+        {
+          "title": "Voice AI-powered debt collection with in-call payment completion",
+          "description": ""
+        },
+        {
+          "title": "conversational food and grocery ordering via AI assistants",
+          "description": ""
+        },
+        {
+          "title": "AI-driven subscription and recurring payment management",
+          "description": ""
+        },
+        {
+          "title": "merchant self-service payment operations through natural language prompts",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Finance & Accounting",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Frictionless AI-driven checkout eliminating cart abandonment",
+        "real-time payment completion within voice and chat conversations",
+        "reduced manual payment operations through AI automation"
+      ],
+      "integrations": [
+        "ChatGPT (OpenAI)",
+        "Claude (Anthropic)",
+        "NPCI/UPI",
+        "Zomato",
+        "Swiggy",
+        "Zepto"
+      ],
+      "source_url": "https://razorpay.com/m/agentic-payments/"
+    },
+    {
+      "agent_name": "Freddy AI",
+      "slug": "freddy-ai",
+      "company_slug": "freshworks",
+      "tagline": "An agentic AI platform that resolves customer and employee service requests autonomously across channels while augmenting human agents with real-time copilot assistance and proactive analytics.",
+      "description": "Freddy AI is Freshworks' unified agentic AI platform that operates across Freshdesk (customer service), Freshservice (IT service management), and Freshsales (CRM). The platform comprises three core components: Freddy AI Agent, which autonomously handles customer and employee queries across email, chat, WhatsApp, social media, Microsoft Teams, and Slack with the ability to execute transactional actions like processing refunds, updating subscriptions, and tracking shipments; Freddy AI Copilot, which works alongside human agents to suggest replies, summarize conversations, translate messages across 60+ languages, perform sentiment analysis, and automate routine tasks; and Freddy AI Insights, which proactively surfaces trends, anomalies, and root causes across service metrics through conversational analytics. The platform includes the AI Agent Studio, a no-code visual builder for creating custom autonomous agents, plus 50+ prebuilt Vertical AI Agents for ecommerce, fintech, travel, and logistics that can resolve up to 80% of common queries.",
+      "use_cases": [
+        {
+          "title": "Autonomous resolution of customer support tickets across omnichannel touchpoints including order management, refunds, and subscription changes",
+          "description": ""
+        },
+        {
+          "title": "IT service desk automation with intelligent ticket routing, self-service resolution, and proactive incident detection",
+          "description": ""
+        },
+        {
+          "title": "sales pipeline acceleration through AI-driven lead scoring, email drafting, conversation summarization, and next-best-action recommendations",
+          "description": ""
+        },
+        {
+          "title": "building and deploying custom agentic workflows via no-code AI Agent Studio",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Logistics & Transportation",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Up to 70% ticket deflection from AI agents and 50% productivity gains for human agents",
+        "reduced first response times and improved first-contact resolution rates",
+        "accelerated sales cycles through predictive lead scoring and AI-driven next-best-action recommendations"
+      ],
+      "integrations": [
+        "Shopify",
+        "Stripe",
+        "PayPal",
+        "FedEx",
+        "Microsoft 365 Copilot",
+        "Microsoft Teams",
+        "Slack",
+        "Google Drive",
+        "Confluence",
+        "SharePoint",
+        "Okta",
+        "Workday",
+        "HubSpot"
+      ],
+      "source_url": "https://www.freshworks.com/platform/ai-capability/"
+    }
+  ]
+}

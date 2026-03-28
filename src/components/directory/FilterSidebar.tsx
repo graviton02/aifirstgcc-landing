@@ -5,7 +5,6 @@ import { CaretDown, X } from "@phosphor-icons/react";
 import {
   FUNCTIONAL_CATEGORIES,
   INDUSTRY_CATEGORIES,
-  INFRASTRUCTURE_CATEGORIES,
 } from "@/lib/categories";
 
 export interface Filters {
@@ -27,8 +26,7 @@ export function FilterSidebar({
 }: FilterSidebarProps) {
   const hasAnyFilter =
     filters.functional.length > 0 ||
-    filters.industry.length > 0 ||
-    filters.infrastructure.length > 0;
+    filters.industry.length > 0;
 
   const clearAll = () =>
     onFilterChange({ functional: [], industry: [], infrastructure: [] });
@@ -65,13 +63,6 @@ export function FilterSidebar({
         items={[...INDUSTRY_CATEGORIES]}
         selected={filters.industry}
         onToggle={(v) => toggleFilter("industry", v)}
-        counts={agentCounts}
-      />
-      <FilterGroup
-        label="Infrastructure"
-        items={[...INFRASTRUCTURE_CATEGORIES]}
-        selected={filters.infrastructure}
-        onToggle={(v) => toggleFilter("infrastructure", v)}
         counts={agentCounts}
       />
     </nav>

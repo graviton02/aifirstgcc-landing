@@ -33,7 +33,14 @@ export function GccOnboardingForm() {
     setIsSubmitting(true);
     try {
       await createProfile(form);
-      router.push("/");
+      await fetch("/api/set-role", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: "gcc" }),
+      });
+      // Reload Clerk user so publicMetadata.role is available immediately
+      await user?.reload();
+      router.push("/gcc-dashboard");
     } finally {
       setIsSubmitting(false);
     }

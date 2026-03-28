@@ -1,0 +1,64 @@
+name: Preview E2E
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      PLAYWRIGHT_BASE_URL: ${{ vars.PLAYWRIGHT_BASE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check preview URL
+        id: preview
+        run: |
+          if [ -z "$PLAYWRIGHT_BASE_URL" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "PLAYWRIGHT_BASE_URL is not configured; skipping preview smoke tests."
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            echo "Using preview URL: $PLAYWRIGHT_BASE_URL"
+          fi
+
+      - name: Install dependencies
+        if: steps.preview.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Install Playwright browsers
+        if: steps.preview.outputs.ready == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Wait for preview to be ready
+        if: steps.preview.outputs.ready == 'true'
+        run: node scripts/wait-for-url.js "$PLAYWRIGHT_BASE_URL"
+
+      - name: Run Playwright smoke tests
+        if: steps.preview.outputs.ready == 'true'
+        continue-on-error: true
+        run: npm run test:e2e:smoke
+
+      - name: Upload Playwright artifacts
+        if: always() && steps.preview.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-smoke-${{ github.sha }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

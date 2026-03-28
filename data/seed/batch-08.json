@@ -1,0 +1,400 @@
+{
+  "companies": [
+    {
+      "name": "Abstrabit Technologies",
+      "slug": "abstrabit-technologies",
+      "website": "https://www.abstrabit.com",
+      "headquarters": "Bangalore, India",
+      "founded": 2022,
+      "company_size": "startup",
+      "description": "Abstrabit Technologies is an AI solutions provider incubated at NSRCEL (IIM Bangalore) that builds production-grade AI agents with a human-in-the-loop architecture. The company focuses on voice AI and sales intelligence solutions for enterprises and SMBs across multiple industries.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce"
+      ],
+      "contact_email": "ops@abstrabit.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Calsoft",
+      "slug": "calsoft",
+      "website": "https://www.calsoftinc.com",
+      "headquarters": "San Jose, CA, USA",
+      "founded": 1998,
+      "company_size": "midmarket",
+      "description": "Calsoft is a global digital engineering and Data & AI solutions provider specializing in cloud, AI/ML, IoT, security, and product engineering for enterprises and ISVs. The company delivers engineering services alongside proprietary AI-powered accelerator platforms for testing and quality automation.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "contact_email": "marketing@calsoftinc.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Yellow.ai",
+      "slug": "yellow-ai",
+      "website": "https://yellow.ai",
+      "headquarters": "San Mateo, California, USA",
+      "founded": 2016,
+      "company_size": "scaleup",
+      "description": "Yellow.ai is an agentic AI platform for customer and employee experience automation, enabling enterprises to deploy AI agents across chat, voice, email, and messaging channels in 135+ languages. The platform serves enterprises across retail, BFSI, healthcare, telecom, and logistics with a multi-LLM architecture and 150+ pre-built enterprise integrations.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Automotive & Mobility"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Abstrabit AI — Voice AI Receptionist",
+      "slug": "abstrabit-ai-voice-ai-receptionist",
+      "company_slug": "abstrabit-technologies",
+      "tagline": "An AI-powered voice agent that answers, qualifies, and routes incoming calls 24/7 with human-like interaction quality.",
+      "description": "The Voice AI Receptionist is a production-grade voice AI agent that answers, qualifies, and routes incoming calls around the clock. It operates with a human-in-the-loop architecture featuring real-time agent monitoring, configurable confidence thresholds, enterprise audit trails, and explainability features. The agent handles high call volumes with human-like interaction quality, reducing missed calls and freeing human staff for higher-value tasks. It includes confidence scoring with visible thresholds and supports human intervention when the agent's confidence drops below configured levels.",
+      "use_cases": [
+        {
+          "title": "Automated call answering and routing for high-volume inbound operations",
+          "description": ""
+        },
+        {
+          "title": "lead qualification via phone with confidence-scored handoffs",
+          "description": ""
+        },
+        {
+          "title": "after-hours call handling without additional headcount",
+          "description": ""
+        },
+        {
+          "title": "appointment scheduling and caller triage",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Up to 80% fewer missed calls",
+        "24/7 call coverage without additional headcount",
+        "faster lead qualification"
+      ],
+      "integrations": [],
+      "source_url": "https://www.abstrabit.com/ai"
+    },
+    {
+      "agent_name": "Abstrabit AI — Sales Intelligence Hub",
+      "slug": "abstrabit-ai-sales-intelligence-hub",
+      "company_slug": "abstrabit-technologies",
+      "tagline": "An AI-driven knowledge agent that gives sales teams instant, context-aware access to organizational data for faster and more accurate responses.",
+      "description": "The Sales Intelligence Hub is an AI-driven sales intelligence agent that provides sales teams with instant, context-aware access to an organization's knowledge base. It synthesizes vast data sources to deliver verifiable answers on demand, enabling faster and more accurate sales responses. Built on the same human-in-the-loop framework as the broader Abstrabit AI platform, it includes real-time monitoring, configurable confidence thresholds, and enterprise audit trails for accountability. The agent reduces time-to-competency for new sales hires by providing immediate access to institutional knowledge.",
+      "use_cases": [
+        {
+          "title": "Real-time sales support and response generation during customer interactions",
+          "description": ""
+        },
+        {
+          "title": "product and pricing knowledge retrieval for sales teams",
+          "description": ""
+        },
+        {
+          "title": "onboarding acceleration for new sales representatives",
+          "description": ""
+        },
+        {
+          "title": "customer engagement workflow automation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Customer Experience"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "70% faster sales responses",
+        "improved sales rep productivity",
+        "reduced time-to-competency for new hires"
+      ],
+      "integrations": [],
+      "source_url": "https://www.abstrabit.com/ai"
+    },
+    {
+      "agent_name": "CalTIA (Calsoft Test Impact Analyzer)",
+      "slug": "caltia-calsoft-test-impact-analyzer",
+      "company_slug": "calsoft",
+      "tagline": "An AI/ML-powered test management platform that predicts which tests will fail based on code changes and auto-generates missing test cases.",
+      "description": "CalTIA is an AI/ML-enabled intelligent test management platform that analyzes code changes and identifies which test cases are impacted, eliminating redundant test runs. It uses machine learning to predict which tests are likely to fail based on specific code changes, and generative AI to identify gaps in test suites and auto-generate missing tests. The platform provides real-time developer notifications for immediate failure triaging, reducing test cycles by up to 40-70% while maintaining quality. CalTIA integrates into CI/CD pipelines for continuous quality assurance with minimal manual intervention.",
+      "use_cases": [
+        {
+          "title": "Intelligent test impact analysis to eliminate redundant test execution",
+          "description": ""
+        },
+        {
+          "title": "AI-driven test gap identification and auto-generation of missing test cases",
+          "description": ""
+        },
+        {
+          "title": "predictive failure analysis based on code change patterns",
+          "description": ""
+        },
+        {
+          "title": "real-time developer notification and failure triaging in CI/CD workflows",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "40-70% reduction in test cycles",
+        "faster release cycles through intelligent test selection",
+        "reduced manual QA effort via AI-driven test generation"
+      ],
+      "integrations": [
+        "CI/CD pipelines"
+      ],
+      "source_url": "https://www.calsoftinc.com/accelerators/test-impact-analyzer-caltia/"
+    },
+    {
+      "agent_name": "VoiceX",
+      "slug": "voicex",
+      "company_slug": "yellow-ai",
+      "tagline": "Human-like voice AI agent that handles customer conversations with ultra-low latency, real-time emotion detection, and natural turn-taking across 135+ languages.",
+      "description": "VoiceX is Yellow.ai's voice AI platform that delivers natural, human-like phone conversations for enterprise customer service and sales. It operates on a multi-LLM architecture optimized for ultra-low latency (~1.3 seconds response time) and supports 135+ languages across phone, web, messaging, and social channels. Key differentiators include SmoothTalk AI for intelligent turn-taking that eliminates awkward pauses, Sentiment AI for real-time emotion detection that triggers proactive escalation, and Acknowledgement AI that inserts natural conversational cues to make interactions feel genuine. The platform handles end-to-end voice workflows including sales and lead generation, appointment scheduling, order management, feedback collection, and smart call routing.",
+      "use_cases": [
+        {
+          "title": "Automated inbound/outbound customer support calls",
+          "description": ""
+        },
+        {
+          "title": "sales lead qualification and appointment scheduling",
+          "description": ""
+        },
+        {
+          "title": "order status tracking and management via voice",
+          "description": ""
+        },
+        {
+          "title": "sentiment-aware escalation to human agents during complex issues",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Automotive & Mobility"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced average call handling time",
+        "improved first-call resolution rates",
+        "lower cost per customer interaction through voice automation"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Zendesk",
+        "Genesys",
+        "Nice",
+        "ServiceNow"
+      ],
+      "source_url": "https://yellow.ai/voicex/"
+    },
+    {
+      "agent_name": "Nexus",
+      "slug": "nexus",
+      "company_slug": "yellow-ai",
+      "tagline": "Universal agentic interface that autonomously builds, tests, and maintains AI agents from natural language instructions across the entire enterprise stack.",
+      "description": "Nexus is Yellow.ai's Universal Agentic Interface that shifts enterprise AI automation from tool-dependent platforms to autonomous AI-driven execution. It operates through three pillars: Eyes (analyzes hundreds of thousands of conversations across channels to identify patterns and build a living business model), Hands (converts natural language descriptions into automated workflows, generating UIs and connecting systems without manual configuration), and Autonomy (stress-tests workflows against simulated scenarios, identifies vulnerabilities, and implements fixes before requiring human approval). The platform uses a multi-agent architecture with specialized personas including a Strategist for business modeling, an Architect for workflow construction, a QA Engineer that spawns thousands of virtual users for stress-testing, and a Mechanic for automated root cause analysis and repair.",
+      "use_cases": [
+        {
+          "title": "Autonomous creation and deployment of customer service AI agents from natural language briefs",
+          "description": ""
+        },
+        {
+          "title": "continuous quality assurance through simulated adversarial testing",
+          "description": ""
+        },
+        {
+          "title": "automated root cause analysis and self-healing when agent performance degrades",
+          "description": ""
+        },
+        {
+          "title": "enterprise-wide automation opportunity mapping",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Automotive & Mobility"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Sales & Marketing",
+        "HR & Workforce"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "98.9% agent success rate",
+        "reduced time-to-deploy for new AI agents from weeks to hours",
+        "lower operational overhead for AI agent maintenance and troubleshooting"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Zendesk",
+        "Genesys",
+        "Nice",
+        "ServiceNow (150+ pre-built enterprise integrations)"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/yellowai-launches-nexus-the-industrys-first-universal-agentic-interface-302677745.html"
+    },
+    {
+      "agent_name": "Analyze",
+      "slug": "analyze",
+      "company_slug": "yellow-ai",
+      "tagline": "AI-powered analytics suite that continuously learns from conversations to auto-generate knowledge base articles and surface actionable insights.",
+      "description": "Analyze is Yellow.ai's analytics module that provides deep insights into every AI agent and human agent conversation across channels. It uses LLM models to assess conversations, identify success patterns, and auto-generate knowledge base articles from resolved interactions, creating a continuous learning loop that improves agent accuracy over time. The module features AI-generated topic clustering to identify recurring patterns and containment rates, with drill-down insights on conversation share, resolution rate, and containment rate per topic. It includes specialized voice analytics with filtering by call direction, status, duration, and hang-up reason, enabling teams to diagnose call performance issues with precision.",
+      "use_cases": [
+        {
+          "title": "Identifying recurring customer issue patterns to proactively address root causes",
+          "description": ""
+        },
+        {
+          "title": "auto-generating and enriching knowledge base articles from successful resolutions",
+          "description": ""
+        },
+        {
+          "title": "monitoring and optimizing AI agent containment rates across topics",
+          "description": ""
+        },
+        {
+          "title": "diagnosing voice call performance issues through specialized call analytics",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Automotive & Mobility"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced support tickets through proactive knowledge base improvement",
+        "higher containment rate driven by LLM-powered insights",
+        "improved first-contact resolution through continuously enriched agent knowledge"
+      ],
+      "integrations": [
+        "Native integration within the Yellow.ai platform",
+        "works across all channels supported by Yellow.ai (chat, voice, email, messaging)"
+      ],
+      "source_url": "https://yellow.ai/platform/ai-analytics/"
+    },
+    {
+      "agent_name": "Agent Assist",
+      "slug": "agent-assist",
+      "company_slug": "yellow-ai",
+      "tagline": "Real-time AI copilot for human support agents that suggests responses, surfaces knowledge, and automates repetitive tasks during live customer interactions.",
+      "description": "Agent Assist is Yellow.ai's AI-powered support tool for human customer service agents that operates during live interactions. It provides AI-suggested responses, conversation summaries, and recommended next-best actions in real time while agents handle customer queries. The module integrates with the enterprise knowledge base to give agents instant access to FAQs, product manuals, and resolution guides, enabling accurate and comprehensive responses without manual searching. It automates repetitive tasks such as ticket categorization and data entry, reducing tool-switching and allowing agents to focus on complex customer issues that require human judgment.",
+      "use_cases": [
+        {
+          "title": "Real-time response suggestions during live chat and voice support",
+          "description": ""
+        },
+        {
+          "title": "automated ticket summarization and categorization",
+          "description": ""
+        },
+        {
+          "title": "instant knowledge base lookups during customer interactions",
+          "description": ""
+        },
+        {
+          "title": "coaching insights for agent performance improvement",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Logistics & Transportation",
+        "Automotive & Mobility"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "HR & Workforce"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "50% reduction in average ticket handling time",
+        "improved customer satisfaction scores (CSAT) by up to 7 percentage points",
+        "85% first-contact resolution rate"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Zendesk",
+        "Genesys",
+        "Nice",
+        "ServiceNow (150+ pre-built enterprise integrations)"
+      ],
+      "source_url": "https://yellow.ai/platform/agent-assist/"
+    }
+  ]
+}

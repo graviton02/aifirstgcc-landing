@@ -9,6 +9,7 @@
  */
 
 import type * as admin from "../admin.js";
+import type * as adminNotifications from "../adminNotifications.js";
 import type * as agents from "../agents.js";
 import type * as claims from "../claims.js";
 import type * as companies from "../companies.js";
@@ -17,12 +18,17 @@ import type * as companyMembers from "../companyMembers.js";
 import type * as companySubmissions from "../companySubmissions.js";
 import type * as earlyAccess from "../earlyAccess.js";
 import type * as emails_claimApproved from "../emails/claimApproved.js";
+import type * as emails_contactRequest from "../emails/contactRequest.js";
+import type * as emails_notification from "../emails/notification.js";
 import type * as gcc from "../gcc.js";
 import type * as gccProfiles from "../gccProfiles.js";
 import type * as http from "../http.js";
+import type * as lib_agentTaxonomy from "../lib/agentTaxonomy.js";
 import type * as lib_auth from "../lib/auth.js";
+import type * as lib_errors from "../lib/errors.js";
 import type * as notifications from "../notifications.js";
 import type * as providerProfiles from "../providerProfiles.js";
+import type * as providerRequests from "../providerRequests.js";
 import type * as shortlists from "../shortlists.js";
 import type * as storage from "../storage.js";
 
@@ -34,6 +40,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
+  adminNotifications: typeof adminNotifications;
   agents: typeof agents;
   claims: typeof claims;
   companies: typeof companies;
@@ -42,12 +49,17 @@ declare const fullApi: ApiFromModules<{
   companySubmissions: typeof companySubmissions;
   earlyAccess: typeof earlyAccess;
   "emails/claimApproved": typeof emails_claimApproved;
+  "emails/contactRequest": typeof emails_contactRequest;
+  "emails/notification": typeof emails_notification;
   gcc: typeof gcc;
   gccProfiles: typeof gccProfiles;
   http: typeof http;
+  "lib/agentTaxonomy": typeof lib_agentTaxonomy;
   "lib/auth": typeof lib_auth;
+  "lib/errors": typeof lib_errors;
   notifications: typeof notifications;
   providerProfiles: typeof providerProfiles;
+  providerRequests: typeof providerRequests;
   shortlists: typeof shortlists;
   storage: typeof storage;
 }>;

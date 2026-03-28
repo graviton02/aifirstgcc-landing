@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { motion } from "framer-motion";
@@ -26,7 +27,8 @@ const PAGE_SIZE = 20;
 export default function DirectoryContent() {
   const agents = useQuery(api.agents.listAll) as Agent[] | undefined;
   const companies = useQuery(api.companies.listAll) as Company[] | undefined;
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get("search") ?? "");
   const [filters, setFilters] = useState<Filters>({
     functional: [],
     industry: [],
@@ -418,23 +420,33 @@ function Pagination({
   totalPages: number;
   onPageChange: (page: number) => void;
 }) {
-  // Build page numbers with ellipsis
+  // Build page numbers: show up to 4 consecutive pages, then ... and last page
   const getPages = (): (number | "...")[] => {
     const pages: (number | "...")[] = [];
-    if (totalPages <= 7) {
+    if (totalPages <= 6) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
       return pages;
     }
 
-    pages.push(1);
-    if (currentPage > 3) pages.push("...");
+    // Show 4 pages around current position
+    let start: number;
+    let end: number;
 
-    const start = Math.max(2, currentPage - 1);
-    const end = Math.min(totalPages - 1, currentPage + 1);
+    if (currentPage <= 3) {
+      start = 1;
+      end = 4;
+    } else if (currentPage >= totalPages - 2) {
+      start = totalPages - 3;
+      end = totalPages;
+    } else {
+      start = currentPage - 1;
+      end = currentPage + 2;
+    }
+
     for (let i = start; i <= end; i++) pages.push(i);
 
-    if (currentPage < totalPages - 2) pages.push("...");
-    pages.push(totalPages);
+    if (end < totalPages - 1) pages.push("...");
+    if (end < totalPages) pages.push(totalPages);
 
     return pages;
   };

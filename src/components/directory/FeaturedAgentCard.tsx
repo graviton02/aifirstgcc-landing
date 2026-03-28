@@ -30,7 +30,7 @@ export function FeaturedAgentCard({ agent }: { agent: Agent }) {
           <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">
             {agent.category}
           </span>
-          {agent.functional_categories?.slice(0, 2).map((cat) => (
+          {agent.functional_categories?.filter((cat) => cat !== agent.category).slice(0, 2).map((cat) => (
             <span key={cat} className="px-2 py-0.5 bg-enterprise-100 text-enterprise-600 text-xs rounded-full">
               {cat}
             </span>

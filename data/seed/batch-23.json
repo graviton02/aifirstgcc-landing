@@ -1,0 +1,637 @@
+{
+  "companies": [
+    {
+      "name": "KissanAI",
+      "slug": "kissanai",
+      "website": "https://kissan.ai",
+      "headquarters": "Surat, India",
+      "founded": 2023,
+      "company_size": "startup",
+      "description": "KissanAI is an agriculture-focused AI company that builds multilingual generative AI platforms and domain-specific large language models for the farming sector. The company develops the Dhenu family of agriculture LLMs and the AgriCopilot enterprise platform, serving both smallholder farmers directly and agribusiness enterprises through API-driven AI solutions supporting 10+ Indian languages including Hindi, Gujarati, Marathi, Tamil, and Telugu.",
+      "primary_verticals": [
+        "Agriculture & AgriTech"
+      ],
+      "contact_email": "contact@kissanai.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Automation Anywhere",
+      "slug": "automation-anywhere",
+      "website": "https://www.automationanywhere.com",
+      "headquarters": "San Jose, California, USA",
+      "founded": 2003,
+      "company_size": "midmarket",
+      "description": "Automation Anywhere is a leader in agentic process automation, providing an enterprise platform that combines AI agents, robotic process automation, and intelligent document processing to automate mission-critical business workflows. The company's Agentic Process Automation System uses a proprietary Process Reasoning Engine trained on over 400 million enterprise workflow data points, enabling goal-driven AI agents that reason, plan, and execute across complex multi-system environments with built-in governance and human-in-the-loop controls.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "contact_email": "contact@automationanywhere.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Perfios AI",
+      "slug": "perfios-ai",
+      "website": "https://perfios.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2008,
+      "company_size": "midmarket",
+      "description": "Perfios is a global B2B SaaS company serving the banking, financial services, and insurance (BFSI) industry in 18 countries, powering over 1,000 financial institutions. The company provides an AI-powered real-time operating system that unifies onboarding, underwriting, risk management, collections, and embedded finance through domain-trained LLMs, agentic AI, and vision-language models purpose-built for financial workflows.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Insurance"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "AgriCopilot",
+      "slug": "agricopilot",
+      "company_slug": "kissanai",
+      "tagline": "A multilingual, voice-enabled generative AI knowledge platform that deploys conversational AI workflows for crop advisory, sales assistance, and agricultural intelligence at enterprise scale.",
+      "description": "AgriCopilot is KissanAI's flagship enterprise platform that enables agribusinesses to bring their proprietary data into a unified system and transform it into production-grade AI solutions across multiple agricultural use cases. The platform supports advanced crop advisory, conversational commerce, and sales copilot workflows, powered by KissanAI's domain-specific Dhenu LLM family including text-based and multimodal vision models for crop disease detection across 10+ crops. Its extensible API architecture allows seamless integration into existing enterprise systems, scaling to increasing data volumes and user demands without compromising performance. AgriCopilot supports 10+ Indian languages with voice-enabled interfaces, ensuring accessibility for farmers and field agents across diverse regions.",
+      "use_cases": [
+        {
+          "title": "Enterprise-scale crop advisory delivery through conversational AI in local languages",
+          "description": ""
+        },
+        {
+          "title": "AI-powered sales assistance and product recommendation for agrochemical and seed companies",
+          "description": ""
+        },
+        {
+          "title": "Multilingual voice-based farmer engagement for government agricultural extension programs",
+          "description": ""
+        },
+        {
+          "title": "Crop disease identification and treatment guidance using multimodal vision AI",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Agriculture & AgriTech"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "25% increase in enterprise customer productivity through AI-driven advisory delivery",
+        "significant reduction in support costs by scaling agronomist services through AI agents",
+        "expanded reach to underserved farmer populations through multilingual voice interfaces"
+      ],
+      "integrations": [
+        "Enterprise APIs",
+        "WhatsApp",
+        "voice interfaces",
+        "mobile SDKs"
+      ],
+      "source_url": "https://kissan.ai/ (primary: agricopilot.ai — temporarily unreachable)"
+    },
+    {
+      "agent_name": "Dhenu AI",
+      "slug": "dhenu-ai",
+      "company_slug": "kissanai",
+      "tagline": "An enterprise AI platform for agriculture that enables organizations to build and deploy custom AI agents with multi-agent orchestration, knowledge bases, and weather intelligence.",
+      "description": "Dhenu AI is KissanAI's enterprise platform for building and deploying agriculture-specific AI agents. It provides a production-ready environment where agribusinesses and agricultural organizations can create custom AI agents in under one hour using pre-built knowledge bases, multi-agent orchestration capabilities, and integrated weather intelligence. The platform is powered by the Dhenu family of agriculture LLMs, including Dhenu 1.0 (the first agriculture domain-specific LLM trained on 300K+ instruction sets) and Dhenu Llama 3 (fine-tuned on Meta's Llama 3 8B architecture for enhanced agricultural reasoning). Dhenu AI supports 10+ languages and offers tiered pricing from a free hobbyist tier through enterprise growth plans.",
+      "use_cases": [
+        {
+          "title": "Rapid deployment of custom agricultural AI agents for enterprise clients",
+          "description": ""
+        },
+        {
+          "title": "Multi-agent orchestration for complex farming advisory workflows combining weather, soil, and crop data",
+          "description": ""
+        },
+        {
+          "title": "Building internal knowledge assistants for agribusiness product portfolios and dosage recommendations",
+          "description": ""
+        },
+        {
+          "title": "Weather-integrated crop planning and risk assessment for agricultural organizations",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Agriculture & AgriTech"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Reduced time-to-deploy for agriculture AI solutions from months to hours",
+        "scalable AI agent infrastructure serving 1M+ farmer interactions",
+        "lower cost of delivering personalized agronomic advice at scale through automated multi-agent workflows"
+      ],
+      "integrations": [
+        "REST APIs",
+        "weather data services",
+        "agricultural knowledge bases"
+      ],
+      "source_url": "https://dhenu.ai/"
+    },
+    {
+      "agent_name": "KissanAI Agent",
+      "slug": "kissanai-agent",
+      "company_slug": "kissanai",
+      "tagline": "A multilingual AI-powered agricultural assistant that provides real-time weather updates, market prices, crop recommendations, and expert farming advice directly to smallholder farmers.",
+      "description": "KissanAI Agent is a consumer-facing AI agricultural assistant available as a mobile application that serves farmers across India with personalized farming guidance. The assistant leverages KissanAI's Dhenu LLMs and generative AI capabilities to answer farmer queries about irrigation, pest control, fertilizer application, organic farming practices, and optimal harvest timing in nine Indian languages including Hindi, Gujarati, Marathi, Tamil, Telugu, Kannada, Malayalam, Punjabi, and Bangla. It incorporates real-time weather data and local market price information to deliver context-aware recommendations tailored to regional conditions. The platform processes 30,000-40,000 farmer queries monthly through text and voice interfaces, with organic word-of-mouth growth across rural India.",
+      "use_cases": [
+        {
+          "title": "Real-time pest and disease identification with treatment recommendations for smallholder farmers",
+          "description": ""
+        },
+        {
+          "title": "Localized weather-based irrigation and crop management guidance in regional languages",
+          "description": ""
+        },
+        {
+          "title": "Market price comparison and harvest timing optimization for better farmer income",
+          "description": ""
+        },
+        {
+          "title": "Voice-based farming advisory for low-literacy farmers in vernacular languages",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Agriculture & AgriTech"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Improved crop yields through AI-driven personalized farming recommendations",
+        "reduced crop losses via timely pest and disease alerts",
+        "better market outcomes for farmers through real-time price intelligence and harvest timing guidance"
+      ],
+      "integrations": [
+        "Google Play Store (Android app)",
+        "voice interfaces",
+        "WhatsApp"
+      ],
+      "source_url": "https://agent.kissan.ai/"
+    },
+    {
+      "agent_name": "AI Agent Studio",
+      "slug": "ai-agent-studio",
+      "company_slug": "automation-anywhere",
+      "tagline": "A low-code workspace for building goal-driven AI agents that autonomously reason, plan, and execute complex enterprise tasks across multiple systems.",
+      "description": "AI Agent Studio is Automation Anywhere's primary platform for creating enterprise AI agents without extensive coding. It provides a drag-and-drop interface powered by the Process Reasoning Engine, enabling developers and business users to build agents that handle reasoning, human-in-the-loop collaboration, and orchestration across bots, APIs, documents, and other agents in real time. The platform supports multiple foundation models including Amazon Bedrock, Google Vertex AI, Azure OpenAI, and OpenAI, with built-in retrieval augmented generation for grounding models on company-specific data. It includes reusable AI Skills components, complete audit logging, AI governance guardrails for safety and compliance, and traceability across all agent actions.",
+      "use_cases": [
+        {
+          "title": "Invoice analysis and tax accuracy verification for finance teams",
+          "description": ""
+        },
+        {
+          "title": "Customer service automation with intelligent routing and escalation",
+          "description": ""
+        },
+        {
+          "title": "Document extraction and compliance checking across regulated industries",
+          "description": ""
+        },
+        {
+          "title": "Credit scoring and financial data analysis for lending workflows",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Customer Experience",
+        "IT Operations",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Legal & Compliance"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Rapid deployment of production-ready AI agents in days rather than months",
+        "reduced manual processing through autonomous task execution",
+        "improved compliance posture through built-in governance and audit trails"
+      ],
+      "integrations": [
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Azure OpenAI",
+        "OpenAI",
+        "SAP",
+        "Workday",
+        "Salesforce",
+        "AWS",
+        "Google Cloud",
+        "Microsoft Azure"
+      ],
+      "source_url": "https://www.automationanywhere.com/products/ai-agent-studio"
+    },
+    {
+      "agent_name": "Automation Co-Pilot",
+      "slug": "automation-co-pilot",
+      "company_slug": "automation-anywhere",
+      "tagline": "An AI-powered assistant embedded in enterprise applications that converts natural language into multi-step automated workflows without switching contexts.",
+      "description": "Automation Co-Pilot is a conversational AI assistant that lives inside existing business applications such as SAP, Workday, and Salesforce, enabling users to trigger multi-step agentic workflows using natural language. Powered by the Process Reasoning Engine, it interprets user intent and reasons through business context before invoking AI agents to execute tasks across systems. The assistant goes beyond suggestions by generating, building, and deploying full automations inside real enterprise workflows, with enterprise-grade security and compliance guardrails from day one. It integrates Amazon Q Business for advanced natural language understanding and supports multi-session operation across various business and messaging applications.",
+      "use_cases": [
+        {
+          "title": "Health insurance claims processing with multi-agent collaboration",
+          "description": ""
+        },
+        {
+          "title": "Customer record updates and routine task automation across CRM systems",
+          "description": ""
+        },
+        {
+          "title": "Call volume reduction through AI-assisted customer service workflows",
+          "description": ""
+        },
+        {
+          "title": "Check processing with high-accuracy validation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Finance & Accounting",
+        "IT Operations",
+        "HR & Workforce",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Claims processing accelerated from days to hours",
+        "95% accuracy in automated check processing",
+        "significant reduction in customer service call volume through AI-assisted resolution"
+      ],
+      "integrations": [
+        "SAP",
+        "Workday",
+        "Salesforce",
+        "Amazon Q Business",
+        "Google Gemini",
+        "OpenAI",
+        "Anthropic Claude"
+      ],
+      "source_url": "https://www.automationanywhere.com/products/automation-co-pilot"
+    },
+    {
+      "agent_name": "Automator AI",
+      "slug": "automator-ai",
+      "company_slug": "automation-anywhere",
+      "tagline": "A generative AI-powered development platform that transforms process documentation and natural language prompts into ready-to-deploy enterprise automations.",
+      "description": "Automator AI accelerates the entire automation lifecycle by enabling developers and business users to convert process documents, BPMN files, and plain-English descriptions directly into executable workflows. Its Autopilot feature transforms process documentation into ready-to-deploy automations instantly, while the Co-Pilot for Automators lets developers describe requirements in natural language to generate automation logic automatically. The Generative Recorder captures tasks across browsers, applications, and desktops to create reusable automations that adapt to UI changes, reducing maintenance costs. A Suggest Next Actions feature provides real-time contextual recommendations within the workflow editor, further accelerating development.",
+      "use_cases": [
+        {
+          "title": "IT helpdesk ticket automation and triage",
+          "description": ""
+        },
+        {
+          "title": "Finance reconciliation and compliance reporting automation",
+          "description": ""
+        },
+        {
+          "title": "HR employee onboarding workflow generation",
+          "description": ""
+        },
+        {
+          "title": "Supply chain order processing and inventory management automation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Finance & Accounting",
+        "HR & Workforce",
+        "Operations & Supply Chain",
+        "Engineering & DevOps"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "30% faster automation development through AI-assisted workflow creation",
+        "60% greater accuracy in recorded automations with reduced maintenance costs",
+        "accelerated time from process discovery to deployed automation"
+      ],
+      "integrations": [
+        "Enterprise browsers",
+        "desktop applications",
+        "BPMN-compatible process tools"
+      ],
+      "source_url": "https://www.automationanywhere.com/products/automator-ai"
+    },
+    {
+      "agent_name": "Agentic Solutions (Pre-Built Industry Agents)",
+      "slug": "agentic-solutions-pre-built-industry-agents",
+      "company_slug": "automation-anywhere",
+      "tagline": "Production-ready, outcome-oriented AI agent solutions for accounts payable, customer support, banking onboarding, and healthcare revenue cycle management.",
+      "description": "Automation Anywhere's Agentic Solutions are pre-built, enterprise-grade agent packages that combine pre-trained AI agents, GenAI-powered document automation, and agentic orchestration to address high-value business processes out of the box. Each solution leverages the Process Reasoning Engine for intelligent decision-making and uses foundation models including GPT-4o and Claude for document extraction with twice the accuracy of traditional methods. The solutions cover four core domains: Accounts Payable for invoice processing and month-end close acceleration, Customer Support for queue management and first-response optimization, Customer Onboarding with KYC/AML workflow automation for banking, and Healthcare Revenue Cycle Management for claims processing across EHR and payer systems. All solutions include built-in governance with full audit trails, compliance controls, and cross-system orchestration across ERPs, CRMs, and EHRs.",
+      "use_cases": [
+        {
+          "title": "Automating invoice triage, approval workflows, and payment cycles for finance teams",
+          "description": ""
+        },
+        {
+          "title": "Reducing customer support escalations and improving first-response times",
+          "description": ""
+        },
+        {
+          "title": "Accelerating KYC/AML identity verification and regulatory reviews for banks",
+          "description": ""
+        },
+        {
+          "title": "Processing healthcare claims across EHR and payer systems to reduce write-offs",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Customer Experience",
+        "Legal & Compliance",
+        "Operations & Supply Chain"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "80% reduction in manual triage and exception handling for accounts payable",
+        "50% improvement in customer support first-response times with increased CSAT",
+        "60% faster regulatory reviews for banking onboarding",
+        "3x more claims processed with reduced write-offs in healthcare"
+      ],
+      "integrations": [
+        "SAP",
+        "Oracle",
+        "Workday (ERP)",
+        "Salesforce",
+        "ServiceNow (CRM)",
+        "Epic",
+        "Cerner (EHR)",
+        "payer systems"
+      ],
+      "source_url": "https://www.automationanywhere.com/company/blog/product-insights/introducing-agentic-solutions-automation-anywhere"
+    },
+    {
+      "agent_name": "CAM AI",
+      "slug": "cam-ai",
+      "company_slug": "perfios-ai",
+      "tagline": "An agentic AI-powered credit appraisal platform that autonomously extracts, interprets, and reconciles financial data to compress multi-day underwriting into hours.",
+      "description": "CAM AI is an autonomous credit underwriting platform built on Perfios' proprietary AI/ML models enriched with generative AI and agentic tooling. It performs expert-level credit analysis by autonomously extracting, interpreting, and reconciling data across financial documents, GST filings, and bank statements in real time. The platform generates complete credit appraisal memoranda (CAMs) without manual intervention, reducing underwriting turnaround time by up to 85% and enabling banks and NBFCs to process up to 2x more loan applications with existing teams. CAM AI operates within auditable guardrails, ensuring every decision is traceable and governance-compliant.",
+      "use_cases": [
+        {
+          "title": "Automated credit appraisal memo generation for retail and MSME lending",
+          "description": ""
+        },
+        {
+          "title": "Real-time financial document extraction and reconciliation across bank statements, ITR, and GST filings",
+          "description": ""
+        },
+        {
+          "title": "High-volume loan application processing for banks and NBFCs",
+          "description": ""
+        },
+        {
+          "title": "Underwriting acceleration for commercial lending portfolios",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Data & Analytics",
+        "Legal & Compliance"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Up to 85% reduction in underwriting turnaround time",
+        "2x increase in loan application throughput with existing teams",
+        "approximately 30% savings in operating costs from early deployments"
+      ],
+      "integrations": [
+        "Perfios AI-Powered Real-Time Operating System",
+        "financial data sources (bank statements, GST, ITR)"
+      ],
+      "source_url": "https://fintech.global/2025/08/15/perfios-ai-launches-cam-ai-to-cut-underwriting-time-by-85/"
+    },
+    {
+      "agent_name": "KScan AI",
+      "slug": "kscan-ai",
+      "company_slug": "perfios-ai",
+      "tagline": "An AI-powered intelligence platform for contextual KYC, KYB, and due diligence across 30 million Indian businesses using 900+ official data sources.",
+      "description": "KScan AI is an intelligence infrastructure layer purpose-built for MSME discovery, risk evaluation, and compliance automation. It aggregates data from over 900 distinct official sources to deliver a comprehensive view of the Indian business landscape, covering more than 30 million businesses. Built on the KScan data lake and exposed via Perfios' Model Context Protocol (MCP) tools, the platform enables AI agents to deliver grounded, accurate responses for KYC, KYB, and entity due diligence. Financial institutions can configure their own agents or integrate custom models to match specific policy requirements, supporting onboarding, underwriting, GTM optimization, and risk assessment workflows.",
+      "use_cases": [
+        {
+          "title": "Contextual KYC and KYB verification for MSME lending at scale",
+          "description": ""
+        },
+        {
+          "title": "Business entity risk assessment and due diligence automation",
+          "description": ""
+        },
+        {
+          "title": "Anti-money laundering screening and litigation checks",
+          "description": ""
+        },
+        {
+          "title": "Credit risk profiling and regulatory compliance for onboarding",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Legal & Compliance",
+        "Data & Analytics",
+        "Finance & Accounting"
+      ],
+      "category": "Legal & Compliance",
+      "expected_outcomes": [
+        "Approximately 1.8 lakh due diligences processed per year in pilot deployments",
+        "2 lakh litigation checks and 6 million sanction screenings per year",
+        "faster MSME onboarding with comprehensive risk visibility"
+      ],
+      "integrations": [
+        "900+ official Indian data sources",
+        "Perfios Model Context Protocol (MCP) tools",
+        "custom AI model integration"
+      ],
+      "source_url": "https://www.business-standard.com/content/press-releases-ani/perfios-launches-kscan-ai-empowers-bfsi-with-ai-powered-business-intelligence-and-risk-assessment-of-30-million-indian-msmes-126022100337_1.html"
+    },
+    {
+      "agent_name": "Data Intelligence Bridge",
+      "slug": "data-intelligence-bridge",
+      "company_slug": "perfios-ai",
+      "tagline": "A deep-learning-powered digitization and orchestration platform that extracts, classifies, and triangulates data from complex financial documents across multiple languages.",
+      "description": "Data Intelligence Bridge is an advanced document intelligence platform powered by Perfios' proprietary deep learning models, augmented with large language models and vision language models. It extracts, classifies, and triangulates data from a wide range of documents including legal, property, financial statements, bank records, insurance papers, and handwritten forms across multiple languages with locale comprehension and transliteration capabilities. The platform supports complex workflow design through exception handling, system integrations, and intelligent routing, serving as a core engine for building end-to-end enterprise journeys. It functions as the foundational data layer within Perfios' AI operating system for document understanding, verification, and fraud detection.",
+      "use_cases": [
+        {
+          "title": "Automated extraction and classification of multi-format financial documents for lending workflows",
+          "description": ""
+        },
+        {
+          "title": "Handwritten form digitization with multi-language and transliteration support",
+          "description": ""
+        },
+        {
+          "title": "Fraud detection through document cross-verification and triangulation",
+          "description": ""
+        },
+        {
+          "title": "Property and legal document processing for mortgage and insurance underwriting",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Legal & Compliance",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Up to 3x operational productivity improvement for BFSI document processing",
+        "reduced manual review through intelligent exception routing",
+        "faster onboarding and underwriting cycles through automated document digitization"
+      ],
+      "integrations": [
+        "Perfios AI-Powered Real-Time Operating System",
+        "enterprise workflow engines",
+        "credit bureau and KYC connectors"
+      ],
+      "source_url": "https://perfios.ai/blogs/perfios-ai-unveils-its-gen-ai-powered-intelligence-stack-promises-upto-3x-operational-productivity-surge-for-bfsi-industry/"
+    },
+    {
+      "agent_name": "Maestro",
+      "slug": "maestro",
+      "company_slug": "perfios-ai",
+      "tagline": "An AI agentic platform by CreditNirvana (a Perfios company) that orchestrates the full debt collection lifecycle across digital, voice, field, and legal workflows.",
+      "description": "Maestro is an AI agentic debt collection platform developed by CreditNirvana, a wholly owned subsidiary of Perfios acquired in 2024. It orchestrates end-to-end recoveries across digital outreach, voice-bot engagement, account allocation, call-center automation, field operations, payment settlements, and legal workflows through a single intelligent layer. Powered by GenAI-based agentic orchestration, Maestro adapts borrower engagement strategies based on behavioral patterns and includes real-time multilingual voice intelligence. The platform is delivered as SaaS and is on a roadmap to expand to over 120 specialized collection agentic capabilities and 50+ languages, with extensions into insurance use cases.",
+      "use_cases": [
+        {
+          "title": "End-to-end debt collection automation across digital, voice, and field channels",
+          "description": ""
+        },
+        {
+          "title": "AI-driven borrower engagement with behavior-based strategy adaptation",
+          "description": ""
+        },
+        {
+          "title": "Multilingual voice-bot engagement for collections across diverse geographies",
+          "description": ""
+        },
+        {
+          "title": "Legal workflow automation and settlement orchestration for recovery teams",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Customer Experience",
+        "Legal & Compliance",
+        "Operations & Supply Chain"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "60-70% reduction in manual intervention in collections",
+        "over 40% increase in collection efficiency",
+        "up to 95% fewer language-related compliance errors through multilingual voice intelligence",
+        "faster recovery cycles across the collections portfolio"
+      ],
+      "integrations": [
+        "CreditNirvana platform",
+        "Perfios AI ecosystem",
+        "voice and telephony systems"
+      ],
+      "source_url": "https://www.prnewswire.com/in/news-releases/creditnirvana-launches-maestro-a-debt-collection-ai-agentic-platform-for-end-to-end-recoveries-302626472.html"
+    },
+    {
+      "agent_name": "Journey Builder",
+      "slug": "journey-builder",
+      "company_slug": "perfios-ai",
+      "tagline": "An AI-powered low-code platform that enables financial institutions to design, launch, and optimize product journeys with 50+ pre-built connectors and no coding required.",
+      "description": "Journey Builder is an AI-powered low-code platform for financial institutions to create, orchestrate, and refine end-to-end customer journeys across fragmented systems without writing code. It features a drag-and-drop workflow builder for visually mapping data inputs, validation steps, and decisioning logic into unified processes. The platform includes over 50 pre-built connectors for digitization, document classification, credit bureaus, KYC, and fraud checks, plus real-time analysis that identifies bottlenecks and automatically fixes issues by reordering, removing, or parallelizing steps. It offers native support for Indian digital rails and compliance frameworks including Account Aggregator, DPDP Act, RBI guidelines, Aadhaar, DigiLocker, and video KYC.",
+      "use_cases": [
+        {
+          "title": "Rapid design and launch of digital lending journeys without engineering dependency",
+          "description": ""
+        },
+        {
+          "title": "Orchestration of multi-step onboarding workflows combining KYC, credit bureau, and fraud checks",
+          "description": ""
+        },
+        {
+          "title": "Real-time journey optimization through automated bottleneck detection and step reordering",
+          "description": ""
+        },
+        {
+          "title": "Compliance-ready product journeys with native Indian regulatory framework support",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "IT Operations",
+        "Legal & Compliance",
+        "Customer Experience"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "60% reduction in turnaround time to build and launch new product journeys",
+        "70% reduction in engineering effort for journey development",
+        "3x faster product iteration cycles"
+      ],
+      "integrations": [
+        "50+ pre-built connectors (credit bureaus, KYC providers, fraud detection, document classification)",
+        "Account Aggregator",
+        "DigiLocker",
+        "Aadhaar",
+        "video KYC"
+      ],
+      "source_url": "https://finance.yahoo.com/news/perfios-launches-ai-powered-low-113500260.html"
+    }
+  ]
+}

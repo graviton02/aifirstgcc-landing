@@ -5,6 +5,7 @@ import { Loader2, CheckCircle, XCircle, Building2, Calendar, Globe, MapPin, Stor
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
+import { AgentReviewDetails } from "./AgentReviewDetails";
 
 function formatDate(timestamp: number): string {
   return new Date(timestamp).toLocaleDateString("en-US", {
@@ -98,6 +99,30 @@ function SubmissionCard({
           <p className="text-xs text-enterprise-500">
             Contact email: <span className="font-medium text-enterprise-700">{submission.contact_email}</span>
           </p>
+
+          {submission.initial_agent ? (
+            <div className="rounded-xl border border-enterprise-200 bg-enterprise-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-enterprise-500">
+                First Agent To Queue
+              </p>
+              <p className="mt-1 font-medium text-enterprise-900">
+                {submission.initial_agent.agent_name}
+              </p>
+              {submission.initial_agent.tagline && (
+                <p className="text-sm text-enterprise-600 mt-1">
+                  {submission.initial_agent.tagline}
+                </p>
+              )}
+              <AgentReviewDetails
+                agent={submission.initial_agent}
+                validationErrors={submission.initialAgentValidationErrors}
+              />
+            </div>
+          ) : (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              No first agent is attached to this legacy company submission.
+            </div>
+          )}
         </div>
 
         {!rejecting && (
@@ -273,6 +298,11 @@ export function AdminCompanySubmissionsTab({ token }: { token: string }) {
                       {submission.createdCompany && (
                         <p className="mt-2 text-sm text-green-700">
                           Created company: {submission.createdCompany.name}
+                        </p>
+                      )}
+                      {submission.initialAgentSubmission && (
+                        <p className="mt-2 text-sm text-enterprise-600">
+                          First agent submission status: {submission.initialAgentSubmission.submission_status}
                         </p>
                       )}
                     </div>

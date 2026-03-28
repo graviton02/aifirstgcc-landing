@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import { useUserRole } from "@/auth/useUserRole";
 import { GccOnboardingForm } from "@/components/onboarding/GccOnboardingForm";
 import { RoleSelector } from "@/components/onboarding/RoleSelector";
+import { usePendingInviteActivation } from "@/hooks/usePendingInviteActivation";
 
 export default function OnboardingPage() {
   const { isSignedIn, isLoaded: authLoaded } = useAuth();
@@ -20,6 +21,7 @@ export default function OnboardingPage() {
   const [providerError, setProviderError] = useState("");
   const myCompany = useQuery(api.companyMembers.getMyCompany);
   const ensureProvider = useMutation(api.providerProfiles.ensureProvider);
+  const { isResolving: isResolvingInvite, error: inviteActivationError } = usePendingInviteActivation();
 
   // Redirect unauthenticated users to sign-in
   useEffect(() => {
@@ -31,13 +33,13 @@ export default function OnboardingPage() {
 
   // If user already has a role, redirect to their dashboard
   useEffect(() => {
-    if (!isLoaded) return;
+    if (!isLoaded || isResolvingInvite) return;
     if (role === "gcc") router.replace("/gcc-dashboard");
     if (role === "provider") {
       if (myCompany === undefined) return;
       router.replace(myCompany ? "/dashboard" : "/provider/setup");
     }
-  }, [role, isLoaded, myCompany, router]);
+  }, [role, isLoaded, isResolvingInvite, myCompany, router]);
 
   const handleRoleSelect = async (selected: "gcc" | "provider") => {
     if (selected === "gcc") {
@@ -63,7 +65,7 @@ export default function OnboardingPage() {
     }
   };
 
-  if (!isLoaded || role) {
+  if (!isLoaded || isResolvingInvite || role) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-enterprise-50">
         <Loader2 className="w-6 h-6 animate-spin text-enterprise-400" />
@@ -88,7 +90,7 @@ export default function OnboardingPage() {
         {selectedRole === "gcc" ? (
           <GccOnboardingForm />
         ) : (
-          <RoleSelector onSelect={handleRoleSelect} errorMessage={providerError} />
+          <RoleSelector onSelect={handleRoleSelect} errorMessage={providerError || inviteActivationError} />
         )}
       </div>
     </div>

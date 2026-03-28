@@ -1,17 +1,7 @@
 "use client";
 
 import { AgentCard } from "./AgentCard";
-
-interface Agent {
-  _id: string;
-  slug?: string;
-  agent_name: string;
-  tagline?: string;
-  description?: string;
-  category: string;
-  functional_categories?: string[];
-  logo_url?: string;
-}
+import type { Agent } from "@/lib/types";
 
 interface Props {
   agents: Agent[] | undefined;

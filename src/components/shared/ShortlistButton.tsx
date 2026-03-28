@@ -1,83 +1,86 @@
-import { Star, Loader2 } from 'lucide-react'
-import { useAuth } from '@clerk/clerk-react'
-import { useIsShortlisted, useAddToShortlist, useRemoveFromShortlist } from '@/hooks/use-gcc'
-import { useUserRole } from '@/auth/useUserRole'
-import { cn } from '@/lib/utils'
+"use client";
 
-interface ShortlistButtonProps {
-  agentId: string
-  /** 'icon' = star icon only (for cards), 'full' = full-width button (for sidebar) */
-  variant?: 'icon' | 'full'
-  className?: string
-}
+import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { useMutation, useQuery } from "convex/react";
+import { BookmarkSimple, Check } from "@phosphor-icons/react";
+import { api } from "../../../convex/_generated/api";
+import { useUserRole } from "@/auth/useUserRole";
 
-export function ShortlistButton({ agentId, variant = 'icon', className }: ShortlistButtonProps) {
-  const { role } = useUserRole()
-  const { userId, orgId } = useAuth()
+type Variant = "hero" | "card";
 
-  const { data: shortlisted, isLoading: checking } = useIsShortlisted(orgId ?? undefined, agentId)
-  const addMutation = useAddToShortlist()
-  const removeMutation = useRemoveFromShortlist()
+const VARIANT_STYLES: Record<Variant, { active: string; idle: string }> = {
+  hero: {
+    active: "bg-primary/10 text-primary border border-primary/20 hover:bg-primary/15",
+    idle: "bg-enterprise-100 text-enterprise-600 border border-enterprise-200/60 hover:bg-enterprise-150 hover:text-enterprise-700",
+  },
+  card: {
+    active: "bg-primary/10 text-primary border border-primary/20",
+    idle: "bg-enterprise-50 text-enterprise-400 border border-enterprise-200/60 opacity-0 group-hover:opacity-100 hover:text-enterprise-600 hover:border-enterprise-300",
+  },
+};
 
-  const isMutating = addMutation.isPending || removeMutation.isPending
+export function ShortlistButton({
+  agentId,
+  variant = "hero",
+  className = "",
+}: {
+  agentId: string;
+  variant?: Variant;
+  className?: string;
+}) {
+  const { isSignedIn } = useAuth();
+  const { role, isLoaded } = useUserRole();
+  const isShortlisted = useQuery(
+    api.shortlists.isShortlisted,
+    isSignedIn ? { agent_id: agentId as any } : "skip"
+  );
+  const addToShortlist = useMutation(api.shortlists.add);
+  const removeFromShortlist = useMutation(api.shortlists.remove);
+  const [isSaving, setIsSaving] = useState(false);
 
-  if (role !== 'gcc') return null
+  if (isLoaded && role === "provider") {
+    return null;
+  }
 
-  function handleToggle(e: React.MouseEvent) {
-    e.preventDefault()
-    e.stopPropagation()
-
-    if (!orgId || !userId || isMutating) return
-
-    if (shortlisted) {
-      removeMutation.mutate({ orgId, agentId })
-    } else {
-      addMutation.mutate({ orgId, agentId, userId })
+  const handleClick = async () => {
+    if (!isSignedIn) {
+      const redirectPath = typeof window !== "undefined" ? window.location.pathname : "/";
+      window.location.href = `/sign-in?redirect_url=${encodeURIComponent(redirectPath)}`;
+      return;
     }
-  }
 
-  if (variant === 'icon') {
-    return (
-      <button
-        onClick={handleToggle}
-        disabled={isMutating || checking}
-        title={shortlisted ? 'Remove from shortlist' : 'Add to shortlist'}
-        className={cn(
-          'p-1.5 rounded-lg transition-all disabled:opacity-50',
-          shortlisted
-            ? 'text-amber-500 hover:text-amber-600 hover:bg-amber-50'
-            : 'text-enterprise-300 hover:text-amber-400 hover:bg-enterprise-50',
-          className,
-        )}
-      >
-        {isMutating ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
-        ) : (
-          <Star className={cn('w-4 h-4', shortlisted && 'fill-current')} />
-        )}
-      </button>
-    )
-  }
+    setIsSaving(true);
+    try {
+      if (isShortlisted) {
+        await removeFromShortlist({ agent_id: agentId as any });
+      } else {
+        await addToShortlist({ agent_id: agentId as any });
+      }
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
-  // Full variant (sidebar button)
+  const styles = isShortlisted
+    ? VARIANT_STYLES[variant].active
+    : VARIANT_STYLES[variant].idle;
+  const disabled = isSaving || (isSignedIn && isShortlisted === undefined);
+  const label = !isSignedIn ? "Shortlist" : isShortlisted ? "Shortlisted" : "Shortlist";
+
   return (
     <button
-      onClick={handleToggle}
-      disabled={isMutating || checking}
-      className={cn(
-        'w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-colors disabled:opacity-50',
-        shortlisted
-          ? 'border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100'
-          : 'border-enterprise-200 text-enterprise-700 hover:bg-enterprise-50',
-        className,
-      )}
+      type="button"
+      onClick={handleClick}
+      disabled={disabled}
+      className={`inline-flex items-center gap-2 rounded-xl text-sm font-medium transition-all duration-200 disabled:cursor-wait disabled:opacity-60 ${styles} ${className}`}
     >
-      {isMutating ? (
-        <Loader2 className="w-4 h-4 animate-spin" />
+      {isShortlisted ? (
+        <Check weight="bold" className={variant === "card" ? "w-3 h-3" : "w-4 h-4"} />
       ) : (
-        <Star className={cn('w-4 h-4', shortlisted && 'fill-current text-amber-500')} />
+        <BookmarkSimple weight="duotone" className={variant === "card" ? "w-3 h-3" : "w-4 h-4"} />
       )}
-      {shortlisted ? 'Shortlisted' : 'Add to Shortlist'}
+      <span>{label}</span>
     </button>
-  )
+  );
 }

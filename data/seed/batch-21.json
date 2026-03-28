@@ -1,0 +1,443 @@
+{
+  "companies": [
+    {
+      "name": "QuickAds AI",
+      "slug": "quickads-ai",
+      "website": "https://www.quickads.ai",
+      "headquarters": "Liberty Hill, Texas, USA",
+      "founded": 2023,
+      "company_size": "startup",
+      "description": "QuickAds AI is a full-stack AI-powered advertising creation and intelligence platform that enables startups, SMBs, and agencies to research competitor ads, generate image and video ad creatives, run AI product photoshoots, and launch campaigns across Meta, Google, TikTok, and YouTube from a single interface. The platform includes a proprietary library of 20M+ scored ads and supports 35+ languages.",
+      "primary_verticals": [
+        "Retail & E-commerce"
+      ],
+      "contact_email": "support@quickads.ai",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Molecule AI",
+      "slug": "molecule-ai",
+      "website": "https://moleculeai.com",
+      "headquarters": "Delhi, India",
+      "founded": 2023,
+      "company_size": "startup",
+      "description": "Molecule AI is an AI-driven drug discovery startup that builds intelligent systems combining deep learning, molecular science, and generative AI to accelerate therapeutic candidate discovery. The company offers a cloud-based SaaS platform enabling researchers to perform end-to-end computational drug design including de novo molecule generation, virtual screening, ADMET prediction, and lead optimization.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences"
+      ],
+      "contact_email": "info@moleculeai.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Vishwa AI",
+      "slug": "vishwa-ai",
+      "website": "https://www.vishwa.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2023,
+      "company_size": "startup",
+      "description": "Vishwa AI provides a suite of actionable AI products for document intelligence, lending risk assessment, demand forecasting, content automation, and workflow orchestration. The platform emphasizes no-code, low-touch generative AI for finance and operations teams, with enterprise-grade compliance certifications including SOC 2 Type 2, ISO 27001, GDPR, and CCPA.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Logistics & Transportation"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "QuickAds AI Ad Generator",
+      "slug": "quickads-ai-ad-generator",
+      "company_slug": "quickads-ai",
+      "tagline": "A Gen AI ad creation platform that generates high-performing image and video ads in under 30 seconds across 15+ formats and 35+ languages.",
+      "description": "QuickAds AI Ad Generator is the company's core platform combining AI-powered ad creation with competitive intelligence. It includes an AI Image Ads Generator for static and carousel ads, an AI Video Ads Creator for short-form social video ads, AI Product Photoshoots that generate studio-quality product images without traditional photography, a Promo Video Ads Generator that converts product videos into ad creatives, and an AI Copywriter for ad copy in 35+ languages. The platform auto-optimizes each creative to fit 15+ ad formats and includes a Discover Ads research library with access to 20M+ ads from TikTok, Meta, and other platforms scored by industry and theme.",
+      "use_cases": [
+        {
+          "title": "Rapid ad creative generation for social media campaigns",
+          "description": ""
+        },
+        {
+          "title": "competitive ad research and inspiration",
+          "description": ""
+        },
+        {
+          "title": "AI-generated product photography for e-commerce catalogs",
+          "description": ""
+        },
+        {
+          "title": "multi-format ad creation for cross-platform campaigns",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Reduced ad creative production time from hours to seconds",
+        "elimination of traditional product photography costs",
+        "improved ad performance through market-tested creative templates"
+      ],
+      "integrations": [
+        "Meta (Facebook/Instagram)",
+        "Google Ads",
+        "TikTok",
+        "YouTube",
+        "Shopify"
+      ],
+      "source_url": "https://www.quickads.ai/features"
+    },
+    {
+      "agent_name": "Lindy (Creative Agent)",
+      "slug": "lindy-creative-agent",
+      "company_slug": "quickads-ai",
+      "tagline": "An AI creative agent that clones competitor ad strategies and autonomously generates new ad creatives daily for your brand.",
+      "description": "Lindy is QuickAds' AI Creative Agent designed to automate bulk ad creative generation for a single brand. Users paste a product URL or website link, select competitor brands and keywords, and Lindy autonomously clones high-performing ads and keywords from those competitors and generates new ad creatives on a daily basis. The agent is designed for startups and small teams that need a continuous pipeline of fresh ad creatives without manual effort. Lindy operates within QuickAds' agentic framework, which allows AI to plan, act, monitor outcomes, and continuously optimize campaigns without constant human input.",
+      "use_cases": [
+        {
+          "title": "Automated daily ad creative generation based on competitor analysis",
+          "description": ""
+        },
+        {
+          "title": "bulk ad production for resource-constrained teams",
+          "description": ""
+        },
+        {
+          "title": "continuous campaign refresh with new creatives",
+          "description": ""
+        },
+        {
+          "title": "competitor strategy cloning and adaptation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Continuous pipeline of fresh ad creatives without manual design work",
+        "competitive parity through automated competitor ad analysis",
+        "reduced creative team workload"
+      ],
+      "integrations": [
+        "QuickAds platform (native)"
+      ],
+      "source_url": "https://kripeshadwani.com/quickads-review/"
+    },
+    {
+      "agent_name": "Adam (Creative Spy)",
+      "slug": "adam-creative-spy",
+      "company_slug": "quickads-ai",
+      "tagline": "An AI competitive intelligence agent that discovers competitor keywords and top-performing ad creatives across platforms.",
+      "description": "Adam is QuickAds' AI-powered Creative Spy agent with two core capabilities: Keyword Spy, which discovers the keywords on which competitor brands are ranking, and Brand Spy, which researches and surfaces top-performing ad creatives from competitor brands. Adam automates the competitive research process that traditionally requires manual ad library browsing and keyword analysis tools, delivering actionable intelligence that feeds into QuickAds' creative generation workflows. The agent operates within QuickAds' agentic framework and is currently in beta.",
+      "use_cases": [
+        {
+          "title": "Competitor keyword discovery and ranking analysis",
+          "description": ""
+        },
+        {
+          "title": "competitive ad creative research and benchmarking",
+          "description": ""
+        },
+        {
+          "title": "identifying high-performing ad strategies across platforms",
+          "description": ""
+        },
+        {
+          "title": "feeding competitive intelligence into ad creative generation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Automated competitive intelligence gathering replacing manual ad library research",
+        "identification of winning ad strategies and keywords from competitors",
+        "data-driven creative decisions informed by market performance data"
+      ],
+      "integrations": [
+        "QuickAds platform (native)",
+        "Meta Ads Library",
+        "TikTok ads"
+      ],
+      "source_url": "https://kripeshadwani.com/quickads-review/"
+    },
+    {
+      "agent_name": "Molecule GEN",
+      "slug": "molecule-gen",
+      "company_slug": "molecule-ai",
+      "tagline": "An integrated AI-driven SaaS platform for end-to-end in-silico computational drug discovery that enables researchers to translate ideas into therapeutic candidates.",
+      "description": "Molecule GEN is a cloud-based SaaS platform for AI-driven drug discovery that automates and accelerates the computational drug design workflow. It provides built-in intelligence and heuristics allowing researchers of varying skill levels to perform de novo target-aware molecule generation, AI-enhanced virtual screening, ADMET property prediction, lead optimization via generative AI, molecular dynamics simulation, and interactive molecule design. The platform offers tailor-made workflows for rational and AI-based de novo drug design, access to curated molecular building block libraries, and continuously updated generative models. It eliminates complex infrastructure setup, letting researchers focus on innovation.",
+      "use_cases": [
+        {
+          "title": "De novo generation of target-aware drug-like small molecules",
+          "description": ""
+        },
+        {
+          "title": "virtual screening to identify promising molecular candidates",
+          "description": ""
+        },
+        {
+          "title": "ADMET and drug-likeness property prediction before lab testing",
+          "description": ""
+        },
+        {
+          "title": "hit-to-lead and lead optimization through generative AI",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Accelerated drug discovery timelines through computational automation",
+        "reduced dependency on manual wet-lab processes in early-stage discovery",
+        "improved decision-making through AI-driven molecular property prediction"
+      ],
+      "integrations": [
+        "Cloud-based SaaS (accessible at app.moleculeai.com)"
+      ],
+      "source_url": "https://moleculeai.com/products"
+    },
+    {
+      "agent_name": "DocsAI",
+      "slug": "docsai",
+      "company_slug": "vishwa-ai",
+      "tagline": "An intelligent document processing platform that turns any unstructured document into structured data with 99% accuracy.",
+      "description": "DocsAI is a no-code document intelligence platform that extracts, validates, and structures data from unstructured financial and operational documents. It processes invoices, purchase orders, receipts, financial statements, bank statements, and bills of lading using generative AI, with in-document arithmetic validation to detect anomalies. The platform supports physical and digital signature verification, QR detection, and 2-way through 4-way document matching. It provides 15+ ready-to-use extraction templates and integrates with email, shared folders, and ERP systems for seamless document ingestion.",
+      "use_cases": [
+        {
+          "title": "Accounts payable automation and invoice processing",
+          "description": ""
+        },
+        {
+          "title": "financial document extraction and reconciliation for lending institutions",
+          "description": ""
+        },
+        {
+          "title": "POS onboarding document digitization for retail and marketplace businesses",
+          "description": ""
+        },
+        {
+          "title": "supply chain document processing for logistics and procurement teams",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "99% accuracy in data extraction from unstructured documents",
+        "5x ROI on monthly platform usage",
+        "90% improvement in document processing productivity"
+      ],
+      "integrations": [
+        "ERP systems",
+        "email platforms",
+        "shared file storage"
+      ],
+      "source_url": "https://www.vishwa.ai/products/docsai"
+    },
+    {
+      "agent_name": "LendingAI",
+      "slug": "lendingai",
+      "company_slug": "vishwa-ai",
+      "tagline": "A one-stop lending intelligence platform that automates the loan risk lifecycle from document ingestion through credit report generation.",
+      "description": "LendingAI is an AI-driven underwriting and risk assessment platform built for banks, non-banking lenders, private credit firms, and institutional investors. It automates the entire loan risk lifecycle by extracting financial data from documents with up to 99% accuracy, generating curated risk signals, and producing automated credit reports. The platform includes industry-specific credit models configurable without code, built-in covenant and metric tracking, early warning signal identification, and auto-mapping to internal data formats. It features validation systems that cross-reference extracted data against internal benchmarks.",
+      "use_cases": [
+        {
+          "title": "Automated credit underwriting and risk assessment for banks and NBFCs",
+          "description": ""
+        },
+        {
+          "title": "data room analysis and due diligence for private equity and venture debt firms",
+          "description": ""
+        },
+        {
+          "title": "invoice straight-through processing for trade finance",
+          "description": ""
+        },
+        {
+          "title": "covenant monitoring and early warning detection for portfolio risk management",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Real Estate & Construction"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Up to 80% faster risk assessment from data room to credit decision",
+        "99% accuracy in financial data extraction",
+        "over 85% invoice straight-through processing rate"
+      ],
+      "integrations": [
+        "Banking and accounting systems"
+      ],
+      "source_url": "https://vishwa.ai/products/lendingai"
+    },
+    {
+      "agent_name": "ContentAI",
+      "slug": "contentai",
+      "company_slug": "vishwa-ai",
+      "tagline": "A go-to-market AI platform that automates strategy execution and content workflows for marketing teams.",
+      "description": "ContentAI is a generative AI platform designed for marketing teams that automates go-to-market strategy execution, content ideation, and campaign workflow management. The platform enables marketers to set strategy parameters and then handles execution from idea generation through content development. It is positioned as a no-code solution that reduces the time from strategy to published content, enabling consistent and scalable marketing output.",
+      "use_cases": [
+        {
+          "title": "Automated GTM strategy execution and campaign planning",
+          "description": ""
+        },
+        {
+          "title": "AI-driven content ideation and creation for marketing teams",
+          "description": ""
+        },
+        {
+          "title": "marketing workflow automation and content pipeline management",
+          "description": ""
+        },
+        {
+          "title": "personalized content generation at scale",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Reduced time from strategy to content execution",
+        "increased marketing team output through AI-driven automation",
+        "streamlined go-to-market workflow management"
+      ],
+      "integrations": [],
+      "source_url": "https://vishwa.ai/products/contentai"
+    },
+    {
+      "agent_name": "InsightsAI",
+      "slug": "insightsai",
+      "company_slug": "vishwa-ai",
+      "tagline": "A demand planning and forecasting AI platform for informed decision-making across finance, sales, and inventory.",
+      "description": "InsightsAI is an AI-powered planning and forecasting platform that supports operational decision-making across finance, sales, and supply chain functions. It provides demand planning capabilities, financial forecasting, sales prediction, and inventory demand analysis to help businesses optimize their planning processes. The platform delivers actionable predictions that inform procurement, production, and distribution decisions.",
+      "use_cases": [
+        {
+          "title": "Demand forecasting and inventory planning for retail and manufacturing operations",
+          "description": ""
+        },
+        {
+          "title": "financial planning and budgeting support",
+          "description": ""
+        },
+        {
+          "title": "sales forecasting and pipeline prediction",
+          "description": ""
+        },
+        {
+          "title": "supply chain demand sensing and procurement planning",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Operations & Supply Chain",
+        "Data & Analytics",
+        "Sales & Marketing"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "More accurate demand forecasts for inventory optimization",
+        "improved financial planning accuracy through AI-driven insights",
+        "reduced stockouts and overstock through predictive demand sensing"
+      ],
+      "integrations": [],
+      "source_url": "https://vishwa.ai/products/insightsai"
+    },
+    {
+      "agent_name": "Flows",
+      "slug": "flows",
+      "company_slug": "vishwa-ai",
+      "tagline": "An AI-powered workflow automation platform that connects business tools and automates repetitive tasks in three steps.",
+      "description": "Flows is a workflow automation platform that uses AI to automate manual and repetitive business tasks. It enables users to build automation workflows in three simple steps by connecting with essential business tools, requiring no code. The platform is designed to streamline operational processes by seamlessly integrating across an organization's existing toolchain, handling document-triggered workflows, cross-platform data synchronization, and task routing.",
+      "use_cases": [
+        {
+          "title": "Automating repetitive data entry and transfer tasks across business systems",
+          "description": ""
+        },
+        {
+          "title": "multi-tool workflow orchestration for operations teams",
+          "description": ""
+        },
+        {
+          "title": "document-triggered workflow automation for finance and HR processes",
+          "description": ""
+        },
+        {
+          "title": "cross-platform data synchronization and task routing",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "IT Operations",
+        "Finance & Accounting"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Reduced manual effort on repetitive operational tasks",
+        "faster process completion through automated multi-step workflows",
+        "fewer errors from manual data handling across systems"
+      ],
+      "integrations": [
+        "Third-party business tools (specific integrations not listed)"
+      ],
+      "source_url": "https://vishwa.ai/products/flows"
+    }
+  ]
+}

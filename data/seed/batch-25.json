@@ -1,0 +1,785 @@
+{
+  "companies": [
+    {
+      "name": "UiPath",
+      "slug": "uipath",
+      "website": "https://www.uipath.com",
+      "headquarters": "New York, NY, USA",
+      "founded": 2005,
+      "company_size": "midmarket",
+      "description": "UiPath is a global software company specializing in AI-powered agentic automation and orchestration. The platform unifies AI agents, robotic process automation, and human oversight to automate complex enterprise processes across financial services, healthcare, manufacturing, and government.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Government & Public Sector",
+        "Logistics & Transportation"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Amnic AI",
+      "slug": "amnic-ai",
+      "website": "https://amnic.com",
+      "headquarters": "Los Altos, California, USA (offices in Bengaluru, India)",
+      "founded": 2021,
+      "company_size": "startup",
+      "description": "Amnic is a FinOps SaaS company that builds an agentic AI platform for cloud cost management automation. Its platform deploys context-aware, role-specific AI agents that automate reporting, root-cause analysis, anomaly detection, budgeting, and cost optimization across multi-cloud environments.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Whatfix",
+      "slug": "whatfix",
+      "website": "https://whatfix.com",
+      "headquarters": "San Jose, California, USA / Bengaluru, India",
+      "founded": 2014,
+      "company_size": "midmarket",
+      "description": "Whatfix is an AI-powered digital adoption platform that helps enterprises drive software adoption, user productivity, and business outcomes across their technology stack. The platform uses ScreenSense, a proprietary context- and intent-aware AI engine, to interpret application workflows and user intent in real time.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Government & Public Sector",
+        "Education"
+      ],
+      "contact_email": "info@whatfix.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "UiPath Maestro",
+      "slug": "uipath-maestro",
+      "company_slug": "uipath",
+      "tagline": "A cloud-native orchestration platform that coordinates AI agents, RPA bots, and human workers in unified, end-to-end enterprise workflows.",
+      "description": "UiPath Maestro is an enterprise orchestration layer that serves as the central control plane for managing complex, long-running business processes. It enables organizations to model workflows using BPMN and define business rules with DMN, coordinating multiple actors including RPA bots, AI agents, human workers, and APIs within a single process. Maestro supports hybrid orchestration with human-in-the-loop capabilities, routing tasks to appropriate humans when AI confidence is low or exceptions occur. The platform provides real-time monitoring dashboards, centralized compliance tools with automatic logging and versioning, and case management capabilities for claims, loans, disputes, and investigations.",
+      "use_cases": [
+        {
+          "title": "Insurance claims processing automation",
+          "description": ""
+        },
+        {
+          "title": "HR onboarding orchestration",
+          "description": ""
+        },
+        {
+          "title": "Order-to-cash process optimization",
+          "description": ""
+        },
+        {
+          "title": "Compliance review cycle automation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Logistics & Transportation",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "HR & Workforce",
+        "Legal & Compliance",
+        "Customer Experience",
+        "IT Operations"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "95% agent reliability with proper configuration",
+        "40-60% reduction in human review time",
+        "45% reduction in resolution times",
+        "65% improvement in first-time accuracy for order-to-cash processes"
+      ],
+      "integrations": [
+        "Google Vertex AI",
+        "Microsoft Copilot",
+        "Databricks",
+        "NVIDIA",
+        "Snowflake",
+        "Salesforce",
+        "LangChain",
+        "Model Context Protocol (MCP)"
+      ],
+      "source_url": "https://www.uipath.com/platform/agentic-automation/agentic-orchestration"
+    },
+    {
+      "agent_name": "UiPath Agent Builder",
+      "slug": "uipath-agent-builder",
+      "company_slug": "uipath",
+      "tagline": "A low-code visual development tool for creating, testing, and deploying enterprise AI agents that combine deterministic logic with AI reasoning.",
+      "description": "UiPath Agent Builder is a low-code agent development environment integrated into UiPath Studio that enables developers to create, customize, evaluate, and deploy specialized enterprise AI agents. It provides a visual canvas for building agents that combine deterministic workflows with AI reasoning, along with real-time evaluation and scoring to ensure reliability before production deployment. The tool offers over 50 agent templates for common use cases like document summarization, data enrichment, and task routing, plus drag-and-drop activities for orchestrating multi-agent collaboration. Built-in governance features including version control, access policies, and OpenTelemetry export ensure enterprise-grade security.",
+      "use_cases": [
+        {
+          "title": "Document summarization and data enrichment agent creation",
+          "description": ""
+        },
+        {
+          "title": "Multi-step task routing agent deployment",
+          "description": ""
+        },
+        {
+          "title": "Custom enterprise agent development with simulation testing",
+          "description": ""
+        },
+        {
+          "title": "Multi-agent collaboration workflow design",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Accelerated agent development through reusable templates and low-code canvas",
+        "Improved agent reliability via built-in simulation and scoring",
+        "Reduced deployment risk through controlled testing"
+      ],
+      "integrations": [
+        "UiPath Studio",
+        "UiPath Orchestrator",
+        "UiPath IDP",
+        "API connectors",
+        "OpenTelemetry"
+      ],
+      "source_url": "https://www.uipath.com/product/agent-builder"
+    },
+    {
+      "agent_name": "UiPath Autopilot for Everyone",
+      "slug": "uipath-autopilot-for-everyone",
+      "company_slug": "uipath",
+      "tagline": "A personal AI assistant that helps business users automate daily tasks, run agents, and access AI-powered productivity tools through a conversational interface.",
+      "description": "UiPath Autopilot for Everyone is an AI-powered assistant designed for business users to streamline daily workflows through a conversational interface. It provides generative AI capabilities for content creation, data analysis, and insight generation, along with Context Grounding to answer queries from enterprise knowledge bases. Users can discover, trigger, and run both attended and unattended UiPath automations and agents directly from the Autopilot interface, with over 100 pre-built automations available. The assistant supports Specialized Autopilot configurations that allow organizations to create multiple custom AI experiences within a single tenant.",
+      "use_cases": [
+        {
+          "title": "On-demand agent and automation execution via conversational commands",
+          "description": ""
+        },
+        {
+          "title": "AI-powered data analysis and content generation for business users",
+          "description": ""
+        },
+        {
+          "title": "Enterprise knowledge retrieval and Q&A through Context Grounding",
+          "description": ""
+        },
+        {
+          "title": "Cross-application task automation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Finance & Accounting",
+        "HR & Workforce",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Increased business user productivity through AI-assisted task completion",
+        "Reduced dependency on IT for routine automation needs",
+        "Faster access to enterprise knowledge and insights"
+      ],
+      "integrations": [
+        "Microsoft Teams",
+        "Microsoft 365 Copilot",
+        "Outlook",
+        "Salesforce",
+        "Slack",
+        "Jira",
+        "Google Workspace",
+        "Zoom",
+        "ServiceNow",
+        "Workday"
+      ],
+      "source_url": "https://www.uipath.com/product/autopilot-for-everyone"
+    },
+    {
+      "agent_name": "UiPath ScreenPlay",
+      "slug": "uipath-screenplay",
+      "company_slug": "uipath",
+      "tagline": "A natural-language UI automation agent that autonomously plans and executes multi-step tasks across desktop and web interfaces without manual selector configuration.",
+      "description": "UiPath ScreenPlay is a runtime agent that enables users to automate user interfaces by describing tasks in natural language. It understands intent, translates it into a multi-step execution plan, and runs autonomously across desktop and web interfaces on Windows, Linux, and macOS. ScreenPlay provides out-of-the-box access to leading large action models including OpenAI Operator and Anthropic Computer Use, as well as UiPath-built custom agents that blend proprietary technology with LLMs. The agent features cognitive navigation for complex interfaces, in-context decision-making, and autonomous adaptation to UI changes without requiring manual selector updates.",
+      "use_cases": [
+        {
+          "title": "Natural-language automation of repetitive UI-based workflows",
+          "description": ""
+        },
+        {
+          "title": "Autonomous navigation of vendor catalogs and procurement interfaces",
+          "description": ""
+        },
+        {
+          "title": "Resilient automation that adapts to UI changes without manual maintenance",
+          "description": ""
+        },
+        {
+          "title": "Cross-platform task execution across desktop and web",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "IT Operations",
+        "Finance & Accounting",
+        "Customer Experience",
+        "Data & Analytics"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Eliminated need for manual selector maintenance when UIs change",
+        "Reduced automation development time through natural-language task description",
+        "Expanded automation reach to previously hard-to-automate interfaces"
+      ],
+      "integrations": [
+        "OpenAI Operator",
+        "Anthropic Computer Use",
+        "Google LLMs",
+        "UiPath AI Trust Layer",
+        "UiPath Orchestrator"
+      ],
+      "source_url": "https://www.uipath.com/platform/agentic-automation/rpa-and-api/ui-automation/screenplay"
+    },
+    {
+      "agent_name": "UiPath IXP",
+      "slug": "uipath-ixp",
+      "company_slug": "uipath",
+      "tagline": "A multi-modal AI platform for classifying, extracting, and processing data from any document type into agentic workflows.",
+      "description": "UiPath IXP is a next-generation intelligent document processing platform that combines Document Understanding and Communications Mining with a new prompt-driven Generative Extraction engine for high-complexity documents. It provides intelligent pre- and post-processing combining specialized models for different document elements, plus advanced validation features like table enrichment and layout detection. IXP features agentic looping that enables dynamic chunking and iterative reasoning, processing documents of 50 pages or 500 fields with speed and precision. A fine-tunable model continuously learns from human feedback through annotations and exception handling, delivering increasingly accurate results over time.",
+      "use_cases": [
+        {
+          "title": "Automated loan package data extraction and fraud detection",
+          "description": ""
+        },
+        {
+          "title": "Medical records and clinical document processing",
+          "description": ""
+        },
+        {
+          "title": "Invoice and receipt processing for accounts payable",
+          "description": ""
+        },
+        {
+          "title": "Complex regulatory document classification and data extraction",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Government & Public Sector"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Reduced manual document review workloads through AI-driven extraction",
+        "Continuous accuracy improvement through human-feedback fine-tuning",
+        "Faster processing of high-volume, complex document workflows"
+      ],
+      "integrations": [
+        "UiPath Platform",
+        "UiPath Document Understanding",
+        "UiPath Communications Mining",
+        "UiPath Orchestrator"
+      ],
+      "source_url": "https://www.uipath.com/platform/agentic-automation/idp"
+    },
+    {
+      "agent_name": "Amnic AI X-Ray Agent",
+      "slug": "amnic-ai-x-ray-agent",
+      "company_slug": "amnic-ai",
+      "tagline": "A FinOps AI agent that benchmarks cloud spend and surfaces inefficiencies instantly, delivering cloud financial health checks in under 30 seconds.",
+      "description": "Amnic AI X-Ray Agent performs high-level cloud spend analysis and benchmarking to identify areas of inefficiency and optimization focus. It autonomously scans cloud environments, compares spending patterns against benchmarks, and generates a comprehensive cloud financial health check. The agent delivers results in under 30 seconds, enabling FinOps teams and engineering leaders to rapidly pinpoint cost optimization opportunities without manual investigation. It covers compute, storage, network, and data transfer cost categories.",
+      "use_cases": [
+        {
+          "title": "Cloud spend benchmarking and health checks",
+          "description": ""
+        },
+        {
+          "title": "Identifying cost inefficiencies across compute, storage, network, and data transfer",
+          "description": ""
+        },
+        {
+          "title": "Prioritizing optimization focus areas",
+          "description": ""
+        },
+        {
+          "title": "Rapid cloud financial audits",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Finance & Accounting",
+        "Engineering & DevOps",
+        "Data & Analytics"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Complete cloud cost health check in under 30 seconds",
+        "Improved resource utilization by up to 37%"
+      ],
+      "integrations": [
+        "AWS (Amazon Bedrock, Amazon SageMaker)",
+        "AWS Marketplace"
+      ],
+      "source_url": "https://amnic.com/amnic-ai"
+    },
+    {
+      "agent_name": "Amnic AI Insights Agent",
+      "slug": "amnic-ai-insights-agent",
+      "company_slug": "amnic-ai",
+      "tagline": "A persona-aware FinOps AI agent that delivers natural-language, role-specific cost insights across CFO, CTO, FinOps, and DevOps stakeholders.",
+      "description": "Amnic AI Insights Agent enables users across roles to query cloud cost data using natural language and receive persona-based, context-aware insights. It reveals where excess spending lies and surfaces cost usage patterns across network, storage, compute, data transfer, and more. The agent tailors its responses to the querying persona, providing executive summaries for CFOs, technical breakdowns for DevOps engineers, and operational insights for FinOps practitioners. It eliminates the need for manual data gathering and enables self-service cost intelligence.",
+      "use_cases": [
+        {
+          "title": "Natural-language cloud cost querying",
+          "description": ""
+        },
+        {
+          "title": "Persona-specific cost reporting for C-level executives",
+          "description": ""
+        },
+        {
+          "title": "DevOps cost pattern analysis",
+          "description": ""
+        },
+        {
+          "title": "Cross-team cloud spend visibility",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "IT Operations",
+        "Engineering & DevOps",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Saves 24+ hours per month per FinOps practitioner",
+        "Eliminates manual data gathering for cost insights"
+      ],
+      "integrations": [
+        "AWS (Amazon Bedrock, Amazon SageMaker)",
+        "AWS Marketplace"
+      ],
+      "source_url": "https://amnic.com/amnic-ai"
+    },
+    {
+      "agent_name": "Amnic AI Governance Agent",
+      "slug": "amnic-ai-governance-agent",
+      "company_slug": "amnic-ai",
+      "tagline": "A proactive FinOps AI agent that monitors budget drift, enforces tag hygiene, assigns ownership, and reduces anomaly debugging time by 90%.",
+      "description": "Amnic AI Governance Agent performs autonomous anomaly detection, root-cause analysis, budget alignment checks, and forecasting across cloud teams. It monitors budget drift, enforces tag hygiene, and assigns resource ownership to ensure costs stay under control. The agent proactively identifies spending anomalies, conducts automated RCA, and manages forecasting aligned to budgets across various teams and business units. It provides real-time alerts when spending deviates from expected patterns.",
+      "use_cases": [
+        {
+          "title": "Cloud cost anomaly detection and automated root-cause analysis",
+          "description": ""
+        },
+        {
+          "title": "Budget drift monitoring and alerting",
+          "description": ""
+        },
+        {
+          "title": "Tag hygiene enforcement and resource ownership assignment",
+          "description": ""
+        },
+        {
+          "title": "Cross-team budget alignment and forecasting",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "IT Operations",
+        "Legal & Compliance",
+        "Engineering & DevOps"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "90% reduction in anomaly debugging time",
+        "Proactive budget control and drift prevention"
+      ],
+      "integrations": [
+        "AWS (Amazon Bedrock, Amazon SageMaker)",
+        "AWS Marketplace"
+      ],
+      "source_url": "https://amnic.com/amnic-ai"
+    },
+    {
+      "agent_name": "Amnic AI Reporting Agent",
+      "slug": "amnic-ai-reporting-agent",
+      "company_slug": "amnic-ai",
+      "tagline": "A FinOps AI agent that auto-generates audit-ready, stakeholder-specific cloud cost reports in seconds with zero manual effort.",
+      "description": "Amnic AI Reporting Agent auto-generates stakeholder-specific cloud cost reports through natural-language queries. It builds audit-ready reports with context-appropriate depth including C-level executive summaries, product team breakdowns, and detailed engineering views, all generated in seconds. The agent generates reports 10x faster than manual processes and tailors content to the specific audience and purpose. Reports are fully customizable and ready for compliance and audit requirements.",
+      "use_cases": [
+        {
+          "title": "Automated C-level cloud cost reporting",
+          "description": ""
+        },
+        {
+          "title": "Product team cost allocation reports",
+          "description": ""
+        },
+        {
+          "title": "Audit-ready FinOps documentation",
+          "description": ""
+        },
+        {
+          "title": "On-demand stakeholder-specific report generation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "10x faster report generation",
+        "Up to 24 hours per month saved on reporting tasks"
+      ],
+      "integrations": [
+        "AWS (Amazon Bedrock, Amazon SageMaker)",
+        "AWS Marketplace"
+      ],
+      "source_url": "https://amnic.com/amnic-ai"
+    },
+    {
+      "agent_name": "Amnic Co-Pilot",
+      "slug": "amnic-co-pilot",
+      "company_slug": "amnic-ai",
+      "tagline": "A GenAI-powered co-pilot for Kubernetes cost management that helps teams navigate scaling, modernization, and efficiency challenges across K8s environments.",
+      "description": "Amnic Co-Pilot is an AI assistant purpose-built for Kubernetes cost management. It helps teams navigate the challenges associated with scaling, modernizing, and managing efficiency across Kubernetes environments. Built on advanced AWS technologies including Amazon Bedrock and Amazon SageMaker, it provides intelligent guidance for K8s cost optimization, resource rightsizing, and workload efficiency. The co-pilot analyzes container resource utilization patterns and provides actionable recommendations for improving cost-performance ratios.",
+      "use_cases": [
+        {
+          "title": "Kubernetes cost optimization and rightsizing",
+          "description": ""
+        },
+        {
+          "title": "K8s workload efficiency analysis",
+          "description": ""
+        },
+        {
+          "title": "Container resource utilization improvement",
+          "description": ""
+        },
+        {
+          "title": "Kubernetes scaling cost management",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Improved Kubernetes resource utilization and cost efficiency",
+        "Reduced manual effort in K8s cost debugging"
+      ],
+      "integrations": [
+        "AWS (Amazon Bedrock, Amazon SageMaker)",
+        "Kubernetes"
+      ],
+      "source_url": "https://amnic.com/amnic-copilot"
+    },
+    {
+      "agent_name": "Whatfix Authoring Agent",
+      "slug": "whatfix-authoring-agent",
+      "company_slug": "whatfix",
+      "tagline": "An AI agent that generates fully configured in-app guidance experiences from natural language prompts, enabling non-technical teams to publish at scale.",
+      "description": "Whatfix Authoring Agent uses generative AI to transform plain-language instructions into in-app content such as pop-ups, walkthroughs, tooltips, and advanced visibility rules. Powered by ScreenSense, Whatfix's proprietary context engine, it interprets user context and real-time intent within any application. The agent enables training teams, product owners, and application administrators to publish guidance content at scale without coding or design skills. It also automatically keeps product guidance aligned with ongoing system changes, reducing manual maintenance overhead.",
+      "use_cases": [
+        {
+          "title": "Rapid creation of in-app walkthroughs and training content for enterprise software rollouts",
+          "description": ""
+        },
+        {
+          "title": "Automated generation of contextual pop-ups and tooltips for change management",
+          "description": ""
+        },
+        {
+          "title": "Scaling guidance content production across multiple enterprise applications",
+          "description": ""
+        },
+        {
+          "title": "Onboarding content creation for complex ERP, CRM, and ITSM platforms",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Government & Public Sector",
+        "Education"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "HR & Workforce",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Reduced content creation time from hours to minutes per in-app experience",
+        "Decreased reliance on IT teams for guidance content production",
+        "Improved software adoption rates"
+      ],
+      "integrations": [
+        "Whatfix DAP",
+        "Salesforce",
+        "SAP",
+        "Oracle",
+        "Workday",
+        "ServiceNow",
+        "Microsoft Dynamics"
+      ],
+      "source_url": "https://whatfix.com/newsroom/press-releases/whatfix-launches-ai-agents-to-accelerate-business-outcomes-for-enterprises/"
+    },
+    {
+      "agent_name": "Whatfix Insights Agent",
+      "slug": "whatfix-insights-agent",
+      "company_slug": "whatfix",
+      "tagline": "A conversational analytics agent that lets stakeholders ask questions in natural language to uncover user behavior patterns and adoption gaps.",
+      "description": "Whatfix Insights Agent is a GenAI-powered conversational analytics interface that transforms how organizations interact with product and application usage data. Business users, product owners, and citizen analysts can ask questions in natural language and receive visual summaries of user behavior, drop-off patterns, and friction points without setting up events or filters manually. The agent proactively surfaces patterns and performance trends across applications, automatically identifying workflow drop-offs, underused features, and confusing steps. It translates insights into recommended actions for optimizing processes and feature adoption.",
+      "use_cases": [
+        {
+          "title": "Identifying software adoption gaps and friction points across enterprise applications",
+          "description": ""
+        },
+        {
+          "title": "Natural language querying of user behavior analytics",
+          "description": ""
+        },
+        {
+          "title": "Funnel analysis and drop-off pattern detection",
+          "description": ""
+        },
+        {
+          "title": "Generating actionable recommendations for improving feature utilization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Government & Public Sector",
+        "Education"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "IT Operations",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Faster identification of adoption blockers through conversational analytics",
+        "Reduced dependency on data teams for behavioral insights",
+        "Improved application ROI through data-driven optimization"
+      ],
+      "integrations": [
+        "Whatfix DAP",
+        "Whatfix Product Analytics"
+      ],
+      "source_url": "https://whatfix.com/newsroom/press-releases/whatfix-launches-ai-agents-to-accelerate-business-outcomes-for-enterprises/"
+    },
+    {
+      "agent_name": "Whatfix Guidance Agent",
+      "slug": "whatfix-guidance-agent",
+      "company_slug": "whatfix",
+      "tagline": "An in-app AI agent that delivers precise, contextual answers in the flow of work by distilling complex knowledge into short summaries.",
+      "description": "Whatfix Guidance Agent delivers AI-generated answers contextually within enterprise application workflows, enabling users to get clarity without switching applications or consulting lengthy documentation. It intelligently understands user intent and application context through ScreenSense to surface the most relevant guides, walkthroughs, or knowledge articles at the exact moment of need. The agent distills complex enterprise knowledge into short, contextual summaries designed for fast consumption. It operates as a persistent in-app companion that drives adoption, accelerates task completion, and reduces support dependency.",
+      "use_cases": [
+        {
+          "title": "Real-time contextual support for employees navigating complex ERP and CRM systems",
+          "description": ""
+        },
+        {
+          "title": "Reducing IT help desk ticket volume through AI-powered self-service",
+          "description": ""
+        },
+        {
+          "title": "Accelerating new employee time-to-proficiency on enterprise applications",
+          "description": ""
+        },
+        {
+          "title": "Delivering just-in-time process guidance during software transitions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Government & Public Sector",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "HR & Workforce",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced support ticket volumes through in-context self-service answers",
+        "Faster time-to-answer for enterprise users",
+        "Improved employee productivity by eliminating context-switching"
+      ],
+      "integrations": [
+        "Whatfix DAP",
+        "enterprise knowledge bases",
+        "third-party AI tools"
+      ],
+      "source_url": "https://whatfix.com/newsroom/press-releases/whatfix-launches-ai-agents-to-accelerate-business-outcomes-for-enterprises/"
+    },
+    {
+      "agent_name": "Whatfix Mirror",
+      "slug": "whatfix-mirror",
+      "company_slug": "whatfix",
+      "tagline": "An AI-first training platform that combines adaptive AI roleplay conversations with realistic enterprise application simulations in a risk-free environment.",
+      "description": "Whatfix Mirror is a simulation training and AI roleplay platform that enables enterprises to train employees on complex systems and customer interactions without risking live environments. It creates high-fidelity interactive replicas of enterprise applications where users practice real workflows in sandbox environments, combined with adaptive AI-driven roleplay that responds dynamically to learner inputs. The platform supports rapid roleplay scenario creation using AI prompts with multi-language support for global teams, and includes built-in performance tracking across workflow completion rates and conversational quality. Multiple Fortune 100 organizations use Mirror for frontline training.",
+      "use_cases": [
+        {
+          "title": "Call center agent training with AI-powered customer interaction simulations",
+          "description": ""
+        },
+        {
+          "title": "New employee onboarding on complex enterprise applications",
+          "description": ""
+        },
+        {
+          "title": "Change management rehearsal before major system rollouts",
+          "description": ""
+        },
+        {
+          "title": "Compliance conversation and objection handling practice",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Government & Public Sector",
+        "Education"
+      ],
+      "functional_categories": [
+        "HR & Workforce",
+        "Customer Experience",
+        "Operations & Supply Chain",
+        "IT Operations"
+      ],
+      "category": "HR & Workforce",
+      "expected_outcomes": [
+        "Reduced time-to-proficiency for frontline employees",
+        "Improved Average Handle Time and CSAT scores",
+        "Elimination of risk from training on live production environments"
+      ],
+      "integrations": [
+        "Whatfix DAP",
+        "Salesforce",
+        "SAP",
+        "Oracle",
+        "Workday",
+        "ServiceNow"
+      ],
+      "source_url": "https://whatfix.com/products/mirror/"
+    }
+  ]
+}

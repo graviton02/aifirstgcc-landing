@@ -7,10 +7,25 @@ import { AdminClaimsTab } from "@/components/admin/AdminClaimsTab";
 import { AdminCompanySubmissionsTab } from "@/components/admin/AdminCompanySubmissionsTab";
 import { AdminCompanyEditsTab } from "@/components/admin/AdminCompanyEditsTab";
 import { AdminAgentsTab } from "@/components/admin/AdminAgentsTab";
+import { AdminAllAgentsTab } from "@/components/admin/AdminAllAgentsTab";
 import { AdminAgentEditsTab } from "@/components/admin/AdminAgentEditsTab";
 import { AdminContactRequestsTab } from "@/components/admin/AdminContactRequestsTab";
 import { AdminOverviewTab } from "@/components/admin/AdminOverviewTab";
-import { LogOut, Loader2 } from "lucide-react";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { getErrorMessage } from "@/lib/report-error";
+import {
+  LogOut,
+  Loader2,
+  LayoutDashboard,
+  FileCheck,
+  Building,
+  PenSquare,
+  Bot,
+  List,
+  FilePenLine,
+  Mail,
+} from "lucide-react";
+import type { NavItem } from "@/components/dashboard/DashboardSidebar";
 
 const TABS = [
   "Overview",
@@ -18,11 +33,23 @@ const TABS = [
   "New Companies",
   "Company Edits",
   "Agents",
+  "All Agents",
   "Agent Edits",
   "Contact Requests",
 ] as const;
 
 type Tab = (typeof TABS)[number];
+
+const ICON_MAP: Record<Tab, NavItem["icon"]> = {
+  Overview: LayoutDashboard,
+  Claims: FileCheck,
+  "New Companies": Building,
+  "Company Edits": PenSquare,
+  Agents: Bot,
+  "All Agents": List,
+  "Agent Edits": FilePenLine,
+  "Contact Requests": Mail,
+};
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState<Tab>("Overview");
@@ -57,8 +84,8 @@ export default function AdminDashboardPage() {
     try {
       const result = await login({ password });
       setToken(result.session_token);
-    } catch {
-      setError("Invalid password");
+    } catch (error) {
+      setError(getErrorMessage(error, "Invalid password"));
     }
   };
 
@@ -107,10 +134,21 @@ export default function AdminDashboardPage() {
     "Contact Requests": stats?.pendingContactRequests ?? 0,
   };
 
+  const navItems: NavItem[] = TABS.map((tab) => ({
+    key: tab,
+    label: tab,
+    icon: ICON_MAP[tab],
+    badge: pendingCounts[tab],
+  }));
+
   return (
-    <main className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-enterprise-900">Admin Dashboard</h1>
+    <DashboardShell
+      title="Admin Dashboard"
+      navItems={navItems}
+      activeKey={activeTab}
+      onNavigate={(key) => setActiveTab(key as Tab)}
+      hideNavbar
+      headerActions={
         <button
           onClick={handleLogout}
           className="flex items-center gap-2 px-3 py-1.5 text-sm text-enterprise-600 hover:text-enterprise-900 hover:bg-enterprise-100 rounded-lg transition-colors"
@@ -118,39 +156,16 @@ export default function AdminDashboardPage() {
           <LogOut className="w-4 h-4" />
           Logout
         </button>
-      </div>
-
-      <div className="flex gap-4 border-b border-enterprise-200 mb-6 overflow-x-auto">
-        {TABS.map((tab) => {
-          const count = pendingCounts[tab] ?? 0;
-          return (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`pb-2 px-1 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex items-center gap-1.5 ${
-                activeTab === tab
-                  ? "border-primary text-primary"
-                  : "border-transparent text-enterprise-500 hover:text-enterprise-700"
-              }`}
-            >
-              {tab}
-              {count > 0 && (
-                <span className="text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">
-                  {count}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
+      }
+    >
       {activeTab === "Overview" && <AdminOverviewTab token={token} onTabChange={(t) => setActiveTab(t as Tab)} />}
       {activeTab === "Claims" && <AdminClaimsTab token={token} />}
       {activeTab === "New Companies" && <AdminCompanySubmissionsTab token={token} />}
       {activeTab === "Company Edits" && <AdminCompanyEditsTab token={token} />}
       {activeTab === "Agents" && <AdminAgentsTab token={token} />}
+      {activeTab === "All Agents" && <AdminAllAgentsTab token={token} />}
       {activeTab === "Agent Edits" && <AdminAgentEditsTab token={token} />}
       {activeTab === "Contact Requests" && <AdminContactRequestsTab token={token} />}
-    </main>
+    </DashboardShell>
   );
 }

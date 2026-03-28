@@ -1,35 +1,74 @@
 "use client";
 
-import { useState } from "react";
-import { Navbar } from "@/components/shared/Navbar";
+import { useEffect, useMemo } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
+import { Star, MessageCircle, Loader2 } from "lucide-react";
+import { useUserRole } from "@/auth/useUserRole";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { ShortlistedAgentsTab } from "@/components/gcc-dashboard/ShortlistedAgentsTab";
 import { CurrentRequestsTab } from "@/components/gcc-dashboard/CurrentRequestsTab";
-import { ProblemHubTab } from "@/components/gcc-dashboard/ProblemHubTab";
 
-const TABS = ["Shortlisted Agents", "Current Requests", "Problem Hub"] as const;
+const DEFAULT_TAB = "shortlisted-agents" as const;
+const TABS = ["shortlisted-agents", "current-requests"] as const;
+type GccTab = (typeof TABS)[number];
+
+const NAV_ITEMS = [
+  { key: "shortlisted-agents", label: "Shortlisted Agents", icon: Star },
+  { key: "current-requests", label: "Current Requests", icon: MessageCircle },
+];
 
 export default function GCCDashboardPage() {
-  const [activeTab, setActiveTab] = useState<typeof TABS[number]>("Shortlisted Agents");
+  const { isSignedIn, isLoaded: authLoaded } = useAuth();
+  const { role, isLoaded } = useUserRole();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const activeTab = useMemo<GccTab>(() => {
+    const requestedTab = searchParams.get("tab");
+    return TABS.includes(requestedTab as GccTab)
+      ? (requestedTab as GccTab)
+      : DEFAULT_TAB;
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (!authLoaded) return;
+    if (!isSignedIn) {
+      router.replace("/sign-in");
+      return;
+    }
+  }, [authLoaded, isSignedIn, router]);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (role === "provider") router.replace("/dashboard");
+    if (!role) router.replace("/onboarding");
+  }, [role, isLoaded, router]);
+
+  const handleNavigate = (key: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", key);
+    router.replace(`${pathname}?${params.toString()}`);
+  };
+
+  if (!isLoaded || role !== "gcc") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-enterprise-400" />
+      </div>
+    );
+  }
 
   return (
-    <>
-      <Navbar />
-      <main className="max-w-7xl mx-auto px-4 py-8 pt-24">
-        <h1 className="text-2xl font-bold text-enterprise-900 mb-6">GCC Dashboard</h1>
-        <div className="flex gap-4 border-b border-enterprise-200 mb-6">
-          {TABS.map((tab) => (
-            <button key={tab} onClick={() => setActiveTab(tab)}
-              className={`pb-2 px-1 text-sm font-medium border-b-2 transition-colors ${
-                activeTab === tab ? "border-primary text-primary" : "border-transparent text-enterprise-500 hover:text-enterprise-700"
-              }`}>
-              {tab}
-            </button>
-          ))}
-        </div>
-        {activeTab === "Shortlisted Agents" && <ShortlistedAgentsTab />}
-        {activeTab === "Current Requests" && <CurrentRequestsTab />}
-        {activeTab === "Problem Hub" && <ProblemHubTab />}
-      </main>
-    </>
+    <DashboardShell
+      title="GCC Dashboard"
+      navItems={NAV_ITEMS}
+      activeKey={activeTab}
+      onNavigate={handleNavigate}
+    >
+      {activeTab === "shortlisted-agents" && <ShortlistedAgentsTab />}
+      {activeTab === "current-requests" && <CurrentRequestsTab />}
+    </DashboardShell>
   );
 }

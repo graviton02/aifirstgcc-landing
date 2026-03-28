@@ -1,0 +1,746 @@
+{
+  "companies": [
+    {
+      "name": "TCS (Tata Consultancy Services)",
+      "slug": "tcs-tata-consultancy-services",
+      "website": "https://www.tcs.com",
+      "headquarters": "Mumbai, India",
+      "founded": 1968,
+      "company_size": "enterprise",
+      "description": "Tata Consultancy Services is a global IT services, consulting, and business solutions company and a subsidiary of the Tata Group. TCS is a leading provider of AI-powered enterprise solutions, offering industry-specific platforms across financial services, manufacturing, telecom, healthcare, and retail.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities",
+        "Government & Public Sector"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Infosys",
+      "slug": "infosys",
+      "website": "https://www.infosys.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 1981,
+      "company_size": "enterprise",
+      "description": "Infosys is a global leader in next-generation digital services and consulting, serving clients in over 50 countries. The company provides IT services, business consulting, and outsourcing across industries including financial services, manufacturing, retail, healthcare, and telecommunications.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "contact_email": "askus@infosys.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Wipro",
+      "slug": "wipro",
+      "website": "https://www.wipro.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 1945,
+      "company_size": "enterprise",
+      "description": "Wipro Limited is a global IT services, consulting, and business process company offering digital transformation, cloud, and AI-led solutions. Under its Wipro Intelligence suite, the company has built a portfolio of named AI-powered platforms spanning software delivery, IT operations, and industry-specific verticals.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities",
+        "Automotive & Mobility"
+      ],
+      "contact_email": "info@wipro.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "TCS AI WisdomNext",
+      "slug": "tcs-ai-wisdomnext",
+      "company_slug": "tcs-tata-consultancy-services",
+      "tagline": "A unified GenAI aggregation platform that lets enterprises experiment with, compare, and deploy generative AI solutions from multiple vendors through a single interface.",
+      "description": "TCS AI WisdomNext is a platform that aggregates multiple generative AI and cloud services into a unified interface, enabling enterprises to rapidly adopt GenAI at scale with minimal coding. It offers six core capabilities: AI-readiness consulting, pre-configured industry-specific solution blueprints, DevSecOps productivity enhancers, composable archetypes for modular solution creation, intelligent evaluator bots that compare GenAI ecosystems, and an enterprise knowledge house that reduces outcome drift. The platform supports real-time experimentation with GenAI solutions from different vendors, including internal and open-source LLM models, with built-in FinOps spend intelligence and responsible AI governance. Its agentic capabilities support deploying agentic AI, physical AI, and HPC workloads through enterprise AI infrastructure.",
+      "use_cases": [
+        {
+          "title": "Enterprise-wide GenAI solution evaluation and deployment",
+          "description": ""
+        },
+        {
+          "title": "automated quote generation with real-time inventory and geo-tagging (outdoor advertising)",
+          "description": ""
+        },
+        {
+          "title": "smart mortgage assistant for improved customer experience (banking)",
+          "description": ""
+        },
+        {
+          "title": "application migration and modernization acceleration (insurance)",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities",
+        "Government & Public Sector"
+      ],
+      "category": "IT Operations",
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Data & Analytics",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "expected_outcomes": [
+        "Accelerated time-to-market for GenAI solutions through low-code blueprints",
+        "cost optimization via native GenAI spend intelligence and centralized governance",
+        "improved development productivity across build, deploy, and run phases."
+      ],
+      "integrations": [
+        "AWS",
+        "Google Cloud",
+        "Microsoft Azure",
+        "NVIDIA AI Enterprise",
+        "Anthropic",
+        "IBM"
+      ],
+      "source_url": "https://www.tcs.com/what-we-do/services/artificial-intelligence/solution/enterprise-generative-ai-adoption-wisdomnext"
+    },
+    {
+      "agent_name": "TCS MasterCraft (GenAI & Agentic AI Edition)",
+      "slug": "tcs-mastercraft-genai-agentic-ai-edition",
+      "company_slug": "tcs-tata-consultancy-services",
+      "tagline": "An agentic AI-powered modernization platform that extracts business logic from legacy code and converts it to modern technologies at 70% lower cost.",
+      "description": "TCS MasterCraft is an automation-driven modernization platform enhanced with GenAI and agentic AI capabilities. It transforms legacy applications into modern, cloud-native systems by mining and extracting business logic from outdated code, then converting it to contemporary technologies. The platform includes over 150 specialized solutions for sectors including financial services and supply chain, and uses agentic AI that combines TCS knowledge bases with purposive agents to handle complex modernization programs. It features a centralized design repository, DevSecOps integration for continuous delivery, and human-in-the-loop oversight throughout the transformation process.",
+      "use_cases": [
+        {
+          "title": "Mainframe-to-cloud modernization for banks",
+          "description": ""
+        },
+        {
+          "title": "COBOL-to-Java migration at scale (50+ million lines)",
+          "description": ""
+        },
+        {
+          "title": "legacy application business logic extraction and documentation",
+          "description": ""
+        },
+        {
+          "title": "end-to-end DevSecOps pipeline modernization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "category": "Engineering & DevOps",
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Operations & Supply Chain"
+      ],
+      "expected_outcomes": [
+        "Over 70% reduction in modernization costs",
+        "2x productivity savings and 3x faster delivery than traditional approaches",
+        "90% effort savings in creating knowledge repositories (per North American bank case study)."
+      ],
+      "integrations": [
+        "DevSecOps toolchains",
+        "cloud-native platforms (not further specified)"
+      ],
+      "source_url": "https://www.tcs.com/who-we-are/newsroom/press-release/tcs-launches-genai-agentic-ai-powered-tcs-mastercraft-help-enterprises-swiftly-modernize-legacy-systems"
+    },
+    {
+      "agent_name": "TCS BaNCS AI Compass",
+      "slug": "tcs-bancs-ai-compass",
+      "company_slug": "tcs-tata-consultancy-services",
+      "tagline": "A no-code AI agent platform embedded in TCS BaNCS that lets banks and securities firms build, train, and deploy intelligent agents for onboarding, underwriting, and compliance.",
+      "description": "TCS BaNCS AI Compass integrates machine learning, deep learning, generative AI, and pre-built intelligent agents into the existing TCS BaNCS banking and securities platform. It features a no-code, configurable interface that allows teams to quickly build, train, test, and deploy AI agents without writing code or moving data outside secure zones. Pre-built agents support use cases such as customer onboarding, credit underwriting, tailored query resolution, tax treatment prediction, and complex document interpretation. The platform includes built-in guardrails including audit logging, data lineage tracking, systematic bias testing, and traceable workflows to meet enterprise and regulatory standards.",
+      "use_cases": [
+        {
+          "title": "Customer onboarding automation (reduced from 48 hours to 15 minutes)",
+          "description": ""
+        },
+        {
+          "title": "credit underwriting and risk assessment",
+          "description": ""
+        },
+        {
+          "title": "securities event classification and tax treatment prediction",
+          "description": ""
+        },
+        {
+          "title": "multi-channel query resolution for retail banking",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "category": "Customer Experience",
+      "functional_categories": [
+        "Customer Experience",
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "expected_outcomes": [
+        "Accelerated customer onboarding through AI-driven automation",
+        "improved securities event classification accuracy across large record volumes",
+        "reduced query resolution costs through AI-powered self-service."
+      ],
+      "integrations": [
+        "TCS BaNCS core banking platform",
+        "TCS BaNCS securities services"
+      ],
+      "source_url": "https://www.tcs.com/who-we-are/newsroom/press-release/tcs-bancs-ai-upgrade-new-core-tool-supercharge-innovation"
+    },
+    {
+      "agent_name": "TCS Manufacturing AI for Agentic Futures",
+      "slug": "tcs-manufacturing-ai-for-agentic-futures",
+      "company_slug": "tcs-tata-consultancy-services",
+      "tagline": "A manufacturing-specific agentic AI platform with 100+ pre-built agents that autonomously understand context, make decisions, and act across the factory value chain.",
+      "description": "TCS Manufacturing AI for Agentic Futures enables manufacturers to deploy autonomous, role-aware AI agents that collaborate with humans across operations. The platform offers over 100 pre-built agents across manufacturing functions and 30+ templates for rapid agent creation, accessible through conversational and drag-and-drop interfaces for low-code/no-code deployment. It integrates semantic understanding, tacit knowledge capture, ontology-based knowledge graphs, and explainable AI to create an adaptive ecosystem supporting real-time orchestration, decision simulation, and cross-functional process automation. The solution includes a 7-pillar transformation journey with AI maturity assessment, TCO estimation framework, and an EMC-squared ROI model tracking 20+ KPIs across 9 business lenses.",
+      "use_cases": [
+        {
+          "title": "Predictive quality management and defect reduction",
+          "description": ""
+        },
+        {
+          "title": "intelligent factory operations and supply chain resiliency",
+          "description": ""
+        },
+        {
+          "title": "autonomous workflow orchestration across production lines",
+          "description": ""
+        },
+        {
+          "title": "sustainable manufacturing optimization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Automotive & Mobility",
+        "Aerospace & Defense",
+        "Energy & Utilities",
+        "Logistics & Transportation"
+      ],
+      "category": "Operations & Supply Chain",
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Engineering & DevOps",
+        "Data & Analytics",
+        "IT Operations",
+        "Finance & Accounting"
+      ],
+      "expected_outcomes": [
+        "Accelerated decision-making through role-tailored autonomous agents",
+        "enhanced agility with end-to-end process orchestration",
+        "scalable deployment without vendor lock-in with built-in governance and explainability."
+      ],
+      "integrations": [
+        "Multi-platform via A2A",
+        "MCP",
+        "and ACP interoperability protocols",
+        "simulation tools for workflow cost estimation"
+      ],
+      "source_url": "https://www.tcs.com/what-we-do/industries/manufacturing/solution/tcs-manufacturing-ai-agentic-futures"
+    },
+    {
+      "agent_name": "TCS AI-Native Telco Offerings",
+      "slug": "tcs-ai-native-telco-offerings",
+      "company_slug": "tcs-tata-consultancy-services",
+      "tagline": "A suite of NIM agent-based AI-native solutions for telecom operators that autonomously detect network anomalies and streamline billing and revenue assurance.",
+      "description": "TCS AI-Native Telco Offerings are a collection of AI-native agents designed specifically for the telecommunications industry. TCS Autonomous Network Anomaly Management is a NIM agent-based automation solution aligned with TM Forum guidelines for real-time detection and resolution of network anomalies, reducing manual interventions and improving uptime. TCS Billing and Revenue Assurance Service simplifies billing and revenue assurance processes, driving efficiency and expanding the sales pipeline. These solutions are built on NVIDIA AI Enterprise software and NVIDIA Aerial Omniverse Digital Twin, enabling telcos to create custom domain-specific models integrated into agentic AI workflows.",
+      "use_cases": [
+        {
+          "title": "Real-time network anomaly detection and automated resolution",
+          "description": ""
+        },
+        {
+          "title": "billing accuracy improvement and revenue leakage prevention",
+          "description": ""
+        },
+        {
+          "title": "telecom digital twin simulation for network planning",
+          "description": ""
+        },
+        {
+          "title": "automated network operations aligned with TM Forum standards",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Telecom & Media"
+      ],
+      "category": "IT Operations",
+      "functional_categories": [
+        "IT Operations",
+        "Finance & Accounting",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "expected_outcomes": [
+        "Reduced manual interventions for network management and improved uptime",
+        "streamlined billing processes driving operational efficiency",
+        "accelerated deployment of custom telecom AI models."
+      ],
+      "integrations": [
+        "NVIDIA AI Enterprise",
+        "NVIDIA Aerial Omniverse Digital Twin",
+        "NVIDIA NIM",
+        "TM Forum-aligned standards"
+      ],
+      "source_url": "https://www.tcs.com/who-we-are/newsroom/news-alert/tcs-nvidia-collaborate-design-ai-native-solutions-for-the-telecom-sector"
+    },
+    {
+      "agent_name": "Infosys Topaz Fabric",
+      "slug": "infosys-topaz-fabric",
+      "company_slug": "infosys",
+      "tagline": "A composable stack of AI agents, services, and models that unifies IT service delivery across the enterprise into an agent-ready ecosystem.",
+      "description": "Infosys Topaz Fabric is a multi-layer AI fabric that provides a layered, open, and interoperable infrastructure for enterprise AI deployment. It includes over 50 pre-built AI agents purpose-built for IT operations, with out-of-the-box integration with 9 major enterprise platforms. The agents execute end-to-end workflows with configurable human-in-the-loop or human-off-the-loop oversight, automating routine tasks while maintaining governance and ethical compliance. The platform avoids vendor lock-in through open architecture and enables organizations to access integrated or modular services-as-software from a single platform.",
+      "use_cases": [
+        {
+          "title": "Automating IT operations monitoring and incident response",
+          "description": ""
+        },
+        {
+          "title": "accelerating quality engineering and test automation",
+          "description": ""
+        },
+        {
+          "title": "orchestrating cybersecurity threat detection and response workflows",
+          "description": ""
+        },
+        {
+          "title": "enabling IT transformation through agent-driven service delivery",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "category": "IT Operations",
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Data & Analytics",
+        "Operations & Supply Chain"
+      ],
+      "expected_outcomes": [
+        "Faster ROI from AI transformation programs",
+        "reduced manual effort in IT operations through autonomous agent workflows",
+        "improved service delivery speed and consistency across enterprise IT."
+      ],
+      "integrations": [
+        "Intel compute platforms",
+        "9 enterprise platforms (not individually named)"
+      ],
+      "source_url": "https://www.varindia.com/news/infosys-announces-topaz-fabric-to-accelerate-enterprise-ai-transformation"
+    },
+    {
+      "agent_name": "Infosys Topaz Enterprise AI Agents (with Google Cloud)",
+      "slug": "infosys-topaz-enterprise-ai-agents-with-google-cloud",
+      "company_slug": "infosys",
+      "tagline": "Over 200 enterprise AI agents spanning six industries that autonomously analyze scenarios, extract insights from multimodal data, and execute complex tasks.",
+      "description": "This collection of 200+ enterprise AI agents is powered by Infosys Topaz and Google Cloud's Vertex AI Platform. The agents feature autonomous decision-making capabilities, allowing them to independently analyze scenarios and execute complex tasks across healthcare, finance, retail, telecom, manufacturing, and agriculture. They support multimodal data processing, transforming raw inputs into actionable insights, and operate through encrypted communication channels with robust data privacy protections. The agents span six industries with domain-specific reasoning tailored to each vertical's workflows and data structures.",
+      "use_cases": [
+        {
+          "title": "Network capacity monitoring and anomaly alerting for telecom operators",
+          "description": ""
+        },
+        {
+          "title": "corporate finance automation for accounts payable/receivable and cash flow management",
+          "description": ""
+        },
+        {
+          "title": "demand forecasting and auto-ordering for manufacturing supply chains",
+          "description": ""
+        },
+        {
+          "title": "healthcare data processing and clinical workflow automation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Agriculture & AgriTech"
+      ],
+      "category": "Finance & Accounting",
+      "functional_categories": [
+        "Finance & Accounting",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Data & Analytics",
+        "Customer Experience"
+      ],
+      "expected_outcomes": [
+        "Reduced network downtime and optimized resource utilization in telecom",
+        "fewer payment delays and more accurate financial reporting",
+        "optimized inventory levels through real-time demand prediction."
+      ],
+      "integrations": [
+        "Google Cloud Vertex AI",
+        "Infosys Topaz"
+      ],
+      "source_url": "https://www.thefastmode.com/technology-solutions/42154-infosys-launches-200-enterprise-ai-agents-powered-by-topaz-and-google-cloud"
+    },
+    {
+      "agent_name": "Infosys Aster",
+      "slug": "infosys-aster",
+      "company_slug": "infosys",
+      "tagline": "An AI-amplified marketing suite that transforms the entire marketing value chain from creative services to performance marketing for B2B and B2C brands.",
+      "description": "Infosys Aster is a comprehensive suite of AI-amplified marketing services, solutions, and platforms powered by Infosys Topaz. It spans creative services, experience design, digital commerce, MarTech orchestration, performance marketing, and marketing operations, bringing AI-driven agility to each stage of the marketing value chain. The platform integrates with leading MarTech and design providers to orchestrate enterprise-grade marketing solutions. It is designed to serve as the shared digital foundation connecting MarTech and enterprise systems for global brands.",
+      "use_cases": [
+        {
+          "title": "AI-driven campaign creation and personalization at scale",
+          "description": ""
+        },
+        {
+          "title": "MarTech stack orchestration and optimization",
+          "description": ""
+        },
+        {
+          "title": "performance marketing automation and attribution",
+          "description": ""
+        },
+        {
+          "title": "digital commerce experience design and optimization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Telecom & Media"
+      ],
+      "category": "Sales & Marketing",
+      "functional_categories": [
+        "Sales & Marketing",
+        "Customer Experience",
+        "Data & Analytics"
+      ],
+      "expected_outcomes": [
+        "Up to 50% increase in repeat buyers",
+        "30% improvement in cost of marketing operations",
+        "40% increase in sales (figures reported from global brand deployments)."
+      ],
+      "integrations": [
+        "Adobe",
+        "Infosys Topaz",
+        "various MarTech platforms"
+      ],
+      "source_url": "https://www.infosys.com/newsroom/press-releases/2024/launched-ai-amplified-marketing-suite.html"
+    },
+    {
+      "agent_name": "Infosys Accounts Payable on Cloud (Agentic AI)",
+      "slug": "infosys-accounts-payable-on-cloud-agentic-ai",
+      "company_slug": "infosys",
+      "tagline": "Autonomous AI agents that transform invoice processing from a human-driven model to an AI-first approach with minimal human oversight.",
+      "description": "Infosys BPM's Accounts Payable on Cloud integrates agentic AI capabilities powered by Infosys Topaz and Microsoft's AI stack. The solution uses a purpose-built multi-agent framework to enable end-to-end autonomous invoice processing, moving from a human-driven, AI-supported model to an AI-first approach. The AI agents handle dynamic processes, adapt to changing business logic, and perform intricate accounts payable tasks with minimal human oversight. The platform supports complex invoice workflows including multi-currency processing, exception handling, and compliance validation across enterprise-scale operations.",
+      "use_cases": [
+        {
+          "title": "Autonomous invoice ingestion, validation, and matching",
+          "description": ""
+        },
+        {
+          "title": "exception handling and anomaly detection in accounts payable workflows",
+          "description": ""
+        },
+        {
+          "title": "cash flow optimization through faster payment processing",
+          "description": ""
+        },
+        {
+          "title": "compliance and audit trail management for financial transactions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Financial Services (BFSI)"
+      ],
+      "category": "Finance & Accounting",
+      "functional_categories": [
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "expected_outcomes": [
+        "Significantly boosted operational efficiency in accounts payable",
+        "faster invoice processing cycle times with reduced manual intervention",
+        "improved scalability of finance operations without proportional headcount increases."
+      ],
+      "integrations": [
+        "Infosys Topaz",
+        "Microsoft AI stack",
+        "Infosys BPM Accounts Payable on Cloud"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/infosys-bpm-unveils-ai-agents-to-revolutionize-finance-and-accounting-services-302469377.html"
+    },
+    {
+      "agent_name": "Infosys Energy AI Agent",
+      "slug": "infosys-energy-ai-agent",
+      "company_slug": "infosys",
+      "tagline": "A conversational AI agent for the energy sector that converts real-time wellbore data into actionable operational insights to improve safety and reduce non-productive time.",
+      "description": "This AI agent was developed specifically for the energy sector, combining Infosys Topaz, Infosys Cobalt, Microsoft Copilot Studio, Azure OpenAI Foundry Models, and ChatGPT-4o. The agent processes multiple document types including well logs, images, plots, and tables, transforming real-time operational data into actionable insights through a conversational AI interface. It automates report generation, provides predictive analytics, and delivers early warning systems for operational challenges in drilling and wellbore management. The solution combines proprietary platforms with hyperscaler AI capabilities to address vertical-specific operational needs in oil and gas exploration.",
+      "use_cases": [
+        {
+          "title": "Real-time wellbore monitoring and anomaly detection",
+          "description": ""
+        },
+        {
+          "title": "automated drilling report generation from multimodal data",
+          "description": ""
+        },
+        {
+          "title": "predictive maintenance and early warning for operational hazards",
+          "description": ""
+        },
+        {
+          "title": "instant access to critical operational information for field engineers",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Energy & Utilities"
+      ],
+      "category": "Operations & Supply Chain",
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Data & Analytics",
+        "Engineering & DevOps"
+      ],
+      "expected_outcomes": [
+        "Enhanced safety and reliability in drilling operations",
+        "reduced non-productive time (NPT) through predictive analytics",
+        "improved wellbore quality and optimized operational performance."
+      ],
+      "integrations": [
+        "Infosys Topaz",
+        "Infosys Cobalt",
+        "Microsoft Copilot Studio",
+        "Azure OpenAI Foundry Models",
+        "ChatGPT-4o"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/infosys-develops-ai-agent-to-enhance-operations-in-the-energy-sector-302606984.html"
+    },
+    {
+      "agent_name": "WEGA",
+      "slug": "wega",
+      "company_slug": "wipro",
+      "tagline": "An agent-native delivery platform that unifies AI agents and partner tools to accelerate every phase of the software development lifecycle.",
+      "description": "WEGA is Wipro's composable, agent-native delivery platform under the Wipro Intelligence umbrella. It consolidates design, development, testing, infrastructure, release management, and security into one AI-powered system through a composable agent marketplace. The platform supports deployment as a complete stack or as individual agents that plug into existing toolchains and hyperscaler ecosystems, with autonomous coding capabilities integrated across engineering workflows. WEGA integrates with 15+ third-party organizations and is designed for multiple personas including developers, architects, project managers, and QA teams.",
+      "use_cases": [
+        {
+          "title": "Orchestrating end-to-end SDLC workflows with AI agents for faster feature delivery",
+          "description": ""
+        },
+        {
+          "title": "automating code generation, testing, and release management across large engineering teams",
+          "description": ""
+        },
+        {
+          "title": "integrating third-party AI tools for enterprise-scale code migrations",
+          "description": ""
+        },
+        {
+          "title": "enforcing security and compliance guardrails across development pipelines",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "category": "Engineering & DevOps",
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations"
+      ],
+      "expected_outcomes": [
+        "Up to 60% improvement in development velocity and reduction in time-to-market",
+        "40% potential cost leadership advantage",
+        "20-25% increase in resolving security and compliance issues (preliminary lab results)."
+      ],
+      "integrations": [
+        "Factory (agent-native development)",
+        "15+ third-party tool integrations",
+        "Azure Marketplace",
+        "NVIDIA AI Enterprise"
+      ],
+      "source_url": "https://www.wipro.com/wipro-intelligence/platforms/wega/"
+    },
+    {
+      "agent_name": "WINGS",
+      "slug": "wings",
+      "company_slug": "wipro",
+      "tagline": "An AI-powered operations platform that transforms reactive IT support into a self-healing, self-evolving ecosystem with embedded agentic AI.",
+      "description": "WINGS is Wipro's Operations AI platform under Wipro Intelligence that converts IT maintenance, support, and business processes into autonomous, self-healing services. It embeds intelligent agents that learn from every interaction, transferring knowledge from people to machines and resolving issues automatically or with human-in-the-loop fallback. The platform provides persona-based dashboards, real-time context-aware issue enrichment from multiple data sources, and multilingual voice and chat self-service. WINGS is built on Microsoft Azure with OpenAI and ServiceNow integrations, certified by Microsoft and AWS for security and scalability, and compliant with GDPR and ISO 27001 standards.",
+      "use_cases": [
+        {
+          "title": "Autonomous IT incident resolution with human-in-the-loop fallback",
+          "description": ""
+        },
+        {
+          "title": "AI-powered multilingual self-service via voice and chat",
+          "description": ""
+        },
+        {
+          "title": "proactive issue detection with real-time context-aware enrichment",
+          "description": ""
+        },
+        {
+          "title": "automated knowledge article creation and process documentation for transition management",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Energy & Utilities"
+      ],
+      "category": "IT Operations",
+      "functional_categories": [
+        "IT Operations",
+        "Customer Experience",
+        "HR & Workforce",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "expected_outcomes": [
+        "40% operational efficiency gains through AI automation",
+        "up to 50% cost reduction via real-time analytics and AI optimization",
+        "60% faster innovation with improved user experience through agentic AI assistance (preliminary lab results)."
+      ],
+      "integrations": [
+        "Microsoft Azure",
+        "OpenAI",
+        "ServiceNow",
+        "AWS",
+        "Azure Marketplace"
+      ],
+      "source_url": "https://www.wipro.com/wipro-intelligence/platforms/wings/"
+    },
+    {
+      "agent_name": "TelcoAI360",
+      "slug": "telcoai360",
+      "company_slug": "wipro",
+      "tagline": "An AI-first managed services platform that transforms telecom operations with predictive analytics, self-healing automation, and conversational AI agents.",
+      "description": "TelcoAI360 is Wipro's AI-powered network management and automation platform for Communication Service Providers. It integrates analytical AI, generative AI, and agentic AI across three pillars: consulting (network transformation and operating model design), service design (customer journey optimization), and platform-led managed services (B2B marketplace enablement, conversational AI agents, and autonomous operations). The platform offers unified multi-domain visibility across SD-WAN, 5G, IoT, and edge technologies through a single-pane-of-glass, with AI-driven self-healing capabilities that proactively detect and resolve network issues. It leverages ServiceNow's Telecommunications industry solutions suite for deep integration with existing CSP operations workflows.",
+      "use_cases": [
+        {
+          "title": "Automated customer onboarding with conversational AI agents and service orchestration",
+          "description": ""
+        },
+        {
+          "title": "predictive maintenance and self-healing automation for network infrastructure",
+          "description": ""
+        },
+        {
+          "title": "AI-driven real-time threat detection and fraud prevention",
+          "description": ""
+        },
+        {
+          "title": "unified multi-domain visibility across SD-WAN, 5G, IoT, and edge deployments",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Telecom & Media"
+      ],
+      "category": "IT Operations",
+      "functional_categories": [
+        "IT Operations",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "expected_outcomes": [
+        "60-70% faster implementation with minimal customization",
+        "reduced operational costs through process streamlining and workflow automation",
+        "faster time-to-market for new telecom products and services."
+      ],
+      "integrations": [
+        "ServiceNow Telecommunications suite",
+        "SD-WAN",
+        "SASE",
+        "UCaaS",
+        "NaaS",
+        "5G",
+        "IoT",
+        "edge computing platforms"
+      ],
+      "source_url": "https://www.wipro.com/newsroom/press-releases/2025/wipro-launches-telcoai360-at-mobile-world-congress-2025/"
+    },
+    {
+      "agent_name": "WealthAI",
+      "slug": "wealthai",
+      "company_slug": "wipro",
+      "tagline": "An AI-driven \"advise-the-advisor\" platform that transforms wealth management with AI-powered analytics and personalized advisory insights.",
+      "description": "WealthAI is Wipro's AI-driven wealth and asset management platform deployed as a cloud solution that integrates AI and analytics with high-value data sources to transform wealth management across the advisory value chain. It serves as an \"advise-the-advisor\" system, augmenting financial advisors with AI-powered portfolio insights, compliance analytics, and client engagement tools. The platform addresses the full advisory lifecycle from client acquisition through ongoing portfolio management. WealthAI is positioned as a named vertical solution under the Wipro Intelligence suite, targeting capital markets and wealth management firms.",
+      "use_cases": [
+        {
+          "title": "AI-driven portfolio insights and recommendations for wealth advisors",
+          "description": ""
+        },
+        {
+          "title": "automated compliance and risk analytics across client portfolios",
+          "description": ""
+        },
+        {
+          "title": "personalized client engagement through AI-powered advisory support",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "category": "Data & Analytics",
+      "functional_categories": [
+        "Data & Analytics",
+        "Customer Experience",
+        "Legal & Compliance"
+      ],
+      "expected_outcomes": [
+        "Improved advisor productivity through AI-augmented decision support",
+        "reduced compliance risk with automated regulatory analytics",
+        "enhanced client retention through personalized engagement."
+      ],
+      "integrations": [],
+      "source_url": "https://www.wipro.com/capital-markets/wealthai/"
+    }
+  ]
+}

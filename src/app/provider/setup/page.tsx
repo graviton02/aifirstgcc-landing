@@ -1,14 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "convex/react";
 import { useUser } from "@clerk/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import { useUserRole } from "@/auth/useUserRole";
+import { AgentFormSections } from "@/components/dashboard/AgentFormFields";
 import { Navbar } from "@/components/shared/Navbar";
 import {
+  EMPTY_AGENT_FORM,
+  agentToFormData,
+  getAgentDraftValidationErrors,
+  type AgentFormData,
+} from "@/lib/agentSubmission";
+import { getErrorMessage } from "@/lib/report-error";
+import {
+  ArrowLeft,
   ArrowRight,
   Building2,
   CheckCircle2,
@@ -33,16 +42,18 @@ export default function ProviderSetupPage() {
   const router = useRouter();
   const { user } = useUser();
   const { role, isLoaded } = useUserRole();
+  const companyStepFormRef = useRef<HTMLFormElement>(null);
   const myCompany = useQuery(api.companyMembers.getMyCompany);
   const setupState = useQuery(api.providerProfiles.getSetupState);
   const setOnboardingPath = useMutation(api.providerProfiles.setOnboardingPath);
   const createCompanySubmission = useMutation(api.companySubmissions.create);
 
   const [changingPath, setChangingPath] = useState<ProviderPath | null>(null);
+  const [createStep, setCreateStep] = useState<1 | 2>(1);
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [seededSubmissionId, setSeededSubmissionId] = useState<string | null>(null);
-  const [form, setForm] = useState({
+  const [companyForm, setCompanyForm] = useState({
     contact_email: "",
     company_name: "",
     website: "",
@@ -50,6 +61,10 @@ export default function ProviderSetupPage() {
     headquarters: "",
     company_size: "",
     primary_verticals: "",
+  });
+  const [agentForm, setAgentForm] = useState<AgentFormData>({
+    ...EMPTY_AGENT_FORM,
+    use_cases: [{ title: "", description: "" }],
   });
 
   useEffect(() => {
@@ -63,14 +78,16 @@ export default function ProviderSetupPage() {
     const email = user?.primaryEmailAddress?.emailAddress;
     if (!email) return;
 
-    setForm((current) => (current.contact_email ? current : { ...current, contact_email: email }));
+    setCompanyForm((current) =>
+      current.contact_email ? current : { ...current, contact_email: email }
+    );
   }, [user]);
 
   useEffect(() => {
     const submission = setupState?.companySubmission;
     if (!submission || seededSubmissionId === submission._id) return;
 
-    setForm((current) => ({
+    setCompanyForm((current) => ({
       ...current,
       contact_email: submission.contact_email || current.contact_email,
       company_name: submission.company_name,
@@ -80,6 +97,19 @@ export default function ProviderSetupPage() {
       company_size: submission.company_size,
       primary_verticals: submission.primary_verticals.join(", "),
     }));
+    setAgentForm(() => {
+      const nextAgent = submission.initial_agent
+        ? agentToFormData(submission.initial_agent)
+        : {
+            ...EMPTY_AGENT_FORM,
+            use_cases: [{ title: "", description: "" }],
+          };
+
+      return nextAgent.use_cases.length > 0
+        ? nextAgent
+        : { ...nextAgent, use_cases: [{ title: "", description: "" }] };
+    });
+    setCreateStep(1);
     setSeededSubmissionId(submission._id);
   }, [setupState, seededSubmissionId]);
 
@@ -94,35 +124,76 @@ export default function ProviderSetupPage() {
     setSubmitError("");
     try {
       await setOnboardingPath({ onboarding_path: path });
+      if (path === "create_new") {
+        setCreateStep(1);
+      }
     } catch (error: any) {
-      setSubmitError(error.message || "Failed to update your setup path.");
+      setSubmitError(getErrorMessage(error, "Failed to update your setup path."));
     } finally {
       setChangingPath(null);
     }
   };
 
+  const updateAgentField = <K extends keyof AgentFormData>(
+    key: K,
+    value: AgentFormData[K]
+  ) => {
+    setAgentForm((current) => ({ ...current, [key]: value }));
+  };
+
+  const handleContinueToAgent = () => {
+    if (!companyStepFormRef.current?.reportValidity()) {
+      return;
+    }
+
+    setSubmitError("");
+    setCreateStep(2);
+  };
+
   const handleCompanySubmission = async (event: React.FormEvent) => {
     event.preventDefault();
+    const validationErrors = getAgentDraftValidationErrors(agentForm);
+    if (validationErrors.length > 0) {
+      setSubmitError(validationErrors[0]);
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError("");
 
     try {
       await createCompanySubmission({
-        contact_email: form.contact_email,
-        company_name: form.company_name,
-        website: form.website,
-        description: form.description,
-        headquarters: form.headquarters,
-        company_size: form.company_size,
-        primary_verticals: form.primary_verticals
+        contact_email: companyForm.contact_email,
+        company_name: companyForm.company_name,
+        website: companyForm.website,
+        description: companyForm.description,
+        headquarters: companyForm.headquarters,
+        company_size: companyForm.company_size,
+        primary_verticals: companyForm.primary_verticals
           .split(",")
           .map((value) => value.trim())
           .filter(Boolean),
+        initial_agent: {
+          agent_name: agentForm.agent_name,
+          tagline: agentForm.tagline.trim() || undefined,
+          description: agentForm.description,
+          category: agentForm.category,
+          functional_categories: agentForm.functional_categories,
+          industry_categories: agentForm.industry_categories,
+          infrastructure_categories: agentForm.infrastructure_categories.length
+            ? agentForm.infrastructure_categories
+            : undefined,
+          use_cases: agentForm.use_cases,
+          integrations: agentForm.integrations.length ? agentForm.integrations : undefined,
+          expected_outcomes: agentForm.expected_outcomes.length
+            ? agentForm.expected_outcomes
+            : undefined,
+          source_url: agentForm.source_url.trim() || undefined,
+          demo_url: agentForm.demo_url.trim() || undefined,
+        },
       });
     } catch (error: any) {
-      const raw = error.message || "";
-      const match = raw.match(/Uncaught Error: (.+?)(?:\n|$)/);
-      setSubmitError(match ? match[1] : "We couldn't submit your company. Please try again.");
+      setSubmitError(getErrorMessage(error, "We couldn't submit your company. Please try again."));
     } finally {
       setIsSubmitting(false);
     }
@@ -159,20 +230,20 @@ export default function ProviderSetupPage() {
             {!selectedPath && (
               <div className="mt-8 grid gap-4 md:grid-cols-2">
                 <PathCard
-                  icon={Search}
-                  title="Claim an existing company"
-                  description="Use this if your company already appears in the public directory and you want to take ownership of that listing."
-                  actionLabel="Claim Existing Listing"
-                  isLoading={changingPath === "claim_existing"}
-                  onClick={() => handleChoosePath("claim_existing")}
-                />
-                <PathCard
                   icon={Store}
                   title="Create a new company profile"
                   description="Use this if your company is not in the directory yet and you need a fresh listing plus a new provider workspace."
                   actionLabel="Create New Listing"
                   isLoading={changingPath === "create_new"}
                   onClick={() => handleChoosePath("create_new")}
+                />
+                <PathCard
+                  icon={Search}
+                  title="Claim an existing company"
+                  description="Use this if your company already appears in the public directory and you want to take ownership of that listing."
+                  actionLabel="Claim Existing Listing"
+                  isLoading={changingPath === "claim_existing"}
+                  onClick={() => handleChoosePath("claim_existing")}
                 />
               </div>
             )}
@@ -264,7 +335,7 @@ export default function ProviderSetupPage() {
               <div className="mt-8 space-y-6">
                 <SectionHeader
                   title="Create a new company profile"
-                  description="Submit your company details for admin approval. Once approved, Orbys360 will create the company profile and unlock your provider dashboard."
+                  description="Complete company details first, then add the first agent you want reviewed. Admin approval creates your company profile and sends that first agent into the review queue."
                   action={
                     canSwitchToClaim ? (
                       <button
@@ -282,7 +353,7 @@ export default function ProviderSetupPage() {
                     icon={Loader2}
                     title={`${companySubmission.company_name} is under review`}
                     tone="pending"
-                    body="Your new company submission is waiting for admin approval. Once approved, you will become the owner automatically and can start adding agents."
+                    body="Your new company submission is waiting for admin approval. Once approved, your provider workspace goes live and the first agent you submitted will move into the admin agent review queue."
                   />
                 )}
 
@@ -291,7 +362,11 @@ export default function ProviderSetupPage() {
                     icon={CheckCircle2}
                     title={`${companySubmission.company_name} is approved`}
                     tone="success"
-                    body="Your company is live. If you are not redirected automatically, continue to your dashboard."
+                    body={
+                      companySubmission.initial_agent_submission
+                        ? "Your company is live and your first agent is being tracked in the provider dashboard."
+                        : "Your company is live. If you are not redirected automatically, continue to your dashboard."
+                    }
                     action={
                       <Link
                         href="/dashboard"
@@ -305,128 +380,256 @@ export default function ProviderSetupPage() {
                 )}
 
                 {(companySubmission?.status === "rejected" || !companySubmission) && (
-                  <form onSubmit={handleCompanySubmission} className="grid gap-4 rounded-2xl border border-enterprise-200 bg-enterprise-50/60 p-6 md:grid-cols-2">
+                  <div className="rounded-2xl border border-enterprise-200 bg-enterprise-50/60 p-6">
+                    <div className="mb-6 flex flex-wrap gap-3">
+                      <WizardStepBadge
+                        step={1}
+                        title="Company Info"
+                        active={createStep === 1}
+                        complete={createStep === 2}
+                      />
+                      <WizardStepBadge
+                        step={2}
+                        title="First Agent"
+                        active={createStep === 2}
+                      />
+                    </div>
+
                     {companySubmission?.status === "rejected" && (
-                      <div className="md:col-span-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                      <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                         {companySubmission.admin_notes ||
                           "Admin rejected the last submission. Update the details below and resubmit."}
                       </div>
                     )}
 
-                    <FormField label="Contact Email">
-                      <input
-                        type="email"
-                        required
-                        value={form.contact_email}
-                        onChange={(event) => setForm({ ...form, contact_email: event.target.value })}
-                        className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                        placeholder="you@company.com"
-                      />
-                    </FormField>
-
-                    <FormField label="Company Name">
-                      <input
-                        type="text"
-                        required
-                        value={form.company_name}
-                        onChange={(event) => setForm({ ...form, company_name: event.target.value })}
-                        className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                        placeholder="Acme AI Labs"
-                      />
-                    </FormField>
-
-                    <FormField label="Website">
-                      <input
-                        type="url"
-                        required
-                        value={form.website}
-                        onChange={(event) => setForm({ ...form, website: event.target.value })}
-                        className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                        placeholder="https://acme.ai"
-                      />
-                    </FormField>
-
-                    <FormField label="Headquarters">
-                      <input
-                        type="text"
-                        required
-                        value={form.headquarters}
-                        onChange={(event) => setForm({ ...form, headquarters: event.target.value })}
-                        className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                        placeholder="Bengaluru, India"
-                      />
-                    </FormField>
-
-                    <FormField label="Company Size">
-                      <select
-                        required
-                        value={form.company_size}
-                        onChange={(event) => setForm({ ...form, company_size: event.target.value })}
-                        className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                    {createStep === 1 ? (
+                      <form
+                        ref={companyStepFormRef}
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                          handleContinueToAgent();
+                        }}
+                        className="grid gap-4 md:grid-cols-2"
                       >
-                        <option value="">Select size</option>
-                        {COMPANY_SIZE_OPTIONS.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                    </FormField>
+                        <FormField label="Contact Email">
+                          <input
+                            type="email"
+                            required
+                            value={companyForm.contact_email}
+                            onChange={(event) =>
+                              setCompanyForm({
+                                ...companyForm,
+                                contact_email: event.target.value,
+                              })
+                            }
+                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                            placeholder="you@company.com"
+                          />
+                        </FormField>
 
-                    <FormField label="Primary Verticals" className="md:col-span-2">
-                      <input
-                        type="text"
-                        required
-                        value={form.primary_verticals}
-                        onChange={(event) => setForm({ ...form, primary_verticals: event.target.value })}
-                        className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                        placeholder="Banking, Healthcare, Retail"
-                      />
-                      <p className="mt-1 text-xs text-enterprise-500">
-                        Separate multiple verticals with commas.
-                      </p>
-                    </FormField>
+                        <FormField label="Company Name">
+                          <input
+                            type="text"
+                            required
+                            value={companyForm.company_name}
+                            onChange={(event) =>
+                              setCompanyForm({
+                                ...companyForm,
+                                company_name: event.target.value,
+                              })
+                            }
+                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                            placeholder="Acme AI Labs"
+                          />
+                        </FormField>
 
-                    <FormField label="Company Description" className="md:col-span-2">
-                      <textarea
-                        required
-                        rows={5}
-                        value={form.description}
-                        onChange={(event) => setForm({ ...form, description: event.target.value })}
-                        className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                        placeholder="What does your company build, and which GCC problems do you solve?"
-                      />
-                    </FormField>
+                        <FormField label="Website">
+                          <input
+                            type="url"
+                            required
+                            value={companyForm.website}
+                            onChange={(event) =>
+                              setCompanyForm({
+                                ...companyForm,
+                                website: event.target.value,
+                              })
+                            }
+                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                            placeholder="https://acme.ai"
+                          />
+                        </FormField>
 
-                    {submitError && (
-                      <p className="md:col-span-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                        {submitError}
-                      </p>
-                    )}
+                        <FormField label="Headquarters">
+                          <input
+                            type="text"
+                            required
+                            value={companyForm.headquarters}
+                            onChange={(event) =>
+                              setCompanyForm({
+                                ...companyForm,
+                                headquarters: event.target.value,
+                              })
+                            }
+                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                            placeholder="Bengaluru, India"
+                          />
+                        </FormField>
 
-                    <div className="md:col-span-2 flex items-center justify-between gap-3">
-                      <p className="text-sm text-enterprise-500">
-                        Admin approval creates the live company profile and your owner membership in one step.
-                      </p>
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark disabled:opacity-50"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Submitting...
-                          </>
-                        ) : (
-                          <>
-                            Submit for Review
+                        <FormField label="Company Size">
+                          <select
+                            required
+                            value={companyForm.company_size}
+                            onChange={(event) =>
+                              setCompanyForm({
+                                ...companyForm,
+                                company_size: event.target.value,
+                              })
+                            }
+                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                          >
+                            <option value="">Select size</option>
+                            {COMPANY_SIZE_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </FormField>
+
+                        <FormField label="Primary Verticals" className="md:col-span-2">
+                          <input
+                            type="text"
+                            required
+                            value={companyForm.primary_verticals}
+                            onChange={(event) =>
+                              setCompanyForm({
+                                ...companyForm,
+                                primary_verticals: event.target.value,
+                              })
+                            }
+                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                            placeholder="Banking, Healthcare, Retail"
+                          />
+                          <p className="mt-1 text-xs text-enterprise-500">
+                            Separate multiple verticals with commas.
+                          </p>
+                        </FormField>
+
+                        <FormField label="Company Description" className="md:col-span-2">
+                          <textarea
+                            required
+                            rows={5}
+                            minLength={20}
+                            value={companyForm.description}
+                            onChange={(event) =>
+                              setCompanyForm({
+                                ...companyForm,
+                                description: event.target.value,
+                              })
+                            }
+                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
+                            placeholder="What does your company build, and which GCC problems do you solve?"
+                          />
+                        </FormField>
+
+                        <div className="md:col-span-2 flex items-center justify-between gap-3">
+                          <p className="text-sm text-enterprise-500">
+                            Admin approval creates the live company profile and your owner membership in one step.
+                          </p>
+                          <button
+                            type="submit"
+                            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
+                          >
+                            Continue to First Agent
                             <ArrowRight className="h-4 w-4" />
-                          </>
+                          </button>
+                        </div>
+                      </form>
+                    ) : (
+                      <form onSubmit={handleCompanySubmission} className="space-y-6">
+                        <div className="rounded-xl border border-enterprise-200 bg-white p-4">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-enterprise-500">
+                                Company Summary
+                              </p>
+                              <h3 className="mt-1 text-lg font-semibold text-enterprise-900">
+                                {companyForm.company_name}
+                              </h3>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setCreateStep(1)}
+                              className="inline-flex items-center gap-2 rounded-lg border border-enterprise-300 px-3 py-1.5 text-sm font-medium text-enterprise-700 hover:bg-enterprise-50"
+                            >
+                              <ArrowLeft className="h-4 w-4" />
+                              Edit Company Info
+                            </button>
+                          </div>
+                          <div className="mt-4 grid gap-3 md:grid-cols-2">
+                            <SummaryItem label="Contact Email" value={companyForm.contact_email} />
+                            <SummaryItem label="Website" value={companyForm.website} />
+                            <SummaryItem label="Headquarters" value={companyForm.headquarters} />
+                            <SummaryItem label="Company Size" value={companyForm.company_size} />
+                            <SummaryItem
+                              label="Primary Verticals"
+                              value={companyForm.primary_verticals}
+                              className="md:col-span-2"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="rounded-xl border border-enterprise-200 bg-white p-4">
+                          <div className="mb-4">
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-enterprise-500">
+                              First Agent
+                            </p>
+                            <h3 className="mt-1 text-lg font-semibold text-enterprise-900">
+                              Add the first agent you want reviewed
+                            </h3>
+                            <p className="mt-1 text-sm text-enterprise-600">
+                              This agent will be submitted automatically once the company is approved.
+                            </p>
+                          </div>
+
+                          <AgentFormSections
+                            form={agentForm}
+                            updateField={updateAgentField}
+                            mode="setup"
+                          />
+                        </div>
+
+                        {submitError && (
+                          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                            {submitError}
+                          </p>
                         )}
-                      </button>
-                    </div>
-                  </form>
+
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="text-sm text-enterprise-500">
+                            Company approval creates your provider workspace. Agent approval happens next in the admin queue.
+                          </p>
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark disabled:opacity-50"
+                          >
+                            {isSubmitting ? (
+                              <>
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                Submitting...
+                              </>
+                            ) : (
+                              <>
+                                Submit for Review
+                                <ArrowRight className="h-4 w-4" />
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </form>
+                    )}
+                  </div>
                 )}
               </div>
             )}
@@ -501,6 +704,64 @@ function SectionHeader({
         <p className="mt-1 text-sm text-enterprise-600">{description}</p>
       </div>
       {action}
+    </div>
+  );
+}
+
+function WizardStepBadge({
+  step,
+  title,
+  active,
+  complete = false,
+}: {
+  step: number;
+  title: string;
+  active: boolean;
+  complete?: boolean;
+}) {
+  return (
+    <div
+      className={`inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm ${
+        active
+          ? "border-primary bg-primary/10 text-primary"
+          : complete
+            ? "border-green-200 bg-green-50 text-green-700"
+            : "border-enterprise-200 bg-white text-enterprise-500"
+      }`}
+    >
+      <span
+        className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
+          active
+            ? "bg-primary text-white"
+            : complete
+              ? "bg-green-600 text-white"
+              : "bg-enterprise-100 text-enterprise-600"
+        }`}
+      >
+        {step}
+      </span>
+      <span className="font-medium">{title}</span>
+    </div>
+  );
+}
+
+function SummaryItem({
+  label,
+  value,
+  className,
+}: {
+  label: string;
+  value: string;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      <p className="text-xs font-medium uppercase tracking-wide text-enterprise-500">
+        {label}
+      </p>
+      <p className="mt-1 text-sm text-enterprise-800 break-words">
+        {value || "—"}
+      </p>
     </div>
   );
 }

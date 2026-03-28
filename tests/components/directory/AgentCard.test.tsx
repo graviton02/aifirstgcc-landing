@@ -1,7 +1,24 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { AgentCard } from "@/components/directory/AgentCard";
 import { _resetCompareStore } from "@/hooks/useCompare";
+
+vi.mock("@clerk/nextjs", () => ({
+  useAuth: () => ({ isSignedIn: false }),
+}));
+
+vi.mock("convex/react", async () => {
+  const actual = await vi.importActual<typeof import("convex/react")>("convex/react");
+  return {
+    ...actual,
+    useQuery: () => false,
+    useMutation: () => vi.fn(),
+  };
+});
+
+vi.mock("@/auth/useUserRole", () => ({
+  useUserRole: () => ({ role: "gcc", isLoaded: true }),
+}));
 
 const mockAgent = {
   _id: "123" as any,

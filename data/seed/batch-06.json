@@ -1,0 +1,354 @@
+{
+  "companies": [
+    {
+      "name": "Indium Software",
+      "slug": "indium-software",
+      "website": "https://www.indium.tech",
+      "headquarters": "Chennai, India",
+      "founded": 1999,
+      "company_size": "enterprise",
+      "description": "Indium is an AI-driven digital engineering services company that builds solutions for Fortune 500 and Global 2000 enterprises across BFSI, healthcare, manufacturing, retail, and technology verticals. The company specializes in product engineering, data and AI, quality engineering, and intelligent automation, with proprietary AI platforms for application modernization, document intelligence, and test automation.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "contact_email": "info@indiumsoftware.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Accion Labs",
+      "slug": "accion-labs",
+      "website": "https://www.accionlabs.com",
+      "headquarters": "Pittsburgh, PA, USA",
+      "founded": 2011,
+      "company_size": "midmarket",
+      "description": "Accion Labs is an innovation engineering services and solutions company specializing in cloud engineering, digital transformation, data and AI, and enterprise software development. The company serves clients across healthcare, financial services, manufacturing, education, and retail through offices in over 20 global locations.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Education",
+        "Retail & E-commerce"
+      ],
+      "contact_email": "info@accionlabs.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Softweb Solutions",
+      "slug": "softweb-solutions",
+      "website": "https://www.softwebsolutions.com",
+      "headquarters": "Plano, TX, USA",
+      "founded": 2004,
+      "company_size": "midmarket",
+      "description": "Softweb Solutions is an Avnet company that provides data and AI consulting services, digital transformation, and IoT solutions for enterprises. The company specializes in building generative AI frameworks, autonomous AI agents, and intelligent automation solutions across manufacturing, healthcare, finance, and legal verticals.",
+      "primary_verticals": [
+        "Manufacturing",
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "contact_email": "info@softwebsolutions.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "LIFTR.ai",
+      "slug": "liftr-ai",
+      "company_slug": "indium-software",
+      "tagline": "An agentic AI platform that automates legacy application modernization by deploying a network of 20+ specialized AI agents to map dependencies, decode business logic, and architect cloud-ready transformations.",
+      "description": "LIFTR.ai (Legacy Insights and Feasibility for Transformation and Recommendation) is an enterprise-grade agentic AI platform that accelerates and de-risks modernization of legacy applications. At its core is an Agentic AI Architect — a network of more than 20 specialized AI agents including Assessment Agents, Code Analysis Agents, Business Logic Agents, Architecture Agents, and Cloud Readiness Agents that collaborate like an expert software engineering team. The platform consists of three modules: Legacy Lifter for codebase analysis and dependency mapping, Data Lifter for schema analysis and migration integrity, and Test Lifter for AI-driven test generation and self-healing validation. It runs entirely on-premises using locally hosted LLMs on NVIDIA GPU clusters, ensuring no code or data leaves client environments, making it suitable for regulated industries.",
+      "use_cases": [
+        {
+          "title": "Legacy application assessment and modernization for financial institutions",
+          "description": ""
+        },
+        {
+          "title": "cloud migration readiness analysis for healthcare systems",
+          "description": ""
+        },
+        {
+          "title": "technical debt identification and remediation for large retail codebases",
+          "description": ""
+        },
+        {
+          "title": "end-to-end transformation blueprint generation for enterprise IT estates",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Assessment cycles reduced from months to weeks with 10x faster analysis",
+        "manual migration effort reduced by approximately 40%",
+        "test cycles cut by up to 70%"
+      ],
+      "integrations": [
+        "NVIDIA GPU clusters",
+        "on-premises LLMs",
+        "cloud platforms"
+      ],
+      "source_url": "https://www.indium.tech/liftr/"
+    },
+    {
+      "agent_name": "teX.ai",
+      "slug": "tex-ai",
+      "company_slug": "indium-software",
+      "tagline": "A Gen AI-powered document intelligence platform that extracts, classifies, and converses with unstructured enterprise documents to automate text analytics workflows.",
+      "description": "teX.ai is a generative AI-powered SaaS document intelligence accelerator that transforms unstructured text data into actionable insights. The platform provides three core functions: Chat for conversational document interaction using contextual knowledge bases, Search for semantic natural-language queries across indexed document collections, and Transform for automated data extraction, entity recognition, and classification from complex documents. It integrates vector databases, prompt stores, human-in-the-loop review workflows, and memory management into a unified platform, with advanced parsing capabilities for hybrid document layouts including tables, charts, images, and infographics. The platform supports multilingual processing and fine-tuning with real-time feedback integration for enterprise-grade accuracy.",
+      "use_cases": [
+        {
+          "title": "Automated KYC document processing and customer information extraction for financial services",
+          "description": ""
+        },
+        {
+          "title": "claims processing automation reducing multi-day workflows to near-real-time in healthcare",
+          "description": ""
+        },
+        {
+          "title": "contract analysis and due diligence acceleration for legal teams",
+          "description": ""
+        },
+        {
+          "title": "technical documentation extraction and product review analysis for manufacturing",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Manufacturing",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Legal & Compliance",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "50-80% effort savings across document processing operations",
+        "87% increase in daily processed KYC applications",
+        "90% reduction in human error"
+      ],
+      "integrations": [
+        "Vector databases",
+        "enterprise LLMs",
+        "foundation models"
+      ],
+      "source_url": "https://www.indium.tech/tex-ai/"
+    },
+    {
+      "agent_name": "uphoriX",
+      "slug": "uphorix",
+      "company_slug": "indium-software",
+      "tagline": "An AI-driven smart test automation platform that generates test scripts from plain English and self-heals automation suites using generative AI.",
+      "description": "uphoriX is an intelligent test automation platform that uses generative AI to streamline automated testing across UI, API, Mobile, and Data domains from a single unified interface. The platform auto-generates ready-to-run test scripts for frameworks including Selenium, Playwright, TestNG, and Cypress from plain English descriptions, and employs AI-driven self-healing to automatically adapt test scripts when application code changes. It features proactive defect prediction and detection, intelligent test orchestration, and continuous optimization based on user behavior patterns. The low-code interface empowers both technical and non-technical users to create and maintain test suites, with real-time monitoring and analytics providing complete visibility into test execution metrics.",
+      "use_cases": [
+        {
+          "title": "Automated regression test generation and maintenance for enterprise applications",
+          "description": ""
+        },
+        {
+          "title": "cross-browser and cross-device parallel testing for digital products",
+          "description": ""
+        },
+        {
+          "title": "CI/CD pipeline integration for continuous quality assurance",
+          "description": ""
+        },
+        {
+          "title": "legacy test suite modernization with AI-generated scripts",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Script creation accelerated by 60%",
+        "test maintenance efforts reduced by 30%",
+        "test execution effort reduced by up to 80%"
+      ],
+      "integrations": [
+        "Selenium",
+        "Playwright",
+        "TestNG",
+        "Cypress",
+        "CI/CD pipelines"
+      ],
+      "source_url": "https://www.indium.tech/uphorix/"
+    },
+    {
+      "agent_name": "BizBrain AI",
+      "slug": "bizbrain-ai",
+      "company_slug": "accion-labs",
+      "tagline": "An enterprise generative AI adoption platform that categorizes use cases and orchestrates multi-step AI-driven task management with built-in compliance controls.",
+      "description": "BizBrain AI is a generative AI adoption platform that guides enterprises through integrating generative AI into their processes, functions, and overall business operations. It categorizes AI use cases into structured frameworks, providing organizations with a clear roadmap for strategic implementation. The platform facilitates multi-step task management with human oversight, audit trails, and compliance controls. BizBrain AI supports use cases across support, development, and operations functions, enabling enterprises to move from reactive automation to intelligent autonomy.",
+      "use_cases": [
+        {
+          "title": "GenAI use case identification and categorization for enterprise AI strategy",
+          "description": ""
+        },
+        {
+          "title": "strategic AI implementation roadmapping across business functions",
+          "description": ""
+        },
+        {
+          "title": "multi-step task orchestration with compliance oversight",
+          "description": ""
+        },
+        {
+          "title": "enterprise AI adoption governance and auditability",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Education",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Customer Experience",
+        "Engineering & DevOps",
+        "Operations & Supply Chain"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Accelerated enterprise AI adoption through structured frameworks",
+        "improved compliance and auditability of AI-driven processes"
+      ],
+      "integrations": [],
+      "source_url": "https://www.accionlabs.com/news/accion-labs-unveils-innovative-suite-of-gen-ai-frameworks"
+    },
+    {
+      "agent_name": "GenAI in a Box",
+      "slug": "genai-in-a-box",
+      "company_slug": "accion-labs",
+      "tagline": "A pre-packaged, on-premises enterprise AI solution that combines optimized hardware, LLM infrastructure, and ready-to-deploy business applications for regulated industries.",
+      "description": "GenAI in a Box is a pre-packaged enterprise AI solution combining optimized hardware, LLM infrastructure, and ready-to-deploy business applications for on-premises deployment. The platform is built on NVIDIA-supported LLM infrastructure with a curated selection of open-source and pretrained models, offering flexible model selection based on cost, performance, and domain requirements. It includes pre-built configurable applications and industry-specific technology blueprints that reduce development time and shorten deployment cycles. The solution supports localized data storage to reduce cloud dependency, making it suitable for regulated industries such as healthcare and financial services that require strict data security and compliance controls.",
+      "use_cases": [
+        {
+          "title": "On-premises AI deployment for regulated industries",
+          "description": ""
+        },
+        {
+          "title": "custom AI application development using pre-built accelerators",
+          "description": ""
+        },
+        {
+          "title": "cost-optimized LLM deployment with smaller model alternatives",
+          "description": ""
+        },
+        {
+          "title": "enterprise AI adoption with data sovereignty requirements",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Education"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Data & Analytics",
+        "Engineering & DevOps",
+        "Legal & Compliance"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Accelerated time-to-market for AI applications",
+        "enhanced data security and regulatory compliance through on-premises hosting",
+        "reduced cloud infrastructure costs"
+      ],
+      "integrations": [
+        "NVIDIA LLM infrastructure",
+        "open-source and pretrained language models",
+        "enterprise IT systems"
+      ],
+      "source_url": "https://www.accionlabs.com/news/accion-labs-genai-in-a-box-a-new-era-of-enterprise-ai"
+    },
+    {
+      "agent_name": "Needle",
+      "slug": "needle",
+      "company_slug": "softweb-solutions",
+      "tagline": "A generative AI framework that embeds intelligent conversational and agentic capabilities directly into enterprise applications for real-time data interaction.",
+      "description": "Needle is a custom generative AI framework that enables organizations to design AI agents with complex reasoning, task execution, and interaction with external data sources and APIs. The platform uses advanced NLP and semantic understanding to locate and extract insights from vast and diverse data repositories, integrating with databases to enable real-time queries, uncover trends, and deliver actionable insights. Needle provides two primary integration methods — REST APIs for fine-grained developer control and iFrame embedding for rapid deployment — supporting capabilities including chat interactions, dynamic query processing, context-aware conversations, and token-based authentication. The platform can be deployed on-premises or in the cloud with enterprise-grade security including SSL/TLS encryption, tokenized session management, rate limiting, and compliance with regulatory standards.",
+      "use_cases": [
+        {
+          "title": "Embedded conversational AI assistance within existing enterprise applications",
+          "description": ""
+        },
+        {
+          "title": "automated contract review and legal research",
+          "description": ""
+        },
+        {
+          "title": "manufacturing BOM generation from natural language conversations",
+          "description": ""
+        },
+        {
+          "title": "medical data processing and clinical workflow optimization",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Legal & Compliance",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Accelerated enterprise workflow automation",
+        "reduced manual effort in document review and data extraction",
+        "faster time-to-insight from diverse data repositories"
+      ],
+      "integrations": [
+        "REST APIs",
+        "iFrame embedding",
+        "OAuth 2.0",
+        "enterprise databases",
+        "on-premises and cloud deployment environments"
+      ],
+      "source_url": "https://www.softwebsolutions.com/needle/"
+    }
+  ]
+}

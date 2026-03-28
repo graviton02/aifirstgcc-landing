@@ -98,7 +98,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.7 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link href="/marketplace">
+            <Link href="/directory">
               <Button
                 size="lg"
                 className="group min-w-[220px] bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
@@ -107,7 +107,7 @@ export function Hero() {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="/auth?mode=signup&role=provider">
+            <Link href="/sign-up">
               <Button
                 size="lg"
                 variant="secondary"

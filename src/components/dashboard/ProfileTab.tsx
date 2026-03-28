@@ -22,12 +22,12 @@ export function ProfileTab() {
 
   const handleSubmitEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const changes: Record<string, string> = {};
-    if (form.description && form.description !== myCompany.description) changes.description = form.description;
-    if (form.website && form.website !== myCompany.website) changes.website = form.website;
-    if (Object.keys(changes).length === 0) return;
+    const payload: Record<string, string> = {};
+    if (form.description && form.description !== myCompany.description) payload.description = form.description;
+    if (form.website && form.website !== myCompany.website) payload.website = form.website;
+    if (Object.keys(payload).length === 0) return;
 
-    await createEdit({ company_id: myCompany._id, changes });
+    await createEdit({ company_id: myCompany._id, payload });
     setEditing(false);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);

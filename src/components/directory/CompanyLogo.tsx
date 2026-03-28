@@ -5,27 +5,34 @@ import type { Company } from "@/lib/types";
 
 interface CompanyLogoProps {
   company?: Company;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
 }
 
 export function CompanyLogo({ company, size = "sm" }: CompanyLogoProps) {
   const [imgError, setImgError] = useState(false);
 
-  const sizeClasses =
-    size === "md" ? "w-14 h-14 text-lg" : "w-[57px] h-[57px] text-base";
+  const sizeClasses = {
+    lg: "w-16 h-16 text-xl",
+    md: "w-14 h-14 text-lg",
+    sm: "w-[57px] h-[57px] text-base",
+  }[size];
 
   const name = company?.name || "Unknown";
   const logoUrl = company?.logo_url;
+  const logoBg = company?.logo_bg;
 
   if (logoUrl && !imgError) {
+    const bgClass = logoBg === "dark"
+      ? "bg-enterprise-900 border-enterprise-800"
+      : "bg-white border-enterprise-100";
     return (
       <div
-        className={`${sizeClasses} rounded-lg bg-white border border-enterprise-100 flex items-center justify-center shrink-0 overflow-hidden`}
+        className={`${sizeClasses} rounded-lg ${bgClass} border flex items-center justify-center shrink-0 overflow-hidden`}
       >
         <img
           src={logoUrl}
           alt={name}
-          className="w-full h-full object-contain p-0.5"
+          className="w-full h-full object-contain p-1"
           onError={() => setImgError(true)}
         />
       </div>

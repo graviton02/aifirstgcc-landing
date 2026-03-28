@@ -1,5 +1,6 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { reportError } from "@/lib/report-error";
 
 const VALID_ROLES = ["gcc", "provider"] as const;
 type Role = (typeof VALID_ROLES)[number];
@@ -39,7 +40,18 @@ export async function POST(req: Request) {
     });
     return NextResponse.json({ success: true, role });
   } catch (error: any) {
-    console.error("[set-role] Clerk error:", error?.message || error);
+    reportError(error, {
+      tags: {
+        area: "api",
+        feature: "set-role",
+        route: "/api/set-role",
+      },
+      extra: {
+        role,
+        userId,
+      },
+      userId,
+    });
     return NextResponse.json(
       { error: "Failed to set role. Please try again." },
       { status: 500 }

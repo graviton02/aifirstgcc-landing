@@ -1,6 +1,26 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
+const agentUseCaseValidator = v.object({
+  title: v.string(),
+  description: v.string(),
+});
+
+const initialAgentValidator = v.object({
+  agent_name: v.string(),
+  tagline: v.optional(v.string()),
+  description: v.string(),
+  category: v.string(),
+  functional_categories: v.array(v.string()),
+  industry_categories: v.array(v.string()),
+  infrastructure_categories: v.optional(v.array(v.string())),
+  use_cases: v.array(agentUseCaseValidator),
+  integrations: v.optional(v.array(v.string())),
+  expected_outcomes: v.optional(v.array(v.string())),
+  source_url: v.optional(v.string()),
+  demo_url: v.optional(v.string()),
+});
+
 export default defineSchema({
   // --- Early Access ---
   earlyAccessSignups: defineTable({
@@ -18,8 +38,11 @@ export default defineSchema({
     founded: v.optional(v.number()),
     company_size: v.string(),
     logo_url: v.optional(v.string()),
+    logo_bg: v.optional(v.string()),
     primary_verticals: v.array(v.string()),
     contact_email: v.optional(v.string()),
+    contact_url: v.optional(v.string()),
+    clerk_org_id: v.optional(v.string()),
     verification_status: v.union(v.literal("unverified"), v.literal("verified"), v.literal("flagged")),
     claim_status: v.union(v.literal("unclaimed"), v.literal("pending"), v.literal("approved"), v.literal("claimed")),
     claimed_by_user_id: v.optional(v.string()),
@@ -28,6 +51,7 @@ export default defineSchema({
     updated_at: v.number(),
   })
     .index("by_slug", ["slug"])
+    .index("by_clerkOrgId", ["clerk_org_id"])
     .index("by_claimStatus", ["claim_status"])
     .index("by_claimedByUserId", ["claimed_by_user_id"])
     .searchIndex("search_companies", {
@@ -89,10 +113,12 @@ export default defineSchema({
     headquarters: v.string(),
     company_size: v.string(),
     primary_verticals: v.array(v.string()),
+    initial_agent: v.optional(initialAgentValidator),
     status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
     admin_notes: v.optional(v.string()),
     reviewed_at: v.optional(v.number()),
     created_company_id: v.optional(v.id("companies")),
+    initial_agent_submission_id: v.optional(v.id("agentSubmissions")),
     created_at: v.number(),
     updated_at: v.number(),
   })
@@ -107,6 +133,9 @@ export default defineSchema({
     role: v.union(v.literal("owner"), v.literal("member")),
     status: v.union(v.literal("pending"), v.literal("active")),
     invited_by: v.optional(v.string()),
+    clerk_invitation_id: v.optional(v.string()),
+    invite_url: v.optional(v.string()),
+    invite_expires_at: v.optional(v.number()),
     created_at: v.number(),
     updated_at: v.number(),
   })
@@ -154,7 +183,6 @@ export default defineSchema({
     functional_categories: v.optional(v.array(v.string())),
     industry_categories: v.optional(v.array(v.string())),
     infrastructure_categories: v.optional(v.array(v.string())),
-    business_functions: v.optional(v.array(v.string())),
     expected_outcomes: v.optional(v.array(v.string())),
     integrations: v.optional(v.array(v.string())),
     source_url: v.optional(v.string()),
@@ -199,7 +227,6 @@ export default defineSchema({
     functional_categories: v.optional(v.array(v.string())),
     industry_categories: v.optional(v.array(v.string())),
     infrastructure_categories: v.optional(v.array(v.string())),
-    business_functions: v.optional(v.array(v.string())),
     expected_outcomes: v.optional(v.array(v.string())),
     integrations: v.optional(v.array(v.string())),
     source_url: v.optional(v.string()),
@@ -265,10 +292,19 @@ export default defineSchema({
   // --- Provider Requests (GCC to Provider, admin-gated) ---
   providerRequests: defineTable({
     company_id: v.optional(v.id("companies")),
-    gcc_user_email: v.string(),
     gcc_user_id: v.string(),
+    gcc_name: v.string(),
+    gcc_email: v.string(),
+    gcc_organization: v.string(),
+    gcc_industry: v.string(),
     agent_id: v.id("agents"),
-    message: v.optional(v.string()),
+    use_case: v.string(),
+    current_challenge: v.string(),
+    expected_outcome: v.string(),
+    timeline: v.string(),
+    request_source: v.optional(
+      v.union(v.literal("agent_detail"), v.literal("company_profile"))
+    ),
     admin_notes: v.optional(v.string()),
     status: v.union(
       v.literal("pending_admin"),
@@ -278,14 +314,37 @@ export default defineSchema({
       v.literal("archived")
     ),
     reviewed_at: v.optional(v.number()),
+    contacted_at: v.optional(v.number()),
+    contacted_by_user_id: v.optional(v.string()),
     created_at: v.number(),
     // Legacy fields from old schema
+    gcc_user_email: v.optional(v.string()),
+    message: v.optional(v.string()),
     gcc_org_id: v.optional(v.string()),
     provider_profile_id: v.optional(v.string()),
   })
     .index("by_gccUserId", ["gcc_user_id"])
     .index("by_status", ["status"])
     .index("by_companyId", ["company_id"]),
+
+  // --- User Notifications ---
+  notifications: defineTable({
+    recipient_user_id: v.string(),
+    audience_role: v.union(v.literal("provider"), v.literal("gcc")),
+    type: v.string(),
+    title: v.string(),
+    body: v.string(),
+    link: v.string(),
+    entity_type: v.string(),
+    entity_id: v.string(),
+    metadata: v.optional(v.any()),
+    dedupe_key: v.string(),
+    read_at: v.optional(v.number()),
+    emailed_at: v.optional(v.number()),
+    created_at: v.number(),
+  })
+    .index("by_recipientUserIdAndCreatedAt", ["recipient_user_id", "created_at"])
+    .index("by_dedupeKey", ["dedupe_key"]),
 
   // --- Admin Sessions ---
   adminSessions: defineTable({

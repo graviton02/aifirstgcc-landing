@@ -1,0 +1,605 @@
+{
+  "companies": [
+    {
+      "name": "Gupshup",
+      "slug": "gupshup",
+      "website": "https://www.gupshup.ai",
+      "headquarters": "San Francisco, USA",
+      "founded": 2004,
+      "company_size": "scaleup",
+      "description": "Gupshup is a conversational AI platform that enables businesses to build and deploy AI agents for marketing, commerce, and customer support across messaging channels including WhatsApp, RCS, SMS, Voice, and Web. The platform processes messaging at scale across 130+ countries and offers pre-built, industry-trained AI agents through its Conversation Cloud.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Real Estate & Construction"
+      ],
+      "contact_email": "sales@gupshup.me",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Uniphore",
+      "slug": "uniphore",
+      "website": "https://www.uniphore.com",
+      "headquarters": "Palo Alto, USA",
+      "founded": 2008,
+      "company_size": "scaleup",
+      "description": "Uniphore is a business AI company that provides an enterprise platform combining conversational AI, emotion AI, and agentic automation to power customer service, sales, marketing, and HR functions. Its Business AI Cloud platform integrates data, knowledge, models, and AI agents in a composable, sovereign architecture for enterprise deployments.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing"
+      ],
+      "contact_email": "info@uniphore.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Skit.ai",
+      "slug": "skit-ai",
+      "website": "https://skit.ai",
+      "headquarters": "New York, USA (with offices in Bengaluru, India)",
+      "founded": 2016,
+      "company_size": "scaleup",
+      "description": "Skit.ai (formerly Vernacular.ai) builds AI-powered conversational agents for the accounts receivable and debt collections industry, automating multichannel consumer engagement across voice, SMS, email, and chat. The platform combines predictive analytics, compliance enforcement, and generative AI to manage end-to-end collection workflows.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities"
+      ],
+      "contact_email": "info@skit.ai",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "AI Agent Library",
+      "slug": "ai-agent-library",
+      "company_slug": "gupshup",
+      "tagline": "Pre-built, industry-trained AI agents that automate B2C engagement across the full customer lifecycle.",
+      "description": "Gupshup AI Agent Library is a suite of 15 pre-built and customizable AI agents designed for B2C engagement spanning marketing, sales, and support. The library includes specialized agents such as Lead Generation AI Agent (collects, qualifies, and nurtures leads with drip campaigns), Product Discovery AI Agent (provides consultative product recommendations and comparisons), Collections AI Agent (sends payment reminders and collects EMI payments), and Order Management AI Agent (handles tracking, returns, and delivery optimization). Each agent leverages industry-trained LLMs with built-in safety guardrails to prevent hallucinations while maintaining brand consistency, and can be deployed across WhatsApp, SMS, RCS, Voice, Web, and Mobile channels. The agents support tool-call prompting to connect with external systems like CRMs, catalogs, ticketing platforms, and payment gateways in real time.",
+      "use_cases": [
+        {
+          "title": "Automated lead qualification and nurturing for real estate and fintech",
+          "description": ""
+        },
+        {
+          "title": "consultative product discovery and recommendations for e-commerce",
+          "description": ""
+        },
+        {
+          "title": "order tracking, returns management, and delivery optimization for retail",
+          "description": ""
+        },
+        {
+          "title": "payment collection and reminder automation for financial services",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Real Estate & Construction",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Dramatically accelerated time-to-market for conversational AI deployments",
+        "reduced customer support costs through automated self-service resolution",
+        "increased conversion rates via personalized, consultative engagement"
+      ],
+      "integrations": [
+        "WhatsApp",
+        "RCS",
+        "SMS",
+        "CRM systems",
+        "payment gateways",
+        "ticketing systems",
+        "calendars",
+        "product catalogs",
+        "Shopify"
+      ],
+      "source_url": "https://www.gupshup.ai/ai-agents"
+    },
+    {
+      "agent_name": "Voice AI",
+      "slug": "voice-ai",
+      "company_slug": "gupshup",
+      "tagline": "Human-like voice AI agents that automate 80% of contact center calls across 100+ languages.",
+      "description": "Gupshup Voice AI is an AI-powered voice automation platform that deploys human-like voice agents to handle inbound and outbound calls at scale. The platform supports custom voice cloning for brand-consistent experiences, advanced interruption handling for natural conversational flow, and contextual intelligence that leverages full interaction history for personalized responses. It operates across 100+ languages with ultra-low latency and integrates with PSTN, WhatsApp Business Calling, and web/app click-to-call interfaces. The system orchestrates across multiple speech-to-text, text-to-speech, and AI providers to deliver multi-modal voice experiences.",
+      "use_cases": [
+        {
+          "title": "Automated lead qualification and appointment scheduling via outbound voice calls",
+          "description": ""
+        },
+        {
+          "title": "collections management with payment reminders and resolution",
+          "description": ""
+        },
+        {
+          "title": "customer support query handling with seamless human agent handoff",
+          "description": ""
+        },
+        {
+          "title": "proactive marketing outreach and feedback collection",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Real Estate & Construction",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Finance & Accounting"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "75-80% automation of self-serve support queries",
+        "60% reduction in inbound support call volume"
+      ],
+      "integrations": [
+        "PSTN",
+        "WhatsApp Business Calling",
+        "web/app click-to-call",
+        "CRM systems",
+        "multiple STT/TTS/AI providers"
+      ],
+      "source_url": "https://www.gupshup.ai/voice-ai"
+    },
+    {
+      "agent_name": "AI Campaign Copilot",
+      "slug": "ai-campaign-copilot",
+      "company_slug": "gupshup",
+      "tagline": "AI-powered campaign optimization that reduces messaging costs by 25% through intelligent targeting and personalization.",
+      "description": "Gupshup AI Campaign Copilot is a marketing automation tool that uses AI to optimize messaging campaign performance across channels. It includes AI Propensity Scoring that identifies high-affinity customers through predictive modeling and suppresses low-engagement audiences to reduce wasted spend. The platform provides Auto Language Personalization using generative AI translation across 10+ vernacular languages, AI Send Time Optimization that delivers messages during optimal engagement windows based on behavioral patterns, and multi-level channel failover that automatically routes messages through RCS, WhatsApp, and SMS based on availability. It also generates custom brand-compliant visual content and copywriting through its AI Creatives capability.",
+      "use_cases": [
+        {
+          "title": "Post-purchase customer re-engagement campaigns with personalized timing and language",
+          "description": ""
+        },
+        {
+          "title": "retention campaigns with propensity-based targeting to reduce churn",
+          "description": ""
+        },
+        {
+          "title": "lead nurturing sequences with automated channel failover for maximum reach",
+          "description": ""
+        },
+        {
+          "title": "cost-optimized promotional campaigns across multilingual customer bases",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Real Estate & Construction"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Customer Experience"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Up to 25% reduction in cost per campaign through intelligent audience suppression",
+        "21-35% higher read rates via send-time optimization and language personalization"
+      ],
+      "integrations": [
+        "WhatsApp",
+        "RCS",
+        "SMS",
+        "MoEngage",
+        "CleverTap",
+        "CRM systems"
+      ],
+      "source_url": "https://www.gupshup.ai/ai-copilot"
+    },
+    {
+      "agent_name": "Agent Assist",
+      "slug": "agent-assist",
+      "company_slug": "gupshup",
+      "tagline": "Unified inbox with AI copilot that empowers human agents to support better and sell more.",
+      "description": "Gupshup Agent Assist is a customer support and sales enablement platform that equips human agents with AI-driven tools and unified customer context. The platform features intelligent routing that automatically assigns queries to agents based on skills, availability, and historical interactions, eliminating manual ticket triage. Its embedded AI Copilot provides AI Summarize (concise session summaries with sentiment analysis), AI Suggested Replies (context-aware response recommendations), AI Expand (transforms brief inputs into detailed professional replies), and AI Rephrase (polishes responses for grammar, clarity, and brand consistency). The system enables assisted selling by surfacing complete customer context including campaign source, chat history, and past purchases to agents engaging high-intent leads.",
+      "use_cases": [
+        {
+          "title": "Real-time agent-assisted selling with full customer context from CRM for high-intent leads",
+          "description": ""
+        },
+        {
+          "title": "AI-augmented customer support with automated summarization and suggested responses",
+          "description": ""
+        },
+        {
+          "title": "hybrid support model where AI handles routine queries and seamlessly hands off complex issues to human agents",
+          "description": ""
+        },
+        {
+          "title": "outbound engagement campaigns managed by human agents with AI productivity tools",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Real Estate & Construction",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Increased agent productivity through AI-assisted response creation and summarization",
+        "improved customer satisfaction via intelligent routing and personalized interactions"
+      ],
+      "integrations": [
+        "CRM systems",
+        "WhatsApp",
+        "messaging channels",
+        "voice channels"
+      ],
+      "source_url": "https://www.gupshup.ai/agent-assist"
+    },
+    {
+      "agent_name": "Real-Time Guidance Agent",
+      "slug": "real-time-guidance-agent",
+      "company_slug": "uniphore",
+      "tagline": "AI-powered in-call copilot that equips contact center agents with instant guidance, contextual knowledge, and automated after-call work.",
+      "description": "Real-Time Guidance Agent delivers intelligent assistance during live customer interactions by surfacing pre-call context from CRM systems and historical data. It provides dynamic prompts, next-best-action recommendations, and contextual knowledge retrieval grounded in enterprise data during conversations. The agent automatically generates conversation summaries capturing intent, actions, and outcomes, eliminating manual after-call work. A manager dashboard offers real-time transcription, performance analytics, and coaching insights across the entire contact center operation.",
+      "use_cases": [
+        {
+          "title": "Reducing average handle time for customer service calls",
+          "description": ""
+        },
+        {
+          "title": "accelerating new agent onboarding and training",
+          "description": ""
+        },
+        {
+          "title": "improving first-contact resolution rates",
+          "description": ""
+        },
+        {
+          "title": "automating post-call documentation and administrative tasks",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Significant reduction in average handle time",
+        "faster agent onboarding",
+        "improved first-contact resolution"
+      ],
+      "integrations": [
+        "CRM systems",
+        "CCaaS platforms",
+        "Uniphore Business AI Cloud"
+      ],
+      "source_url": "https://www.uniphore.com/products/customer-service-ai/real-time-guidance-agent/"
+    },
+    {
+      "agent_name": "Self-Service Agent",
+      "slug": "self-service-agent",
+      "company_slug": "uniphore",
+      "tagline": "Emotionally intelligent virtual agent that engages like a human across voice, chat, and text channels.",
+      "description": "Self-Service Agent is an AI-powered virtual agent that handles customer support interactions autonomously across multiple channels including voice, chat, and text. It uses sentiment and intent detection to recognize emotional context and deliver empathetic, personalized responses. The platform includes a no-code Unified Conversation Designer that allows business users to build and modify experiences without technical expertise. It integrates with enterprise knowledge bases for accurate real-time responses and includes gen AI-powered training that automatically generates training phrases to improve intent accuracy.",
+      "use_cases": [
+        {
+          "title": "Automating routine customer inquiries without human involvement",
+          "description": ""
+        },
+        {
+          "title": "reducing agent transfer rates for common support scenarios",
+          "description": ""
+        },
+        {
+          "title": "scaling multilingual customer support operations",
+          "description": ""
+        },
+        {
+          "title": "lowering customer effort across self-service channels",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Improved self-service resolution rates",
+        "reduced agent transfer volume",
+        "higher customer satisfaction scores"
+      ],
+      "integrations": [
+        "CCaaS platforms",
+        "CRM systems",
+        "ERP platforms",
+        "Uniphore Business AI Cloud"
+      ],
+      "source_url": "https://www.uniphore.com/products/customer-service-ai/self-service-agent/"
+    },
+    {
+      "agent_name": "Conversation Insights Agent",
+      "slug": "conversation-insights-agent",
+      "company_slug": "uniphore",
+      "tagline": "Gen AI-powered conversational intelligence that extracts actionable insights from every customer interaction using natural language queries.",
+      "description": "Conversation Insights Agent employs generative AI to analyze customer interactions at scale, enabling contact center leaders to extract targeted insights through natural language prompts without needing keywords, tags, or technical expertise. It automates quality assurance across 100% of calls, identifying coaching needs, compliance gaps, and performance trends with evidence-backed scoring. The agent generates LLM-powered conversation summaries that capture what happened, the underlying reasons, and customer sentiment. It tracks emerging issues, monitors agent and customer sentiment patterns, and integrates insights into AI workflows that drive operational outcomes.",
+      "use_cases": [
+        {
+          "title": "Automating quality monitoring across all customer calls",
+          "description": ""
+        },
+        {
+          "title": "identifying compliance risks and coaching opportunities",
+          "description": ""
+        },
+        {
+          "title": "uncovering emerging product and service issues from customer feedback",
+          "description": ""
+        },
+        {
+          "title": "tracking customer and agent sentiment trends over time",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Data & Analytics",
+        "Legal & Compliance"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Full-coverage automated quality assurance",
+        "faster identification of compliance and performance issues",
+        "data-driven coaching and operational improvement"
+      ],
+      "integrations": [
+        "Uniphore Business AI Cloud",
+        "CCaaS platforms"
+      ],
+      "source_url": "https://www.uniphore.com/products/customer-service-ai/conversation-insights-agent/"
+    },
+    {
+      "agent_name": "CDP Agent",
+      "slug": "cdp-agent",
+      "company_slug": "uniphore",
+      "tagline": "AI-native customer data platform that transforms interaction data into real-time marketing intelligence with zero-copy architecture.",
+      "description": "CDP Agent is an AI-first, composable customer data platform that connects to existing data sources without requiring data migration or copying. It delivers real-time predictive insights for churn identification and high-value customer recognition, and automates personalization across customer touchpoints. The platform provides identity resolution, audience segmentation from natural language prompts, and journey orchestration capabilities. Its agentic features enable marketers to build sophisticated audience segments, activate campaigns in real time, and optimize customer journeys through AI-driven automation.",
+      "use_cases": [
+        {
+          "title": "Building audience segments from natural language descriptions",
+          "description": ""
+        },
+        {
+          "title": "automating personalized campaign activation across channels",
+          "description": ""
+        },
+        {
+          "title": "predicting customer churn and identifying high-value segments",
+          "description": ""
+        },
+        {
+          "title": "reducing customer acquisition costs through AI-optimized targeting",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics",
+        "Customer Experience"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Faster audience creation and campaign activation",
+        "reduced customer acquisition costs",
+        "improved digital engagement performance"
+      ],
+      "integrations": [
+        "Snowflake",
+        "Databricks",
+        "Uniphore Business AI Cloud"
+      ],
+      "source_url": "https://www.uniphore.com/products/marketing-ai/cdp-agent/"
+    },
+    {
+      "agent_name": "Sales Interaction Agent",
+      "slug": "sales-interaction-agent",
+      "company_slug": "uniphore",
+      "tagline": "AI-powered sales copilot that delivers real-time buyer sentiment analysis and post-meeting intelligence to close deals faster.",
+      "description": "Sales Interaction Agent uses emotion AI and generative AI to provide live meeting insights during virtual sales interactions. It measures buyer reactions in real time, pinpointing which content and messaging truly resonates with prospects. The agent provides data-driven insights into buyer engagement, sentiment, and emotion alongside seller performance metrics. It auto-generates precise post-meeting summaries, enables natural language querying across past interactions and deal history, and delivers targeted AI micro-coaching to improve seller soft skills and team performance.",
+      "use_cases": [
+        {
+          "title": "Analyzing buyer engagement and sentiment during live virtual sales meetings",
+          "description": ""
+        },
+        {
+          "title": "accelerating sales onboarding with AI-driven coaching",
+          "description": ""
+        },
+        {
+          "title": "querying historical deal interactions for competitive intelligence",
+          "description": ""
+        },
+        {
+          "title": "improving win rates through data-driven selling behaviors",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Faster sales onboarding",
+        "improved buyer experience and deal outcomes",
+        "data-driven sales coaching at scale"
+      ],
+      "integrations": [
+        "Microsoft Teams",
+        "Zoom",
+        "Uniphore Business AI Cloud"
+      ],
+      "source_url": "https://www.uniphore.com/products/sales-ai/sales-interaction-agent/"
+    },
+    {
+      "agent_name": "Collection Intelligence Platform",
+      "slug": "collection-intelligence-platform",
+      "company_slug": "skit-ai",
+      "tagline": "AI-native platform that turns scattered collection data into decision-ready strategies and automated omnichannel recovery campaigns.",
+      "description": "The Collection Intelligence Platform is Skit.ai's core AI engine built on a proprietary Large Collection Model (LCM) that predicts collection propensity based on consumer demographics, financial behavior, and debt details. It unifies customer identity and context across CRM, ERP, telephony, and third-party data sources to create actionable cohorts segmented by balance, delinquency, and payment patterns. The platform includes a Journey Builder that converts cohorts into milestone-based engagement structures with customizable content, channel, cadence, and compliance rules per segment. Its iterative modeling capability recalibrates strategies daily and weekly based on interaction outcomes, automatically scaling successful approaches and throttling underperformers within compliance-aware feedback loops.",
+      "use_cases": [
+        {
+          "title": "Automating end-to-end debt recovery campaigns across voice, email, SMS, and chat",
+          "description": ""
+        },
+        {
+          "title": "predicting optimal contact timing and channel for each consumer cohort",
+          "description": ""
+        },
+        {
+          "title": "identifying high-probability recovery accounts to prioritize collection efforts",
+          "description": ""
+        },
+        {
+          "title": "continuous campaign optimization through outcome-driven strategy refinement",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Finance & Accounting",
+        "Legal & Compliance"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Higher recovery rates with reduced operational costs",
+        "improved consumer experience through personalized, compliant outreach",
+        "faster campaign deployment (go-live in under 48 hours)"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Temenos",
+        "Finvi (CRM)",
+        "TCN",
+        "Genesys",
+        "RingCentral (Dialers)",
+        "Repay",
+        "Stripe",
+        "PayNearMe (Payments)"
+      ],
+      "source_url": "https://skit.ai/collection-intelligence-platform/"
+    },
+    {
+      "agent_name": "AI Agent Ecosystem",
+      "slug": "ai-agent-ecosystem",
+      "company_slug": "skit-ai",
+      "tagline": "A coordinated suite of specialized AI agents that autonomously manage every stage of the collections lifecycle from strategy to post-campaign learning.",
+      "description": "The AI Agent Ecosystem is Skit.ai's multi-agent architecture comprising purpose-built agents that operate across the full collection workflow. Pre-campaign Decisioning Agents validate portfolios, form consumer cohorts, and define compliant engagement strategies before outreach begins. Conversational Agents handle live voice, email, SMS, and chat interactions using account context, conversation history, and real-time sentiment signals to guide consumers toward payment, promises, callbacks, or escalation. Orchestration Agents coordinate agent sequencing, manage channel switches, and handle escalation paths in real time. Compliance Agents enforce regulatory guardrails (FDCPA, TCPA, Reg F, UDAAP, HIPAA, PCI-DSS) across all decisions and conversations, while QA, Insight, and Learning Agents audit quality, extract performance insights, and continuously update models for improved outcomes.",
+      "use_cases": [
+        {
+          "title": "Autonomous multi-channel consumer outreach for first-party and third-party collections",
+          "description": ""
+        },
+        {
+          "title": "real-time negotiation and dispute resolution without human intervention",
+          "description": ""
+        },
+        {
+          "title": "compliance-monitored payment collection with wrong-party detection and bankruptcy flagging",
+          "description": ""
+        },
+        {
+          "title": "post-campaign quality auditing and strategy refinement",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Up to 40% reduction in overall cost of collections",
+        "100% account penetration across outbound use cases",
+        "automated resolution of accounts at scale with built-in regulatory compliance"
+      ],
+      "integrations": [
+        "Salesforce",
+        "Temenos",
+        "Finvi",
+        "TCN",
+        "Genesys",
+        "RingCentral",
+        "Repay",
+        "Stripe",
+        "PayNearMe"
+      ],
+      "source_url": "https://skit.ai/ai-agent-ecosystem/"
+    }
+  ]
+}

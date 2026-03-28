@@ -1,0 +1,523 @@
+{
+  "companies": [
+    {
+      "name": "Riverline AI",
+      "slug": "riverline-ai",
+      "website": "https://riverline.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2024,
+      "company_size": "startup",
+      "description": "Riverline AI is an AI-powered debt counselling platform that deploys autonomous AI agents to interact with distressed borrowers across WhatsApp, email, and voice, guiding them toward creditworthy financial decisions while improving recovery rates for lenders. The company serves digital-first lenders and manages collections across INR 100 crore+ of bad loans monthly.",
+      "primary_verticals": [
+        "Financial Services (BFSI)"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Adya AI",
+      "slug": "adya-ai",
+      "website": "https://adya.ai",
+      "headquarters": "Mumbai, India",
+      "founded": 2023,
+      "company_size": "scaleup",
+      "description": "Adya AI is a cloud-based AI operating system that enables businesses to build and deploy customized AI agents and enterprise applications. The platform centers on Vanij, an agentic AI development suite featuring proprietary innovations including a Multi-Agentic Network for decentralized agent orchestration, an Adaptive Learning Protocol for deterministic business rule enforcement, and a custom large language model (ADI).",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education",
+        "Logistics & Transportation",
+        "Manufacturing"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "name": "Wyzard AI",
+      "slug": "wyzard-ai",
+      "website": "https://wyzard.ai",
+      "headquarters": "Gurugram, India",
+      "founded": 2024,
+      "company_size": "startup",
+      "description": "Wyzard AI is a B2B SaaS startup that provides an AI-agentic \"Signal-to-Revenue\" platform for go-to-market teams. The platform unifies buyer intent signals across web, email, LinkedIn, and voice channels, then orchestrates autonomous engagement through AI agents to convert inbound leads into qualified pipeline and revenue.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "contact_email": "hello@wyzard.ai",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Riverline AI Debt Counsellor",
+      "slug": "riverline-ai-debt-counsellor",
+      "company_slug": "riverline-ai",
+      "tagline": "An autonomous AI agent that engages distressed borrowers through empathetic, multi-channel conversations to improve both recovery rates and borrower credit health.",
+      "description": "Riverline AI Debt Counsellor is an AI-powered collections agent that engages distressed borrowers through personalized, empathetic conversations across WhatsApp, email, and voice calls. It uses behavioral science and machine learning to analyze borrower data, segment cohorts by repayment likelihood, and tailor communication strategies — replacing traditional high-pressure collection calls with trust-building interactions. The agent supports multilingual conversations scaling to 12 languages, employs AI memory systems for contextual follow-ups across sessions, and handles 100K+ daily conversations. It continuously learns from interaction outcomes to improve engagement and recovery strategies over time.",
+      "use_cases": [
+        {
+          "title": "Automated debt counselling and collections outreach across WhatsApp, email, and voice channels",
+          "description": ""
+        },
+        {
+          "title": "borrower segmentation by repayment likelihood with personalized messaging per cohort",
+          "description": ""
+        },
+        {
+          "title": "re-engagement of cold and non-responsive borrowers through behavioral-science-backed sequences",
+          "description": ""
+        },
+        {
+          "title": "multi-channel payment reminder and eligibility check workflows for digital lenders",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Improved debt recovery rates through empathetic, trust-building conversations",
+        "scale collections operations without proportional headcount increases",
+        "managing collections across INR 100 crore+ of bad loans monthly within 7 months of launch"
+      ],
+      "integrations": [
+        "WhatsApp",
+        "email platforms",
+        "voice/telephony systems",
+        "lender CRM systems"
+      ],
+      "source_url": "https://riverline.ai/"
+    },
+    {
+      "agent_name": "Vanij",
+      "slug": "vanij",
+      "company_slug": "adya-ai",
+      "tagline": "An end-to-end agentic AI development platform that lets enterprises build, deploy, and monetize custom AI agents and applications in days instead of months.",
+      "description": "Vanij is Adya AI's flagship agentic AI development platform comprising five integrated studios: Agent Studio for building individual and multi-agent workflows with access to 150+ AI libraries, 100+ LLMs, and 200+ integrations; App Studio which deploys a team of six specialized AI agents to build complete applications autonomously; Model Studio for fine-tuning open-source models with proprietary data; Cloud Studio for one-click multi-cloud deployment across GCP, Azure, and AWS with GPU-as-a-Service; and the SARTHI Marketplace for distributing and monetizing agents, models, and applications. The platform features a Multi-Agentic Network (MAN) architecture where agents autonomously decide whether to execute, delegate, or spawn new agents, eliminating centralized orchestrator bottlenecks.",
+      "use_cases": [
+        {
+          "title": "Custom AI agent development for enterprise workflows",
+          "description": ""
+        },
+        {
+          "title": "multi-agent orchestration for complex business processes",
+          "description": ""
+        },
+        {
+          "title": "fine-tuning and deploying domain-specific LLMs",
+          "description": ""
+        },
+        {
+          "title": "building and distributing AI applications through the SARTHI marketplace",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education",
+        "Logistics & Transportation",
+        "Manufacturing"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "Customer Experience"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Up to 90% reduction in AI implementation costs",
+        "20-25% higher model performance through custom LLM fine-tuning",
+        "custom agent deployment in 24 hours versus traditional 18-month timelines"
+      ],
+      "integrations": [
+        "Google Cloud",
+        "Microsoft Azure",
+        "AWS",
+        "NVIDIA",
+        "100+ LLMs",
+        "200+ third-party tool integrations"
+      ],
+      "source_url": "https://cxotoday.com/press-release/adyas-vanij-platform-revolutionizes-enterprise-ai-slashing-implementation-costs-by-90-while-boosting-performance-by-25/"
+    },
+    {
+      "agent_name": "Adya AI SDR",
+      "slug": "adya-ai-sdr",
+      "company_slug": "adya-ai",
+      "tagline": "An AI-powered sales development representative that automates lead generation and outreach through email and voice channels.",
+      "description": "Adya AI SDR is a pre-built AI Employee designed to function as an autonomous sales development representative. It handles end-to-end lead generation workflows including prospect identification, personalized email outreach, and voice-based engagement to qualify and nurture sales leads. The agent operates as part of Adya's suite of ready-to-deploy AI Employees built on the Vanij platform, targeting companies with 20 to 100 employees that need to scale sales operations without proportional headcount growth. It leverages the Multi-Agentic Network architecture to coordinate across communication channels and CRM systems.",
+      "use_cases": [
+        {
+          "title": "Automated lead generation and prospect qualification",
+          "description": ""
+        },
+        {
+          "title": "personalized email outreach campaigns at scale",
+          "description": ""
+        },
+        {
+          "title": "voice-based sales prospecting and follow-up",
+          "description": ""
+        },
+        {
+          "title": "sales pipeline acceleration for mid-sized businesses",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Increased lead generation volume without additional headcount",
+        "faster prospect qualification through automated multi-channel outreach",
+        "improved sales pipeline velocity through consistent follow-up automation"
+      ],
+      "integrations": [
+        "Email platforms",
+        "voice/telephony systems",
+        "CRM tools (via Vanij platform)"
+      ],
+      "source_url": "https://www.birenparekh.com/technology/adya-agentic-ai-development-platform/"
+    },
+    {
+      "agent_name": "Adya AI Data Analyst",
+      "slug": "adya-ai-data-analyst",
+      "company_slug": "adya-ai",
+      "tagline": "An AI Employee that autonomously creates custom dashboards and generates business intelligence reports from enterprise data.",
+      "description": "Adya AI Data Analyst is a pre-built AI Employee that serves as an autonomous data analysis agent for enterprises. It ingests and processes business data to automatically generate custom dashboards, produce actionable reporting, and surface insights without requiring dedicated data science teams. Built on the Vanij platform's agentic architecture, it can connect to multiple data sources and autonomously determine the most relevant analyses, visualizations, and metrics to present. The agent enables natural language queries against business data and automated report generation.",
+      "use_cases": [
+        {
+          "title": "Automated dashboard creation and real-time reporting",
+          "description": ""
+        },
+        {
+          "title": "natural language business intelligence queries",
+          "description": ""
+        },
+        {
+          "title": "data trend analysis and anomaly detection",
+          "description": ""
+        },
+        {
+          "title": "cross-functional KPI tracking and executive reporting",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education",
+        "Logistics & Transportation"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Finance & Accounting",
+        "Operations & Supply Chain"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Reduced dependency on dedicated data science teams",
+        "faster time-to-insight through automated dashboard generation",
+        "improved data-driven decision-making across business functions"
+      ],
+      "integrations": [
+        "Enterprise databases",
+        "cloud data warehouses",
+        "BI tools (via Vanij platform)"
+      ],
+      "source_url": "https://www.birenparekh.com/technology/adya-agentic-ai-development-platform/"
+    },
+    {
+      "agent_name": "Adya AI Voice Agent",
+      "slug": "adya-ai-voice-agent",
+      "company_slug": "adya-ai",
+      "tagline": "An AI Employee that conducts natural voice conversations for customer-facing interactions across sales and support functions.",
+      "description": "Adya AI Voice Agent is a pre-built AI Employee that handles natural voice conversations autonomously for customer-facing business scenarios. It manages inbound and outbound voice interactions including customer inquiries, appointment scheduling, follow-up calls, and support triage. Built on Adya's Vanij platform, it leverages the Adaptive Learning Protocol to enforce business rules deterministically during conversations, reducing hallucination risks common in voice AI. The agent targets mid-sized businesses seeking to scale voice-based customer interactions without expanding call center headcount.",
+      "use_cases": [
+        {
+          "title": "Automated inbound customer service calls",
+          "description": ""
+        },
+        {
+          "title": "outbound voice-based sales prospecting and appointment setting",
+          "description": ""
+        },
+        {
+          "title": "customer follow-up and satisfaction surveys",
+          "description": ""
+        },
+        {
+          "title": "voice-based FAQ resolution and support triage",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced call center operational costs through voice automation",
+        "24/7 customer availability without staffing constraints",
+        "improved customer experience through consistent voice interactions"
+      ],
+      "integrations": [
+        "Telephony/VoIP systems",
+        "CRM platforms",
+        "helpdesk tools (via Vanij platform)"
+      ],
+      "source_url": "https://www.birenparekh.com/technology/adya-agentic-ai-development-platform/"
+    },
+    {
+      "agent_name": "Adya AI Support Agent",
+      "slug": "adya-ai-support-agent",
+      "company_slug": "adya-ai",
+      "tagline": "An AI Employee that provides intelligent customer support resolutions with seamless human handover capabilities.",
+      "description": "Adya AI Support Agent is a pre-built AI Employee designed to autonomously handle customer support tickets and inquiries across multiple channels. It provides intelligent issue resolution by understanding customer intent, accessing knowledge bases, and executing resolution workflows, with built-in capability for seamless handover to human agents when issues exceed its resolution scope. The agent leverages the Adaptive Learning Protocol to enforce support policies and escalation rules deterministically, ensuring compliance with SLAs and business processes. It targets businesses looking to scale customer support while maintaining quality.",
+      "use_cases": [
+        {
+          "title": "Automated first-contact customer support resolution",
+          "description": ""
+        },
+        {
+          "title": "intelligent ticket routing and prioritization",
+          "description": ""
+        },
+        {
+          "title": "knowledge base-powered FAQ and troubleshooting",
+          "description": ""
+        },
+        {
+          "title": "seamless escalation and handover to human support agents",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "IT Operations"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced average resolution time through AI-powered first-contact resolution",
+        "lower support costs through automated ticket handling",
+        "improved customer satisfaction through 24/7 availability"
+      ],
+      "integrations": [
+        "Helpdesk platforms",
+        "CRM systems",
+        "knowledge base tools",
+        "ticketing systems (via Vanij platform)"
+      ],
+      "source_url": "https://www.birenparekh.com/technology/adya-agentic-ai-development-platform/"
+    },
+    {
+      "agent_name": "Wyzard Agentic Chat",
+      "slug": "wyzard-agentic-chat",
+      "company_slug": "wyzard-ai",
+      "tagline": "A fully autonomous conversational AI agent that engages website visitors in real time, qualifies them based on intent, and drives them toward meaningful action.",
+      "description": "Wyzard Agentic Chat deploys conversational AI agents that engage website visitors, campaign leads, and event contacts around the clock in natural, brand-consistent conversations. Unlike traditional rule-based chatbots, Agentic Chat adapts dynamically to visitor behavior and campaign context, understanding buyer intent in real time and personalizing every interaction. The agents are trained on company-specific content including product knowledge, brand voice, ICP data, and past conversations. The system qualifies leads based on intent, fit, and urgency, automatically books meetings when interest spikes, and logs every interaction to the CRM.",
+      "use_cases": [
+        {
+          "title": "Real-time website visitor engagement and conversion",
+          "description": ""
+        },
+        {
+          "title": "inbound lead qualification based on firmographic data and intent signals",
+          "description": ""
+        },
+        {
+          "title": "automated meeting scheduling when buyer interest peaks",
+          "description": ""
+        },
+        {
+          "title": "paid campaign and event attendee nurturing",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Customer Experience"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "24/7 autonomous lead engagement without human intervention",
+        "increased conversion rates from website visitors to qualified pipeline",
+        "reduced speed-to-lead response times"
+      ],
+      "integrations": [
+        "Salesforce",
+        "HubSpot"
+      ],
+      "source_url": "https://wyzard.ai/agentic-chat/"
+    },
+    {
+      "agent_name": "Wyzard Agentic Email",
+      "slug": "wyzard-agentic-email",
+      "company_slug": "wyzard-ai",
+      "tagline": "An AI-powered email agent that conducts two-way signal-driven email conversations, adapting in real time to qualify and nurture leads through the funnel.",
+      "description": "Wyzard Agentic Email goes beyond traditional drip campaigns by holding sustained two-way email dialogues with prospects. It answers questions, handles objections, and persistently follows up to keep conversations alive. The agent triggers personalized emails when a lead enters the funnel, adapting content based on campaign context, buyer persona, and observed behavior. It functions as an autonomous AI SDR living in the inbox, orchestrating context-aware follow-ups at scale trained on brand voice, product data, and buyer signals. The system moves leads from MQL to SQL through intelligent, personalized nurturing sequences.",
+      "use_cases": [
+        {
+          "title": "Automated lead nurturing with personalized, adaptive email sequences",
+          "description": ""
+        },
+        {
+          "title": "two-way email conversations that handle prospect objections",
+          "description": ""
+        },
+        {
+          "title": "re-engaging cold leads with AI-generated tailored sequences",
+          "description": ""
+        },
+        {
+          "title": "post-event and post-webinar follow-up campaigns",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Increased MQL-to-SQL conversion rates through persistent, intelligent follow-up",
+        "scaled personalized email outreach without additional headcount",
+        "higher email engagement and reply rates"
+      ],
+      "integrations": [
+        "Salesforce",
+        "HubSpot",
+        "CRM systems"
+      ],
+      "source_url": "https://wyzard.ai/agentic-email/"
+    },
+    {
+      "agent_name": "Wyzard Agentic InMail",
+      "slug": "wyzard-agentic-inmail",
+      "company_slug": "wyzard-ai",
+      "tagline": "An AI sales agent that engages prospects on LinkedIn with hyper-personalized, context-aware InMail and connection messages timed to buyer signals.",
+      "description": "Wyzard Agentic InMail is an AI-orchestrated LinkedIn outreach agent that turns cold connections into warm opportunities. The AI agent researches and synthesizes each prospect's LinkedIn profile, posts, and firmographic data to draft hyper-personalized messages that feel genuinely one-to-one. It understands buyer context and initiates tailored InMail or connection messages with impeccable timing based on detected intent signals. The deep personalization boosts engagement by making each prospect feel the message was crafted specifically for them.",
+      "use_cases": [
+        {
+          "title": "AI-driven LinkedIn prospecting with personalized InMail at scale",
+          "description": ""
+        },
+        {
+          "title": "turning cold LinkedIn connections into warm sales opportunities",
+          "description": ""
+        },
+        {
+          "title": "coordinated multi-channel outreach combining LinkedIn with email and chat",
+          "description": ""
+        },
+        {
+          "title": "account-based marketing outreach on LinkedIn",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Higher LinkedIn InMail response rates through deep personalization",
+        "expanded warm pipeline from previously cold connections",
+        "reduced manual research and message drafting time for sales reps"
+      ],
+      "integrations": [
+        "LinkedIn",
+        "Salesforce",
+        "HubSpot"
+      ],
+      "source_url": "https://wyzard.ai/agentic-inmail/"
+    },
+    {
+      "agent_name": "Wyz Prospects",
+      "slug": "wyz-prospects",
+      "company_slug": "wyzard-ai",
+      "tagline": "A multi-agent swarm intelligence system that autonomously identifies, enriches, and prioritizes high-intent prospects based on digital behavior and buyer signals.",
+      "description": "Wyz Prospects utilizes multi-agent swarm intelligence to identify and prioritize high-intent prospects based on digital behavior. The system gathers firmographic, technographic, and contextual intelligence autonomously without requiring forms or external tools, enriching leads in the background in real time. It analyzes visitor interactions to detect buyer signals and unifies behavior across channels into a single intent profile, enabling real-time scoring and dynamic engagement. This allows marketing teams to focus their efforts on leads with the highest conversion potential.",
+      "use_cases": [
+        {
+          "title": "Autonomous prospect identification and prioritization from website traffic",
+          "description": ""
+        },
+        {
+          "title": "real-time lead enrichment with firmographic and technographic data",
+          "description": ""
+        },
+        {
+          "title": "intent-based lead scoring across multiple digital touchpoints",
+          "description": ""
+        },
+        {
+          "title": "focusing sales team effort on highest-probability conversion targets",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Improved lead quality through AI-driven intent scoring",
+        "reduced reliance on form fills and manual data gathering",
+        "higher sales team productivity by focusing on pre-qualified, high-intent leads"
+      ],
+      "integrations": [
+        "Salesforce",
+        "HubSpot",
+        "CRM systems"
+      ],
+      "source_url": "https://wyzard.ai/"
+    }
+  ]
+}

@@ -1,0 +1,538 @@
+{
+  "companies": [
+    {
+      "name": "Zoho",
+      "slug": "zoho",
+      "website": "https://www.zoho.com",
+      "headquarters": "Chennai, India",
+      "founded": 1996,
+      "company_size": "enterprise",
+      "description": "Zoho is a privately held enterprise software company that builds a unified suite of 55+ business applications spanning CRM, finance, HR, marketing, IT management, and workplace collaboration, owning its entire technology stack from data center infrastructure through the application layer. The company serves businesses across automotive, financial services, healthcare, real estate, manufacturing, retail, and education verticals.",
+      "primary_verticals": [
+        "Automotive & Mobility",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Real Estate & Construction",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Education",
+        "Telecom & Media"
+      ],
+      "contact_email": "sales@zohocorp.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "BrowserStack",
+      "slug": "browserstack",
+      "website": "https://www.browserstack.com",
+      "headquarters": "Mumbai, India",
+      "founded": 2011,
+      "company_size": "midmarket",
+      "description": "BrowserStack is a cloud-based software testing platform that enables developers and QA teams to test websites and mobile applications across thousands of real devices and browsers. The platform spans manual testing, automated testing, visual testing, accessibility testing, and test management, making it one of the most comprehensive testing infrastructure providers in the industry.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Education"
+      ],
+      "contact_email": "support@browserstack.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "LambdaTest",
+      "slug": "lambdatest",
+      "website": "https://www.testmuai.com (rebranded from lambdatest.com in January 2026)",
+      "headquarters": "San Francisco, USA",
+      "founded": 2017,
+      "company_size": "scaleup",
+      "description": "LambdaTest (rebranded to TestMu AI in January 2026) is an AI-powered cloud platform for software testing and quality engineering, offering autonomous test creation, execution, and analysis through agentic AI. The platform supports cross-browser, cross-device, and cross-platform testing across 3,000+ environments, serving engineering and QA teams across industries.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Healthcare & Life Sciences",
+        "Telecom & Media",
+        "Manufacturing"
+      ],
+      "contact_email": "sales@lambdatest.com",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Zia Agents",
+      "slug": "zia-agents",
+      "company_slug": "zoho",
+      "tagline": "An agentic AI platform with 25+ prebuilt autonomous agents, a no-code Agent Studio, and a marketplace for building and deploying AI agents across Zoho's entire business suite.",
+      "description": "Zia Agents is Zoho's agentic AI platform that provides autonomous digital workers capable of executing business tasks across the company's 55-application ecosystem without human intervention. The platform includes 25+ prebuilt agents available through an Agent Marketplace — including specialized agents for sales (SDR Agent, Deal Analyzer, Sales Coach, Revenue Growth Specialist), customer support (Support Specialist, Resolution Expert, Quality Manager), HR (Interview Scheduler, Candidate Screener), IT (Help Desk Specialist), and operations (Warehouse Operations Manager, Virtual Concierge Officer). Zia Agent Studio offers a fully prompt-based, no-code builder with access to 700+ built-in actions across Zoho products, allowing users to create custom agents and publish them to the marketplace. The platform connects to external systems via a Model Context Protocol (MCP) server that exposes action libraries from 15+ Zoho applications and supports third-party LLMs including OpenAI, Llama, and DeepSeek alongside Zoho's proprietary Zia LLM.",
+      "use_cases": [
+        {
+          "title": "Automating sales development workflows including lead qualification, follow-up scheduling, quote generation, and deal analysis",
+          "description": ""
+        },
+        {
+          "title": "providing autonomous first-line customer support with sentiment analysis, ticket triage, and resolution recommendations",
+          "description": ""
+        },
+        {
+          "title": "streamlining HR processes including candidate screening, interview scheduling, and employee onboarding",
+          "description": ""
+        },
+        {
+          "title": "monitoring email security threats, classifying legal documents, and managing warehouse operations",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Automotive & Mobility",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Real Estate & Construction",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "HR & Workforce",
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Legal & Compliance",
+        "Finance & Accounting"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduced agent workload through autonomous first-line support handling",
+        "increased sales productivity by automating lead qualification, follow-up scheduling, and deal analysis workflows"
+      ],
+      "integrations": [
+        "Zoho CRM",
+        "Zoho Desk",
+        "Zoho Mail",
+        "Zoho Analytics",
+        "Zoho People",
+        "Zoho SalesIQ",
+        "Zoho Creator",
+        "Zoho Sheet",
+        "Zoho Cliq",
+        "Zoho Calendar",
+        "Zoho Workplace",
+        "Bigin by Zoho CRM",
+        "Zoho Flow",
+        "OpenAI GPT",
+        "Meta Llama",
+        "DeepSeek",
+        "Google Gemini",
+        "Anthropic Claude",
+        "Cohere"
+      ],
+      "source_url": "https://www.zoho.com/zia/agents/"
+    },
+    {
+      "agent_name": "Ask Zia",
+      "slug": "ask-zia",
+      "company_slug": "zoho",
+      "tagline": "A conversational AI assistant that lets users query data, generate reports, build dashboards, and run workflows across Zoho's entire product suite using natural language.",
+      "description": "Ask Zia is Zoho's platform-wide conversational AI assistant that enables users to interact with business data and applications through natural language commands. It provides role-specific capabilities tailored to different personas: data engineers can build and automate end-to-end data pipelines without coding, analysts can create reports and dashboards through interactive conversation, and data scientists can jumpstart ML model building. Ask Zia delivers diagnostic insights to uncover the reasons behind trends, prescriptive insights to guide next actions, and can detect patterns, anomalies, and key factors driving metrics across connected data sources. The assistant is context-aware, adapting its responses based on the user's role, data permissions, and the application context where it is embedded.",
+      "use_cases": [
+        {
+          "title": "Building and automating data pipelines for business intelligence without writing code",
+          "description": ""
+        },
+        {
+          "title": "creating interactive dashboards and reports from natural language queries for cross-functional analytics",
+          "description": ""
+        },
+        {
+          "title": "detecting anomalies and identifying key drivers behind business metrics for executive decision-making",
+          "description": ""
+        },
+        {
+          "title": "logging information, pulling reports, scheduling email deliveries, and exporting dashboards through conversational commands",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Automotive & Mobility",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Real Estate & Construction",
+        "Education"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Sales & Marketing",
+        "Finance & Accounting",
+        "Customer Experience",
+        "HR & Workforce",
+        "IT Operations"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Faster time-to-insight by enabling non-technical users to query and visualize data without SQL or BI tool expertise",
+        "reduced dependency on data engineering teams for report generation and pipeline automation"
+      ],
+      "integrations": [
+        "Zoho Analytics",
+        "Zoho CRM",
+        "Zoho Desk",
+        "Zoho People",
+        "Zoho Books",
+        "Zoho Cliq",
+        "Zoho LLM",
+        "OpenAI"
+      ],
+      "source_url": "https://www.zoho.com/analytics/features/agentic-ai.html"
+    },
+    {
+      "agent_name": "BrowserStack Test Case Generator Agent",
+      "slug": "browserstack-test-case-generator-agent",
+      "company_slug": "browserstack",
+      "tagline": "Converts product requirements into comprehensive, production-ready test cases in under a minute.",
+      "description": "The Test Case Generator Agent analyzes Product Requirements Documents, user stories, Jira tickets, Confluence pages, Figma design files, images, and direct text input to automatically generate structured test cases. It functions as an autonomous QA architect that parses unstructured requirement documents to construct comprehensive test cases, auto-filling key fields like description, preconditions, test steps, and expected results. The agent identifies edge cases, validates business logic, and generates context-aware test scenarios that manual processes often miss. Output can be generated in plain English or BDD Gherkin format, and the agent is embedded directly within BrowserStack Test Management.",
+      "use_cases": [
+        {
+          "title": "Automatically generating test suites from PRDs for new product features",
+          "description": ""
+        },
+        {
+          "title": "converting Jira tickets and user stories into structured test cases for sprint testing",
+          "description": ""
+        },
+        {
+          "title": "creating accessibility and edge-case test coverage from design files and screenshots",
+          "description": ""
+        },
+        {
+          "title": "rapidly building regression test plans from existing requirement documents",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Education"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 90% faster test case creation",
+        "up to 50% improvement in test coverage"
+      ],
+      "integrations": [
+        "Jira",
+        "Confluence",
+        "Figma",
+        "BrowserStack Test Management"
+      ],
+      "source_url": "https://www.browserstack.com/docs/test-management/browserstack-ai/ai-generated-test-cases"
+    },
+    {
+      "agent_name": "BrowserStack Low-Code Authoring Agent",
+      "slug": "browserstack-low-code-authoring-agent",
+      "company_slug": "browserstack",
+      "tagline": "Transforms natural language test cases into reliable automated tests up to 10x faster.",
+      "description": "The Low-Code Authoring Agent bridges the gap between test design and automation implementation by converting well-written test cases into low-code automated tests. It uses natural language processing to interpret human-readable test steps and autonomously constructs executable automation scripts capable of running on real devices. The agent translates natural language prompts into actions and validations, simplifying complex user journeys without requiring deep coding expertise. It operates within BrowserStack Low-Code Automation and integrates with BrowserStack Test Management for end-to-end test workflow automation.",
+      "use_cases": [
+        {
+          "title": "Enabling non-technical QA teams to create automated tests from written test cases",
+          "description": ""
+        },
+        {
+          "title": "accelerating automation of complex multi-step user journeys through natural language input",
+          "description": ""
+        },
+        {
+          "title": "converting manual test suites into automated regression tests at scale",
+          "description": ""
+        },
+        {
+          "title": "reducing the bottleneck of limited automation engineering resources",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Education"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Up to 10x faster test authoring",
+        "25% increase in test coverage"
+      ],
+      "integrations": [
+        "BrowserStack Test Management",
+        "BrowserStack Low-Code Automation",
+        "BrowserStack Automate"
+      ],
+      "source_url": "https://www.browserstack.com/low-code-automation/ai-agents"
+    },
+    {
+      "agent_name": "BrowserStack Self-Healing Agent",
+      "slug": "browserstack-self-healing-agent",
+      "company_slug": "browserstack",
+      "tagline": "Automatically detects and remediates broken test locators in real time to keep builds green.",
+      "description": "The Self-Healing Agent automatically adapts tests during execution when UI elements change, preventing false failures caused by locator breakage. Each time a test interacts with an element, the agent securely stores key information including the locator, nearby attributes, and DOM structure; during future runs, if the original locator no longer resolves, it evaluates historical context and AI signals to generate an alternate healed locator. The agent supports popular automation frameworks including Selenium, Playwright, and Appium for both web and mobile app testing. It is available across BrowserStack Automate, App Automate, and Low-Code Automation products.",
+      "use_cases": [
+        {
+          "title": "Maintaining test suite stability during rapid UI iteration and redesigns",
+          "description": ""
+        },
+        {
+          "title": "reducing QA maintenance overhead for large-scale automated regression suites",
+          "description": ""
+        },
+        {
+          "title": "preventing CI/CD pipeline failures caused by benign front-end changes",
+          "description": ""
+        },
+        {
+          "title": "keeping mobile app test suites functional across frequent app updates",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Manufacturing",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Education"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "40% reduction in automation build failures",
+        "significant reduction in QA maintenance time"
+      ],
+      "integrations": [
+        "Selenium",
+        "Playwright",
+        "Appium",
+        "BrowserStack Automate",
+        "BrowserStack App Automate",
+        "BrowserStack Low-Code Automation"
+      ],
+      "source_url": "https://www.browserstack.com/docs/automate/selenium/self-healing"
+    },
+    {
+      "agent_name": "BrowserStack A11y Issue Detection Agent",
+      "slug": "browserstack-a11y-issue-detection-agent",
+      "company_slug": "browserstack",
+      "tagline": "Brings human-like intelligence to accessibility testing by detecting issues that traditional automated scanners miss.",
+      "description": "The A11y Issue Detection Agent proactively surfaces accessibility compliance gaps by analyzing the DOM, HTML, component structure, accessibility tree, and element behavior against WCAG standards. It uses contextual AI to automatically differentiate between decorative, functional, and images of text, and auto-detects complex images requiring descriptive alt-text. The agent feeds rich context into BrowserStack's Spectra Rule Engine to identify issues such as missing alt text, low color contrast, broken keyboard navigation, and incorrect focus order with human-like precision. It enhances both the depth of coverage and breadth of coverage compared to traditional rule-based scanners.",
+      "use_cases": [
+        {
+          "title": "Automated WCAG compliance auditing across web and mobile applications",
+          "description": ""
+        },
+        {
+          "title": "detecting and remediating color contrast issues at scale across product portfolios",
+          "description": ""
+        },
+        {
+          "title": "verifying screen-reader focus order and keyboard navigation accessibility",
+          "description": ""
+        },
+        {
+          "title": "shifting accessibility testing left into the development workflow for continuous compliance",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Government & Public Sector",
+        "Retail & E-commerce",
+        "Education"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Legal & Compliance",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Elimination of up to 90% of color contrast issues that typically require manual review",
+        "improved WCAG compliance coverage"
+      ],
+      "integrations": [
+        "BrowserStack Accessibility Testing",
+        "BrowserStack App Accessibility Testing"
+      ],
+      "source_url": "https://www.browserstack.com/docs/accessibility/automated-tests/ai-powered-testing/issue-detection-agent"
+    },
+    {
+      "agent_name": "BrowserStack Visual Review Agent",
+      "slug": "browserstack-visual-review-agent",
+      "company_slug": "browserstack",
+      "tagline": "Filters noise from visual diffs and helps teams approve meaningful UI changes 3x faster.",
+      "description": "The Visual Review Agent streamlines visual testing by using computer vision and machine learning to filter out insignificant pixel-level differences and highlight only meaningful visual changes. It provides human-readable natural-language summaries explaining what changed in each visual diff, and uses bounding boxes to draw attention to significant shifts. The agent includes OCR analysis to avoid flagging minor text or font shifts, and shift detection to isolate changes from new page elements without flagging the entire layout. Teams can create and reuse custom review rules to guide the agent on what to show or ignore, enabling scalable visual review workflows.",
+      "use_cases": [
+        {
+          "title": "Accelerating visual QA review for design system and UI component library updates",
+          "description": ""
+        },
+        {
+          "title": "automating visual regression detection across cross-browser and cross-device test runs",
+          "description": ""
+        },
+        {
+          "title": "filtering false-positive visual diffs in CI/CD pipelines to reduce reviewer fatigue",
+          "description": ""
+        },
+        {
+          "title": "scaling visual testing for large web applications with frequent deployments",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Education"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "3x faster visual change approvals",
+        "up to 40% reduction in visual changes requiring manual review"
+      ],
+      "integrations": [
+        "Percy by BrowserStack",
+        "BrowserStack Automate"
+      ],
+      "source_url": "https://www.browserstack.com/percy/ai-agents"
+    },
+    {
+      "agent_name": "KaneAI",
+      "slug": "kaneai",
+      "company_slug": "lambdatest",
+      "tagline": "A GenAI-native end-to-end software testing agent that lets teams plan, author, and evolve tests using natural language.",
+      "description": "KaneAI is an autonomous AI testing agent that enables users to create, execute, debug, and maintain automated software tests entirely through natural language instructions, eliminating the need for manual coding. It accepts diverse input formats including Jira tickets, PRDs, PDFs, images, audio, video, and spreadsheets, automatically generating structured test cases and executable test steps from these inputs. The agent features a Smart Test Planner that converts high-level objectives into detailed test sequences, a Show-Me mode that records manual interactions and converts them into reusable natural-language test steps, and dual-view editing that synchronizes natural language descriptions with generated code in all major programming languages and frameworks. KaneAI includes auto-healing capabilities that adapt tests to UI changes, built-in accessibility and visual regression testing, automatic popup dismissal, database query integration, and real-time network response validation, all executable across 3,000+ browser/OS/device combinations.",
+      "use_cases": [
+        {
+          "title": "Automated regression testing for web and mobile applications across thousands of browser/device combinations",
+          "description": ""
+        },
+        {
+          "title": "enabling non-technical stakeholders to create and maintain test suites using natural language",
+          "description": ""
+        },
+        {
+          "title": "CI/CD pipeline integration for continuous quality validation with automatic test generation from product requirement documents",
+          "description": ""
+        },
+        {
+          "title": "cross-platform visual regression and accessibility compliance testing at enterprise scale",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Retail & E-commerce",
+        "Telecom & Media",
+        "Manufacturing",
+        "Automotive & Mobility"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Dramatic reduction in test creation and maintenance time by replacing manual scripting with natural-language test authoring",
+        "expanded test coverage and earlier defect detection through AI-generated edge cases and autonomous test evolution"
+      ],
+      "integrations": [
+        "Jira",
+        "Azure DevOps",
+        "GitHub",
+        "Slack",
+        "Jenkins",
+        "HyperExecute",
+        "Selenium",
+        "Cypress",
+        "Playwright",
+        "Appium",
+        "and 120+ CI/CD and reporting tools"
+      ],
+      "source_url": "https://www.testmuai.com/kane-ai/"
+    },
+    {
+      "agent_name": "Agent-to-Agent Testing",
+      "slug": "agent-to-agent-testing",
+      "company_slug": "lambdatest",
+      "tagline": "A multi-agent AI platform that deploys autonomous AI evaluators to validate chatbots, voice assistants, and calling agents for hallucinations, bias, toxicity, and compliance.",
+      "description": "Agent-to-Agent Testing is an autonomous testing platform that uses 15 purpose-built AI testing agents — ranging from security researchers to compliance validators — to rigorously evaluate AI-powered chatbots, voice assistants, and calling agents across multiple interaction modalities. The platform accepts requirement documents in diverse formats (text, images, audio, video) and performs multi-modal analysis to automatically generate context-aware test scenarios that simulate real-world challenges an AI agent might encounter, including adversarial inputs and edge cases. It leverages multiple large language models simultaneously for reasoning and test generation, producing comprehensive test suites that assess metrics such as hallucination rates, bias, completeness, toxicity, tone consistency, multi-turn coherence, and response accuracy. Test execution runs on the HyperExecute cloud for high-speed parallel validation, with detailed reporting on both technical and business-relevant quality metrics.",
+      "use_cases": [
+        {
+          "title": "Validating enterprise customer service chatbots for accuracy, tone consistency, and hallucination-free responses before deployment",
+          "description": ""
+        },
+        {
+          "title": "testing voice AI and calling agents for speech recognition accuracy across accents, background noise conditions, and escalation workflows",
+          "description": ""
+        },
+        {
+          "title": "regression testing AI agents after model updates to detect quality degradation in bias, toxicity, or compliance metrics",
+          "description": ""
+        },
+        {
+          "title": "assessing multi-turn conversational AI systems for coherence, intent recognition, and data privacy compliance",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Customer Experience",
+        "IT Operations",
+        "Legal & Compliance"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "Reduced risk of deploying AI agents with hallucinations, bias, or compliance violations through comprehensive autonomous pre-deployment validation",
+        "faster AI agent release cycles by automating the generation and execution of thousands of test scenarios"
+      ],
+      "integrations": [
+        "HyperExecute",
+        "CI/CD pipelines"
+      ],
+      "source_url": "https://www.testmuai.com/agent-to-agent-testing/"
+    }
+  ]
+}

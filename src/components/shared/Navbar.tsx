@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sparkles, Linkedin, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, Lightbulb, ChevronDown } from 'lucide-react'
+import { Menu, X, Sparkles, Linkedin, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, ChevronDown } from 'lucide-react'
 import { useAuth, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { useUserRole } from '@/auth/useUserRole'
 import { Container } from './Container'
+import { NotificationBell } from './NotificationBell'
 
-const APP_ROUTES = ['/provider', '/gcc-dashboard', '/onboarding', '/admin', '/auth']
+const HIDDEN_ROUTES = ['/onboarding', '/admin', '/auth']
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -23,16 +24,15 @@ export function Navbar() {
   const { role } = useUserRole()
 
   const isLandingPage = pathname === '/'
-  const isAppPage = APP_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
+  const isHiddenRoute = HIDDEN_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
   const hasScrolledBg = isScrolled || (!isLandingPage)
-  const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/problems'].some(r => pathname.startsWith(r))
+  const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers'].some(r => pathname.startsWith(r))
 
   const resourcesItems = [
     { href: '/ai-pulse', label: 'AI Pulse', icon: Newspaper },
     { href: '/thought-leadership', label: 'Thought Leadership', icon: BookOpen },
     { href: '/tools', label: 'Tools', icon: Wrench },
     { href: '/providers', label: 'Provider Ecosystem', icon: Building2 },
-    { href: '/problems', label: 'Problem Statements', icon: Lightbulb },
   ]
 
   useEffect(() => {
@@ -43,8 +43,8 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // On app pages (dashboard, onboarding, admin, auth), don't render Navbar
-  if (isAppPage) return null
+  // Standalone flows manage their own layout and should not show the shared navbar.
+  if (isHiddenRoute) return null
 
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false)
@@ -55,7 +55,8 @@ export function Navbar() {
     }
   }
 
-  const dashboardPath = role === 'gcc' ? '/gcc-dashboard' : '/provider'
+  const dashboardPath = role === 'gcc' ? '/gcc-dashboard' : '/dashboard'
+  const showNotifications = isAuthLoaded && isSignedIn && (role === 'provider' || role === 'gcc')
 
   return (
     <>
@@ -209,8 +210,8 @@ export function Navbar() {
                     <LayoutDashboard className="w-4 h-4" />
                     Dashboard
                   </Link>
+                  {showNotifications && <NotificationBell role={role} isScrolled={hasScrolledBg} />}
                   <UserButton
-                    afterSignOutUrl="/"
                     appearance={{
                       elements: {
                         avatarBox: 'w-8 h-8',
@@ -229,16 +230,19 @@ export function Navbar() {
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 rounded-lg transition-colors ${
-                hasScrolledBg
-                  ? 'text-enterprise-900 hover:bg-enterprise-100'
-                  : 'text-white hover:bg-white/10'
-              }`}
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <div className="flex items-center gap-2 md:hidden">
+              {showNotifications && <NotificationBell role={role} isScrolled={hasScrolledBg} />}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className={`p-2 rounded-lg transition-colors ${
+                  hasScrolledBg
+                    ? 'text-enterprise-900 hover:bg-enterprise-100'
+                    : 'text-white hover:bg-white/10'
+                }`}
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </nav>
         </Container>
       </motion.header>
@@ -337,7 +341,6 @@ export function Navbar() {
                             Dashboard
                           </Link>
                           <UserButton
-                            afterSignOutUrl="/"
                             appearance={{
                               elements: {
                                 avatarBox: 'w-8 h-8',

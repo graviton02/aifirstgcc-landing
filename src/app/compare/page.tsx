@@ -29,19 +29,18 @@ import type { Agent, Company } from "@/lib/types";
 function CompareContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { slugs, remove } = useCompare();
+  const { slugs, remove, replace } = useCompare();
   const seeded = useRef(false);
 
   // On mount, seed the store from URL params (if store is empty but URL has agents)
   useEffect(() => {
     if (seeded.current) return;
-    seeded.current = true;
     const urlSlugs = (searchParams.get("agents") ?? "").split(",").filter(Boolean);
     if (urlSlugs.length > 0 && slugs.length === 0) {
-      // Store is empty but URL has agents — this shouldn't normally happen
-      // since the user navigated here via the tray, but handle it gracefully
+      replace(urlSlugs);
     }
-  }, [searchParams, slugs.length]);
+    seeded.current = true;
+  }, [replace, searchParams, slugs.length]);
 
   // Keep URL in sync with store state
   useEffect(() => {
@@ -135,7 +134,7 @@ function CompareContent() {
                 </h1>
               </div>
               <p className="text-enterprise-500 mt-2">
-                Side-by-side comparison of {colCount} agent{colCount !== 1 ? "s" : ""}
+                Side-by-side comparison of {loading ? slugs.length : colCount} agent{(loading ? slugs.length : colCount) !== 1 ? "s" : ""}
               </p>
             </motion.div>
           </div>
@@ -342,24 +341,6 @@ function CompareContent() {
                       </ul>
                     )}
                     index={6}
-                  />
-                  <CompareRow
-                    label="Functions"
-                    icon={<Briefcase weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
-                    colCount={colCount}
-                    showAddSlot={showAddSlot}
-                    render={(a) => (
-                      <div className="flex flex-wrap gap-1.5">
-                        {(a.business_functions ?? []).map((f) => (
-                          <span key={f} className="px-2 py-0.5 bg-enterprise-50 text-enterprise-500 text-xs rounded-md">
-                            {f}
-                          </span>
-                        ))}
-                        {(a.business_functions ?? []).length === 0 && <span className="text-enterprise-300">—</span>}
-                      </div>
-                    )}
-                    index={7}
                   />
                 </div>
 

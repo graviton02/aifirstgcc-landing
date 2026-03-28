@@ -1,0 +1,443 @@
+{
+  "companies": [
+    {
+      "name": "ShopOS",
+      "slug": "shopos",
+      "website": "https://shopos.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2024,
+      "company_size": "startup",
+      "description": "ShopOS is an AI-native operating system for e-commerce brands that uses autonomous agents to automate content creation, catalog management, marketing, pricing, and storefront personalization. The platform consolidates PIM, DAM, and PXM capabilities into a single AI-driven system.",
+      "primary_verticals": [
+        "Retail & E-commerce"
+      ],
+      "contact_email": "hi@shopos.ai",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Raga AI",
+      "slug": "raga-ai",
+      "website": "https://raga.ai",
+      "headquarters": "Milpitas, California, USA (R&D in Bengaluru, India)",
+      "founded": 2022,
+      "company_size": "startup",
+      "description": "RagaAI is an AI testing and observability company that helps enterprises build, evaluate, and deploy reliable AI agents. The platform offers automated testing with 300+ tests across computer vision, NLP, and structured data, plus observability and debugging tools for agentic AI workflows.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Aerospace & Defense",
+        "Financial Services (BFSI)"
+      ],
+      "contact_email": "sales@raga.ai",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Convin AI",
+      "slug": "convin-ai",
+      "website": "https://convin.ai",
+      "headquarters": "Bengaluru, India",
+      "founded": 2020,
+      "company_size": "scaleup",
+      "description": "Convin AI is an AI-native contact center platform that automates and optimizes customer conversations across voice, chat, and email channels. The platform combines virtual voice agents, real-time agent assistance, conversation intelligence, and automated coaching to help sales, support, and collections teams scale operations.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Real Estate & Construction",
+        "Education"
+      ],
+      "contact_email": "support@convin.ai",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "ShopOS",
+      "slug": "shopos",
+      "company_slug": "shopos",
+      "tagline": "An AI-native operating system that gives e-commerce brands autonomous agents for content creation, catalog management, and storefront personalization at scale.",
+      "description": "ShopOS is a full-stack AI operating system for e-commerce that deploys autonomous agents across content creation, catalog management, pricing optimization, marketing, and storefront personalization. The platform includes over 100 AI workflows covering product photography, ad creatives, catalog copy, video clips, and social content generation. Its AI agents learn a brand's style guidelines and performance data over time, running continuous agentic A/B tests across content, strategies, and tactics. The platform consolidates traditionally separate PIM, DAM, and PXM tools into one cohesive system with real-time storefront personalization using bandit algorithms.",
+      "use_cases": [
+        {
+          "title": "Automated generation of studio-quality product photos, lifestyle images, and video content at scale",
+          "description": ""
+        },
+        {
+          "title": "real-time storefront personalization adapting layouts to individual shopper intent",
+          "description": ""
+        },
+        {
+          "title": "multi-brand content management for agencies handling up to 50 brands",
+          "description": ""
+        },
+        {
+          "title": "bulk catalog creation and optimization across hundreds of SKUs",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Reduction in content production time from weeks to hours",
+        "elimination of need for multiple freelancers and disconnected tools",
+        "continuous performance improvement through autonomous A/B testing"
+      ],
+      "integrations": [
+        "Shopify",
+        "Meta Ads Manager",
+        "Google Ads"
+      ],
+      "source_url": "https://shopos.ai/"
+    },
+    {
+      "agent_name": "Listing Guru (Amazon CoPilot)",
+      "slug": "listing-guru-amazon-copilot",
+      "company_slug": "shopos",
+      "tagline": "An AI-powered Amazon listing generator that turns a single ASIN into a complete, optimized listing with images, A+ content, and sales copy in minutes.",
+      "description": "Listing Guru, also branded as Amazon CoPilot, is a specialized AI tool that generates complete Amazon product listings from a single product link or ASIN. The platform creates studio-quality product photos, hero images, lifestyle shots, keyword-optimized titles, conversion-focused bullet points, and A+ content modules in a single automated workflow. Users can edit generated images through natural language text commands, tweaking backgrounds and details without manual design work. The tool supports multiple product categories and is used by sellers and agencies to scale Amazon listing creation.",
+      "use_cases": [
+        {
+          "title": "Rapid creation of optimized Amazon product listings for new product launches",
+          "description": ""
+        },
+        {
+          "title": "bulk generation of A+ content and hero images",
+          "description": ""
+        },
+        {
+          "title": "AI-assisted image editing and customization for marketplace visuals",
+          "description": ""
+        },
+        {
+          "title": "keyword-optimized listing copy generation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Reduction in listing creation time from weeks to minutes per product",
+        "higher click-through rates through AI-generated hero images and A+ content",
+        "lower creative production costs"
+      ],
+      "integrations": [
+        "Amazon Seller Central"
+      ],
+      "source_url": "https://amazon-copilot.shopos.ai/"
+    },
+    {
+      "agent_name": "RagaAI Catalyst",
+      "slug": "ragaai-catalyst",
+      "company_slug": "raga-ai",
+      "tagline": "An AI agent observability and evaluation platform that helps teams trace, debug, and optimize agentic AI systems and LLM workflows in production.",
+      "description": "RagaAI Catalyst is a comprehensive platform for observing, evaluating, and debugging AI agent systems and large language model workflows. Delivered as a Python SDK with a cloud-hosted dashboard, it provides full production observability with real-time monitoring, multi-agent debugging, detailed execution timelines, graph-based visualizations, and 50+ custom metrics. The platform evaluates every step of agentic workflows including planning quality, memory retention, tool integration, goal fulfillment, and safety checks. It features automated guardrail management, synthetic data generation, prompt management, and cost/token tracking for each component.",
+      "use_cases": [
+        {
+          "title": "Debugging and root-cause analysis of multi-agent system failures in production",
+          "description": ""
+        },
+        {
+          "title": "evaluating LLM agent planning, tool use, and memory quality",
+          "description": ""
+        },
+        {
+          "title": "real-time cost and performance monitoring of agentic AI workflows",
+          "description": ""
+        },
+        {
+          "title": "automated guardrail enforcement and compliance checks",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Financial Services (BFSI)",
+        "Aerospace & Defense"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "IT Operations",
+        "Data & Analytics"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "90% reduction in AI production risks through automated issue detection",
+        "faster debugging cycles via execution graph visualization",
+        "reduced LLM operational costs through token usage optimization"
+      ],
+      "integrations": [
+        "NVIDIA NeMo Agent Toolkit",
+        "Microsoft Azure Marketplace",
+        "OpenAI",
+        "LiteLLM"
+      ],
+      "source_url": "https://raga.ai/product/catalyst"
+    },
+    {
+      "agent_name": "RagaAI Prism",
+      "slug": "ragaai-prism",
+      "company_slug": "raga-ai",
+      "tagline": "A multi-modal AI testing platform that automatically detects, diagnoses, and fixes issues across computer vision, NLP, and structured data models with 300+ built-in tests.",
+      "description": "RagaAI Prism is a comprehensive AI testing platform designed to accelerate AI development while reducing production risks. It offers over 300 automated tests to identify issues with data quality, model performance, and deployment settings across computer vision, LLM/NLP, and structured data applications. The platform features proprietary RagaAI DNA technology that uses embedding spaces to detect labeling problems, data drift, active learning opportunities, and edge cases. Prism supports the full testing lifecycle from data validation through model evaluation and production monitoring, with a low-code interface accessible to both beginners and advanced practitioners.",
+      "use_cases": [
+        {
+          "title": "Automated data quality and model performance testing before AI deployment",
+          "description": ""
+        },
+        {
+          "title": "detecting data drift, labeling errors, and edge cases in computer vision pipelines",
+          "description": ""
+        },
+        {
+          "title": "continuous monitoring of AI model behavior in production",
+          "description": ""
+        },
+        {
+          "title": "validating radiology and medical imaging AI for healthcare compliance",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Aerospace & Defense",
+        "Manufacturing",
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Engineering & DevOps",
+        "Data & Analytics",
+        "IT Operations"
+      ],
+      "category": "Engineering & DevOps",
+      "expected_outcomes": [
+        "3x acceleration of AI development cycles",
+        "90% reduction in AI production risks",
+        "3x faster radiology review through validated AI deployment"
+      ],
+      "integrations": [
+        "MLOps toolchains",
+        "analytics platforms",
+        "on-premise deployment support"
+      ],
+      "source_url": "https://docs.raga.ai/ragaai-prism"
+    },
+    {
+      "agent_name": "Convin AI Phone Call Agent",
+      "slug": "convin-ai-phone-call-agent",
+      "company_slug": "convin-ai",
+      "tagline": "A multilingual AI voicebot that automates inbound and outbound customer calls with human-like conversations at sub-second latency.",
+      "description": "Convin AI Phone Call Agent is an autonomous voice AI system that handles both inbound and outbound calls across sales, support, and collections workflows. It manages up to 90% of routine customer queries using natural language processing powered by an in-house LLM supporting over 35 languages including Hindi, English, and Hinglish. The agent performs lead qualification, appointment scheduling, payment reminders, and customer inquiry resolution with sub-one-second latency. It includes smart interruption handling, customer sentiment detection, and seamless warm handoff to human agents with full conversation context when escalation is needed.",
+      "use_cases": [
+        {
+          "title": "Automated outbound lead qualification and interest scoring at scale",
+          "description": ""
+        },
+        {
+          "title": "24/7 inbound customer inquiry handling and appointment scheduling",
+          "description": ""
+        },
+        {
+          "title": "payment reminder campaigns and collections follow-ups",
+          "description": ""
+        },
+        {
+          "title": "high-volume sales follow-up automation",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Real Estate & Construction",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Up to 60% reduction in operational costs",
+        "10x increase in conversion rates",
+        "27% improvement in CSAT scores"
+      ],
+      "integrations": [
+        "8x8",
+        "Aircall",
+        "Amazon Connect",
+        "Ameyo",
+        "Avaya",
+        "Bright Pattern",
+        "ElevenLabs"
+      ],
+      "source_url": "https://convin.ai/product/automated-virtual-ai-agents"
+    },
+    {
+      "agent_name": "Convin Real-Time Assist Agent",
+      "slug": "convin-real-time-assist-agent",
+      "company_slug": "convin-ai",
+      "tagline": "A live AI copilot that listens to active calls and surfaces real-time prompts, answers, and compliance checklists to agents and supervisors on-screen.",
+      "description": "Convin Real-Time Assist Agent monitors live customer conversations and delivers contextual guidance to contact center agents during calls. It includes a Gen AI-powered \"Ask AI\" feature that dynamically pulls answers from product documentation, visual script guidance with compliance checklists, battle cards with step-by-step flows for complex scenarios, and live suggestions highlighting script gaps and potential violations. The companion Supervisor Assist dashboard provides managers with real-time visibility into active calls, showing customer sentiment, violation alerts, and enabling immediate intervention.",
+      "use_cases": [
+        {
+          "title": "Real-time objection handling prompts during sales calls",
+          "description": ""
+        },
+        {
+          "title": "compliance monitoring and violation prevention during regulated conversations",
+          "description": ""
+        },
+        {
+          "title": "live knowledge base access for faster support resolution",
+          "description": ""
+        },
+        {
+          "title": "churn reduction through real-time save prompts during retention calls",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Real Estate & Construction",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Sales & Marketing",
+        "Legal & Compliance"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "27% increase in CSAT scores",
+        "21% increase in sales conversions",
+        "17% increase in collection rates"
+      ],
+      "integrations": [
+        "8x8",
+        "Aircall",
+        "Amazon Connect",
+        "Ameyo",
+        "Avaya",
+        "Bright Pattern",
+        "Cisco Webex",
+        "BlueJeans"
+      ],
+      "source_url": "https://convin.ai/product/real-time-agent-assist"
+    },
+    {
+      "agent_name": "Convin Conversation Intelligence",
+      "slug": "convin-conversation-intelligence",
+      "company_slug": "convin-ai",
+      "tagline": "An AI engine that automatically transcribes, scores, and analyzes 100% of customer conversations to surface quality insights and voice-of-customer trends.",
+      "description": "Convin Conversation Intelligence captures and processes every customer interaction across voice, video, chat, and email channels, eliminating the limitation of sampling only a fraction of conversations for quality review. It performs automated quality assurance scoring, topic clustering, sentiment analysis, and win/loss pattern identification across the entire conversation volume. The system surfaces proactive alerts for emerging issues, identifies winning and losing behavioral trends, and extracts hidden keywords correlated with deal outcomes. Insights feed directly into product, marketing, and operations teams for data-informed decisions.",
+      "use_cases": [
+        {
+          "title": "100% automated QA scoring replacing manual call sampling",
+          "description": ""
+        },
+        {
+          "title": "identification of winning sales behaviors and conversation patterns",
+          "description": ""
+        },
+        {
+          "title": "voice-of-customer trend analysis for product improvements",
+          "description": ""
+        },
+        {
+          "title": "proactive detection of systemic friction points in customer journeys",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Real Estate & Construction",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Data & Analytics",
+        "Sales & Marketing"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "100% conversation coverage for quality assurance",
+        "faster identification of training gaps",
+        "improved deal closure rates through replication of winning patterns"
+      ],
+      "integrations": [
+        "CRM platforms",
+        "Amazon S3",
+        "BigQuery",
+        "Calendly",
+        "Asana"
+      ],
+      "source_url": "https://convin.ai/product/product-overview"
+    },
+    {
+      "agent_name": "Convin AI Learning Management System",
+      "slug": "convin-ai-learning-management-system",
+      "company_slug": "convin-ai",
+      "tagline": "An AI-powered coaching platform that auto-generates personalized learning paths from real call data to accelerate agent performance.",
+      "description": "Convin AI LMS leverages conversation intelligence data to create targeted, automated training programs for contact center agents. It auto-assigns peer-to-peer coaching sessions based on analysis of top-performing agent conversations, converting real interactions into annotated training modules. The platform includes a knowledge base, structured assessments, certification courses, and performance leaderboards, with learning paths personalized to each agent's identified skill gaps. Training content is grounded in actual high-performing conversations rather than generic scripts, ensuring agents learn from proven behaviors specific to their team's context.",
+      "use_cases": [
+        {
+          "title": "Accelerated new agent onboarding using real conversation examples",
+          "description": ""
+        },
+        {
+          "title": "automated identification and remediation of individual skill gaps",
+          "description": ""
+        },
+        {
+          "title": "peer-to-peer coaching from top-performer call analysis",
+          "description": ""
+        },
+        {
+          "title": "compliance training with scenario-based assessments",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Real Estate & Construction",
+        "Education"
+      ],
+      "functional_categories": [
+        "HR & Workforce",
+        "Customer Experience"
+      ],
+      "category": "HR & Workforce",
+      "expected_outcomes": [
+        "60% faster agent onboarding to full productivity",
+        "consistent quality standards across distributed teams",
+        "reduced training costs through automated coaching"
+      ],
+      "integrations": [
+        "Convin Conversation Intelligence",
+        "BambooHR",
+        "ADP"
+      ],
+      "source_url": "https://convin.ai/products/ai-powered-contact-center-software"
+    }
+  ]
+}

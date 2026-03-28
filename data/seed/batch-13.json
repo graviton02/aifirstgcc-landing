@@ -1,0 +1,448 @@
+{
+  "companies": [
+    {
+      "name": "Wysa",
+      "slug": "wysa",
+      "website": "https://www.wysa.com",
+      "headquarters": "Boston, USA",
+      "founded": 2015,
+      "company_size": "scaleup",
+      "description": "Wysa is a clinically validated AI-powered mental health platform that provides conversational support, evidence-based therapeutic exercises, and hybrid digital-human care for individuals, employers, healthcare systems, and insurers. The platform combines rule-based algorithms with large language models to deliver mental health support in 10+ languages across 95 countries.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "contact_email": "press@wysa.io",
+      "verification_status": "verified"
+    },
+    {
+      "name": "SigTuple",
+      "slug": "sigtuple",
+      "website": "https://sigtuple.com",
+      "headquarters": "Bengaluru, India",
+      "founded": 2015,
+      "company_size": "scaleup",
+      "description": "SigTuple is a healthcare AI company that combines artificial intelligence, robotics, and cloud computing to develop intelligent diagnostic screening solutions that automate medical microscopy. The company builds AI-powered digital analyzers for peripheral blood smear and urine sediment analysis.",
+      "primary_verticals": [
+        "Healthcare & Life Sciences"
+      ],
+      "contact_email": "info@sigtuple.com",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Arya.ai",
+      "slug": "arya-ai",
+      "website": "https://arya.ai",
+      "headquarters": "Mumbai, India",
+      "founded": 2013,
+      "company_size": "scaleup",
+      "description": "Arya.ai is an AI cloud platform purpose-built for banks, insurers, and financial services institutions, offering pre-trained AI models, a domain-specific LLM, and an agent orchestration layer to accelerate AI adoption across BFSI operations. The company operates as a subsidiary of Aurionpro Solutions.",
+      "primary_verticals": [
+        "Financial Services (BFSI)"
+      ],
+      "contact_email": "hello@arya.ai",
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "Wysa AI Companion",
+      "slug": "wysa-ai-companion",
+      "company_slug": "wysa",
+      "tagline": "A clinically validated AI mental health companion that provides 24/7 conversational support and evidence-based therapeutic exercises to employees and individuals.",
+      "description": "Wysa AI Companion is a conversational AI chatbot that uses a hybrid of rule-based algorithms and large language models to provide mental health support through text-based conversations. It guides users through interactive exercises grounded in cognitive behavioral therapy (CBT), solution-focused therapy, and mindfulness practices, adapting responses based on user sentiment and context. The employer version provides organizations with anonymized population-level trend data and mental health benchmarks while maintaining individual user privacy. The platform supports 10+ languages and operates across iOS, Android, and web browsers with WCAG accessibility compliance. Wysa acts as a frontline mental wellness tool that detects when users need additional support and routes them to human coaching, employer EAP benefits, or crisis lines.",
+      "use_cases": [
+        {
+          "title": "24/7 employee mental health support as part of workplace wellbeing programs",
+          "description": ""
+        },
+        {
+          "title": "early intervention for stress, anxiety, and low mood before clinical escalation",
+          "description": ""
+        },
+        {
+          "title": "anonymous mental health trend monitoring for HR and people teams",
+          "description": ""
+        },
+        {
+          "title": "guided self-care exercises for students in educational institutions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences",
+        "Education"
+      ],
+      "functional_categories": [
+        "HR & Workforce",
+        "Customer Experience"
+      ],
+      "category": "HR & Workforce",
+      "expected_outcomes": [
+        "Reduced employee mental health-related absenteeism",
+        "broader EAP utilization through AI-guided employee routing",
+        "earlier intervention for mental health concerns before they require clinical care"
+      ],
+      "integrations": [
+        "iOS",
+        "Android",
+        "Web browsers"
+      ],
+      "source_url": "https://www.wysa.com/for-employers"
+    },
+    {
+      "agent_name": "Wysa Copilot",
+      "slug": "wysa-copilot",
+      "company_slug": "wysa",
+      "tagline": "A hybrid digital-human therapy platform that integrates AI support with clinical workflows for NHS and healthcare providers.",
+      "description": "Wysa Copilot is a hybrid therapy platform designed for healthcare systems, combining AI-powered conversational support with human therapist integration. It enables secure real-time and asynchronous messaging between patients and therapists, augmented by AI-driven personalized digital tools and automated patient tracking. The platform serves Talking Therapy services within the UK's National Health Service (NHS) and similar clinical environments, providing therapists with AI-assisted workflow automation while patients receive continuous between-session support. Copilot maintains clinical governance standards and generates insights for care teams to monitor patient progress and outcomes.",
+      "use_cases": [
+        {
+          "title": "Between-session patient support in NHS Talking Therapy programs",
+          "description": ""
+        },
+        {
+          "title": "AI-assisted patient tracking and progress monitoring for therapists",
+          "description": ""
+        },
+        {
+          "title": "hybrid care delivery combining digital AI tools with human clinical sessions",
+          "description": ""
+        },
+        {
+          "title": "scaling mental health service capacity in under-resourced healthcare systems",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Data & Analytics"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "Increased therapist capacity through AI-assisted workflow automation",
+        "improved patient engagement between clinical sessions",
+        "expanded mental health service reach without proportional staffing increases"
+      ],
+      "integrations": [
+        "NHS clinical systems",
+        "web-based therapy platforms"
+      ],
+      "source_url": "https://www.wysa.com/wysa-copilot"
+    },
+    {
+      "agent_name": "AS76 with PBS",
+      "slug": "as76-with-pbs",
+      "company_slug": "sigtuple",
+      "tagline": "An edge-AI digital morphology analyzer that automates peripheral blood smear review with on-device intelligence.",
+      "description": "AS76 with PBS is SigTuple's AI-powered automated blood morphology analyzer that combines digital microscopy with edge-AI computing to automate peripheral blood smear examination. The system captures oil-immersion 100X microscopic images, automatically identifies monolayer regions, and uses deep learning models to pre-classify white blood cells, red blood cells, and platelets across more than 30 cell types. It performs automated 200-cell leukocyte differentials, evaluates over 2,000 RBCs using ICSH grading standards, and estimates platelet counts from ten 100X fields. The analyzer processes up to 12 slides per hour using a 6-slide tray system with load-and-walkaway scanning, generating AI-assisted reports for pathologist validation without requiring internet connectivity.",
+      "use_cases": [
+        {
+          "title": "Automated peripheral blood smear review in clinical labs",
+          "description": ""
+        },
+        {
+          "title": "remote pathology consultation for underserved regions",
+          "description": ""
+        },
+        {
+          "title": "high-throughput hematology screening for large hospital networks",
+          "description": ""
+        },
+        {
+          "title": "detection of hematological conditions including MDS, AIHA, and CML",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Reduced blood smear review time from 5-10 minutes to under 1 minute per sample",
+        "increased pathologist throughput and diagnostic consistency across laboratory networks"
+      ],
+      "integrations": [
+        "NVIDIA RTX (edge AI compute)",
+        "bidirectional LIS (Laboratory Information System) integration"
+      ],
+      "source_url": "https://as76.sigtuple.com/"
+    },
+    {
+      "agent_name": "AI100 with Shonit",
+      "slug": "ai100-with-shonit",
+      "company_slug": "sigtuple",
+      "tagline": "An FDA-cleared AI-powered digital microscopy platform that autonomously analyzes peripheral blood smears for automated hematology diagnostics.",
+      "description": "AI100 with Shonit is SigTuple's flagship AI-enabled in-vitro diagnostic system that digitizes and analyzes peripheral blood smear specimens using an ensemble of deep learning models. The platform combines a robotic XYZ stage, 14MP CMOS camera, and automated oil immersion with cloud-based AI to localize and classify cells across more than 30 types, delivering 200-cell leukocyte differentials, RBC morphology assessment, and platelet morphology evaluation. The system achieved specificity above 98% and sensitivity above 91% for common cell type identification in clinical studies. It holds U.S. FDA 510(k) clearance and CE certification.",
+      "use_cases": [
+        {
+          "title": "Automated white blood cell differential counts",
+          "description": ""
+        },
+        {
+          "title": "red blood cell morphology screening for anemia and other conditions",
+          "description": ""
+        },
+        {
+          "title": "platelet aggregate detection",
+          "description": ""
+        },
+        {
+          "title": "remote pathologist review of digitized blood smear slides",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Reduction in sample review time from 5-10 minutes to approximately 30 seconds",
+        "improved diagnostic accuracy and consistency through standardized AI analysis"
+      ],
+      "integrations": [
+        "Mandara (cloud-based archival and remote review platform)",
+        "Laboratory Information Systems (LIS)"
+      ],
+      "source_url": "https://sigtuple.com/shonit"
+    },
+    {
+      "agent_name": "AI100 with Shrava",
+      "slug": "ai100-with-shrava",
+      "company_slug": "sigtuple",
+      "tagline": "An AI-powered automated urine sediment analyzer that digitally identifies and classifies cellular and non-cellular elements in urine specimens.",
+      "description": "AI100 with Shrava is SigTuple's automated urine microscopy application that runs on the AI100 platform, digitally analyzing urine sediment using proprietary AX200u cartridges. The system detects and classifies RBCs, pus cells, epithelial cells, bacteria, crystals, casts, and yeast with clear detected/not-detected reporting. It processes up to 15 cartridges per hour without requiring stains or oil immersion, using the AI100's 14MP CMOS camera and robotic stage for high-resolution imaging. Results are archived on the Mandara cloud platform for remote review and longitudinal tracking.",
+      "use_cases": [
+        {
+          "title": "Automated urine sediment microscopy in clinical laboratories",
+          "description": ""
+        },
+        {
+          "title": "urinary tract infection screening",
+          "description": ""
+        },
+        {
+          "title": "kidney disease marker detection",
+          "description": ""
+        },
+        {
+          "title": "high-volume urine analysis for diagnostic chains",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Operations & Supply Chain",
+        "Data & Analytics"
+      ],
+      "category": "Operations & Supply Chain",
+      "expected_outcomes": [
+        "Elimination of manual urine microscopy for routine samples, freeing pathologist time",
+        "standardized and reproducible urine sediment analysis across multiple lab locations"
+      ],
+      "integrations": [
+        "Mandara (cloud-based archival platform)",
+        "Laboratory Information Systems (LIS)",
+        "AX200u cartridge system"
+      ],
+      "source_url": "https://sigtuple.com/shrava"
+    },
+    {
+      "agent_name": "Apex",
+      "slug": "apex",
+      "company_slug": "arya-ai",
+      "tagline": "A plug-and-play AI API platform with 100+ pre-trained models for intelligent financial agents.",
+      "description": "Apex is a low-code AI API library providing over 100 pre-trained models across NLP, computer vision, and predictive analytics, designed for rapid integration into enterprise workflows. The platform offers specialized APIs spanning onboarding AI (KYC verification, face matching, liveness detection), digitization AI (document extraction, fraud detection, bank statement analysis), computer vision (damage assessment, medical imaging), generative AI, and predictive AI (forecasting, anomaly detection). Apex achieves 95%+ average AI accuracy with sub-second latency and processes over 300 million API calls annually. The platform operates on a pay-as-you-go pricing model with GDPR compliance and ISO 27001 certification.",
+      "use_cases": [
+        {
+          "title": "Automated KYC/identity verification and customer onboarding",
+          "description": ""
+        },
+        {
+          "title": "credit underwriting with document extraction and financial statement analysis",
+          "description": ""
+        },
+        {
+          "title": "insurance claims processing with computer vision damage assessment",
+          "description": ""
+        },
+        {
+          "title": "fraud detection and deepfake prevention",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Legal & Compliance",
+        "Customer Experience",
+        "Finance & Accounting",
+        "Data & Analytics"
+      ],
+      "category": "Legal & Compliance",
+      "expected_outcomes": [
+        "Reduction in claim settlement time by over 50% through automated damage assessment",
+        "accelerated loan approvals and reduced fraud through AI-powered document analysis"
+      ],
+      "integrations": [
+        "REST APIs",
+        "Nexus API Gateway",
+        "Weave orchestration platform",
+        "core banking systems"
+      ],
+      "source_url": "https://arya.ai/apex"
+    },
+    {
+      "agent_name": "Weave",
+      "slug": "weave",
+      "company_slug": "arya-ai",
+      "tagline": "An AI agent orchestration platform that connects, deploys, and governs enterprise AI agents across financial workflows.",
+      "description": "Weave is Arya.ai's multi-agent orchestration platform that provides the infrastructure for deploying, connecting, and managing AI agents within enterprise environments. It connects AI agents to internal systems and data sources through plug-and-play connectors for databases, core banking applications, document repositories, and third-party services, without exposing raw data outside the system. The platform includes built-in compliance controls, audit trails, and centralized governance across all AI activities. Weave supports deployment in secure on-premise or cloud environments and powers Arya.ai's solutions including Cred AI, enabling conversational interaction with financial data.",
+      "use_cases": [
+        {
+          "title": "Orchestrating multi-agent workflows for credit processing and customer onboarding",
+          "description": ""
+        },
+        {
+          "title": "secure real-time data retrieval from core banking systems for AI-powered assistants",
+          "description": ""
+        },
+        {
+          "title": "end-to-end automation of fraud investigation workflows",
+          "description": ""
+        },
+        {
+          "title": "centralized AI governance and compliance auditing across departments",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Legal & Compliance",
+        "Customer Experience",
+        "Operations & Supply Chain"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Unified AI governance with full auditability across all agent-driven operations",
+        "accelerated AI deployment through low-code connectors and plug-and-play integrations"
+      ],
+      "integrations": [
+        "MongoDB",
+        "Salesforce",
+        "core banking systems",
+        "document repositories",
+        "Model Context Protocol (MCP)"
+      ],
+      "source_url": "https://arya.ai/blog/arya-ai-product-architecture"
+    },
+    {
+      "agent_name": "Nexus",
+      "slug": "nexus",
+      "company_slug": "arya-ai",
+      "tagline": "A secure, high-performance API gateway built for managing and safeguarding AI-driven financial services infrastructure.",
+      "description": "Nexus is Arya.ai's enterprise API gateway designed to manage, secure, and monitor API traffic at scale across financial services environments. It provides sub-millisecond latency optimization, multi-API orchestration with automated workflow sequencing, and intelligent response-based routing. The gateway includes comprehensive security features such as static and dynamic authentication, role-based access control, end-to-end encryption, and granular audit capabilities. Nexus supports multi-environment deployment across on-premises, cloud, Kubernetes, and serverless infrastructures, and incorporates self-healing mechanisms for automatic issue detection and resolution.",
+      "use_cases": [
+        {
+          "title": "Unified management and governance of AI API traffic across banking operations",
+          "description": ""
+        },
+        {
+          "title": "secure orchestration of multi-step financial workflows",
+          "description": ""
+        },
+        {
+          "title": "rate limiting and traffic management for mission-critical AI endpoints",
+          "description": ""
+        },
+        {
+          "title": "protocol transformation and request routing across legacy and modern systems",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Engineering & DevOps",
+        "Legal & Compliance"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Uninterrupted API operations with self-healing resilience and sub-millisecond latency",
+        "simplified API lifecycle management with built-in security and compliance controls"
+      ],
+      "integrations": [
+        "Apex AI APIs",
+        "Kubernetes",
+        "cloud platforms",
+        "on-premises systems",
+        "serverless environments"
+      ],
+      "source_url": "https://arya.ai/nexus"
+    },
+    {
+      "agent_name": "Cred AI",
+      "slug": "cred-ai",
+      "company_slug": "arya-ai",
+      "tagline": "A context-driven credit underwriting intelligence platform that reads financial statements as behavioral and operational timelines.",
+      "description": "Cred AI is Arya.ai's statement analysis platform that advances credit underwriting beyond simple transaction categorization to contextual intelligence. It analyzes bank statements and financial documents as behavioral and operational timelines, distinguishing genuine income from artificial inflows, identifying patterns indicating financial health, and preserving relationships between financial events. The platform supports both retail underwriting (analyzing individual financial behavior) and corporate underwriting (interpreting operating reality), and enables conversational interaction where underwriting teams can ask natural-language questions such as forecasting future cash balances or detecting falsified revenue. Powered by the Weave orchestration platform, it delivers citable answers grounded in source documents.",
+      "use_cases": [
+        {
+          "title": "SMB and corporate credit underwriting with contextual statement analysis",
+          "description": ""
+        },
+        {
+          "title": "detection of falsified revenue and artificial income inflation",
+          "description": ""
+        },
+        {
+          "title": "cash balance forecasting and financial health pattern analysis",
+          "description": ""
+        },
+        {
+          "title": "conversational querying of financial statements for underwriting decisions",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "Up to 300% productivity boost in underwriting operations",
+        "improved fraud detection through contextual analysis that catches falsified revenue traditional methods miss"
+      ],
+      "integrations": [
+        "Weave orchestration platform",
+        "bank statement processing systems",
+        "core banking applications"
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/aryas-cred-ai-advances-credit-underwriting-toward-context-driven-intelligence-302696753.html"
+    }
+  ]
+}

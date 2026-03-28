@@ -151,4 +151,15 @@ describe("useCompare", () => {
     expect(hook1.current.slugs).toEqual(["b"]);
     expect(hook1.current.has("a")).toBe(false);
   });
+
+  it("replace hydrates deep-linked compare state", () => {
+    const { result } = renderHook(() => useCompare());
+
+    act(() => result.current.replace(["a", "b", "a", "c", "d", "e"], { a: "Agent A", e: "Agent E" }));
+
+    expect(result.current.slugs).toEqual(["a", "b", "c", "d"]);
+    expect(result.current.names).toEqual({ a: "Agent A" });
+    expect(result.current.count).toBe(4);
+    expect(result.current.isFull).toBe(true);
+  });
 });

@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { getErrorMessage, reportHandledError } from '@/lib/report-error'
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -45,7 +46,16 @@ export function InterestCapture() {
         description: "You've secured your spot. We'll be in touch soon.",
       })
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Something went wrong. Please try again.')
+      reportHandledError(error, {
+        tags: {
+          area: 'client',
+          feature: 'early-access',
+        },
+        extra: {
+          action: 'submit',
+        },
+      })
+      toast.error(getErrorMessage(error, 'Something went wrong. Please try again.'))
     } finally {
       setIsLoading(false)
     }

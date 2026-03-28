@@ -142,7 +142,7 @@ Admin uses a **separate password-based session system** (not Clerk):
 
 **Components:**
 - `AgentHero` — agent name, tagline, company info, category badge, compare + shortlist buttons
-- `AgentDetailSections` — description, functional categories, industry categories, use cases, integrations (with integration icons), expected outcomes, business functions
+- `AgentDetailSections` — description, functional categories, industry categories, use cases, integrations (with integration icons), expected outcomes
 - `AgentStatsPanel` — sidebar with company info, source/demo URLs, "Contact Provider" button, shortlist button
 - `Breadcrumbs` — visible breadcrumb navigation
 - `CompareTray` — floating compare tray
@@ -356,9 +356,9 @@ This page is the new entry point for all provider users who do not yet own a com
 
 **Submit View:**
 - `AgentForm` with `mode="submit"`
-- Full 15-field form with collapsible sections:
+- Full agent submission form with collapsible sections:
   1. **Basic Info** (open by default): agent_name*, tagline, category* (dropdown), description*
-  2. **Classification** (collapsed): functional_categories, industry_categories, infrastructure_categories, business_functions — all TagInput
+  2. **Classification** (collapsed): functional_categories and industry_categories via taxonomy palettes; infrastructure_categories via TagInput
   3. **Use Cases** (collapsed): repeatable title+description groups
   4. **Integrations** (collapsed): TagInput
   5. **Expected Outcomes** (collapsed): TagInput
@@ -380,6 +380,9 @@ This page is the new entry point for all provider users who do not yet own a com
 - "Invite" button → email input form → `companyMembers.inviteMember`
   - Only owners can invite (enforced server-side)
   - Creates member with role: `"member"`, status: `"pending"`
+- When the invited email signs in, onboarding/auth redirect runs `companyMembers.acceptPendingInvite`
+  - matching pending invite is converted to `status: "active"` and linked to `user_id`
+  - provider profile is ensured and provider role is best-effort synced to Clerk metadata
 - Remove button (trash icon) on non-owner members → `companyMembers.removeMember`
 
 ---
@@ -493,7 +496,7 @@ This page is the new entry point for all provider users who do not yet own a com
 
 ### 8.1 Navbar
 **Component:** `src/components/shared/Navbar.tsx`
-**Behavior:** Renders on all public pages. Hidden on app pages (`/dashboard`, `/gcc-dashboard`, `/onboarding`, `/admin`, `/auth`).
+**Behavior:** Renders on public pages plus the provider and GCC dashboards. Hidden only on standalone app flows (`/onboarding`, `/admin`, `/auth`).
 
 **Auth-aware elements:**
 - **Not signed in:** "Join Now" button → `/sign-up`
@@ -527,7 +530,7 @@ This page is the new entry point for all provider users who do not yet own a com
 |-------|---------|------------|
 | `earlyAccessSignups` | Landing page email capture | email, created_at |
 | `companies` | Company directory entries (78 seeded) | slug, name, description, website, headquarters, company_size, primary_verticals[], logo_url, verification_status, claim_status, claimed_by_user_id |
-| `agents` | AI agent directory entries (231 seeded) | slug, agent_name, tagline, description, category, company_id→companies, use_cases[], functional_categories[], industry_categories[], infrastructure_categories[], business_functions[], expected_outcomes[], integrations[], source_url, demo_url, status, search_text |
+| `agents` | AI agent directory entries (231 seeded) | slug, agent_name, tagline, description, category, company_id→companies, use_cases[], functional_categories[], industry_categories[], infrastructure_categories[], expected_outcomes[], integrations[], source_url, demo_url, status, search_text |
 | `claimRequests` | Company claim requests | company_id→companies, claimant_name, claimant_email, claimant_user_id, status (pending/approved/rejected/activated), magic_link_token, magic_link_expires_at |
 | `providerProfiles` | Provider setup intent + chosen path | user_id, onboarding_path (claim_existing/create_new) |
 | `companySubmissions` | Net-new company creation requests | user_id, contact_email, company_name, website, headquarters, company_size, primary_verticals[], description, status, created_company_id |

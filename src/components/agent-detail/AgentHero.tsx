@@ -6,6 +6,7 @@ import { ArrowSquareOut, Scales, Check } from "@phosphor-icons/react";
 import type { Agent, Company } from "@/lib/types";
 import { CATEGORY_COLORS } from "@/lib/category-colors";
 import { useCompare } from "@/hooks/useCompare";
+import { ShortlistButton } from "@/components/shared/ShortlistButton";
 
 interface Props {
   agent: Agent;
@@ -79,6 +80,11 @@ export function AgentHero({ agent, company }: Props) {
 
       {/* Action buttons */}
       <div className="flex items-center gap-3 mb-6">
+        <ShortlistButton
+          agentId={agent._id}
+          variant="hero"
+          className="px-4 py-2.5"
+        />
         <button
           onClick={toggleCompare}
           disabled={isFull && !isSelected}

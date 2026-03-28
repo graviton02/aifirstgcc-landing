@@ -1,0 +1,512 @@
+{
+  "companies": [
+    {
+      "name": "HyperVerge",
+      "slug": "hyperverge",
+      "website": "https://hyperverge.co",
+      "headquarters": "Bengaluru, India (US office: Palo Alto, CA)",
+      "founded": 2014,
+      "company_size": "mid-market",
+      "description": "HyperVerge is an AI-powered identity verification and customer onboarding platform serving enterprises in financial services, telecom, gaming, e-commerce, logistics, edtech, and crypto. The platform delivers end-to-end KYC, Video KYC, KYB, face authentication, and deepfake detection across 195+ countries, processing over 30 million verifications monthly with 99.5% accuracy. HyperVerge has onboarded over 1 billion identities to date.",
+      "primary_verticals": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Gaming & Entertainment",
+        "E-commerce & Retail",
+        "Logistics & Transportation",
+        "EdTech",
+        "Crypto & Web3"
+      ],
+      "contact_email": "contact@hyperverge.co",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Pepper Content AI",
+      "slug": "pepper-content-ai",
+      "website": "https://www.pepper.inc",
+      "headquarters": "Delhi, India",
+      "founded": 2017,
+      "company_size": "scaleup",
+      "description": "Pepper (formerly Pepper Content) is an AI-native content marketing platform that combines generative AI tools with a curated network of over 100,000 freelance creators. The platform serves enterprise marketing, communications, and growth teams with AI-powered content creation, SEO optimization, and brand visibility tracking across traditional and AI-driven search surfaces.",
+      "primary_verticals": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Technology",
+        "Healthcare & Life Sciences"
+      ],
+      "contact_email": "business@peppercontent.io",
+      "verification_status": "verified"
+    },
+    {
+      "name": "Kissflow AI",
+      "slug": "kissflow-ai",
+      "website": "https://kissflow.com",
+      "headquarters": "Chennai, India (Global HQ: Wilmington, Delaware, USA)",
+      "founded": 2012,
+      "company_size": "scaleup",
+      "description": "Kissflow is an AI-powered low-code/no-code platform that enables enterprises to build custom applications, automate workflows, and manage digital operations on a unified platform. The company integrates generative AI across its entire product suite, allowing both IT teams and business users to create apps, processes, and integrations using natural language prompts. Kissflow serves industries including manufacturing, healthcare, banking, retail, oil and gas, and insurance, and has been recognized in the 2025 Gartner Hype Cycle for Enterprise Process Automation.",
+      "primary_verticals": [
+        "Manufacturing",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "verification_status": "verified"
+    }
+  ],
+  "agents": [
+    {
+      "agent_name": "HyperVerge ONE",
+      "slug": "hyperverge-one",
+      "company_slug": "hyperverge",
+      "tagline": "An AI-powered no-code onboarding platform that lets enterprises launch compliant identity verification journeys 5x faster with drag-and-drop workflows.",
+      "description": "HyperVerge ONE is a comprehensive AI-powered customer onboarding and identity verification platform with a no-code workflow builder. It allows product teams to design, launch, and iterate on customer verification journeys without IT dependencies using drag-and-drop interfaces and pre-built Super Modules (pre-configured API combinations). The platform includes an analytics dashboard for behavioral pattern analysis to improve conversion rates, an integrations marketplace with 100+ category-best APIs, and plug-and-play API library covering identity verification, Video KYC, face authentication, OCR, AML screening, KYB, bank account verification, and digital signatures. It supports deployment across multiple regions including India, US, Philippines, Indonesia, Vietnam, and Nigeria with localized compliance.",
+      "use_cases": [
+        {
+          "title": "End-to-end digital customer onboarding for banks and fintechs",
+          "description": ""
+        },
+        {
+          "title": "remote Video KYC with self-serve and agent-led modes",
+          "description": ""
+        },
+        {
+          "title": "anti-money laundering screening against sanction lists and adverse media",
+          "description": ""
+        },
+        {
+          "title": "Know Your Business verification against government databases",
+          "description": ""
+        },
+        {
+          "title": "face authentication with passive liveness for fraud prevention",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Telecom & Media",
+        "Gaming & Entertainment",
+        "Retail & E-commerce",
+        "Education",
+        "Crypto & Web3"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Legal & Compliance",
+        "Operations & Supply Chain",
+        "IT Operations"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "5x faster launch of new onboarding journeys",
+        "96% average pass rate in the US and 95-96% in India",
+        "50% reduction in customer drop-offs",
+        "processing identity verification in under 3 seconds"
+      ],
+      "integrations": [
+        "AWS",
+        "Microsoft Azure",
+        "100+ third-party APIs via integrations marketplace",
+        "Aadhaar eSign",
+        "DigiLocker",
+        "banking and ERP systems"
+      ],
+      "source_url": "https://hyperverge.co/hyperverge-one/"
+    },
+    {
+      "agent_name": "HyperVerge Underwriting 2.0",
+      "slug": "hyperverge-underwriting-2-0",
+      "company_slug": "hyperverge",
+      "tagline": "An AI-powered financial data analysis platform that instantly processes bank statements, credit reports, and financial documents for smarter lending decisions.",
+      "description": "HyperVerge Underwriting 2.0 is an AI-driven underwriting automation platform designed for small business lending and merchant cash advance (MCA) providers. It uses OCR and AI to automatically extract and analyze financial data from bank statements, salary slips, credit bureau reports, and sales PDFs, enabling lenders to make faster and more accurate credit decisions. The platform analyzes cash flow patterns, overdrafts, NSFs, and recurring transactions directly from bank statements, and performs automated criminal and court case verification as part of background validation. It achieves over 80% straight-through processing and reduces document turnaround time from minutes to under 5 seconds.",
+      "use_cases": [
+        {
+          "title": "Automated bank statement analysis for cash flow underwriting",
+          "description": ""
+        },
+        {
+          "title": "credit bureau soft-pull integration for risk assessment",
+          "description": ""
+        },
+        {
+          "title": "salary slip OCR for income verification",
+          "description": ""
+        },
+        {
+          "title": "criminal and court case background checks for borrower due diligence",
+          "description": ""
+        },
+        {
+          "title": "end-to-end loan application processing from submission to disbursal",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)"
+      ],
+      "functional_categories": [
+        "Finance & Accounting",
+        "Legal & Compliance",
+        "Data & Analytics"
+      ],
+      "category": "Finance & Accounting",
+      "expected_outcomes": [
+        "5x faster underwriting decisions",
+        "3x improvement in accuracy over manual processing",
+        "over 80% straight-through processing rate",
+        "end-to-end borrower processing in under 5 minutes"
+      ],
+      "integrations": [
+        "Credit bureaus",
+        "banking systems",
+        "HyperVerge ONE platform"
+      ],
+      "source_url": "https://hyperverge.co/industries/small-business-lending/"
+    },
+    {
+      "agent_name": "HyperVerge Face Authentication",
+      "slug": "hyperverge-face-authentication",
+      "company_slug": "hyperverge",
+      "tagline": "A single-image passive liveness platform that detects deepfakes, spoofing attacks, and injection fraud with 99.8% accuracy across 195+ countries.",
+      "description": "HyperVerge Face Authentication is an AI-powered biometric verification solution that uses single-image passive liveness detection to authenticate users and prevent fraud. Unlike active liveness systems that require user gestures, it analyzes subtle biometric cues from a single selfie to detect physical spoofs (printed photos, screen replays, 3D masks) and digital injection attacks including AI-generated deepfakes. The system operates in under 3 seconds, works on low-bandwidth networks and low-end devices, and has verified over 800 million identities worldwide. It achieves 99.8% accuracy in live environments and has won the IndiaAI face authentication challenge in 2026.",
+      "use_cases": [
+        {
+          "title": "Recurring user authentication for banking and fintech applications",
+          "description": ""
+        },
+        {
+          "title": "age verification for gaming and e-commerce platforms",
+          "description": ""
+        },
+        {
+          "title": "employee identity verification for workforce management",
+          "description": ""
+        },
+        {
+          "title": "exam proctoring and identity confirmation for public-sector examinations",
+          "description": ""
+        },
+        {
+          "title": "multi-factor authentication augmentation for high-security applications",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Financial Services (BFSI)",
+        "Gaming & Entertainment",
+        "Retail & E-commerce",
+        "Government & Public Sector",
+        "Education"
+      ],
+      "functional_categories": [
+        "Customer Experience",
+        "Legal & Compliance",
+        "HR & Workforce",
+        "IT Operations"
+      ],
+      "category": "Customer Experience",
+      "expected_outcomes": [
+        "99.8% liveness detection accuracy in live environments",
+        "100% deepfake detection accuracy",
+        "sub-3-second verification turnaround",
+        "fraud prevention across physical and digital spoofing vectors"
+      ],
+      "integrations": [
+        "Mobile SDKs (iOS, Android)",
+        "web APIs",
+        "HyperVerge ONE platform"
+      ],
+      "source_url": "https://hyperverge.co/solutions/face-authentication/"
+    },
+    {
+      "agent_name": "Atlas",
+      "slug": "atlas",
+      "company_slug": "pepper-content-ai",
+      "tagline": "An AI-search visibility platform that tracks and optimizes brand presence across AI-powered search engines using autonomous SEO, GEO, and content agents.",
+      "description": "Atlas is Pepper's flagship AI-search platform launched at the Index'25 conference in October 2025. It monitors when and where a brand is surfaced across AI search engines including Google AI Overviews, ChatGPT, Gemini, and Perplexity, converting mentions into actionable KPIs with benchmarked performance metrics. The platform uses autonomous SEO, GEO (Generative Engine Optimization), and content agents through an agentic AI engine with human-in-the-loop quality checks. Key modules include personalized prompt tracking aligned with audience intent, brand visibility metrics with competitive benchmarking, domain and citation analysis showing which sources influence AI outputs, and continuous data refreshes across supported platforms.",
+      "use_cases": [
+        {
+          "title": "Monitoring and improving brand visibility across AI-powered search surfaces",
+          "description": ""
+        },
+        {
+          "title": "competitive benchmarking of brand presence in ChatGPT, Gemini, and Perplexity responses",
+          "description": ""
+        },
+        {
+          "title": "identifying which content sources and citations influence AI-generated answers about a brand",
+          "description": ""
+        },
+        {
+          "title": "optimizing content strategy for Generative Engine Optimization (GEO) and AI Overviews",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Technology",
+        "Healthcare & Life Sciences"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Data & Analytics"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Increased brand discoverability and citation rates in AI-generated search results",
+        "data-driven content optimization based on AI search surface analytics",
+        "competitive intelligence on brand positioning across emerging AI interfaces"
+      ],
+      "integrations": [
+        "Google Analytics",
+        "Google Search Console"
+      ],
+      "source_url": "https://www.pepper.inc/product/atlas/"
+    },
+    {
+      "agent_name": "Peppertype.ai",
+      "slug": "peppertype-ai",
+      "company_slug": "pepper-content-ai",
+      "tagline": "An AI-powered content generation assistant that helps marketing teams ideate, create, optimize, and audit content at scale.",
+      "description": "Peppertype.ai is Pepper's AI content creation platform that assists marketers and content creators in generating blog posts, social media updates, product descriptions, and marketing copy. It features Pepper Docs, an intelligent text editor with real-time AI collaboration capabilities, a built-in SEO writing assistant for search-optimized content, and automated quality audits covering word count, readability, grammar, and plagiarism checks. The platform includes a Brand Memory system that maintains consistent brand tone and messaging across all generated content. Peppertype.ai has evolved from a standalone writing tool into a core component of the broader Pepper Content Marketing Platform (CMP).",
+      "use_cases": [
+        {
+          "title": "AI-assisted content generation for blog posts, social media, and product descriptions",
+          "description": ""
+        },
+        {
+          "title": "SEO-optimized content creation with real-time writing guidance",
+          "description": ""
+        },
+        {
+          "title": "brand-consistent content production at scale using Brand Memory",
+          "description": ""
+        },
+        {
+          "title": "content quality auditing for grammar, plagiarism, and readability compliance",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Technology",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Faster content production cycles through AI-assisted writing",
+        "improved content quality consistency via automated auditing and brand memory",
+        "reduced content creation costs through AI-human hybrid workflows"
+      ],
+      "integrations": [
+        "Pepper CMP platform"
+      ],
+      "source_url": "https://www.pepper.inc/peppertype-ai/"
+    },
+    {
+      "agent_name": "Pepper CMP (Content Marketing Platform)",
+      "slug": "pepper-cmp-content-marketing-platform",
+      "company_slug": "pepper-content-ai",
+      "tagline": "An enterprise content marketing platform that combines AI content studio, workflow orchestration, and expert talent marketplace to power the full content lifecycle.",
+      "description": "Pepper CMP is an enterprise content marketing platform that manages the entire content lifecycle from strategy and creation through distribution, refresh, and analytics. It integrates an AI Content Studio with an App Builder for creating custom multi-step AI agents and API access for enterprise workflows. The platform includes smart keyword research, AI-powered content audit and content refresh capabilities, and over 500 custom AI-powered apps that drive the human-plus-AI content engine. Pepper CMP connects AI content generation with a curated marketplace of human experts who provide quality checks, nuance, and fact-checking through a human-in-the-loop model. The platform supports 100+ languages with native expert vetting.",
+      "use_cases": [
+        {
+          "title": "End-to-end content marketing lifecycle management from strategy to analytics",
+          "description": ""
+        },
+        {
+          "title": "building custom AI content workflows using the App Builder and API access",
+          "description": ""
+        },
+        {
+          "title": "content audit and refresh of existing assets for SEO and relevance",
+          "description": ""
+        },
+        {
+          "title": "scaling multilingual content production with AI generation and human quality review",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Retail & E-commerce",
+        "Financial Services (BFSI)",
+        "Technology",
+        "Healthcare & Life Sciences",
+        "Telecom & Media"
+      ],
+      "functional_categories": [
+        "Sales & Marketing",
+        "Operations & Supply Chain"
+      ],
+      "category": "Sales & Marketing",
+      "expected_outcomes": [
+        "Scalable content operations through AI-human hybrid workflows",
+        "reduced time-to-publish through automated content creation and quality pipelines",
+        "improved content ROI via integrated analytics and performance tracking"
+      ],
+      "integrations": [
+        "Custom API access",
+        "App Builder for third-party tool integration"
+      ],
+      "source_url": "https://www.pepper.inc/content-marketing-platform/"
+    },
+    {
+      "agent_name": "Kissflow AI",
+      "slug": "kissflow-ai",
+      "company_slug": "kissflow-ai",
+      "tagline": "An enterprise-grade AI layer that transforms natural language into working applications, workflows, and integrations on a unified low-code platform.",
+      "description": "Kissflow AI is the generative AI engine embedded across the entire Kissflow platform, enabling users to build enterprise applications, automate workflows, create integrations, and manipulate data using plain-English prompts. The system includes an AI App Builder that converts natural language descriptions into production-ready apps, an AI Process Builder that generates multi-step workflows from simple descriptions, and an AI-based Formula Builder that translates prompts into complex business logic. It also features Smart Attachments for intelligent document extraction, AI-powered field suggestions for form design, and natural language integration creation. The platform is powered by Gemini 1.5 Pro with additional support from GPT-4.0 and Llama3, and serves both technical developers and citizen developers through role-specific AI assistance.",
+      "use_cases": [
+        {
+          "title": "No-code enterprise application development using natural language prompts",
+          "description": ""
+        },
+        {
+          "title": "automated multi-step workflow creation and optimization for business process management",
+          "description": ""
+        },
+        {
+          "title": "intelligent document processing and data extraction from invoices and receipts",
+          "description": ""
+        },
+        {
+          "title": "AI-driven integration building and field mapping across enterprise systems",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "HR & Workforce",
+        "Engineering & DevOps"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Up to 70% reduction in application development time",
+        "accelerated digital transformation through citizen development enablement",
+        "reduced dependency on IT for workflow automation and app creation"
+      ],
+      "integrations": [
+        "Salesforce",
+        "SAP",
+        "Microsoft Office 365",
+        "Google Workspace",
+        "OpenAI Connector",
+        "custom API integrations"
+      ],
+      "source_url": "https://kissflow.com/platform/ai/"
+    },
+    {
+      "agent_name": "Kissflow AI Agents",
+      "slug": "kissflow-ai-agents",
+      "company_slug": "kissflow-ai",
+      "tagline": "Intelligent autonomous agents that analyze workflow data, surface actionable insights, and make context-driven decisions within enterprise processes.",
+      "description": "Kissflow AI Agents are autonomous software entities embedded within the Kissflow platform that perceive workflow environments, evaluate options, and take actions dynamically based on context and pattern recognition rather than rigid rules. These agents handle tasks such as intelligent approval routing, workload-based task assignment, exception management, and proactive anomaly detection across enterprise processes. The agents operate within policy guardrails defined by administrators and improve continuously through self-learning, enabling progressive introduction of AI autonomy into existing business workflows. Multi-agent coordination is supported for complex processes that span multiple systems and decision points.",
+      "use_cases": [
+        {
+          "title": "Autonomous approval routing and escalation based on content analysis rather than fixed thresholds",
+          "description": ""
+        },
+        {
+          "title": "intelligent task assignment based on workload, expertise, and availability",
+          "description": ""
+        },
+        {
+          "title": "automated IT access restoration and provisioning for employee onboarding",
+          "description": ""
+        },
+        {
+          "title": "proactive invoice processing, validation, and payment orchestration",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce"
+      ],
+      "functional_categories": [
+        "IT Operations",
+        "Operations & Supply Chain",
+        "Finance & Accounting",
+        "HR & Workforce"
+      ],
+      "category": "IT Operations",
+      "expected_outcomes": [
+        "Reduced manual intervention in routine workflow decisions",
+        "faster process cycle times through autonomous exception handling",
+        "improved resource allocation through AI-driven task routing"
+      ],
+      "integrations": [
+        "Kissflow platform ecosystem",
+        "enterprise IT systems"
+      ],
+      "source_url": "https://kissflow.com/workflow/ai-agents-autonomous-workflow-automation/"
+    },
+    {
+      "agent_name": "Kissflow Assist",
+      "slug": "kissflow-assist",
+      "company_slug": "kissflow-ai",
+      "tagline": "An AI-powered search and data retrieval engine that surfaces information from boards, processes, and workflows using natural language queries.",
+      "description": "Kissflow Assist is an embedded AI search engine within the Kissflow platform that enables users to locate and retrieve data from boards, processes, and workflows using natural language descriptions. It uses NLP-powered processing to extract insights from unstructured text, emails, and documents, enabling business users to access operational data without manual filtering or complex query construction. The tool supports contextual search across the entire workspace, making enterprise knowledge accessible to non-technical users and streamlining information retrieval for decision-making.",
+      "use_cases": [
+        {
+          "title": "Natural language data retrieval across enterprise workflows and project boards",
+          "description": ""
+        },
+        {
+          "title": "AI-driven contextual search for operational intelligence and reporting",
+          "description": ""
+        },
+        {
+          "title": "unstructured document and text insight extraction for business analysis",
+          "description": ""
+        },
+        {
+          "title": "rapid information lookup for process owners and team leads",
+          "description": ""
+        }
+      ],
+      "industry_categories": [
+        "Manufacturing",
+        "Financial Services (BFSI)",
+        "Healthcare & Life Sciences",
+        "Retail & E-commerce",
+        "Energy & Utilities"
+      ],
+      "functional_categories": [
+        "Data & Analytics",
+        "Operations & Supply Chain",
+        "IT Operations"
+      ],
+      "category": "Data & Analytics",
+      "expected_outcomes": [
+        "Faster access to operational data without technical query skills",
+        "improved decision-making through instant AI-driven insight retrieval",
+        "reduced time spent searching for information across enterprise workflows"
+      ],
+      "integrations": [
+        "Kissflow Boards",
+        "Kissflow Processes",
+        "enterprise data sources"
+      ],
+      "source_url": "https://kissflow.com/platform/ai/"
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { X, ArrowRight, Scales } from "@phosphor-icons/react";
 import { useCompare } from "@/hooks/useCompare";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function CompareTray() {
   const { slugs, names, remove, clear, count } = useCompare();
+  const router = useRouter();
 
   return (
     <AnimatePresence>
@@ -62,13 +63,13 @@ export function CompareTray() {
                   Clear
                 </button>
                 {count >= 2 && (
-                  <Link
-                    href={`/compare?agents=${slugs.join(",")}`}
+                  <button
+                    onClick={() => router.push(`/compare?agents=${slugs.join(",")}`)}
                     className="flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium transition-colors"
                   >
                     Compare
                     <ArrowRight weight="bold" className="w-3.5 h-3.5" />
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>

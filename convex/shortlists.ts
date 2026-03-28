@@ -8,12 +8,10 @@ export const getMine = query({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return [];
     const userId = identity.subject;
-    const shortlists = await ctx.db
+    return await ctx.db
       .query("agentShortlists")
       .withIndex("by_userId", (q) => q.eq("user_id", userId))
       .collect();
-    const agents = await Promise.all(shortlists.map((s) => ctx.db.get(s.agent_id)));
-    return agents.filter(Boolean);
   },
 });
 

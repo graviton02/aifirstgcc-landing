@@ -1,0 +1,3176 @@
+[
+  {
+    "name": "TCS (Tata Consultancy Services)",
+    "slug": "tcs-tata-consultancy-services",
+    "website": "https://www.tcs.com",
+    "headquarters": "Mumbai, India",
+    "founded": 1968,
+    "company_size": "enterprise",
+    "description": "Tata Consultancy Services is a global IT services, consulting, and business solutions company and a subsidiary of the Tata Group. TCS is a leading provider of AI-powered enterprise solutions, offering industry-specific platforms across financial services, manufacturing, telecom, healthcare, and retail.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Telecom & Media",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Energy & Utilities",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.tcs.com/contact-us"
+  },
+  {
+    "name": "Infosys",
+    "slug": "infosys",
+    "website": "https://www.infosys.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 1981,
+    "company_size": "enterprise",
+    "description": "Infosys is a global leader in next-generation digital services and consulting, serving clients in over 50 countries. The company provides IT services, business consulting, and outsourcing across industries including financial services, manufacturing, retail, healthcare, and telecommunications.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Energy & Utilities"
+    ],
+    "contact_email": "askus@infosys.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.infosys.com/contact.html"
+  },
+  {
+    "name": "Wipro",
+    "slug": "wipro",
+    "website": "https://www.wipro.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 1945,
+    "company_size": "enterprise",
+    "description": "Wipro Limited is a global IT services, consulting, and business process company offering digital transformation, cloud, and AI-led solutions. Under its Wipro Intelligence suite, the company has built a portfolio of named AI-powered platforms spanning software delivery, IT operations, and industry-specific verticals.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Energy & Utilities",
+      "Automotive & Mobility"
+    ],
+    "contact_email": "info@wipro.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.wipro.com/contact/"
+  },
+  {
+    "name": "HCLTech",
+    "slug": "hcltech",
+    "website": "https://www.hcltech.com",
+    "headquarters": "Noida, India",
+    "founded": 1976,
+    "company_size": "enterprise",
+    "description": "HCLTech is a global IT services and consulting company operating across 60 countries, offering digital transformation, engineering, cloud, and AI services to enterprises worldwide. The company has been aggressively building agentic AI platforms, integrating with major hyperscaler ecosystems across manufacturing, telecom, financial services, and healthcare.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Telecom & Media",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Automotive & Mobility",
+      "Aerospace & Defense",
+      "Energy & Utilities"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.hcltech.com/contact-us"
+  },
+  {
+    "name": "Tech Mahindra",
+    "slug": "tech-mahindra",
+    "website": "https://www.techmahindra.com",
+    "headquarters": "Pune, India",
+    "founded": 1986,
+    "company_size": "enterprise",
+    "description": "Tech Mahindra is a global IT services and consulting company and part of the Mahindra Group, delivering digital transformation, consulting, and business re-engineering services across industries. The company has been aggressively building agentic AI platforms and solutions with a strong focus on telecom, financial services, and healthcare verticals.",
+    "primary_verticals": [
+      "Telecom & Media",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Energy & Utilities",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.techmahindra.com/contact-us/"
+  },
+  {
+    "name": "LTIMindtree",
+    "slug": "ltimindtree",
+    "website": "https://www.ltm.com",
+    "headquarters": "Mumbai, India",
+    "founded": 1996,
+    "company_size": "enterprise",
+    "description": "LTIMindtree is an Indian multinational IT services and consulting company and a subsidiary of Larsen & Toubro. It operates across 30+ countries, focusing on digital transformation, cloud, and AI-driven enterprise solutions for financial services, healthcare, manufacturing, and retail clients.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Energy & Utilities",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.ltm.com/contactus"
+  },
+  {
+    "name": "Persistent Systems",
+    "slug": "persistent-systems",
+    "website": "https://www.persistent.com",
+    "headquarters": "Pune, India",
+    "founded": 1990,
+    "company_size": "enterprise",
+    "description": "Persistent Systems is an Indian multinational technology services company specializing in digital engineering, cloud computing, data analytics, and enterprise AI solutions. The company serves clients across multiple industries globally, with particular strength in healthcare, financial services, and software product engineering.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Telecom & Media",
+      "Retail & E-commerce",
+      "Energy & Utilities"
+    ],
+    "contact_email": "info@persistent.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.persistent.com/contact-us/"
+  },
+  {
+    "name": "Mphasis",
+    "slug": "mphasis",
+    "website": "https://www.mphasis.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 2000,
+    "company_size": "enterprise",
+    "description": "Mphasis is an IT services and consulting company applying next-generation technology to help enterprises transform businesses globally. The company specializes in cloud, cognitive computing, and AI-driven solutions across banking, insurance, healthcare, and other industries.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Energy & Utilities",
+      "Logistics & Transportation",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.mphasis.com/home/corporate/contactus.html"
+  },
+  {
+    "name": "Happiest Minds",
+    "slug": "happiest-minds",
+    "website": "https://www.happiestminds.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 2011,
+    "company_size": "enterprise",
+    "description": "Happiest Minds Technologies is an AI-first digital engineering and IT services company operating across 43 global offices. The company specializes in product engineering, cybersecurity, analytics, and automation platforms, serving clients across financial services, healthcare, retail, and manufacturing.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Education",
+      "Telecom & Media",
+      "Energy & Utilities",
+      "Logistics & Transportation"
+    ],
+    "contact_email": "business@happiestminds.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.happiestminds.com/contact-us/"
+  },
+  {
+    "name": "Zensar",
+    "slug": "zensar",
+    "website": "https://www.zensar.com",
+    "headquarters": "Pune, India",
+    "founded": 2000,
+    "company_size": "enterprise",
+    "description": "Zensar Technologies is a digital solutions and technology services company, a subsidiary of RPG Group, serving clients across experience, engineering, and data domains. The company operates globally with offices in the US, UK, Europe, South Africa, and India, specializing in AI-driven modernization and automation solutions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Energy & Utilities"
+    ],
+    "contact_email": "info@zensar.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.zensar.com/contact-us"
+  },
+  {
+    "name": "Hexaware",
+    "slug": "hexaware",
+    "website": "https://hexaware.com",
+    "headquarters": "Navi Mumbai, India",
+    "founded": 1990,
+    "company_size": "enterprise",
+    "description": "Hexaware Technologies is a global IT services and digital transformation company serving industries including financial services, healthcare, manufacturing, retail, and telecom. It is known for its platform-led approach to automation, AI, and cloud modernization, with proprietary platforms spanning software engineering, IT operations, and enterprise AI agents.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://hexaware.com/contact-us/"
+  },
+  {
+    "name": "Coforge",
+    "slug": "coforge",
+    "website": "https://www.coforge.com",
+    "headquarters": "Greater Noida, India",
+    "founded": 1992,
+    "company_size": "enterprise",
+    "description": "Coforge is an IT services and digital solutions company serving industries including banking, insurance, travel and transportation, manufacturing, and healthcare. The company is notable for its suite of proprietary AI-native platforms spanning enterprise AI orchestration, autonomous IT operations, and AI-driven software engineering.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Logistics & Transportation",
+      "Manufacturing",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.coforge.com/write-to-us"
+  },
+  {
+    "name": "L&T Technology Services (LTTS)",
+    "slug": "l-t-technology-services-ltts",
+    "website": "https://www.ltts.com",
+    "headquarters": "Vadodara, India",
+    "founded": 2006,
+    "company_size": "enterprise",
+    "description": "L&T Technology Services is a global pure-play engineering R&D services company and a subsidiary of Larsen & Toubro, specializing in digital engineering, product development, and embedded systems across mobility, sustainability, and technology verticals. The company delivers engineering intelligence solutions that integrate physical and digital AI for industrial and enterprise clients.",
+    "primary_verticals": [
+      "Automotive & Mobility",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Energy & Utilities",
+      "Telecom & Media",
+      "Aerospace & Defense"
+    ],
+    "contact_email": "info@ltts.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.ltts.com/contact-us"
+  },
+  {
+    "name": "Tata Elxsi",
+    "slug": "tata-elxsi",
+    "website": "https://www.tataelxsi.com",
+    "headquarters": "Bangalore, India",
+    "founded": 1989,
+    "company_size": "enterprise",
+    "description": "Tata Elxsi is a design and technology services company that integrates digital technologies across automotive, media, healthcare, and communications industries. It combines deep domain expertise with AI, IoT, cloud, and design capabilities to deliver end-to-end product engineering and solutions.",
+    "primary_verticals": [
+      "Automotive & Mobility",
+      "Telecom & Media",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Aerospace & Defense"
+    ],
+    "contact_email": "info@tataelxsi.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.tataelxsi.com/contact-form"
+  },
+  {
+    "name": "Sonata Software",
+    "slug": "sonata-software",
+    "website": "https://www.sonata-software.com",
+    "headquarters": "Bangalore, India",
+    "founded": 1986,
+    "company_size": "enterprise",
+    "description": "Sonata Software is a global IT services and technology modernization company specializing in digital transformation, cloud engineering, and AI-driven enterprise solutions. The company serves industries including BFSI, healthcare, retail, manufacturing, and telecom, with a strong focus on responsible AI adoption and Microsoft ecosystem expertise.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Telecom & Media"
+    ],
+    "contact_email": "info@sonata-software.com",
+    "verification_status": "verified",
+    "logo_bg": "dark",
+    "contact_url": "https://www.sonata-software.com/contact-us"
+  },
+  {
+    "name": "Indium Software",
+    "slug": "indium-software",
+    "website": "https://www.indium.tech",
+    "headquarters": "Chennai, India",
+    "founded": 1999,
+    "company_size": "enterprise",
+    "description": "Indium is an AI-driven digital engineering services company that builds solutions for Fortune 500 and Global 2000 enterprises across BFSI, healthcare, manufacturing, retail, and technology verticals. The company specializes in product engineering, data and AI, quality engineering, and intelligent automation, with proprietary AI platforms for application modernization, document intelligence, and test automation.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "contact_email": "info@indiumsoftware.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.indium.tech/inquire-now/"
+  },
+  {
+    "name": "Accion Labs",
+    "slug": "accion-labs",
+    "website": "https://www.accionlabs.com",
+    "headquarters": "Pittsburgh, PA, USA",
+    "founded": 2011,
+    "company_size": "midmarket",
+    "description": "Accion Labs is an innovation engineering services and solutions company specializing in cloud engineering, digital transformation, data and AI, and enterprise software development. The company serves clients across healthcare, financial services, manufacturing, education, and retail through offices in over 20 global locations.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Education",
+      "Retail & E-commerce"
+    ],
+    "contact_email": "info@accionlabs.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.accionlabs.com/contact-us/"
+  },
+  {
+    "name": "Softweb Solutions",
+    "slug": "softweb-solutions",
+    "website": "https://www.softwebsolutions.com",
+    "headquarters": "Plano, TX, USA",
+    "founded": 2004,
+    "company_size": "midmarket",
+    "description": "Softweb Solutions is an Avnet company that provides data and AI consulting services, digital transformation, and IoT solutions for enterprises. The company specializes in building generative AI frameworks, autonomous AI agents, and intelligent automation solutions across manufacturing, healthcare, finance, and legal verticals.",
+    "primary_verticals": [
+      "Manufacturing",
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Logistics & Transportation"
+    ],
+    "contact_email": "info@softwebsolutions.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.softwebsolutions.com/contact-us.html"
+  },
+  {
+    "name": "Simform",
+    "slug": "simform",
+    "website": "https://www.simform.com",
+    "headquarters": "Orlando, FL, USA",
+    "founded": 2010,
+    "company_size": "midmarket",
+    "description": "Simform is a product engineering company specializing in AI/ML, cloud, and data solutions that help enterprises modernize and scale with intelligent automation. The company builds proprietary AI accelerator platforms alongside custom engineering services for clients across multiple industries.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.simform.com/contact/"
+  },
+  {
+    "name": "Talentica Software",
+    "slug": "talentica-software",
+    "website": "https://www.talentica.com",
+    "headquarters": "Pune, India",
+    "founded": 2003,
+    "company_size": "midmarket",
+    "description": "Talentica Software is a product engineering services company that builds software products for startups and enterprises, specializing in AI-native development, cloud engineering, and DevSecOps. The company offers proprietary prefab solutions alongside custom product engineering across multiple verticals.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Manufacturing"
+    ],
+    "contact_email": "info@talentica.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.talentica.com/contact-us/"
+  },
+  {
+    "name": "Q3 Technologies",
+    "slug": "q3-technologies",
+    "website": "https://www.q3tech.com",
+    "headquarters": "Walpole, MA, USA",
+    "founded": 1998,
+    "company_size": "midmarket",
+    "description": "Q3 Technologies is a global IT solutions and digital transformation company offering software development, AI-driven solutions, managed IT services, and enterprise system implementations across 17+ industries. The company holds Microsoft Gold Partner, ISO 27001, CMMI, and Salesforce Consulting Partner certifications.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Energy & Utilities",
+      "Education",
+      "Logistics & Transportation",
+      "Real Estate & Construction",
+      "Telecom & Media"
+    ],
+    "contact_email": "sales@q3tech.com",
+    "verification_status": "verified",
+    "logo_bg": "dark",
+    "contact_url": "https://www.q3tech.com/get-in-touch/"
+  },
+  {
+    "name": "Abstrabit Technologies",
+    "slug": "abstrabit-technologies",
+    "website": "https://www.abstrabit.com",
+    "headquarters": "Bangalore, India",
+    "founded": 2022,
+    "company_size": "startup",
+    "description": "Abstrabit Technologies is an AI solutions provider incubated at NSRCEL (IIM Bangalore) that builds production-grade AI agents with a human-in-the-loop architecture. The company focuses on voice AI and sales intelligence solutions for enterprises and SMBs across multiple industries.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce"
+    ],
+    "contact_email": "ops@abstrabit.com",
+    "verification_status": "verified",
+    "contact_url": "https://abstrabit.com/contact"
+  },
+  {
+    "name": "Calsoft",
+    "slug": "calsoft",
+    "website": "https://www.calsoftinc.com",
+    "headquarters": "San Jose, CA, USA",
+    "founded": 1998,
+    "company_size": "midmarket",
+    "description": "Calsoft is a global digital engineering and Data & AI solutions provider specializing in cloud, AI/ML, IoT, security, and product engineering for enterprises and ISVs. The company delivers engineering services alongside proprietary AI-powered accelerator platforms for testing and quality automation.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "contact_email": "marketing@calsoftinc.com",
+    "verification_status": "verified",
+    "logo_bg": "dark",
+    "contact_url": "https://www.calsoftinc.com/contact-us"
+  },
+  {
+    "name": "Yellow.ai",
+    "slug": "yellow-ai",
+    "website": "https://yellow.ai",
+    "headquarters": "San Mateo, California, USA",
+    "founded": 2016,
+    "company_size": "scaleup",
+    "description": "Yellow.ai is an agentic AI platform for customer and employee experience automation, enabling enterprises to deploy AI agents across chat, voice, email, and messaging channels in 135+ languages. The platform serves enterprises across retail, BFSI, healthcare, telecom, and logistics with a multi-LLM architecture and 150+ pre-built enterprise integrations.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Energy & Utilities",
+      "Logistics & Transportation",
+      "Automotive & Mobility"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://yellow.ai/request-demo/"
+  },
+  {
+    "name": "Haptik",
+    "slug": "haptik",
+    "website": "https://www.haptik.ai",
+    "headquarters": "Mumbai, India",
+    "founded": 2013,
+    "company_size": "scaleup",
+    "description": "Haptik is a conversational AI platform that builds enterprise-grade AI agents for customer experience across chat, voice, and messaging channels. The platform supports 100+ languages across 10+ channels and serves industries including retail, fintech, healthcare, travel, and education.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Education"
+    ],
+    "contact_email": "enterprise@haptik.ai",
+    "verification_status": "verified",
+    "contact_url": "https://www.haptik.ai/contact-us"
+  },
+  {
+    "name": "CoRover.ai",
+    "slug": "corover-ai",
+    "website": "https://corover.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2016,
+    "company_size": "scaleup",
+    "description": "CoRover.ai is a conversational and agentic AI platform company that builds multilingual, multi-modal AI assistants and copilots for enterprises and government organizations. The platform supports 100+ languages across text, voice, and video channels and is notable for its sovereign language model BharatGPT and CMMI Level 5 certification.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Government & Public Sector",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Education",
+      "Energy & Utilities"
+    ],
+    "contact_email": "chat@corover.ai",
+    "verification_status": "verified",
+    "contact_url": "https://corover.ai/company/contact"
+  },
+  {
+    "name": "Kapture CX",
+    "slug": "kapture-cx",
+    "website": "https://www.kapture.cx",
+    "headquarters": "Bengaluru, India",
+    "founded": 2014,
+    "company_size": "scaleup",
+    "description": "Kapture CX is an AI-powered customer experience platform that uses agentic AI trained on over one billion real conversations to automate support workflows across voice, email, chat, and social channels. The platform serves enterprises in regulated and high-volume industries with modular self-service, agent productivity, and analytics solutions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Energy & Utilities",
+      "Telecom & Media"
+    ],
+    "contact_email": "enquiries@kapture.cx",
+    "verification_status": "verified",
+    "contact_url": "https://www.kapture.cx/contact"
+  },
+  {
+    "name": "Gupshup",
+    "slug": "gupshup",
+    "website": "https://www.gupshup.ai",
+    "headquarters": "San Francisco, USA",
+    "founded": 2004,
+    "company_size": "scaleup",
+    "description": "Gupshup is a conversational AI platform that enables businesses to build and deploy AI agents for marketing, commerce, and customer support across messaging channels including WhatsApp, RCS, SMS, Voice, and Web. The platform processes messaging at scale across 130+ countries and offers pre-built, industry-trained AI agents through its Conversation Cloud.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Real Estate & Construction"
+    ],
+    "contact_email": "sales@gupshup.me",
+    "verification_status": "verified",
+    "contact_url": "https://www.gupshup.ai/contact-us"
+  },
+  {
+    "name": "Uniphore",
+    "slug": "uniphore",
+    "website": "https://www.uniphore.com",
+    "headquarters": "Palo Alto, USA",
+    "founded": 2008,
+    "company_size": "scaleup",
+    "description": "Uniphore is a business AI company that provides an enterprise platform combining conversational AI, emotion AI, and agentic automation to power customer service, sales, marketing, and HR functions. Its Business AI Cloud platform integrates data, knowledge, models, and AI agents in a composable, sovereign architecture for enterprise deployments.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Telecom & Media",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Manufacturing"
+    ],
+    "contact_email": "info@uniphore.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.uniphore.com/contact/"
+  },
+  {
+    "name": "Skit.ai",
+    "slug": "skit-ai",
+    "website": "https://skit.ai",
+    "headquarters": "New York, USA (with offices in Bengaluru, India)",
+    "founded": 2016,
+    "company_size": "scaleup",
+    "description": "Skit.ai (formerly Vernacular.ai) builds AI-powered conversational agents for the accounts receivable and debt collections industry, automating multichannel consumer engagement across voice, SMS, email, and chat. The platform combines predictive analytics, compliance enforcement, and generative AI to manage end-to-end collection workflows.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Energy & Utilities"
+    ],
+    "contact_email": "info@skit.ai",
+    "verification_status": "verified",
+    "contact_url": "https://skit.ai/contact-us/"
+  },
+  {
+    "name": "Mihup",
+    "slug": "mihup",
+    "website": "https://mihup.ai",
+    "headquarters": "Kolkata, India",
+    "founded": 2016,
+    "company_size": "scaleup",
+    "description": "Mihup is a conversational AI company that builds a Gen AI-powered Voice AI platform for enterprises, specializing in contact center intelligence and in-vehicle voice assistants. The platform combines proprietary ASR technology with generative AI to deliver real-time interaction analytics, agent assistance, and automated virtual agents across 120+ languages.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Automotive & Mobility",
+      "Telecom & Media",
+      "Retail & E-commerce",
+      "Logistics & Transportation"
+    ],
+    "contact_email": "marketing@mihup.com",
+    "verification_status": "verified",
+    "contact_url": "https://mihup.ai/request-a-demo---new"
+  },
+  {
+    "name": "Senseforth.ai",
+    "slug": "senseforth-ai",
+    "website": "https://www.senseforth.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2017,
+    "company_size": "scaleup",
+    "description": "Senseforth.ai is a conversational AI company (acquired by Fractal Analytics) that enables enterprises to automate customer and employee experiences through its patented A.ware platform. It serves global enterprises across banking, insurance, healthcare, and retail with AI-powered virtual assistants, speech analytics, and agent assist solutions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Government & Public Sector"
+    ],
+    "contact_email": "sales@senseforth.ai",
+    "verification_status": "verified",
+    "contact_url": "mailto:sales@senseforth.ai"
+  },
+  {
+    "name": "Sarvam AI",
+    "slug": "sarvam-ai",
+    "website": "https://www.sarvam.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2023,
+    "company_size": "startup",
+    "description": "Sarvam AI is an Indian artificial intelligence company that builds foundational AI models and agentic platforms optimized for Indian languages and regional contexts. The company offers a sovereign AI stack spanning large language models, speech, vision, and enterprise-grade conversational and orchestration platforms.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Government & Public Sector",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.sarvam.ai/contact-us"
+  },
+  {
+    "name": "Krutrim AI",
+    "slug": "krutrim-ai",
+    "website": "https://www.olakrutrim.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 2023,
+    "company_size": "scaleup",
+    "description": "Krutrim AI, founded by Ola's Bhavish Aggarwal, builds foundational AI models, a sovereign cloud platform, and agentic AI products optimized for Indian languages and markets. The company is India's first AI unicorn, offering enterprise and consumer AI solutions across multiple verticals.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Logistics & Transportation",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Education"
+    ],
+    "contact_email": "contact@olakrutrim.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.olakrutrim.com/contact-us"
+  },
+  {
+    "name": "TrueFoundry",
+    "slug": "truefoundry",
+    "website": "https://www.truefoundry.com",
+    "headquarters": "San Francisco, USA",
+    "founded": 2021,
+    "company_size": "scaleup",
+    "description": "TrueFoundry is a Kubernetes-native AI infrastructure company that provides enterprise-grade gateways and deployment tools for building, governing, and scaling agentic AI systems. Its platform serves Fortune 500 enterprises across regulated industries with SOC 2, HIPAA, and GDPR compliance.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Government & Public Sector",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.truefoundry.com/book-demo"
+  },
+  {
+    "name": "Mad Street Den",
+    "slug": "mad-street-den",
+    "website": "https://www.vue.ai",
+    "headquarters": "Chennai, India",
+    "founded": 2013,
+    "company_size": "scaleup",
+    "description": "Mad Street Den builds Vue.ai, an enterprise AI orchestration platform that combines computer vision, NLP, and generative AI to automate document processing, personalization, and data workflows across industries. The company serves retail, BFSI, healthcare, and logistics verticals with a full-stack AI platform.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Logistics & Transportation"
+    ],
+    "contact_email": "sales@madstreetden.com",
+    "verification_status": "verified",
+    "contact_url": "mailto:sales@madstreetden.com"
+  },
+  {
+    "name": "Wysa",
+    "slug": "wysa",
+    "website": "https://www.wysa.com",
+    "headquarters": "Boston, USA",
+    "founded": 2015,
+    "company_size": "scaleup",
+    "description": "Wysa is a clinically validated AI-powered mental health platform that provides conversational support, evidence-based therapeutic exercises, and hybrid digital-human care for individuals, employers, healthcare systems, and insurers. The platform combines rule-based algorithms with large language models to deliver mental health support in 10+ languages across 95 countries.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Education"
+    ],
+    "contact_email": "press@wysa.io",
+    "verification_status": "verified",
+    "contact_url": "https://www.wysa.com/contact-us"
+  },
+  {
+    "name": "SigTuple",
+    "slug": "sigtuple",
+    "website": "https://sigtuple.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 2015,
+    "company_size": "scaleup",
+    "description": "SigTuple is a healthcare AI company that combines artificial intelligence, robotics, and cloud computing to develop intelligent diagnostic screening solutions that automate medical microscopy. The company builds AI-powered digital analyzers for peripheral blood smear and urine sediment analysis.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "contact_email": "info@sigtuple.com",
+    "verification_status": "verified",
+    "contact_url": "mailto:info@sigtuple.com"
+  },
+  {
+    "name": "Arya.ai",
+    "slug": "arya-ai",
+    "website": "https://arya.ai",
+    "headquarters": "Mumbai, India",
+    "founded": 2013,
+    "company_size": "scaleup",
+    "description": "Arya.ai is an AI cloud platform purpose-built for banks, insurers, and financial services institutions, offering pre-trained AI models, a domain-specific LLM, and an agent orchestration layer to accelerate AI adoption across BFSI operations. The company operates as a subsidiary of Aurionpro Solutions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)"
+    ],
+    "contact_email": "hello@arya.ai",
+    "verification_status": "verified",
+    "contact_url": "https://arya.ai/contact-us"
+  },
+  {
+    "name": "Unscript.ai",
+    "slug": "unscript-ai",
+    "website": "https://www.unscript.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2021,
+    "company_size": "startup",
+    "description": "Unscript AI is an AI-powered video creation platform that uses lifelike AI avatars, automated scriptwriting, and personalization to produce studio-quality marketing and onboarding videos at scale. The platform serves brands across FMCG, e-commerce, financial services, and other verticals.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Telecom & Media"
+    ],
+    "contact_email": "contact@unscript.ai",
+    "verification_status": "verified",
+    "contact_url": "https://www.unscript.ai/book-a-demo"
+  },
+  {
+    "name": "DhiWise",
+    "slug": "dhiwise",
+    "website": "https://www.dhiwise.com",
+    "headquarters": "Surat, India",
+    "founded": 2021,
+    "company_size": "startup",
+    "description": "DhiWise (operating as Rocket.new) is a multi-agent AI software development platform that automates full-stack application creation through natural language input and Figma design conversion. The platform supports React, Next.js, Flutter, and HTML/CSS, generating production-ready, developer-owned source code with no vendor lock-in.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Education"
+    ],
+    "contact_email": "help@dhiwise.com",
+    "verification_status": "verified",
+    "contact_url": "mailto:help@dhiwise.com"
+  },
+  {
+    "name": "Hasura",
+    "slug": "hasura",
+    "website": "https://hasura.io",
+    "headquarters": "San Francisco, USA",
+    "founded": 2017,
+    "company_size": "scaleup",
+    "description": "Hasura builds data access infrastructure for modern applications and AI, offering the open-source GraphQL Engine, the Data Delivery Network (DDN), and PromptQL — an AI analyst platform that enables natural-language querying and automation across fragmented enterprise data sources.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Manufacturing",
+      "Aerospace & Defense",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://hasura.io/contact-us"
+  },
+  {
+    "name": "Postman",
+    "slug": "postman",
+    "website": "https://www.postman.com",
+    "headquarters": "San Francisco, USA",
+    "founded": 2014,
+    "company_size": "scaleup",
+    "description": "Postman is an API platform for building, testing, and using APIs, serving over 30 million registered users. The platform has evolved into an AI-native development environment with tools for building, testing, and deploying AI agents powered by APIs and the Model Context Protocol (MCP).",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.postman.com/company/contact-us/"
+  },
+  {
+    "name": "Razorpay",
+    "slug": "razorpay",
+    "website": "https://razorpay.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 2014,
+    "company_size": "scaleup",
+    "description": "Razorpay is a full-stack payments and financial services platform serving businesses across India and internationally, providing payment gateway, payroll, banking, and lending products. The company has expanded into AI-powered payments infrastructure through its RAY assistant and Agentic Payments product lines.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "contact_email": "pr-storytellers@razorpay.com",
+    "verification_status": "verified",
+    "contact_url": "https://razorpay.com/support/"
+  },
+  {
+    "name": "Freshworks",
+    "slug": "freshworks",
+    "website": "https://www.freshworks.com",
+    "headquarters": "San Mateo, California, USA",
+    "founded": 2010,
+    "company_size": "enterprise",
+    "description": "Freshworks provides cloud-based SaaS for customer service, IT service management, and CRM, unified by the Freddy AI agentic platform that spans its Freshdesk, Freshservice, and Freshsales product lines. The company is publicly traded on NASDAQ (FRSH) and serves over 68,000 businesses globally.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Logistics & Transportation",
+      "Manufacturing"
+    ],
+    "contact_email": "sales@freshworks.com",
+    "verification_status": "verified",
+    "contact_url": "mailto:sales@freshworks.com"
+  },
+  {
+    "name": "Zoho",
+    "slug": "zoho",
+    "website": "https://www.zoho.com",
+    "headquarters": "Chennai, India",
+    "founded": 1996,
+    "company_size": "enterprise",
+    "description": "Zoho is a privately held enterprise software company that builds a unified suite of 55+ business applications spanning CRM, finance, HR, marketing, IT management, and workplace collaboration, owning its entire technology stack from data center infrastructure through the application layer. The company serves businesses across automotive, financial services, healthcare, real estate, manufacturing, retail, and education verticals.",
+    "primary_verticals": [
+      "Automotive & Mobility",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Real Estate & Construction",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Education",
+      "Telecom & Media"
+    ],
+    "contact_email": "sales@zohocorp.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.zoho.com/contactus.html"
+  },
+  {
+    "name": "BrowserStack",
+    "slug": "browserstack",
+    "website": "https://www.browserstack.com",
+    "headquarters": "Mumbai, India",
+    "founded": 2011,
+    "company_size": "midmarket",
+    "description": "BrowserStack is a cloud-based software testing platform that enables developers and QA teams to test websites and mobile applications across thousands of real devices and browsers. The platform spans manual testing, automated testing, visual testing, accessibility testing, and test management, making it one of the most comprehensive testing infrastructure providers in the industry.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Education"
+    ],
+    "contact_email": "support@browserstack.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.browserstack.com/contact"
+  },
+  {
+    "name": "LambdaTest",
+    "slug": "lambdatest",
+    "website": "https://www.testmuai.com (rebranded from lambdatest.com in January 2026)",
+    "headquarters": "San Francisco, USA",
+    "founded": 2017,
+    "company_size": "scaleup",
+    "description": "LambdaTest (rebranded to TestMu AI in January 2026) is an AI-powered cloud platform for software testing and quality engineering, offering autonomous test creation, execution, and analysis through agentic AI. The platform supports cross-browser, cross-device, and cross-platform testing across 3,000+ environments, serving engineering and QA teams across industries.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Manufacturing"
+    ],
+    "contact_email": "sales@lambdatest.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.testmuai.com/contact-us/"
+  },
+  {
+    "name": "Rocketlane",
+    "slug": "rocketlane",
+    "website": "https://www.rocketlane.com",
+    "headquarters": "San Francisco, USA",
+    "founded": 2020,
+    "company_size": "scaleup",
+    "description": "Rocketlane is an agentic Professional Services Automation (PSA) platform that helps services teams automate delivery workflows, customer onboarding, and project execution. The platform embeds AI agents directly into project workflows rather than layering AI on top of traditional tracking tools, serving SaaS, fintech, marketing, and IT services companies.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "contact_email": "care@rocketlane.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.rocketlane.com/contact-sales"
+  },
+  {
+    "name": "DevRev",
+    "slug": "devrev",
+    "website": "https://devrev.ai",
+    "headquarters": "Palo Alto, California, USA",
+    "founded": 2020,
+    "company_size": "midmarket",
+    "description": "DevRev builds Computer, an AI-native platform that unifies enterprise data across support, product, and engineering workflows through a proprietary knowledge graph and real-time data sync engine. The platform powers autonomous AI agents for customer support, IT service desk, and product development, serving technology companies and SaaS businesses globally.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://devrev.ai/places"
+  },
+  {
+    "name": "Spyne",
+    "slug": "spyne",
+    "website": "https://www.spyne.ai",
+    "headquarters": "Gurugram, India",
+    "founded": 2018,
+    "company_size": "scaleup",
+    "description": "Spyne builds an AI-powered automotive retail platform that combines generative AI visual merchandising with conversational AI agents to help car dealerships source, list, market, and sell vehicles. The platform serves over 3,200 dealerships across 40+ countries, processing more than 10 million vehicles through its integrated suite of tools spanning imagery, inventory, websites, CRM, and autonomous customer engagement.",
+    "primary_verticals": [
+      "Automotive"
+    ],
+    "contact_email": "sales@spyne.ai",
+    "verification_status": "verified",
+    "contact_url": "https://www.spyne.ai/contact-us"
+  },
+  {
+    "name": "Murf.ai",
+    "slug": "murf-ai",
+    "website": "https://murf.ai",
+    "headquarters": "Salt Lake City, Utah, USA",
+    "founded": 2020,
+    "company_size": "scaleup",
+    "description": "Murf.ai is an AI voice infrastructure company that provides text-to-speech, voice cloning, AI dubbing, and conversational AI voice technology for enterprises. The platform serves over 10 million developers and creators, powering voice agents, voiceover production, and multilingual content localization for 300+ Forbes 2000 companies across industries including healthcare, insurance, retail, and financial services.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Education"
+    ],
+    "contact_email": "enterprise@murf.ai",
+    "verification_status": "verified",
+    "contact_url": "https://murf.ai/enterprise"
+  },
+  {
+    "name": "Netradyne",
+    "slug": "netradyne",
+    "website": "https://www.netradyne.com",
+    "headquarters": "San Diego, California, USA",
+    "founded": 2015,
+    "company_size": "scaleup",
+    "description": "Netradyne is an AI and edge computing company specializing in fleet safety and management. Its platform uses always-on computer vision and on-device AI processing across multi-camera systems to analyze 100% of driving time, providing real-time coaching, automated safety alerts, and natural-language video search for commercial fleets.",
+    "primary_verticals": [
+      "Logistics & Transportation",
+      "Automotive & Mobility"
+    ],
+    "contact_email": "driveri@netradyne.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.netradyne.com/company/contact"
+  },
+  {
+    "name": "SatSure",
+    "slug": "satsure",
+    "website": "https://www.satsure.co",
+    "headquarters": "Bengaluru, India",
+    "founded": 2017,
+    "company_size": "scaleup",
+    "description": "SatSure is a deep-tech Earth intelligence company that combines satellite Earth observation, machine learning, and advanced analytics to deliver decision intelligence across agriculture, aviation, banking, forestry, insurance, and utilities. The company builds AI-powered platforms that transform raw satellite and geospatial data into industry-specific insights for risk assessment, credit scoring, and infrastructure monitoring.",
+    "primary_verticals": [
+      "Agriculture & AgriTech",
+      "Financial Services (BFSI)",
+      "Aerospace & Defense",
+      "Energy & Utilities"
+    ],
+    "contact_email": "info@satsure.co",
+    "verification_status": "verified",
+    "logo_bg": "dark",
+    "contact_url": "https://www.satsure.co/contact-us/"
+  },
+  {
+    "name": "Pixis AI",
+    "slug": "pixis-ai",
+    "website": "https://pixis.ai",
+    "headquarters": "Chicago, Illinois, USA",
+    "founded": 2018,
+    "company_size": "scaleup",
+    "description": "Pixis develops a codeless AI infrastructure platform for performance marketing, combining creative generation, campaign optimization, and cross-channel intelligence to help consumer brands and agencies maximize advertising ROI at scale. The platform is built on over 200 proprietary AI models trained on more than 3 billion data points spanning a decade of marketing performance data.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://pixis.ai/get-a-demo/"
+  },
+  {
+    "name": "Observe.AI",
+    "slug": "observe-ai",
+    "website": "https://www.observe.ai",
+    "headquarters": "Redwood City, California, USA",
+    "founded": 2017,
+    "company_size": "scaleup",
+    "description": "Observe.AI is an agentic AI platform for contact centers that unifies autonomous voice and chat AI agents, real-time human-agent copilots, and GenAI-powered conversation intelligence to automate customer interactions, augment live agents, and analyze 100% of conversations across enterprise support channels. The platform serves 350+ enterprise customers and supports 250+ out-of-the-box integrations with CCaaS, CRM, BI, and workforce systems.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Logistics & Transportation",
+      "Energy & Utilities",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.observe.ai/contact-us"
+  },
+  {
+    "name": "Redacto AI",
+    "slug": "redacto-ai",
+    "website": "https://www.redacto.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2025,
+    "company_size": "startup",
+    "description": "Redacto (legal entity: VertexTech Labs) is an AI-agentic privacy, security, and third-party risk technology platform built for BFSI and HealthTech teams. The platform automates data discovery, vendor risk management, consent management, and privacy compliance workflows using AI agents and automated risk scoring, supporting DPDPA, GDPR, and CCPA compliance.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Automotive & Mobility",
+      "Retail & E-commerce"
+    ],
+    "contact_email": "dpo@redacto.io",
+    "verification_status": "verified",
+    "contact_url": "https://www.redacto.ai/en-in/contact"
+  },
+  {
+    "name": "Riverline AI",
+    "slug": "riverline-ai",
+    "website": "https://riverline.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2024,
+    "company_size": "startup",
+    "description": "Riverline AI is an AI-powered debt counselling platform that deploys autonomous AI agents to interact with distressed borrowers across WhatsApp, email, and voice, guiding them toward creditworthy financial decisions while improving recovery rates for lenders. The company serves digital-first lenders and manages collections across INR 100 crore+ of bad loans monthly.",
+    "primary_verticals": [
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://api.whatsapp.com/send/?phone=918105166259&text=Hi+Abhishek%2C+Went+through+the+Riverline%27s+website+and+would+like+to+talk+about+the+collection"
+  },
+  {
+    "name": "Adya AI",
+    "slug": "adya-ai",
+    "website": "https://adya.ai",
+    "headquarters": "Mumbai, India",
+    "founded": 2023,
+    "company_size": "scaleup",
+    "description": "Adya AI is a cloud-based AI operating system that enables businesses to build and deploy customized AI agents and enterprise applications. The platform centers on Vanij, an agentic AI development suite featuring proprietary innovations including a Multi-Agentic Network for decentralized agent orchestration, an Adaptive Learning Protocol for deterministic business rule enforcement, and a custom large language model (ADI).",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Education",
+      "Logistics & Transportation",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://adya.ai/contact-us"
+  },
+  {
+    "name": "Wyzard AI",
+    "slug": "wyzard-ai",
+    "website": "https://wyzard.ai",
+    "headquarters": "Gurugram, India",
+    "founded": 2024,
+    "company_size": "startup",
+    "description": "Wyzard AI is a B2B SaaS startup that provides an AI-agentic \"Signal-to-Revenue\" platform for go-to-market teams. The platform unifies buyer intent signals across web, email, LinkedIn, and voice channels, then orchestrates autonomous engagement through AI agents to convert inbound leads into qualified pipeline and revenue.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Telecom & Media"
+    ],
+    "contact_email": "hello@wyzard.ai",
+    "verification_status": "verified",
+    "contact_url": "mailto:hello@wyzard.ai"
+  },
+  {
+    "name": "QuickAds AI",
+    "slug": "quickads-ai",
+    "website": "https://www.quickads.ai",
+    "headquarters": "Liberty Hill, Texas, USA",
+    "founded": 2023,
+    "company_size": "startup",
+    "description": "QuickAds AI is a full-stack AI-powered advertising creation and intelligence platform that enables startups, SMBs, and agencies to research competitor ads, generate image and video ad creatives, run AI product photoshoots, and launch campaigns across Meta, Google, TikTok, and YouTube from a single interface. The platform includes a proprietary library of 20M+ scored ads and supports 35+ languages.",
+    "primary_verticals": [
+      "Retail & E-commerce"
+    ],
+    "contact_email": "support@quickads.ai",
+    "verification_status": "verified",
+    "contact_url": "https://www.quickads.ai/contact-us"
+  },
+  {
+    "name": "Molecule AI",
+    "slug": "molecule-ai",
+    "website": "https://moleculeai.com",
+    "headquarters": "Delhi, India",
+    "founded": 2023,
+    "company_size": "startup",
+    "description": "Molecule AI is an AI-driven drug discovery startup that builds intelligent systems combining deep learning, molecular science, and generative AI to accelerate therapeutic candidate discovery. The company offers a cloud-based SaaS platform enabling researchers to perform end-to-end computational drug design including de novo molecule generation, virtual screening, ADMET prediction, and lead optimization.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "contact_email": "info@moleculeai.com",
+    "verification_status": "verified",
+    "contact_url": "https://moleculeai.com/contact-us"
+  },
+  {
+    "name": "Vishwa AI",
+    "slug": "vishwa-ai",
+    "website": "https://www.vishwa.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2023,
+    "company_size": "startup",
+    "description": "Vishwa AI provides a suite of actionable AI products for document intelligence, lending risk assessment, demand forecasting, content automation, and workflow orchestration. The platform emphasizes no-code, low-touch generative AI for finance and operations teams, with enterprise-grade compliance certifications including SOC 2 Type 2, ISO 27001, GDPR, and CCPA.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.vishwa.ai/book-a-demo"
+  },
+  {
+    "name": "HyperVerge",
+    "slug": "hyperverge",
+    "website": "https://hyperverge.co",
+    "headquarters": "Bengaluru, India (US office: Palo Alto, CA)",
+    "founded": 2014,
+    "company_size": "mid-market",
+    "description": "HyperVerge is an AI-powered identity verification and customer onboarding platform serving enterprises in financial services, telecom, gaming, e-commerce, logistics, edtech, and crypto. The platform delivers end-to-end KYC, Video KYC, KYB, face authentication, and deepfake detection across 195+ countries, processing over 30 million verifications monthly with 99.5% accuracy. HyperVerge has onboarded over 1 billion identities to date.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Telecom & Media",
+      "Gaming & Entertainment",
+      "E-commerce & Retail",
+      "Logistics & Transportation",
+      "EdTech",
+      "Crypto & Web3"
+    ],
+    "contact_email": "contact@hyperverge.co",
+    "verification_status": "verified",
+    "contact_url": "mailto:contact@hyperverge.co"
+  },
+  {
+    "name": "Pepper Content AI",
+    "slug": "pepper-content-ai",
+    "website": "https://www.pepper.inc",
+    "headquarters": "Delhi, India",
+    "founded": 2017,
+    "company_size": "scaleup",
+    "description": "Pepper (formerly Pepper Content) is an AI-native content marketing platform that combines generative AI tools with a curated network of over 100,000 freelance creators. The platform serves enterprise marketing, communications, and growth teams with AI-powered content creation, SEO optimization, and brand visibility tracking across traditional and AI-driven search surfaces.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Technology",
+      "Healthcare & Life Sciences"
+    ],
+    "contact_email": "business@peppercontent.io",
+    "verification_status": "verified",
+    "contact_url": "https://www.pepper.inc/book-a-demo/"
+  },
+  {
+    "name": "Kissflow AI",
+    "slug": "kissflow-ai",
+    "website": "https://kissflow.com",
+    "headquarters": "Chennai, India (Global HQ: Wilmington, Delaware, USA)",
+    "founded": 2012,
+    "company_size": "scaleup",
+    "description": "Kissflow is an AI-powered low-code/no-code platform that enables enterprises to build custom applications, automate workflows, and manage digital operations on a unified platform. The company integrates generative AI across its entire product suite, allowing both IT teams and business users to create apps, processes, and integrations using natural language prompts. Kissflow serves industries including manufacturing, healthcare, banking, retail, oil and gas, and insurance, and has been recognized in the 2025 Gartner Hype Cycle for Enterprise Process Automation.",
+    "primary_verticals": [
+      "Manufacturing",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Energy & Utilities"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://kissflow.com/contact/"
+  },
+  {
+    "name": "KissanAI",
+    "slug": "kissanai",
+    "website": "https://kissan.ai",
+    "headquarters": "Surat, India",
+    "founded": 2023,
+    "company_size": "startup",
+    "description": "KissanAI is an agriculture-focused AI company that builds multilingual generative AI platforms and domain-specific large language models for the farming sector. The company develops the Dhenu family of agriculture LLMs and the AgriCopilot enterprise platform, serving both smallholder farmers directly and agribusiness enterprises through API-driven AI solutions supporting 10+ Indian languages including Hindi, Gujarati, Marathi, Tamil, and Telugu.",
+    "primary_verticals": [
+      "Agriculture & AgriTech"
+    ],
+    "contact_email": "contact@kissanai.com",
+    "verification_status": "verified",
+    "contact_url": "mailto:contact@kissanai.com"
+  },
+  {
+    "name": "Automation Anywhere",
+    "slug": "automation-anywhere",
+    "website": "https://www.automationanywhere.com",
+    "headquarters": "San Jose, California, USA",
+    "founded": 2003,
+    "company_size": "midmarket",
+    "description": "Automation Anywhere is a leader in agentic process automation, providing an enterprise platform that combines AI agents, robotic process automation, and intelligent document processing to automate mission-critical business workflows. The company's Agentic Process Automation System uses a proprietary Process Reasoning Engine trained on over 400 million enterprise workflow data points, enabling goal-driven AI agents that reason, plan, and execute across complex multi-system environments with built-in governance and human-in-the-loop controls.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Energy & Utilities"
+    ],
+    "contact_email": "contact@automationanywhere.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.automationanywhere.com/contact-us"
+  },
+  {
+    "name": "Perfios AI",
+    "slug": "perfios-ai",
+    "website": "https://perfios.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2008,
+    "company_size": "midmarket",
+    "description": "Perfios is a global B2B SaaS company serving the banking, financial services, and insurance (BFSI) industry in 18 countries, powering over 1,000 financial institutions. The company provides an AI-powered real-time operating system that unifies onboarding, underwriting, risk management, collections, and embedded finance through domain-trained LLMs, agentic AI, and vision-language models purpose-built for financial workflows.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Insurance"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://perfios.ai/contact-us/"
+  },
+  {
+    "name": "Nanonets",
+    "slug": "nanonets",
+    "website": "https://nanonets.com",
+    "headquarters": "San Francisco, California, USA",
+    "founded": 2017,
+    "company_size": "scaleup",
+    "description": "Nanonets is an AI-powered intelligent document processing and workflow automation company that builds autonomous AI agents for enterprise back-office operations. The platform combines deep learning, OCR, and agentic AI to automate document-heavy business processes with a focus on guaranteed straight-through processing at over 90% accuracy across millions of documents monthly. Nanonets serves over 34% of Fortune 500 companies across finance, healthcare, insurance, and logistics, and holds HIPAA, SOC 2, ISO 27001, and GDPR compliance certifications.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Insurance",
+      "Logistics & Transportation",
+      "Retail & E-commerce"
+    ],
+    "contact_email": "support@nanonets.com",
+    "verification_status": "verified",
+    "contact_url": "mailto:info@nanonets.com"
+  },
+  {
+    "name": "Tungsten Automation (formerly Kofax)",
+    "slug": "tungsten-automation-formerly-kofax",
+    "website": "https://www.tungstenautomation.com",
+    "headquarters": "Irvine, California, USA",
+    "founded": 1985,
+    "company_size": "enterprise",
+    "description": "Tungsten Automation, formerly Kofax, is an intelligent workflow automation software provider that uses AI and machine learning to automate data-intensive business processes including document processing, accounts payable, and process orchestration. The company serves financial services, healthcare, government, and insurance verticals across 32 countries.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Government & Public Sector",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.tungstenautomation.com/contact-us"
+  },
+  {
+    "name": "EdgeVerve",
+    "slug": "edgeverve",
+    "website": "https://www.edgeverve.com",
+    "headquarters": "Bengaluru, India",
+    "founded": 2014,
+    "company_size": "enterprise",
+    "description": "EdgeVerve Systems is a wholly owned product subsidiary of Infosys that develops AI and automation software platforms for enterprise digital transformation. Its portfolio spans agentic AI orchestration, intelligent document processing, digital banking, supply chain networks, and robotic process automation.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Logistics & Transportation"
+    ],
+    "contact_email": "contact@edgeverve.com",
+    "verification_status": "verified",
+    "contact_url": "https://www.edgeverve.com/finacle/contact/"
+  },
+  {
+    "name": "UiPath",
+    "slug": "uipath",
+    "website": "https://www.uipath.com",
+    "headquarters": "New York, NY, USA",
+    "founded": 2005,
+    "company_size": "midmarket",
+    "description": "UiPath is a global software company specializing in AI-powered agentic automation and orchestration. The platform unifies AI agents, robotic process automation, and human oversight to automate complex enterprise processes across financial services, healthcare, manufacturing, and government.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Government & Public Sector",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://www.uipath.com/company/contact-us"
+  },
+  {
+    "name": "Amnic AI",
+    "slug": "amnic-ai",
+    "website": "https://amnic.com",
+    "headquarters": "Los Altos, California, USA (offices in Bengaluru, India)",
+    "founded": 2021,
+    "company_size": "startup",
+    "description": "Amnic is a FinOps SaaS company that builds an agentic AI platform for cloud cost management automation. Its platform deploys context-aware, role-specific AI agents that automate reporting, root-cause analysis, anomaly detection, budgeting, and cost optimization across multi-cloud environments.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "contact_url": "https://amnic.com/connect-with-us"
+  },
+  {
+    "name": "Whatfix",
+    "slug": "whatfix",
+    "website": "https://whatfix.com",
+    "headquarters": "San Jose, California, USA / Bengaluru, India",
+    "founded": 2014,
+    "company_size": "midmarket",
+    "description": "Whatfix is an AI-powered digital adoption platform that helps enterprises drive software adoption, user productivity, and business outcomes across their technology stack. The platform uses ScreenSense, a proprietary context- and intent-aware AI engine, to interpret application workflows and user intent in real time.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Government & Public Sector",
+      "Education"
+    ],
+    "contact_email": "info@whatfix.com",
+    "verification_status": "verified",
+    "contact_url": "https://whatfix.com/request-demo/"
+  },
+  {
+    "name": "ShopOS",
+    "slug": "shopos",
+    "website": "https://shopos.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2024,
+    "company_size": "startup",
+    "description": "ShopOS is an AI-native operating system for e-commerce brands that uses autonomous agents to automate content creation, catalog management, marketing, pricing, and storefront personalization. The platform consolidates PIM, DAM, and PXM capabilities into a single AI-driven system.",
+    "primary_verticals": [
+      "Retail & E-commerce"
+    ],
+    "contact_email": "hi@shopos.ai",
+    "verification_status": "verified",
+    "contact_url": "mailto:hi@shopos.ai"
+  },
+  {
+    "name": "Raga AI",
+    "slug": "raga-ai",
+    "website": "https://raga.ai",
+    "headquarters": "Milpitas, California, USA (R&D in Bengaluru, India)",
+    "founded": 2022,
+    "company_size": "startup",
+    "description": "RagaAI is an AI testing and observability company that helps enterprises build, evaluate, and deploy reliable AI agents. The platform offers automated testing with 300+ tests across computer vision, NLP, and structured data, plus observability and debugging tools for agentic AI workflows.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Aerospace & Defense",
+      "Financial Services (BFSI)"
+    ],
+    "contact_email": "sales@raga.ai",
+    "verification_status": "verified",
+    "logo_bg": "dark",
+    "contact_url": "https://raga.ai/book-demo"
+  },
+  {
+    "name": "Convin AI",
+    "slug": "convin-ai",
+    "website": "https://convin.ai",
+    "headquarters": "Bengaluru, India",
+    "founded": 2020,
+    "company_size": "scaleup",
+    "description": "Convin AI is an AI-native contact center platform that automates and optimizes customer conversations across voice, chat, and email channels. The platform combines virtual voice agents, real-time agent assistance, conversation intelligence, and automated coaching to help sales, support, and collections teams scale operations.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Real Estate & Construction",
+      "Education"
+    ],
+    "contact_email": "support@convin.ai",
+    "verification_status": "verified",
+    "contact_url": "https://convin.ai/pricing#Pricing-Form"
+  },
+  {
+    "slug": "sierra",
+    "name": "Sierra",
+    "website": "https://sierra.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Sierra builds a conversational AI platform that enables enterprises to create, deploy, and manage AI agents for customer experience across chat, voice, email, SMS, WhatsApp, and other channels. The platform combines a no-code agent builder, a developer SDK, analytics, and a data layer to power autonomous and human-assisted customer interactions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_url": "https://sierra.ai/learn-more"
+  },
+  {
+    "slug": "decagon",
+    "name": "Decagon",
+    "website": "https://decagon.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Decagon is a conversational AI platform that enables enterprises to build, manage, and scale AI agents for customer experience across voice, chat, and email channels. The platform uses proprietary Agent Operating Procedures (AOPs) that let teams define agent behavior in natural language, which automatically compiles into executable code for handling complex customer interactions.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "support@decagon.ai",
+    "contact_url": "https://decagon.ai/get-a-demo"
+  },
+  {
+    "slug": "polyai",
+    "name": "PolyAI",
+    "website": "https://poly.ai",
+    "headquarters": "London, United Kingdom",
+    "company_size": "scaleup",
+    "description": "PolyAI builds enterprise-grade voice AI agents that handle complex customer conversations across 45 languages with native-speaker quality. The company provides a voice-first omnichannel platform that enables enterprises to automate customer service interactions at scale across voice, chat, and SMS channels.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2017,
+    "contact_email": "sales@poly.ai",
+    "contact_url": "https://poly.ai/contact"
+  },
+  {
+    "slug": "parloa",
+    "name": "Parloa",
+    "website": "https://www.parloa.com",
+    "headquarters": "Berlin, Germany",
+    "company_size": "scaleup",
+    "description": "Parloa builds an AI Agent Management Platform for enterprise contact centers, enabling organizations to design, test, deploy, and optimize AI-powered voice and text agents across 130+ languages. The platform supports the full agent lifecycle with built-in simulations, evaluations, guardrails, and integrations with major CRM, ERP, and CCaaS systems.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "contact@parloa.com",
+    "contact_url": "https://www.parloa.com/contact-us/"
+  },
+  {
+    "slug": "wonderful",
+    "name": "Wonderful",
+    "website": "",
+    "headquarters": "",
+    "company_size": "startup",
+    "description": "",
+    "primary_verticals": [],
+    "verification_status": "verified",
+    "contact_url": "https://www.wonderful.ai/contact"
+  },
+  {
+    "slug": "ada",
+    "name": "Ada",
+    "website": "https://www.ada.cx",
+    "headquarters": "Toronto, Canada",
+    "company_size": "scaleup",
+    "description": "Ada is an AI-native customer service automation platform that enables enterprises to automatically resolve customer inquiries across messaging, voice, email, and social channels using agentic AI powered by its proprietary Reasoning Engine. The platform supports 50+ languages and integrates with business-critical systems to deliver omnichannel customer experiences at scale.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Telecom & Media",
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_email": "help@ada.cx",
+    "contact_url": "mailto:help@ada.cx"
+  },
+  {
+    "slug": "intercom",
+    "name": "Intercom",
+    "website": "https://www.intercom.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Intercom is an AI-first customer service platform that provides businesses with AI-powered agents, a next-generation helpdesk, and proactive support tools to deliver automated and human-assisted customer experiences at scale. The company's Fin AI Engine is a patented retrieval-augmented generation architecture purpose-built for complex customer service queries.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2011,
+    "contact_email": "press@intercom.com",
+    "contact_url": "https://www.intercom.com/contact-sales"
+  },
+  {
+    "slug": "kore-ai",
+    "name": "Kore.ai",
+    "website": "https://www.kore.ai",
+    "headquarters": "Orlando, FL, USA",
+    "company_size": "midmarket",
+    "description": "Kore.ai provides an enterprise agentic AI platform for building, deploying, and orchestrating AI agents across customer service, employee productivity, and business process automation. The platform includes no-code to pro-code development tools, multi-agent orchestration, enterprise search with agentic RAG, and a marketplace of 200+ pre-built agent templates.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2013,
+    "contact_email": "info@kore.ai",
+    "contact_url": "https://www.kore.ai/contact-us"
+  },
+  {
+    "slug": "cresta",
+    "name": "Cresta",
+    "website": "https://cresta.com",
+    "headquarters": "Sunnyvale, CA, USA",
+    "company_size": "scaleup",
+    "description": "Cresta provides an enterprise generative AI platform for contact centers that unifies autonomous AI agents, real-time human agent assistance, and conversation intelligence to improve customer experience across voice, chat, and email channels. The platform uses 20+ large and small language models with a no-code orchestration engine to serve industries including airlines, automotive, finance, healthcare, insurance, retail, and telecommunications.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "founded": 2017,
+    "contact_url": "https://cresta.com/request-a-demo"
+  },
+  {
+    "slug": "tidio",
+    "name": "Tidio",
+    "website": "https://www.tidio.com",
+    "headquarters": "San Francisco, CA, USA / Szczecin, Poland",
+    "company_size": "scaleup",
+    "description": "Tidio is a customer service platform that combines live chat, AI agents, help desk, and chatbot automation tools for small-to-medium businesses and e-commerce stores. The platform is trusted by over 300,000 businesses worldwide and is powered by Anthropic's Claude AI model.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2013,
+    "contact_email": "support@tidio.net",
+    "contact_url": "https://www.tidio.com/contact-sales/"
+  },
+  {
+    "slug": "maven-agi",
+    "name": "Maven AGI",
+    "website": "https://www.mavenagi.com",
+    "headquarters": "Boston, MA, USA",
+    "company_size": "scaleup",
+    "description": "Maven AGI is an enterprise AI agent platform for customer experience that autonomously resolves customer issues across chat, email, voice, and messaging channels. The platform unifies knowledge, systems, and actions through a generative reasoning engine, enabling end-to-end issue resolution without rigid predefined workflows.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "contact@mavenagi.com",
+    "contact_url": "https://www.mavenagi.com/demo"
+  },
+  {
+    "slug": "zowie",
+    "name": "Zowie",
+    "website": "https://getzowie.com",
+    "headquarters": "New York, USA",
+    "company_size": "scaleup",
+    "description": "Zowie is a Customer AI Agent Platform that enables enterprises to automate up to 95% of customer service interactions across chat, email, voice, and social channels using deterministic, hallucination-free AI grounded in proprietary Reasoning, Decision, and Persona engines. The platform serves ecommerce and enterprise brands with multilingual support in 70+ languages.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_email": "hello@zowie.ai",
+    "contact_url": "https://getzowie.com/book-a-demo"
+  },
+  {
+    "slug": "assembled",
+    "name": "Assembled",
+    "website": "https://www.assembled.com",
+    "headquarters": "San Francisco, CA, USA",
+    "company_size": "scaleup",
+    "description": "Assembled is a support operations platform that unifies workforce management and AI-powered issue resolution, enabling enterprises to staff, schedule, and manage blended teams of human agents and AI agents across voice, chat, email, and SMS channels.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "salesteam@assembledhq.com",
+    "contact_url": "https://www.assembled.com/demo-request"
+  },
+  {
+    "slug": "dialpad",
+    "name": "Dialpad",
+    "website": "https://www.dialpad.com",
+    "headquarters": "San Ramon, CA, USA",
+    "company_size": "midmarket",
+    "description": "Dialpad is an AI-native cloud communications platform that provides agentic AI-powered contact center, unified communications, and sales outreach solutions for enterprises across voice, chat, SMS, and digital channels.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Real Estate & Construction"
+    ],
+    "verification_status": "verified",
+    "founded": 2011,
+    "contact_url": "https://www.dialpad.com/contact-us/"
+  },
+  {
+    "slug": "gong",
+    "name": "Gong",
+    "website": "https://www.gong.io",
+    "headquarters": "San Francisco, CA, USA",
+    "company_size": "midmarket",
+    "description": "Gong provides a Revenue AI Operating System that captures and analyzes customer interactions across calls, emails, and meetings to deliver actionable insights, automate sales workflows, and power over a dozen specialized AI agents for revenue teams. The platform serves more than 5,000 companies worldwide, unifying data, intelligence, and automation.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "sales@gong.io",
+    "contact_url": "https://www.gong.io/contact-us"
+  },
+  {
+    "slug": "outreach",
+    "name": "Outreach",
+    "website": "https://www.outreach.io",
+    "headquarters": "Seattle, WA, USA",
+    "company_size": "midmarket",
+    "description": "Outreach is an AI-powered revenue workflow platform that helps sales, marketing, RevOps, and go-to-market teams build pipeline, close deals, and drive revenue success through interconnected AI agents and unified data.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2014,
+    "contact_email": "pr@outreach.io",
+    "contact_url": "https://www.outreach.io/company/contact"
+  },
+  {
+    "slug": "clari",
+    "name": "Clari",
+    "website": "https://www.clari.com",
+    "headquarters": "Sunnyvale, CA, USA",
+    "company_size": "midmarket",
+    "description": "Clari is an enterprise revenue orchestration platform that uses AI and proprietary Revenue Context to unify data, orchestrate workflows, and guide actions across the entire revenue process for over 1,500 organizations.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2012,
+    "contact_email": "support@clari.com",
+    "contact_url": "https://www.clari.com/demo-request/"
+  },
+  {
+    "slug": "apollo-io",
+    "name": "Apollo.io",
+    "website": "https://www.apollo.io",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Apollo.io is an AI-native go-to-market platform that combines a 265M+ verified B2B contact database with agentic AI capabilities to help revenue teams prospect, engage, and close deals from a single platform.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "press@apollo.io",
+    "contact_url": "https://www.apollo.io/contact-us"
+  },
+  {
+    "slug": "clay",
+    "name": "Clay",
+    "website": "https://www.clay.com",
+    "headquarters": "New York, USA",
+    "company_size": "scaleup",
+    "description": "Clay is an AI-powered go-to-market platform that combines data enrichment from 150+ providers, agentic AI research, and workflow automation to help sales and marketing teams build targeted outbound campaigns and personalize outreach at scale.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2017,
+    "contact_email": "support@clay.com",
+    "contact_url": "https://www.clay.com/contact"
+  },
+  {
+    "slug": "hightouch",
+    "name": "Hightouch",
+    "website": "https://hightouch.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Hightouch is the leading Composable CDP and AI Decisioning platform that enables marketing teams to activate their data warehouse to build personalized customer experiences using data and AI agents. The platform connects to 250+ marketing and data tools, powering 1:1 personalization at scale.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Telecom & Media",
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_url": "https://hightouch.com/demo"
+  },
+  {
+    "slug": "highspot",
+    "name": "Highspot",
+    "website": "https://www.highspot.com",
+    "headquarters": "Seattle, WA, USA",
+    "company_size": "midmarket",
+    "description": "Highspot is the unified go-to-market enablement platform that uses AI to help sales, marketing, and revenue teams improve productivity, close more deals, and drive predictable growth. The platform connects more than 20 million users and serves enterprise customers across financial services, manufacturing, healthcare, and technology.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2012,
+    "contact_url": "https://www.highspot.com/contact/"
+  },
+  {
+    "slug": "regie-ai",
+    "name": "Regie.ai",
+    "website": "https://www.regie.ai",
+    "headquarters": "San Francisco, CA, USA",
+    "company_size": "scaleup",
+    "description": "Regie.ai is a generative AI platform for sales prospecting that combines autonomous AI agents with human sellers in a unified workflow, enabling revenue teams to automate lead discovery, enrichment, multi-channel outreach, and CRM management at scale.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2021,
+    "contact_email": "info@regie.ai",
+    "contact_url": "https://www.regie.ai/demo"
+  },
+  {
+    "slug": "amplemarket",
+    "name": "Amplemarket",
+    "website": "https://www.amplemarket.com",
+    "headquarters": "Lisbon, Portugal",
+    "company_size": "scaleup",
+    "description": "Amplemarket is an AI-powered all-in-one sales platform that helps B2B sales teams find, engage, and convert prospects through signal-based selling and multichannel outreach. The platform combines a 200M+ contact database, AI copilot, multichannel engagement across seven channels, deliverability tools, and 100+ contact-level intent signals.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_url": "https://www.amplemarket.com/demo"
+  },
+  {
+    "slug": "jasper",
+    "name": "Jasper",
+    "website": "https://www.jasper.ai",
+    "headquarters": "Austin, TX, USA",
+    "company_size": "scaleup",
+    "description": "Jasper is an AI-powered marketing platform that combines autonomous agents, brand intelligence, and collaborative workspaces to help enterprise marketing teams plan, create, optimize, and scale content across channels while maintaining brand consistency and governance.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2021,
+    "contact_email": "hey@jasper.ai",
+    "contact_url": "https://www.jasper.ai/contact-support"
+  },
+  {
+    "slug": "typeface",
+    "name": "Typeface",
+    "website": "https://www.typeface.ai",
+    "headquarters": "Palo Alto, CA, USA",
+    "company_size": "scaleup",
+    "description": "Typeface is an enterprise AI platform that enables marketing teams to create, personalize, and activate brand-consistent content at scale using agentic AI workflows. The platform combines brand intelligence, specialized marketing agents, and collaborative workspaces to orchestrate cross-channel campaigns.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Telecom & Media",
+      "Energy & Utilities"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_email": "info@typeface.ai",
+    "contact_url": "https://www.typeface.ai/contact-sales"
+  },
+  {
+    "slug": "writer",
+    "name": "Writer",
+    "website": "",
+    "headquarters": "",
+    "company_size": "startup",
+    "description": "",
+    "primary_verticals": [],
+    "verification_status": "verified",
+    "contact_url": "https://go.writer.com/demo"
+  },
+  {
+    "slug": "cognition-ai",
+    "name": "Cognition AI",
+    "website": "https://cognition.ai",
+    "headquarters": "San Francisco, CA, USA",
+    "company_size": "scaleup",
+    "description": "Cognition AI is an applied AI lab that builds autonomous software engineering agents, most notably Devin, the first AI software engineer capable of planning, coding, testing, and deploying code independently. The company also offers Windsurf, an AI-native IDE with agentic coding capabilities.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "support@cognition.ai",
+    "contact_url": "https://cognition.ai/contact"
+  },
+  {
+    "slug": "anysphere-cursor",
+    "name": "Anysphere (Cursor)",
+    "website": "https://cursor.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Anysphere is an applied AI research lab that builds Cursor, the leading AI-native code editor for software development. The company specializes in deeply integrated AI coding assistance — from intelligent autocomplete to fully autonomous background agents — serving individual developers and enterprise engineering teams across all industries.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_email": "founders@anysphere.co",
+    "contact_url": "https://cursor.com/contact-sales"
+  },
+  {
+    "slug": "replit",
+    "name": "Replit",
+    "website": "https://replit.com",
+    "headquarters": "Foster City, CA, USA",
+    "company_size": "scaleup",
+    "description": "Replit is an agentic software creation platform that enables anyone to build and deploy full-stack applications using natural language directly from the browser. The platform serves over 500,000 business users across product, design, operations, sales, and marketing functions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_url": "https://replit.com/core-sales"
+  },
+  {
+    "slug": "augment-code",
+    "name": "Augment Code",
+    "website": "https://www.augmentcode.com",
+    "headquarters": "Palo Alto, CA, USA",
+    "company_size": "scaleup",
+    "description": "Augment Code is an AI-powered software development platform that builds context-aware coding agents for enterprise engineering teams. Its proprietary Context Engine maintains a live semantic understanding of entire codebases — code, dependencies, architecture, and history — enabling AI agents to reason across millions of lines of code.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_email": "press@augmentcode.com",
+    "contact_url": "https://www.augmentcode.com/contact"
+  },
+  {
+    "slug": "lovable",
+    "name": "Lovable",
+    "website": "https://lovable.dev",
+    "headquarters": "Stockholm, Sweden",
+    "company_size": "scaleup",
+    "description": "Lovable is an AI-powered full-stack app builder that enables users to create production-ready web applications through natural language prompts. The platform handles front-end code generation (React + Tailwind CSS), back-end provisioning, database setup, authentication, and one-click deployment without requiring traditional coding skills.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "support@lovable.dev",
+    "contact_url": "https://lovable.dev/support"
+  },
+  {
+    "slug": "vercel",
+    "name": "Vercel",
+    "website": "https://vercel.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Vercel is a cloud platform for frontend development and AI workloads, providing tools for building, deploying, and scaling web applications and intelligent systems. The company created and maintains Next.js and offers an AI Cloud platform that combines infrastructure, SDKs, and developer tools purpose-built for deploying AI-powered applications at production scale.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_url": "https://vercel.com/contact/sales"
+  },
+  {
+    "slug": "harness",
+    "name": "Harness",
+    "website": "https://www.harness.io",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Harness is an AI-native software delivery platform that automates CI/CD pipelines, testing, security, and cloud cost optimization across the entire software development lifecycle. The platform uses a network of specialized AI agents coordinated through a Software Delivery Knowledge Graph.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Aerospace & Defense"
+    ],
+    "verification_status": "verified",
+    "founded": 2017,
+    "contact_url": "https://www.harness.io/company/contact-sales"
+  },
+  {
+    "slug": "tabnine",
+    "name": "Tabnine",
+    "website": "https://www.tabnine.com",
+    "headquarters": "Tel Aviv, Israel",
+    "company_size": "scaleup",
+    "description": "Tabnine is a privacy-first AI coding platform that provides code completion, chat-based assistance, and autonomous AI agents for enterprise software development teams. The platform supports SaaS, VPC, on-premises, and fully air-gapped deployments with zero data retention and SOC 2, GDPR, and ISO 27001 compliance.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Aerospace & Defense",
+      "Government & Public Sector",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2013,
+    "contact_email": "info@tabnine.com",
+    "contact_url": "https://www.tabnine.com/contact-us/"
+  },
+  {
+    "slug": "qodo",
+    "name": "Qodo",
+    "website": "https://www.qodo.ai",
+    "headquarters": "Tel Aviv, Israel",
+    "company_size": "scaleup",
+    "description": "Qodo (formerly CodiumAI) is a code integrity platform that deploys specialized AI agents across the software development lifecycle to automate code review, test generation, and quality enforcement. The platform serves development teams with IDE plugins, Git integrations, and CLI tools that analyze codebases structurally and semantically.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_email": "support@qodo.ai",
+    "contact_url": "https://www.qodo.ai/contact/"
+  },
+  {
+    "slug": "zencoder",
+    "name": "Zencoder",
+    "website": "https://zencoder.ai",
+    "headquarters": "Campbell, CA, USA",
+    "company_size": "scaleup",
+    "description": "Zencoder is an AI-powered coding platform that provides autonomous coding agents and workflow orchestration tools for software engineering teams. The company builds IDE extensions, CI/CD agents, and a desktop orchestration app that help developers write, test, debug, and ship code faster through multi-model AI verification and deep codebase understanding.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "contact@zencoder.ai",
+    "contact_url": "https://zencoder.ai/contact"
+  },
+  {
+    "slug": "elevenlabs",
+    "name": "ElevenLabs",
+    "website": "https://elevenlabs.io",
+    "headquarters": "New York, USA",
+    "company_size": "midmarket",
+    "description": "ElevenLabs is a voice AI platform that provides text-to-speech, speech-to-text, voice cloning, and conversational AI agent technology for enterprises and developers. The company serves industries spanning media, healthcare, gaming, publishing, education, and customer experience with low-latency, multilingual voice capabilities across 70+ languages.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_email": "team@elevenlabs.io",
+    "contact_url": "https://elevenlabs.io/contact-sales"
+  },
+  {
+    "slug": "synthflow",
+    "name": "Synthflow",
+    "website": "https://synthflow.ai",
+    "headquarters": "Berlin, Germany",
+    "company_size": "scaleup",
+    "description": "Synthflow is a voice-first conversational AI company that enables enterprises to automate inbound and outbound phone calls using no-code AI voice agents. The platform serves contact centers, healthcare providers, financial services firms, and real estate companies with sub-100ms latency telephony and enterprise-grade compliance (SOC 2, HIPAA, PCI DSS, GDPR).",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Real Estate & Construction",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "contact@synthflow.ai",
+    "contact_url": "https://synthflow.ai/talk-to-sales"
+  },
+  {
+    "slug": "vapi",
+    "name": "Vapi",
+    "website": "https://vapi.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Vapi is a developer platform for building, testing, and deploying voice AI agents that handle phone operations across inbound and outbound calls. It provides API-native infrastructure with deep configurability, enabling startups and enterprises to create conversational voice AI applications at scale.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Logistics & Transportation",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "support@vapi.ai",
+    "contact_url": "https://vapi.ai/sales"
+  },
+  {
+    "slug": "livekit",
+    "name": "LiveKit",
+    "website": "https://livekit.com",
+    "headquarters": "San Francisco, CA, USA",
+    "company_size": "scaleup",
+    "description": "LiveKit is an open-source infrastructure platform for building, deploying, and scaling real-time voice, video, and multimodal AI agents. The company provides a full-stack developer platform spanning agent frameworks, managed cloud hosting, model inference, telephony, and observability, powering over 200,000 developers.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2021,
+    "contact_url": "https://livekit.com/contact-sales"
+  },
+  {
+    "slug": "n8n",
+    "name": "n8n",
+    "website": "https://n8n.io",
+    "headquarters": "Berlin, Germany",
+    "company_size": "scaleup",
+    "description": "n8n is a fair-code workflow automation platform with native AI capabilities that lets technical teams combine visual building with custom code across 400+ integrations. The platform supports both cloud-hosted and self-hosted deployments, enabling organizations to build AI-powered agents and automations while retaining full control over their data.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_email": "support@n8n.io",
+    "contact_url": "https://n8n.io/contact/"
+  },
+  {
+    "slug": "tines",
+    "name": "Tines",
+    "website": "https://www.tines.com",
+    "headquarters": "Dublin, Ireland",
+    "company_size": "scaleup",
+    "description": "Tines is an intelligent workflow automation platform originally built for security operations, now used across IT, engineering, HR, and business operations. The platform combines deterministic automation, AI agents, copilots, and Model Context Protocol support to help enterprises automate complex multi-system workflows with built-in governance.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Government & Public Sector",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "hello@tines.com",
+    "contact_url": "https://www.tines.com/contact/"
+  },
+  {
+    "slug": "ema",
+    "name": "Ema",
+    "website": "https://www.ema.ai",
+    "headquarters": "Mountain View, CA, USA",
+    "company_size": "scaleup",
+    "description": "Ema builds a Universal AI Employee platform that uses agentic AI to automate complex enterprise workflows across customer experience, employee experience, sales, and finance operations. The platform is powered by the proprietary EmaFusion model, which orchestrates over 100 public and private AI models through a no-code Generative Workflow Engine.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "support@ema.co",
+    "contact_url": "https://www.ema.ai/hire-ema"
+  },
+  {
+    "slug": "langchain",
+    "name": "LangChain",
+    "website": "https://www.langchain.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "LangChain is an agent engineering platform company that provides open-source frameworks and commercial tools for building, observing, evaluating, and deploying AI agents at scale. The company serves over 35% of the Fortune 500 and processes over one billion events daily on its LangSmith platform.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "support@langchain.dev",
+    "contact_url": "https://www.langchain.com/contact-sales"
+  },
+  {
+    "slug": "hippocratic-ai",
+    "name": "Hippocratic AI",
+    "website": "https://hippocraticai.com",
+    "headquarters": "Palo Alto, CA, USA",
+    "company_size": "scaleup",
+    "description": "Hippocratic AI builds safety-focused generative AI agents for healthcare, serving health systems, payors, and pharmaceutical companies with non-diagnostic, patient-facing applications. The company specializes in voice-based AI agents powered by its proprietary Polaris constellation architecture, addressing the global healthcare staffing shortage across 1,000+ clinical use cases.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "press@hippocraticai.com",
+    "contact_url": "https://hippocraticai.com/contact-us/"
+  },
+  {
+    "slug": "ambience-healthcare",
+    "name": "Ambience Healthcare",
+    "website": "",
+    "headquarters": "",
+    "company_size": "startup",
+    "description": "",
+    "primary_verticals": [],
+    "verification_status": "verified",
+    "contact_url": "https://www.ambiencehealthcare.com/demo"
+  },
+  {
+    "slug": "abridge",
+    "name": "Abridge",
+    "website": "https://www.abridge.com",
+    "headquarters": "Pittsburgh, PA, USA",
+    "company_size": "scaleup",
+    "description": "Abridge is an enterprise-grade generative AI platform that transforms patient-clinician conversations into clinically useful, billable, and compliant documentation at the point of care, serving over 200 health systems across 55+ specialties and 28+ languages.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_url": "https://www.abridge.com/contact"
+  },
+  {
+    "slug": "innovaccer",
+    "name": "Innovaccer",
+    "website": "https://innovaccer.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Innovaccer is a healthcare technology company that provides an agentic AI platform unifying clinical, operational, and financial data for health systems, payers, government agencies, and life sciences organizations. The company is known for its Data Activation Platform and suite of AI copilots and agents purpose-built for healthcare workflows.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "founded": 2014,
+    "contact_email": "sales@innovaccer.com",
+    "contact_url": "https://innovaccer.com/request-a-demo-in"
+  },
+  {
+    "slug": "corti",
+    "name": "Corti",
+    "website": "https://www.corti.ai",
+    "headquarters": "Copenhagen, Denmark",
+    "company_size": "scaleup",
+    "description": "Corti builds specialized AI infrastructure and foundation models purpose-built for healthcare, powering clinical documentation, real-time decision support, and agentic workflows. The company serves healthcare providers, emergency services, and health-tech developers with APIs and pre-built agents trained exclusively on medical data.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_email": "info@corti.ai",
+    "contact_url": "https://www.corti.ai/contact-us"
+  },
+  {
+    "slug": "tennr",
+    "name": "Tennr",
+    "website": "https://www.tennr.com",
+    "headquarters": "New York, USA",
+    "company_size": "scaleup",
+    "description": "Tennr is a healthcare AI company that automates patient referral processing and front-office administrative workflows using proprietary vision-language models trained on millions of medical documents. The platform eliminates manual document intake, data extraction, insurance verification, and prior authorization tasks.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2021,
+    "contact_email": "hello@tennr.com",
+    "contact_url": "https://www.tennr.com/book-a-demo"
+  },
+  {
+    "slug": "artera",
+    "name": "Artera",
+    "website": "https://artera.io",
+    "headquarters": "Santa Barbara, CA, USA",
+    "company_size": "scaleup",
+    "description": "Artera (formerly WELL Health) is an AI-powered patient communication platform that enables healthcare organizations to unify, automate, and orchestrate digital communications across SMS, email, IVR, and webchat in 109+ languages. The company serves over 1,000 healthcare organizations including health systems, physician practices, FQHCs, and federal agencies.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "artera@artera.io",
+    "contact_url": "https://artera.io/contact-us/"
+  },
+  {
+    "slug": "suki",
+    "name": "Suki",
+    "website": "https://www.suki.ai",
+    "headquarters": "Redwood City, CA, USA",
+    "company_size": "scaleup",
+    "description": "Suki builds ambient clinical intelligence that powers documentation, revenue cycle, and clinical reasoning for healthcare organizations, reducing administrative burden so clinicians can focus on patient care. The platform supports 100+ medical specialties across ambulatory, inpatient, emergency, telehealth, and home health settings.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2017,
+    "contact_email": "contact@suki.ai",
+    "contact_url": "https://www.suki.ai/contact-us"
+  },
+  {
+    "slug": "akasa",
+    "name": "AKASA",
+    "website": "",
+    "headquarters": "",
+    "company_size": "startup",
+    "description": "",
+    "primary_verticals": [],
+    "verification_status": "verified",
+    "contact_url": "https://www.akasa.com/contact-us"
+  },
+  {
+    "slug": "nabla",
+    "name": "Nabla",
+    "website": "https://www.nabla.com",
+    "headquarters": "Paris, France",
+    "company_size": "scaleup",
+    "description": "Nabla builds ambient AI assistants and documentation tools for clinicians, helping healthcare organizations reduce administrative burden and restore the human connection at the point of care. The platform supports 55+ medical specialties across 35+ languages and integrates with all major EHR systems.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "contact@nabla.com",
+    "contact_url": "https://www.nabla.com/copilot-contact"
+  },
+  {
+    "slug": "qure-ai",
+    "name": "Qure.ai",
+    "website": "https://www.qure.ai",
+    "headquarters": "Mumbai, India",
+    "company_size": "scaleup",
+    "description": "Qure.ai develops FDA-cleared AI-powered medical imaging solutions that interpret chest X-rays, CT scans, and head CTs to detect conditions including lung cancer, tuberculosis, stroke, and traumatic brain injury. The company operates across 1,000+ sites in 107 countries, with 26 FDA-cleared indications and over 40 million lives impacted annually.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_email": "partner@qure.ai",
+    "contact_url": "https://www.qure.ai/contact-us"
+  },
+  {
+    "slug": "harvey",
+    "name": "Harvey",
+    "website": "https://www.harvey.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Harvey is a domain-specific AI platform built for legal and professional services, developing products that streamline contract analysis, due diligence, compliance, litigation, and legal research workflows. Used by over 100,000 professionals at 1,000+ organizations across 60+ countries, including 60 AmLaw 100 firms.",
+    "primary_verticals": [
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_email": "support@harvey.ai",
+    "contact_url": "https://www.harvey.ai/contact-sales"
+  },
+  {
+    "slug": "clio",
+    "name": "Clio",
+    "website": "https://www.clio.com",
+    "headquarters": "Burnaby, BC, Canada",
+    "company_size": "midmarket",
+    "description": "Clio is the world's leading provider of cloud-based legal technology, offering an end-to-end platform that handles client intake, case management, billing, document automation, and legal research for law firms and corporate legal departments. The platform serves legal professionals across 130+ countries with 300+ third-party integrations.",
+    "primary_verticals": [
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2008,
+    "contact_email": "sales@clio.com",
+    "contact_url": "https://www.clio.com/contact/"
+  },
+  {
+    "slug": "spellbook",
+    "name": "Spellbook",
+    "website": "https://www.spellbook.legal",
+    "headquarters": "Toronto, Canada",
+    "company_size": "scaleup",
+    "description": "Spellbook is a legal AI company that builds contract drafting, review, and research tools purpose-built for commercial and transactional lawyers. Its AI suite operates as a Microsoft Word add-in, enabling lawyers to work within their existing workflows while leveraging frontier large language models.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Real Estate & Construction",
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_url": "https://www.spellbook.legal/contact"
+  },
+  {
+    "slug": "legora",
+    "name": "Legora",
+    "website": "https://legora.com",
+    "headquarters": "Stockholm, Sweden",
+    "company_size": "scaleup",
+    "description": "Legora (formerly Leya) is an AI-powered workspace for legal professionals that enables lawyers to review documents, conduct research, draft contracts, and collaborate — all within a single platform. Used by over 800 law firms and in-house teams across 50+ markets, supporting 33+ languages.",
+    "primary_verticals": [
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_url": "https://legora.com/contact-us"
+  },
+  {
+    "slug": "hebbia",
+    "name": "Hebbia",
+    "website": "https://www.hebbia.com",
+    "headquarters": "New York, USA",
+    "company_size": "scaleup",
+    "description": "Hebbia develops an AI-powered analytical platform purpose-built for high-stakes knowledge work in financial services, legal, and corporate sectors. The company is known for its proprietary ISD (Inference, Search, Decomposition) architecture that enables reasoning over virtually unlimited document volumes.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Real Estate & Construction"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_url": "https://www.hebbia.com/demo"
+  },
+  {
+    "slug": "evenup",
+    "name": "EvenUp",
+    "website": "https://www.evenuplaw.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "EvenUp builds AI-powered software for personal injury law firms, providing tools that automate case analysis, document drafting, client communication, and settlement preparation. The company's proprietary Piai model is trained on hundreds of thousands of injury cases and millions of medical records.",
+    "primary_verticals": [
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_email": "marketing@evenuplaw.com",
+    "contact_url": "https://www.evenuplaw.com/contact/"
+  },
+  {
+    "slug": "luminance",
+    "name": "Luminance",
+    "website": "https://www.luminance.com",
+    "headquarters": "Cambridge, UK",
+    "company_size": "scaleup",
+    "description": "Luminance develops Legal-Grade AI technology for enterprise contract lifecycle management, covering drafting, negotiation, analysis, compliance, and investigation. Built by AI researchers from the University of Cambridge, the platform serves over 1,000 organizations across 70+ countries.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Energy & Utilities"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "info@luminance.com",
+    "contact_url": "https://www.luminance.com/contact/"
+  },
+  {
+    "slug": "contractpodai",
+    "name": "ContractPodAi",
+    "website": "https://leahai.com",
+    "headquarters": "London, UK",
+    "company_size": "scaleup",
+    "description": "ContractPodAi (rebranding to Leah) is an enterprise agentic AI company that builds intelligent platforms for legal, procurement, and finance teams. The company is recognized as a CLM Visionary by Gartner and specializes in AI-powered contract lifecycle management and cross-functional agent orchestration.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Energy & Utilities",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "connect@leahai.com",
+    "contact_url": "https://leahai.com/contact"
+  },
+  {
+    "slug": "zip",
+    "name": "Zip",
+    "website": "https://ziphq.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Zip is the leading agentic procurement orchestration platform, unifying the entire intake-to-pay lifecycle for enterprises. The company processes hundreds of billions in spend across more than 7 million suppliers in 140+ countries.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "support@ziphq.com",
+    "contact_url": "https://ziphq.com/contact"
+  },
+  {
+    "slug": "ramp",
+    "name": "Ramp",
+    "website": "https://ramp.com",
+    "headquarters": "New York, USA",
+    "company_size": "midmarket",
+    "description": "Ramp is a finance operations platform that combines corporate cards with AI-powered software to automate expense management, accounts payable, procurement, and travel for businesses. The company serves over 50,000 organizations with a focus on eliminating manual financial workflows through intelligent automation.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Logistics & Transportation",
+      "Aerospace & Defense"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_url": "https://ramp.com/contact-sales"
+  },
+  {
+    "slug": "alphasense",
+    "name": "AlphaSense",
+    "website": "https://www.alpha-sense.com",
+    "headquarters": "New York, USA",
+    "company_size": "midmarket",
+    "description": "AlphaSense is an AI-powered market intelligence and search platform that helps business and financial professionals extract insights from over 500 million premium documents including equity research, earnings calls, expert interviews, filings, and news. The platform serves financial services firms, corporations, consulting firms, and life sciences companies.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Telecom & Media",
+      "Energy & Utilities",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2011,
+    "contact_email": "support@alpha-sense.com",
+    "contact_url": "https://www.alpha-sense.com/contact/"
+  },
+  {
+    "slug": "abacus-ai",
+    "name": "Abacus.AI",
+    "website": "https://abacus.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Abacus.AI is an AI research and cloud services company that provides a unified platform combining multi-model AI access, autonomous agents, and enterprise-grade machine learning operations. The company serves professionals, small teams, and large enterprises with products spanning conversational AI, autonomous task execution, and predictive ML.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_email": "contact@abacus.ai",
+    "contact_url": "mailto:contact@abacus.ai"
+  },
+  {
+    "slug": "numeric",
+    "name": "Numeric",
+    "website": "https://www.numeric.io",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Numeric is an AI-powered close automation platform that unifies close management, analytics, reporting, and cash management for complex accounting teams. The platform combines AI for pattern recognition with deterministic code for calculations and human oversight for exceptions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "parker@numeric.io",
+    "contact_url": "https://www.numeric.io/schedule-demo"
+  },
+  {
+    "slug": "digits",
+    "name": "Digits",
+    "website": "https://digits.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Digits builds AI-native accounting software for startups, small businesses, and accounting firms, centered on its Agentic General Ledger that automates bookkeeping, reconciliation, and financial reporting. The platform leverages proprietary ML models trained on over $825 billion in small-business transactions.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "sales@digits.com",
+    "contact_url": "mailto:sales@digits.com"
+  },
+  {
+    "slug": "pennylane",
+    "name": "Pennylane",
+    "website": "https://www.pennylane.com",
+    "headquarters": "Paris, France",
+    "company_size": "midmarket",
+    "description": "Pennylane is a financial operating system for European SMEs and accounting firms, centralizing accounting, invoicing, cash flow tracking, expense management, and payments into a single platform. The company serves over 800,000 businesses and 6,000 accounting firms across France and Germany.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "partnerships@pennylane.com",
+    "contact_url": "https://www.pennylane.com/fr/contact"
+  },
+  {
+    "slug": "eightfold-ai",
+    "name": "Eightfold AI",
+    "website": "https://eightfold.ai",
+    "headquarters": "Santa Clara, CA, USA",
+    "company_size": "midmarket",
+    "description": "Eightfold AI is a talent intelligence company that uses deep-learning AI to help enterprises hire, develop, and retain talent through skills-based matching and workforce planning. The platform serves Fortune 500 companies and holds FedRAMP Moderate and ISO/IEC 42001:2023 certifications.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Government & Public Sector",
+      "Aerospace & Defense"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_email": "info@eightfold.ai",
+    "contact_url": "https://eightfold.ai/demo/"
+  },
+  {
+    "slug": "phenom",
+    "name": "Phenom",
+    "website": "https://www.phenom.com",
+    "headquarters": "Ambler, PA, USA",
+    "company_size": "midmarket",
+    "description": "Phenom is an applied AI company that delivers an intelligent talent experience platform helping enterprises hire faster, develop employees, and retain talent longer. The platform serves over 700 organizations globally, processing billions of data interactions.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Logistics & Transportation",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2010,
+    "contact_url": "https://www.phenom.com/contact-us"
+  },
+  {
+    "slug": "darwinbox",
+    "name": "Darwinbox",
+    "website": "https://darwinbox.com",
+    "headquarters": "Hyderabad, India",
+    "company_size": "midmarket",
+    "description": "Darwinbox is a cloud-native human capital management platform that provides end-to-end HR software covering recruitment, onboarding, payroll, attendance, performance management, and people analytics. The platform is notable for being the first HCM to implement a native Model Context Protocol server for agentic AI interoperability.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "contact@darwinbox.in",
+    "contact_url": "https://darwinbox.com/contact-us"
+  },
+  {
+    "slug": "mercor",
+    "name": "Mercor",
+    "website": "https://www.mercor.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Mercor is an AI-powered talent marketplace that uses autonomous AI interviewing, semantic candidate matching, and integrated contracting to connect domain experts with AI labs and enterprises. The company also builds custom enterprise AI agents and publishes industry-leading benchmarks for evaluating frontier AI models.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_email": "support@mercor.com",
+    "contact_url": "mailto:support@mercor.com"
+  },
+  {
+    "slug": "gem",
+    "name": "Gem",
+    "website": "https://www.gem.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Gem is an AI-first all-in-one recruiting platform that unifies applicant tracking, CRM, sourcing, scheduling, and analytics with AI agents that automate talent discovery, application review, and candidate re-engagement.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2017,
+    "contact_email": "sales@gem.com",
+    "contact_url": "https://www.gem.com/contact"
+  },
+  {
+    "slug": "leena-ai",
+    "name": "Leena AI",
+    "website": "https://leena.ai",
+    "headquarters": "New York, USA",
+    "company_size": "scaleup",
+    "description": "Leena AI is an agentic AI platform that deploys autonomous AI colleagues to automate enterprise back-office operations across IT, HR, finance, and procurement. Powered by its proprietary WorkLM large language model, the platform combines Agentic RAG with 1,000+ enterprise integrations to resolve employee support tickets and execute workflows.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "support@leena.ai",
+    "contact_url": "https://www.leena.ai/contact-us"
+  },
+  {
+    "slug": "ashby",
+    "name": "Ashby",
+    "website": "https://www.ashbyhq.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Ashby is an all-in-one recruiting software platform that combines applicant tracking, CRM, sourcing, scheduling, and analytics with AI embedded throughout the hiring workflow. Customers include Shopify, Ramp, Notion, and Snowflake.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "support@ashbyhq.com",
+    "contact_url": "https://www.ashbyhq.com/request-demo"
+  },
+  {
+    "slug": "abnormal-ai",
+    "name": "Abnormal AI",
+    "website": "https://abnormal.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Abnormal AI is an AI-native human behavior security platform that uses behavioral AI to stop sophisticated email attacks, detect compromised accounts, and protect cloud applications. It serves 25% of the Fortune 500.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Telecom & Media",
+      "Energy & Utilities",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_url": "https://abnormal.ai/demo"
+  },
+  {
+    "slug": "torq",
+    "name": "Torq",
+    "website": "https://torq.io",
+    "headquarters": "Tel Aviv, Israel",
+    "company_size": "scaleup",
+    "description": "Torq is a cybersecurity hyperautomation company that provides an AI-driven platform for automating SOC workflows including alert triage, threat investigation, and incident response. The platform combines agentic AI with a no-code/low-code engine and 600+ integrations.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Government & Public Sector",
+      "Energy & Utilities"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "support@torq.io",
+    "contact_url": "https://torq.io/contact-us/"
+  },
+  {
+    "slug": "swimlane",
+    "name": "Swimlane",
+    "website": "https://swimlane.com",
+    "headquarters": "Denver, CO, USA",
+    "company_size": "scaleup",
+    "description": "Swimlane is a security automation company specializing in agentic AI-powered hyperautomation for security operations centers, vulnerability management, and compliance. The company serves enterprises, federal agencies, and MSSPs with its Turbine platform processing millions of automated actions daily.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Energy & Utilities",
+      "Government & Public Sector",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2014,
+    "contact_email": "info@swimlane.com",
+    "contact_url": "https://swimlane.com/contact/"
+  },
+  {
+    "slug": "vectra-ai",
+    "name": "Vectra AI",
+    "website": "https://www.vectra.ai",
+    "headquarters": "San Jose, CA, USA",
+    "company_size": "midmarket",
+    "description": "Vectra AI is a cybersecurity company specializing in AI-driven network detection and response (NDR) for hybrid and multi-cloud enterprises. It uses patented Attack Signal Intelligence to detect, correlate, and prioritize threats across data center, cloud, identity, SaaS, IoT/OT, and edge environments, serving over 2,000 organizations across 113 countries.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Government & Public Sector",
+      "Energy & Utilities",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2011,
+    "contact_email": "support@vectra.ai",
+    "contact_url": "https://www.vectra.ai/about/contact"
+  },
+  {
+    "slug": "drata",
+    "name": "Drata",
+    "website": "https://drata.com",
+    "headquarters": "San Diego, CA, USA",
+    "company_size": "scaleup",
+    "description": "Drata is an agentic trust management platform that automates compliance, risk, and assurance workflows for enterprises across 20+ frameworks including SOC 2, ISO 27001, HIPAA, PCI DSS, and GDPR. The platform provides continuous control monitoring, automated evidence collection, and AI-powered security questionnaire automation through 170+ native integrations.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "support@drata.com",
+    "contact_url": "https://drata.com/contact"
+  },
+  {
+    "slug": "vanta",
+    "name": "Vanta",
+    "website": "https://www.vanta.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Vanta is a trust management platform that automates compliance, security, and risk management across 35+ frameworks including SOC 2, ISO 27001, HIPAA, HITRUST, and GDPR. The platform serves over 12,000 companies with 400+ integrations and pioneered the \"Agentic Trust Platform\" category.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Government & Public Sector",
+      "Retail & E-commerce",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "support@vanta.com",
+    "contact_url": "https://www.vanta.com/demo"
+  },
+  {
+    "slug": "cohere",
+    "name": "Cohere",
+    "website": "https://cohere.com",
+    "headquarters": "Toronto, Canada",
+    "company_size": "midmarket",
+    "description": "Cohere is a data-security-focused enterprise AI company building foundational language models and agentic AI platforms for organizations prioritizing private, secure deployment. The company provides solutions deployable on-premises, in VPCs, or in air-gapped environments, serving regulated industries across financial services, healthcare, manufacturing, and government.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Energy & Utilities",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_email": "support@cohere.com",
+    "contact_url": "https://cohere.com/contact-sales"
+  },
+  {
+    "slug": "perplexity-ai",
+    "name": "Perplexity AI",
+    "website": "https://www.perplexity.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "midmarket",
+    "description": "Perplexity AI is an AI-powered search and answer engine that combines large language models with real-time web search to deliver sourced, citation-backed responses. The company has expanded into multi-model agent orchestration, enterprise AI browsers, financial research, and developer APIs for agentic workflows.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_email": "support@perplexity.ai",
+    "contact_url": "https://www.perplexity.ai/enterprise"
+  },
+  {
+    "slug": "mistral-ai",
+    "name": "Mistral AI",
+    "website": "https://mistral.ai",
+    "headquarters": "Paris, France",
+    "company_size": "scaleup",
+    "description": "Mistral AI is a French AI company building frontier language models, enterprise AI platforms, and developer tools. The company offers a full-stack ecosystem spanning foundation models, an enterprise AI assistant, production AI studio, custom model training, and agentic coding tools.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Government & Public Sector",
+      "Manufacturing",
+      "Healthcare & Life Sciences",
+      "Aerospace & Defense"
+    ],
+    "verification_status": "verified",
+    "founded": 2023,
+    "contact_url": "https://mistral.ai/contact"
+  },
+  {
+    "slug": "together-ai",
+    "name": "Together AI",
+    "website": "https://www.together.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Together AI is a full-stack AI cloud platform that combines cutting-edge systems research with production-grade infrastructure for building, training, fine-tuning, and deploying open-source AI models. The company serves 450,000+ developers and enterprises including Salesforce, Zoom, and The Washington Post.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce",
+      "Telecom & Media"
+    ],
+    "verification_status": "verified",
+    "founded": 2022,
+    "contact_url": "https://www.together.ai/contact-sales"
+  },
+  {
+    "slug": "hugging-face",
+    "name": "Hugging Face",
+    "website": "https://huggingface.co",
+    "headquarters": "New York, USA",
+    "company_size": "midmarket",
+    "description": "Hugging Face is an open-source AI platform and community hub that hosts over two million machine learning models, 500,000+ datasets, and one million demo applications. It provides tools, libraries, and infrastructure for developing, sharing, and deploying AI models, serving as the primary open-source repository for the ML community.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_email": "press@huggingface.co",
+    "contact_url": "https://huggingface.co/contact/sales?from=enterprise"
+  },
+  {
+    "slug": "synthesia",
+    "name": "Synthesia",
+    "website": "https://www.synthesia.io",
+    "headquarters": "London, UK",
+    "company_size": "scaleup",
+    "description": "Synthesia is a British AI video generation platform that enables enterprises to create professional-quality videos using AI-generated avatars speaking in 160+ languages, without cameras, studios, or actors. The platform serves industries including financial services, healthcare, manufacturing, retail, and technology.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2017,
+    "contact_email": "support@synthesia.io",
+    "contact_url": "https://www.synthesia.io/book-a-demo"
+  },
+  {
+    "slug": "runway",
+    "name": "Runway",
+    "website": "https://runwayml.com",
+    "headquarters": "New York, USA",
+    "company_size": "scaleup",
+    "description": "Runway is a generative AI company building multimodal AI systems that simulate and understand the world through video, images, and 3D environments. The company offers a comprehensive creative platform used across film, advertising, gaming, and enterprise workflows.",
+    "primary_verticals": [
+      "Telecom & Media",
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_url": "https://runwayml.com/contact"
+  },
+  {
+    "slug": "project44",
+    "name": "Project44",
+    "website": "https://www.project44.com",
+    "headquarters": "Chicago, IL, USA",
+    "company_size": "midmarket",
+    "description": "project44 is a supply chain technology company that operates the Movement Decision Intelligence Platform, connecting over 259,000 carriers and processing 1.5 billion shipments annually across 186 countries. The platform uses Supply Chain AI to help enterprises connect, see, act on, and automate their logistics operations.",
+    "primary_verticals": [
+      "Manufacturing",
+      "Automotive & Mobility",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "founded": 2014,
+    "contact_email": "info@project44.com",
+    "contact_url": "https://www.project44.com/get-a-demo"
+  },
+  {
+    "slug": "pactum",
+    "name": "Pactum",
+    "website": "https://pactum.com",
+    "headquarters": "Mountain View, CA, USA",
+    "company_size": "scaleup",
+    "description": "Pactum is an agentic AI platform for enterprise procurement that enables autonomous supplier negotiations at scale. The company serves Global 2000 enterprises across manufacturing, retail, pharmaceuticals, aeronautics, and automotive.",
+    "primary_verticals": [
+      "Manufacturing",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Aerospace & Defense",
+      "Automotive & Mobility"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_email": "info@pactum.com",
+    "contact_url": "https://pactum.com/contact-us"
+  },
+  {
+    "slug": "constructor",
+    "name": "Constructor",
+    "website": "https://constructor.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Constructor is an AI-native product discovery platform built exclusively for enterprise ecommerce retailers. The platform uses proprietary ML, NLP, and generative AI through its Discovery Reasoning Engine to power personalized search, browse, recommendations, and conversational shopping experiences.",
+    "primary_verticals": [
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "contact@constructor.com",
+    "contact_url": "https://info.constructor.com/ecommerce-search-discovery-demo"
+  },
+  {
+    "slug": "arize-ai",
+    "name": "Arize AI",
+    "website": "https://arize.com",
+    "headquarters": "Berkeley, CA, USA",
+    "company_size": "scaleup",
+    "description": "Arize AI is an AI observability and evaluation company that helps teams build, evaluate, and monitor production-grade LLM applications and AI agents. The platform provides end-to-end tracing, debugging, prompt optimization, and guardrails for generative AI systems.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Healthcare & Life Sciences",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "contacts@arize.com",
+    "contact_url": "https://arize.com/contact/"
+  },
+  {
+    "slug": "tellius",
+    "name": "Tellius",
+    "website": "https://www.tellius.com",
+    "headquarters": "Herndon, VA, USA",
+    "company_size": "scaleup",
+    "description": "Tellius is an AI-native analytics platform that enables enterprise users to query, analyze, and act on data through conversational AI and autonomous agent workflows. The platform serves pharma, consumer goods, healthcare, financial services, and technology companies.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Manufacturing"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_email": "sales@tellius.com",
+    "contact_url": "https://www.tellius.com/contact"
+  },
+  {
+    "slug": "speak",
+    "name": "Speak",
+    "website": "https://www.speak.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Speak is an AI-powered language learning company that uses speech recognition, generative AI, and real-time voice technology to deliver spoken fluency training without a live tutor. The company serves both individual learners and enterprises across multiple languages.",
+    "primary_verticals": [
+      "Education"
+    ],
+    "verification_status": "verified",
+    "founded": 2016,
+    "contact_email": "hello@speak.com",
+    "contact_url": "mailto:hello@speak.com"
+  },
+  {
+    "slug": "lilt",
+    "name": "LILT",
+    "website": "https://lilt.com",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "LILT is an enterprise AI translation and multilingual content platform that combines adaptive language models with human linguistic expertise to power localization at scale. The company serves technology, retail, manufacturing, financial services, healthcare, defense, and government sectors.",
+    "primary_verticals": [
+      "Retail & E-commerce",
+      "Manufacturing",
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Aerospace & Defense",
+      "Government & Public Sector"
+    ],
+    "verification_status": "verified",
+    "founded": 2015,
+    "contact_email": "sales@lilt.com",
+    "contact_url": "https://lilt.com/contact"
+  },
+  {
+    "slug": "fathom",
+    "name": "Fathom",
+    "website": "https://fathom.ai",
+    "headquarters": "San Francisco, USA",
+    "company_size": "scaleup",
+    "description": "Fathom is a Y Combinator-backed AI meeting intelligence platform that automatically records, transcribes, and summarizes conversations across Zoom, Google Meet, and Microsoft Teams, used by over 290,000 companies.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Healthcare & Life Sciences",
+      "Retail & E-commerce"
+    ],
+    "verification_status": "verified",
+    "founded": 2020,
+    "contact_email": "help@fathom.video",
+    "contact_url": "https://fathomvideo.typeform.com/to/AYeoqHBS"
+  },
+  {
+    "slug": "mimica",
+    "name": "Mimica",
+    "website": "https://www.mimica.ai",
+    "headquarters": "London, UK",
+    "company_size": "scaleup",
+    "description": "Mimica is an AI-powered process intelligence and task mining platform that automatically captures desktop-level employee workflows and transforms them into actionable process maps. The company serves Fortune 500 enterprises across healthcare, logistics, financial services, and manufacturing.",
+    "primary_verticals": [
+      "Healthcare & Life Sciences",
+      "Financial Services (BFSI)",
+      "Manufacturing",
+      "Logistics & Transportation"
+    ],
+    "verification_status": "verified",
+    "founded": 2018,
+    "contact_email": "info@mimica.ai",
+    "contact_url": "https://www.mimica.ai/contact"
+  },
+  {
+    "slug": "voiceflow",
+    "name": "Voiceflow",
+    "website": "https://www.voiceflow.com",
+    "headquarters": "Toronto, Canada",
+    "company_size": "scaleup",
+    "description": "Voiceflow is a collaborative AI agent building platform that enables product teams to design, build, test, launch, and manage conversational AI agents at scale across voice and chat channels. The platform serves over 250,000 users and powers 10,000+ live agents for enterprise customers including General Motors, Amazon, and Home Depot.",
+    "primary_verticals": [
+      "Financial Services (BFSI)",
+      "Retail & E-commerce",
+      "Automotive & Mobility",
+      "Telecom & Media",
+      "Healthcare & Life Sciences"
+    ],
+    "verification_status": "verified",
+    "founded": 2019,
+    "contact_email": "contact@voiceflow.com",
+    "contact_url": "https://www.voiceflow.com/demo"
+  }
+]
