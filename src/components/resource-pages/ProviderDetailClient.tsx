@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   ArrowLeft,
-  Building2,
   MapPin,
   Users,
   Sparkles,
