@@ -41,14 +41,14 @@ export function HowItWorks() {
 
           {steps.map((step) => (
             <StaggerItem key={step.number}>
-              <div className="relative z-10 p-8 rounded-2xl bg-white border border-enterprise-100 shadow-sm text-center">
+              <div className="relative z-10 p-8 rounded-2xl bg-white border border-enterprise-100 shadow-sm text-center flex flex-col items-center">
                 {/* Step number */}
                 <span className="text-xs font-semibold text-enterprise-400 uppercase tracking-widest">
                   Step {step.number}
                 </span>
 
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-14 h-14 mt-4 mb-4 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 text-white shadow-lg">
+                <div className="flex items-center justify-center w-14 h-14 mt-4 mb-4 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 text-white shadow-lg">
                   <step.icon className="w-6 h-6" />
                 </div>
 
