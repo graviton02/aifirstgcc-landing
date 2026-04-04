@@ -1,19 +1,28 @@
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { ThoughtLeadershipClient } from "@/components/resource-pages/ThoughtLeadershipClient";
+import { loadBlogPosts, thoughtLeadershipThemes } from "@/data/thoughtLeadershipContent";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Thought Leadership | Orbys360",
-  description: "Insights and analysis on AI-first Global Capability Centers.",
+  description:
+    "In-depth articles on AI-first GCC transformation — governance frameworks, talent strategy, operational models, and benchmarking best practices.",
+  alternates: { canonical: "https://www.orbys360.com/thought-leadership" },
 };
 
 export default function ThoughtLeadershipPage() {
+  const blogPosts = loadBlogPosts();
+
   return (
     <>
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 py-8 pt-24">
-        <h1 className="text-3xl font-bold text-enterprise-900 mb-4">Thought Leadership</h1>
-        <p className="text-enterprise-600">Articles and insights — content migration in progress.</p>
-      </main>
+      <Suspense>
+        <ThoughtLeadershipClient
+          blogPosts={blogPosts}
+          themes={thoughtLeadershipThemes}
+        />
+      </Suspense>
       <Footer />
     </>
   );
