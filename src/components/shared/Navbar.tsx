@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sparkles, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, ChevronDown } from 'lucide-react'
+import { Menu, X, Sparkles, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, Brain, ChevronDown } from 'lucide-react'
 import { useAuth, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { useUserRole } from '@/auth/useUserRole'
@@ -22,12 +22,12 @@ export function Navbar() {
   const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false)
   const pathname = usePathname()
   const { isLoaded: isAuthLoaded, isSignedIn } = useAuth()
-  const { role } = useUserRole()
+  const { role, providerSetupStarted } = useUserRole()
 
   const isLandingPage = pathname === '/' || pathname === '/about'
   const isHiddenRoute = HIDDEN_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
   const hasScrolledBg = isScrolled || (!isLandingPage)
-  const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers'].some(r => pathname.startsWith(r))
+  const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/thoughtbook'].some(r => pathname.startsWith(r))
 
   const aboutItems = [
     { href: '/about', label: 'About Orbys360' },
@@ -42,6 +42,7 @@ export function Navbar() {
     { href: '/thought-leadership', label: 'Thought Leadership', icon: BookOpen },
     { href: '/tools', label: 'Tools', icon: Wrench },
     { href: '/providers', label: 'Provider Ecosystem', icon: Building2 },
+    { href: '/thoughtbook', label: 'AI Agent Thoughtbook', icon: Brain },
   ]
 
   useEffect(() => {
@@ -55,7 +56,8 @@ export function Navbar() {
   // Standalone flows manage their own layout and should not show the shared navbar.
   if (isHiddenRoute) return null
 
-  const dashboardPath = role === 'gcc' ? '/gcc-dashboard' : '/dashboard'
+  const dashboardPath =
+    role === 'gcc' ? '/gcc-dashboard' : providerSetupStarted ? '/provider/setup' : '/dashboard'
   const showNotifications = isAuthLoaded && isSignedIn && (role === 'provider' || role === 'gcc')
 
   return (
@@ -381,4 +383,3 @@ export function Navbar() {
     </>
   )
 }
-
