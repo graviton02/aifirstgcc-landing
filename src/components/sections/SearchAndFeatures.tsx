@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Search, GitCompareArrows, ListChecks, Zap } from 'lucide-react'
 import { Container } from '@/components/shared/Container'
 import { StaggerContainer, StaggerItem } from '@/components/shared/AnimatedSection'
+import { slugifyCategory } from '@/lib/categories'
 
 const placeholders = [
   "Try 'customer experience'...",
@@ -97,7 +98,7 @@ export function SearchAndFeatures() {
           {categoryPills.map((category) => (
             <Link
               key={category}
-              href={`/directory?search=${encodeURIComponent(category)}`}
+              href={`/directory?tab=${slugifyCategory(category)}`}
               className="px-4 py-2 rounded-full text-sm font-medium border border-enterprise-200 text-enterprise-600 hover:bg-enterprise-50 hover:border-purple-300 hover:text-purple-700 transition-colors"
             >
               {category}
