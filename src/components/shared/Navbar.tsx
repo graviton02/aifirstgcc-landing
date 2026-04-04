@@ -24,7 +24,7 @@ export function Navbar() {
   const { isLoaded: isAuthLoaded, isSignedIn } = useAuth()
   const { role } = useUserRole()
 
-  const isLandingPage = pathname === '/'
+  const isLandingPage = pathname === '/' || pathname === '/about'
   const isHiddenRoute = HIDDEN_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
   const hasScrolledBg = isScrolled || (!isLandingPage)
   const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers'].some(r => pathname.startsWith(r))
