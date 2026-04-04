@@ -45,6 +45,17 @@ export function NewHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-md border border-white/15"
+          >
+            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+            <span className="text-sm font-medium text-white/80 tracking-wide">500+ AI Agents Listed</span>
+          </motion.div>
+
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -54,7 +65,7 @@ export function NewHero() {
           >
             Find the Right AI Agent
             <br />
-            <span className="text-gradient-light">for Your Enterprise</span>
+            <span className="text-gradient-light italic">for Your Enterprise</span>
           </motion.h1>
 
           {/* Subtext */}
@@ -62,24 +73,34 @@ export function NewHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="max-w-2xl mx-auto text-lg md:text-xl text-white/80 mb-10 leading-relaxed"
+            className="max-w-xl mx-auto text-lg md:text-xl text-white/60 mb-10 leading-relaxed"
           >
-            The curated directory of 500+ AI agents built for Global Capability Centers
+            The curated directory of AI agents built for Global Capability Centers. Search, compare, and connect with verified providers.
           </motion.p>
 
-          {/* CTA */}
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link href="/directory">
               <Button
                 size="lg"
-                className="group min-w-[220px] bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
+                className="group min-w-[220px] bg-white text-enterprise-950 hover:bg-white/90 shadow-lg hover:shadow-xl"
               >
                 Explore the Directory
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link href="#how-it-works">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="group min-w-[180px] border border-white/20 bg-transparent text-white/75 hover:bg-white/10 hover:text-white backdrop-blur-sm"
+              >
+                See How It Works
               </Button>
             </Link>
           </motion.div>

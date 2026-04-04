@@ -27,12 +27,15 @@ const valueProps = [
 
 export function ForProviders() {
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-enterprise-50">
+    <section className="py-24 bg-white border-t border-enterprise-100">
       <Container>
         <AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Left: Copy + CTA */}
             <div>
+              <span className="inline-block px-4 py-1.5 mb-5 text-xs font-semibold text-purple-700 bg-purple-100 rounded-full uppercase tracking-wider">
+                For Providers
+              </span>
               <h2 className="font-display text-display-xs text-enterprise-900">
                 Built for Providers Too
               </h2>
