@@ -1,13 +1,52 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
 import { MeshGradient } from '@paper-design/shaders-react'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Search } from 'lucide-react'
 import { Container } from '@/components/shared/Container'
+import { slugifyCategory } from '@/lib/categories'
+
+const placeholders = [
+  "Try 'customer experience'...",
+  "Try 'IT operations'...",
+  "Try 'data analytics'...",
+  "Try 'sales & marketing'...",
+  "Try 'HR & workforce'...",
+]
+
+const categoryPills = [
+  "Customer Experience",
+  "IT Operations",
+  "Sales & Marketing",
+  "Data & Analytics",
+  "Operations & Supply Chain",
+  "HR & Workforce",
+]
 
 export function NewHero() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [placeholderIndex, setPlaceholderIndex] = useState(0)
+  const router = useRouter()
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prev) => (prev + 1) % placeholders.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/directory?search=${encodeURIComponent(searchQuery.trim())}`)
+    } else {
+      router.push('/directory')
+    }
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* MeshGradient Background */}
@@ -45,17 +84,6 @@ export function NewHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-md border border-white/15"
-          >
-            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-white/80 tracking-wide">500+ AI Agents Listed</span>
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -65,7 +93,7 @@ export function NewHero() {
           >
             Find the Right AI Agent
             <br />
-            <span className="text-gradient-light italic">for Your Enterprise</span>
+            <span className="text-gradient-light">for Your Enterprise</span>
           </motion.h1>
 
           {/* Subtext */}
@@ -73,36 +101,64 @@ export function NewHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="max-w-xl mx-auto text-lg md:text-xl text-white/60 mb-10 leading-relaxed"
+            className="max-w-2xl mx-auto text-lg md:text-xl text-white/80 mb-10 leading-relaxed"
           >
-            The curated directory of AI agents built for Global Capability Centers. Search, compare, and connect with verified providers.
+            The curated directory of 500+ AI agents built for Global Capability Centers
           </motion.p>
 
-          {/* CTAs */}
+          {/* Search Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link href="/directory">
-              <Button
-                size="lg"
-                className="group min-w-[220px] bg-white text-enterprise-950 hover:bg-white/90 shadow-lg hover:shadow-xl"
-              >
-                Explore the Directory
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-            <Link href="#how-it-works">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="group min-w-[180px] border border-white/20 bg-transparent text-white/75 hover:bg-white/10 hover:text-white backdrop-blur-sm"
-              >
-                See How It Works
-              </Button>
-            </Link>
+            <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-enterprise-400 w-5 h-5 z-10" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-12 pr-32 py-4 rounded-xl border border-white/20 bg-white/95 backdrop-blur-sm text-enterprise-900 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent shadow-xl text-lg"
+                />
+                {/* Animated placeholder overlay */}
+                {!searchQuery && (
+                  <div className="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={placeholderIndex}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-enterprise-400 text-lg"
+                      >
+                        {placeholders[placeholderIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+                )}
+                <button
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+
+            {/* Category Pills */}
+            <div className="flex flex-wrap justify-center gap-3 mt-6">
+              {categoryPills.map((category) => (
+                <Link
+                  key={category}
+                  href={`/directory?tab=${slugifyCategory(category)}`}
+                  className="px-4 py-2 rounded-full text-sm font-medium border border-white/20 text-white/80 hover:bg-white/10 hover:border-white/40 hover:text-white transition-colors backdrop-blur-sm"
+                >
+                  {category}
+                </Link>
+              ))}
+            </div>
           </motion.div>
         </motion.div>
       </Container>
