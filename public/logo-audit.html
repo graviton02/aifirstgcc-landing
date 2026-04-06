@@ -1,540 +1,142 @@
 <!DOCTYPE html>
-<html><head><title>Logo Audit — Orbys360</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: system-ui, -apple-system, sans-serif; padding: 24px; background: #f8fafc; transition: background 0.3s; }
-  body.dark { background: #1e293b; }
-  body.dark .card { background: #1e293b; border-color: #334155; }
-  body.dark .name { color: #e2e8f0; }
-  body.dark .meta { color: #64748b; }
-  body.dark .toolbar { background: #0f172a; border-color: #334155; }
-  body.dark .toolbar span { color: #94a3b8; }
-  body.dark h1, body.dark .subtitle { color: #e2e8f0; }
-  h1 { font-size: 20px; margin-bottom: 4px; }
-  .subtitle { color: #666; font-size: 14px; margin-bottom: 16px; }
-  .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 12px 16px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; flex-wrap: wrap; }
-  .toolbar .count { font-weight: 600; color: #e53e3e; }
-  .toolbar button { padding: 8px 20px; border-radius: 8px; border: none; font-weight: 600; font-size: 13px; cursor: pointer; }
-  .copy-btn { background: #3b82f6; color: #fff; }
-  .copy-btn:hover { background: #2563eb; }
-  .reset-btn { background: #f1f5f9; color: #475569; }
-  .reset-btn:hover { background: #e2e8f0; }
-  .toggle-bg { background: #1e293b; color: #fff; }
-  .toggle-bg:hover { background: #334155; }
-  body.dark .toggle-bg { background: #f8fafc; color: #1e293b; }
-  .copied { background: #22c55e !important; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-  .card { position: relative; border: 2px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: center; background: #fff; transition: all 0.2s; }
-  .card.flagged { border-color: #e53e3e; background: #fff5f5; }
-  body.dark .card.flagged { background: #450a0a; }
-  .card.flagged .flag-btn { background: #e53e3e; color: #fff; }
-  .logo-wrap { width: 80px; height: 80px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: background 0.3s; }
-  body.checker .logo-wrap { background: repeating-conic-gradient(#e2e8f0 0% 25%, transparent 0% 50%) 50% / 16px 16px; }
-  .card img { max-width: 80px; max-height: 80px; object-fit: contain; }
-  .card .name { font-weight: 600; font-size: 13px; line-height: 1.3; }
-  .card .meta { font-size: 11px; color: #999; margin-top: 2px; }
-  .flag-btn { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #cbd5e1; background: #f8fafc; color: #94a3b8; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-  .flag-btn:hover { border-color: #e53e3e; color: #e53e3e; }
-</style></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Audit — Orbys360</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; padding: 24px; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 24px; font-size: 14px; }
+    .instructions { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 16px; margin-bottom: 24px; font-size: 13px; line-height: 1.6; }
+    .instructions strong { color: #92400e; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .card { border-radius: 12px; overflow: hidden; border: 1px solid #e5e5e5; background: white; }
+    .card.flagged { border-color: #ef4444; border-width: 2px; }
+    .logo-row { display: flex; height: 80px; }
+    .logo-cell { flex: 1; display: flex; align-items: center; justify-content: center; padding: 12px; }
+    .logo-cell.white { background: #ffffff; }
+    .logo-cell.dark { background: #1a1a2e; }
+    .logo-cell img { max-width: 100%; max-height: 56px; object-fit: contain; }
+    .card-footer { padding: 8px 12px; background: #fafafa; border-top: 1px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; }
+    .slug { font-size: 11px; font-family: monospace; color: #666; }
+    .flag-btn { font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid #ddd; background: white; cursor: pointer; transition: all 0.15s; }
+    .flag-btn:hover { border-color: #ef4444; color: #ef4444; }
+    .flag-btn.active { background: #ef4444; color: white; border-color: #ef4444; }
+    .export-bar { position: sticky; top: 0; z-index: 10; background: white; border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .export-bar button { padding: 8px 20px; border-radius: 8px; border: none; background: #1a1a2e; color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .export-bar button:hover { background: #2d2d4e; }
+    .count { font-size: 13px; color: #666; }
+    #output { display: none; margin-top: 0; margin-left: 16px; padding: 8px 12px; background: #f0fdf4; border: 1px solid #22c55e; border-radius: 8px; font-family: monospace; font-size: 12px; }
+  </style>
+</head>
 <body>
-<h1>Logo Audit — 78 companies (final)</h1>
-<p class="subtitle">Toggle backgrounds to verify visibility. Flag any remaining issues.</p>
-<div class="toolbar">
-  <span>Flagged: <span class="count" id="flagCount">0</span></span>
-  <button class="copy-btn" id="copyBtn" onclick="copyFlagged()">Copy flagged slugs</button>
-  <button class="reset-btn" onclick="resetAll()">Reset all</button>
-  <button class="toggle-bg" onclick="toggleDark()">Toggle dark bg</button>
-  <button class="toggle-bg" onclick="toggleChecker()">Toggle checkerboard</button>
-</div>
-<div class="grid">
-        <div class="card" data-slug="tcs-tata-consultancy-services" id="card-tcs-tata-consultancy-services">
-          <button class="flag-btn" onclick="toggleFlag('tcs-tata-consultancy-services')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/tcs-tata-consultancy-services.svg" alt="TCS (Tata Consultancy Services)" /></div>
-          <div class="name">TCS (Tata Consultancy Services)</div>
-          <div class="meta">tcs-tata-consultancy-services.svg</div>
-        </div>
-        <div class="card" data-slug="infosys" id="card-infosys">
-          <button class="flag-btn" onclick="toggleFlag('infosys')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/infosys.svg" alt="Infosys" /></div>
-          <div class="name">Infosys</div>
-          <div class="meta">infosys.svg</div>
-        </div>
-        <div class="card" data-slug="wipro" id="card-wipro">
-          <button class="flag-btn" onclick="toggleFlag('wipro')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/wipro.svg" alt="Wipro" /></div>
-          <div class="name">Wipro</div>
-          <div class="meta">wipro.svg</div>
-        </div>
-        <div class="card" data-slug="hcltech" id="card-hcltech">
-          <button class="flag-btn" onclick="toggleFlag('hcltech')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/hcltech.svg" alt="HCLTech" /></div>
-          <div class="name">HCLTech</div>
-          <div class="meta">hcltech.svg</div>
-        </div>
-        <div class="card" data-slug="tech-mahindra" id="card-tech-mahindra">
-          <button class="flag-btn" onclick="toggleFlag('tech-mahindra')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/tech-mahindra.png" alt="Tech Mahindra" /></div>
-          <div class="name">Tech Mahindra</div>
-          <div class="meta">tech-mahindra.png</div>
-        </div>
-        <div class="card" data-slug="ltimindtree" id="card-ltimindtree">
-          <button class="flag-btn" onclick="toggleFlag('ltimindtree')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/ltimindtree.png" alt="LTIMindtree" /></div>
-          <div class="name">LTIMindtree</div>
-          <div class="meta">ltimindtree.png</div>
-        </div>
-        <div class="card" data-slug="persistent-systems" id="card-persistent-systems">
-          <button class="flag-btn" onclick="toggleFlag('persistent-systems')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/persistent-systems.png" alt="Persistent Systems" /></div>
-          <div class="name">Persistent Systems</div>
-          <div class="meta">persistent-systems.png</div>
-        </div>
-        <div class="card" data-slug="mphasis" id="card-mphasis">
-          <button class="flag-btn" onclick="toggleFlag('mphasis')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/mphasis.png" alt="Mphasis" /></div>
-          <div class="name">Mphasis</div>
-          <div class="meta">mphasis.png</div>
-        </div>
-        <div class="card" data-slug="happiest-minds" id="card-happiest-minds">
-          <button class="flag-btn" onclick="toggleFlag('happiest-minds')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/happiest-minds.png" alt="Happiest Minds" /></div>
-          <div class="name">Happiest Minds</div>
-          <div class="meta">happiest-minds.png</div>
-        </div>
-        <div class="card" data-slug="zensar" id="card-zensar">
-          <button class="flag-btn" onclick="toggleFlag('zensar')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/zensar.svg" alt="Zensar" /></div>
-          <div class="name">Zensar</div>
-          <div class="meta">zensar.svg</div>
-        </div>
-        <div class="card" data-slug="hexaware" id="card-hexaware">
-          <button class="flag-btn" onclick="toggleFlag('hexaware')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/hexaware.svg" alt="Hexaware" /></div>
-          <div class="name">Hexaware</div>
-          <div class="meta">hexaware.svg</div>
-        </div>
-        <div class="card" data-slug="coforge" id="card-coforge">
-          <button class="flag-btn" onclick="toggleFlag('coforge')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/coforge.svg" alt="Coforge" /></div>
-          <div class="name">Coforge</div>
-          <div class="meta">coforge.svg</div>
-        </div>
-        <div class="card" data-slug="l-t-technology-services-ltts" id="card-l-t-technology-services-ltts">
-          <button class="flag-btn" onclick="toggleFlag('l-t-technology-services-ltts')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/l-t-technology-services-ltts.svg" alt="L&T Technology Services (LTTS)" /></div>
-          <div class="name">L&T Technology Services (LTTS)</div>
-          <div class="meta">l-t-technology-services-ltts.svg</div>
-        </div>
-        <div class="card" data-slug="tata-elxsi" id="card-tata-elxsi">
-          <button class="flag-btn" onclick="toggleFlag('tata-elxsi')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/tata-elxsi.png" alt="Tata Elxsi" /></div>
-          <div class="name">Tata Elxsi</div>
-          <div class="meta">tata-elxsi.png</div>
-        </div>
-        <div class="card" data-slug="sonata-software" id="card-sonata-software">
-          <button class="flag-btn" onclick="toggleFlag('sonata-software')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/sonata-software.png" alt="Sonata Software" /></div>
-          <div class="name">Sonata Software</div>
-          <div class="meta">sonata-software.png</div>
-        </div>
-        <div class="card" data-slug="indium-software" id="card-indium-software">
-          <button class="flag-btn" onclick="toggleFlag('indium-software')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/indium-software.svg" alt="Indium Software" /></div>
-          <div class="name">Indium Software</div>
-          <div class="meta">indium-software.svg</div>
-        </div>
-        <div class="card" data-slug="accion-labs" id="card-accion-labs">
-          <button class="flag-btn" onclick="toggleFlag('accion-labs')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/accion-labs.svg" alt="Accion Labs" /></div>
-          <div class="name">Accion Labs</div>
-          <div class="meta">accion-labs.svg</div>
-        </div>
-        <div class="card" data-slug="softweb-solutions" id="card-softweb-solutions">
-          <button class="flag-btn" onclick="toggleFlag('softweb-solutions')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/softweb-solutions.svg" alt="Softweb Solutions" /></div>
-          <div class="name">Softweb Solutions</div>
-          <div class="meta">softweb-solutions.svg</div>
-        </div>
-        <div class="card" data-slug="simform" id="card-simform">
-          <button class="flag-btn" onclick="toggleFlag('simform')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/simform.svg" alt="Simform" /></div>
-          <div class="name">Simform</div>
-          <div class="meta">simform.svg</div>
-        </div>
-        <div class="card" data-slug="talentica-software" id="card-talentica-software">
-          <button class="flag-btn" onclick="toggleFlag('talentica-software')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/talentica-software.svg" alt="Talentica Software" /></div>
-          <div class="name">Talentica Software</div>
-          <div class="meta">talentica-software.svg</div>
-        </div>
-        <div class="card" data-slug="q3-technologies" id="card-q3-technologies">
-          <button class="flag-btn" onclick="toggleFlag('q3-technologies')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/q3-technologies.png" alt="Q3 Technologies" /></div>
-          <div class="name">Q3 Technologies</div>
-          <div class="meta">q3-technologies.png</div>
-        </div>
-        <div class="card" data-slug="abstrabit-technologies" id="card-abstrabit-technologies">
-          <button class="flag-btn" onclick="toggleFlag('abstrabit-technologies')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/abstrabit-technologies.png" alt="Abstrabit Technologies" /></div>
-          <div class="name">Abstrabit Technologies</div>
-          <div class="meta">abstrabit-technologies.png</div>
-        </div>
-        <div class="card" data-slug="calsoft" id="card-calsoft">
-          <button class="flag-btn" onclick="toggleFlag('calsoft')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/calsoft.png" alt="Calsoft" /></div>
-          <div class="name">Calsoft</div>
-          <div class="meta">calsoft.png</div>
-        </div>
-        <div class="card" data-slug="yellow-ai" id="card-yellow-ai">
-          <button class="flag-btn" onclick="toggleFlag('yellow-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/yellow-ai.svg" alt="Yellow.ai" /></div>
-          <div class="name">Yellow.ai</div>
-          <div class="meta">yellow-ai.svg</div>
-        </div>
-        <div class="card" data-slug="haptik" id="card-haptik">
-          <button class="flag-btn" onclick="toggleFlag('haptik')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/haptik.png" alt="Haptik" /></div>
-          <div class="name">Haptik</div>
-          <div class="meta">haptik.png</div>
-        </div>
-        <div class="card" data-slug="corover-ai" id="card-corover-ai">
-          <button class="flag-btn" onclick="toggleFlag('corover-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/corover-ai.png" alt="CoRover.ai" /></div>
-          <div class="name">CoRover.ai</div>
-          <div class="meta">corover-ai.png</div>
-        </div>
-        <div class="card" data-slug="kapture-cx" id="card-kapture-cx">
-          <button class="flag-btn" onclick="toggleFlag('kapture-cx')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/kapture-cx.svg" alt="Kapture CX" /></div>
-          <div class="name">Kapture CX</div>
-          <div class="meta">kapture-cx.svg</div>
-        </div>
-        <div class="card" data-slug="gupshup" id="card-gupshup">
-          <button class="flag-btn" onclick="toggleFlag('gupshup')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/gupshup.svg" alt="Gupshup" /></div>
-          <div class="name">Gupshup</div>
-          <div class="meta">gupshup.svg</div>
-        </div>
-        <div class="card" data-slug="uniphore" id="card-uniphore">
-          <button class="flag-btn" onclick="toggleFlag('uniphore')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/uniphore.svg" alt="Uniphore" /></div>
-          <div class="name">Uniphore</div>
-          <div class="meta">uniphore.svg</div>
-        </div>
-        <div class="card" data-slug="skit-ai" id="card-skit-ai">
-          <button class="flag-btn" onclick="toggleFlag('skit-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/skit-ai.svg" alt="Skit.ai" /></div>
-          <div class="name">Skit.ai</div>
-          <div class="meta">skit-ai.svg</div>
-        </div>
-        <div class="card" data-slug="mihup" id="card-mihup">
-          <button class="flag-btn" onclick="toggleFlag('mihup')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/mihup.svg" alt="Mihup" /></div>
-          <div class="name">Mihup</div>
-          <div class="meta">mihup.svg</div>
-        </div>
-        <div class="card" data-slug="senseforth-ai" id="card-senseforth-ai">
-          <button class="flag-btn" onclick="toggleFlag('senseforth-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/senseforth-ai.jpg" alt="Senseforth.ai" /></div>
-          <div class="name">Senseforth.ai</div>
-          <div class="meta">senseforth-ai.jpg</div>
-        </div>
-        <div class="card" data-slug="sarvam-ai" id="card-sarvam-ai">
-          <button class="flag-btn" onclick="toggleFlag('sarvam-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/sarvam-ai.svg" alt="Sarvam AI" /></div>
-          <div class="name">Sarvam AI</div>
-          <div class="meta">sarvam-ai.svg</div>
-        </div>
-        <div class="card" data-slug="krutrim-ai" id="card-krutrim-ai">
-          <button class="flag-btn" onclick="toggleFlag('krutrim-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/krutrim-ai.svg" alt="Krutrim AI" /></div>
-          <div class="name">Krutrim AI</div>
-          <div class="meta">krutrim-ai.svg</div>
-        </div>
-        <div class="card" data-slug="truefoundry" id="card-truefoundry">
-          <button class="flag-btn" onclick="toggleFlag('truefoundry')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/truefoundry.png" alt="TrueFoundry" /></div>
-          <div class="name">TrueFoundry</div>
-          <div class="meta">truefoundry.png</div>
-        </div>
-        <div class="card" data-slug="mad-street-den" id="card-mad-street-den">
-          <button class="flag-btn" onclick="toggleFlag('mad-street-den')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/mad-street-den.svg" alt="Mad Street Den" /></div>
-          <div class="name">Mad Street Den</div>
-          <div class="meta">mad-street-den.svg</div>
-        </div>
-        <div class="card" data-slug="wysa" id="card-wysa">
-          <button class="flag-btn" onclick="toggleFlag('wysa')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/wysa.png" alt="Wysa" /></div>
-          <div class="name">Wysa</div>
-          <div class="meta">wysa.png</div>
-        </div>
-        <div class="card" data-slug="sigtuple" id="card-sigtuple">
-          <button class="flag-btn" onclick="toggleFlag('sigtuple')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/sigtuple.png" alt="SigTuple" /></div>
-          <div class="name">SigTuple</div>
-          <div class="meta">sigtuple.png</div>
-        </div>
-        <div class="card" data-slug="arya-ai" id="card-arya-ai">
-          <button class="flag-btn" onclick="toggleFlag('arya-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/arya-ai.png" alt="Arya.ai" /></div>
-          <div class="name">Arya.ai</div>
-          <div class="meta">arya-ai.png</div>
-        </div>
-        <div class="card" data-slug="unscript-ai" id="card-unscript-ai">
-          <button class="flag-btn" onclick="toggleFlag('unscript-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/unscript-ai.webp" alt="Unscript.ai" /></div>
-          <div class="name">Unscript.ai</div>
-          <div class="meta">unscript-ai.webp</div>
-        </div>
-        <div class="card" data-slug="dhiwise" id="card-dhiwise">
-          <button class="flag-btn" onclick="toggleFlag('dhiwise')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/dhiwise.webp" alt="DhiWise" /></div>
-          <div class="name">DhiWise</div>
-          <div class="meta">dhiwise.webp</div>
-        </div>
-        <div class="card" data-slug="hasura" id="card-hasura">
-          <button class="flag-btn" onclick="toggleFlag('hasura')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/hasura.svg" alt="Hasura" /></div>
-          <div class="name">Hasura</div>
-          <div class="meta">hasura.svg</div>
-        </div>
-        <div class="card" data-slug="postman" id="card-postman">
-          <button class="flag-btn" onclick="toggleFlag('postman')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/postman.svg" alt="Postman" /></div>
-          <div class="name">Postman</div>
-          <div class="meta">postman.svg</div>
-        </div>
-        <div class="card" data-slug="razorpay" id="card-razorpay">
-          <button class="flag-btn" onclick="toggleFlag('razorpay')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/razorpay.svg" alt="Razorpay" /></div>
-          <div class="name">Razorpay</div>
-          <div class="meta">razorpay.svg</div>
-        </div>
-        <div class="card" data-slug="freshworks" id="card-freshworks">
-          <button class="flag-btn" onclick="toggleFlag('freshworks')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/freshworks.svg" alt="Freshworks" /></div>
-          <div class="name">Freshworks</div>
-          <div class="meta">freshworks.svg</div>
-        </div>
-        <div class="card" data-slug="zoho" id="card-zoho">
-          <button class="flag-btn" onclick="toggleFlag('zoho')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/zoho.svg" alt="Zoho" /></div>
-          <div class="name">Zoho</div>
-          <div class="meta">zoho.svg</div>
-        </div>
-        <div class="card" data-slug="browserstack" id="card-browserstack">
-          <button class="flag-btn" onclick="toggleFlag('browserstack')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/browserstack.svg" alt="BrowserStack" /></div>
-          <div class="name">BrowserStack</div>
-          <div class="meta">browserstack.svg</div>
-        </div>
-        <div class="card" data-slug="lambdatest" id="card-lambdatest">
-          <button class="flag-btn" onclick="toggleFlag('lambdatest')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/lambdatest.svg" alt="LambdaTest" /></div>
-          <div class="name">LambdaTest</div>
-          <div class="meta">lambdatest.svg</div>
-        </div>
-        <div class="card" data-slug="rocketlane" id="card-rocketlane">
-          <button class="flag-btn" onclick="toggleFlag('rocketlane')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/rocketlane.svg" alt="Rocketlane" /></div>
-          <div class="name">Rocketlane</div>
-          <div class="meta">rocketlane.svg</div>
-        </div>
-        <div class="card" data-slug="devrev" id="card-devrev">
-          <button class="flag-btn" onclick="toggleFlag('devrev')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/devrev.svg" alt="DevRev" /></div>
-          <div class="name">DevRev</div>
-          <div class="meta">devrev.svg</div>
-        </div>
-        <div class="card" data-slug="spyne" id="card-spyne">
-          <button class="flag-btn" onclick="toggleFlag('spyne')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/spyne.webp" alt="Spyne" /></div>
-          <div class="name">Spyne</div>
-          <div class="meta">spyne.webp</div>
-        </div>
-        <div class="card" data-slug="murf-ai" id="card-murf-ai">
-          <button class="flag-btn" onclick="toggleFlag('murf-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/murf-ai.svg" alt="Murf.ai" /></div>
-          <div class="name">Murf.ai</div>
-          <div class="meta">murf-ai.svg</div>
-        </div>
-        <div class="card" data-slug="netradyne" id="card-netradyne">
-          <button class="flag-btn" onclick="toggleFlag('netradyne')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/netradyne.svg" alt="Netradyne" /></div>
-          <div class="name">Netradyne</div>
-          <div class="meta">netradyne.svg</div>
-        </div>
-        <div class="card" data-slug="satsure" id="card-satsure">
-          <button class="flag-btn" onclick="toggleFlag('satsure')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/satsure.svg" alt="SatSure" /></div>
-          <div class="name">SatSure</div>
-          <div class="meta">satsure.svg</div>
-        </div>
-        <div class="card" data-slug="pixis-ai" id="card-pixis-ai">
-          <button class="flag-btn" onclick="toggleFlag('pixis-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/pixis-ai.svg" alt="Pixis AI" /></div>
-          <div class="name">Pixis AI</div>
-          <div class="meta">pixis-ai.svg</div>
-        </div>
-        <div class="card" data-slug="observe-ai" id="card-observe-ai">
-          <button class="flag-btn" onclick="toggleFlag('observe-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/observe-ai.png" alt="Observe.AI" /></div>
-          <div class="name">Observe.AI</div>
-          <div class="meta">observe-ai.png</div>
-        </div>
-        <div class="card" data-slug="redacto-ai" id="card-redacto-ai">
-          <button class="flag-btn" onclick="toggleFlag('redacto-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/redacto-ai.png" alt="Redacto AI" /></div>
-          <div class="name">Redacto AI</div>
-          <div class="meta">redacto-ai.png</div>
-        </div>
-        <div class="card" data-slug="riverline-ai" id="card-riverline-ai">
-          <button class="flag-btn" onclick="toggleFlag('riverline-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/riverline-ai.png" alt="Riverline AI" /></div>
-          <div class="name">Riverline AI</div>
-          <div class="meta">riverline-ai.png</div>
-        </div>
-        <div class="card" data-slug="adya-ai" id="card-adya-ai">
-          <button class="flag-btn" onclick="toggleFlag('adya-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/adya-ai.png" alt="Adya AI" /></div>
-          <div class="name">Adya AI</div>
-          <div class="meta">adya-ai.png</div>
-        </div>
-        <div class="card" data-slug="wyzard-ai" id="card-wyzard-ai">
-          <button class="flag-btn" onclick="toggleFlag('wyzard-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/wyzard-ai.svg" alt="Wyzard AI" /></div>
-          <div class="name">Wyzard AI</div>
-          <div class="meta">wyzard-ai.svg</div>
-        </div>
-        <div class="card" data-slug="quickads-ai" id="card-quickads-ai">
-          <button class="flag-btn" onclick="toggleFlag('quickads-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/quickads-ai.svg" alt="QuickAds AI" /></div>
-          <div class="name">QuickAds AI</div>
-          <div class="meta">quickads-ai.svg</div>
-        </div>
-        <div class="card" data-slug="molecule-ai" id="card-molecule-ai">
-          <button class="flag-btn" onclick="toggleFlag('molecule-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/molecule-ai.png" alt="Molecule AI" /></div>
-          <div class="name">Molecule AI</div>
-          <div class="meta">molecule-ai.png</div>
-        </div>
-        <div class="card" data-slug="vishwa-ai" id="card-vishwa-ai">
-          <button class="flag-btn" onclick="toggleFlag('vishwa-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/vishwa-ai.png" alt="Vishwa AI" /></div>
-          <div class="name">Vishwa AI</div>
-          <div class="meta">vishwa-ai.png</div>
-        </div>
-        <div class="card" data-slug="hyperverge" id="card-hyperverge">
-          <button class="flag-btn" onclick="toggleFlag('hyperverge')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/hyperverge.webp" alt="HyperVerge" /></div>
-          <div class="name">HyperVerge</div>
-          <div class="meta">hyperverge.webp</div>
-        </div>
-        <div class="card" data-slug="pepper-content-ai" id="card-pepper-content-ai">
-          <button class="flag-btn" onclick="toggleFlag('pepper-content-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/pepper-content-ai.svg" alt="Pepper Content AI" /></div>
-          <div class="name">Pepper Content AI</div>
-          <div class="meta">pepper-content-ai.svg</div>
-        </div>
-        <div class="card" data-slug="kissflow-ai" id="card-kissflow-ai">
-          <button class="flag-btn" onclick="toggleFlag('kissflow-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/kissflow-ai.svg" alt="Kissflow AI" /></div>
-          <div class="name">Kissflow AI</div>
-          <div class="meta">kissflow-ai.svg</div>
-        </div>
-        <div class="card" data-slug="kissanai" id="card-kissanai">
-          <button class="flag-btn" onclick="toggleFlag('kissanai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/kissanai.webp" alt="KissanAI" /></div>
-          <div class="name">KissanAI</div>
-          <div class="meta">kissanai.webp</div>
-        </div>
-        <div class="card" data-slug="automation-anywhere" id="card-automation-anywhere">
-          <button class="flag-btn" onclick="toggleFlag('automation-anywhere')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/automation-anywhere.svg" alt="Automation Anywhere" /></div>
-          <div class="name">Automation Anywhere</div>
-          <div class="meta">automation-anywhere.svg</div>
-        </div>
-        <div class="card" data-slug="perfios-ai" id="card-perfios-ai">
-          <button class="flag-btn" onclick="toggleFlag('perfios-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/perfios-ai.svg" alt="Perfios AI" /></div>
-          <div class="name">Perfios AI</div>
-          <div class="meta">perfios-ai.svg</div>
-        </div>
-        <div class="card" data-slug="nanonets" id="card-nanonets">
-          <button class="flag-btn" onclick="toggleFlag('nanonets')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/nanonets.webp" alt="Nanonets" /></div>
-          <div class="name">Nanonets</div>
-          <div class="meta">nanonets.webp</div>
-        </div>
-        <div class="card" data-slug="tungsten-automation-formerly-kofax" id="card-tungsten-automation-formerly-kofax">
-          <button class="flag-btn" onclick="toggleFlag('tungsten-automation-formerly-kofax')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/tungsten-automation-formerly-kofax.svg" alt="Tungsten Automation (formerly Kofax)" /></div>
-          <div class="name">Tungsten Automation (formerly Kofax)</div>
-          <div class="meta">tungsten-automation-formerly-kofax.svg</div>
-        </div>
-        <div class="card" data-slug="edgeverve" id="card-edgeverve">
-          <button class="flag-btn" onclick="toggleFlag('edgeverve')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/edgeverve.png" alt="EdgeVerve" /></div>
-          <div class="name">EdgeVerve</div>
-          <div class="meta">edgeverve.png</div>
-        </div>
-        <div class="card" data-slug="uipath" id="card-uipath">
-          <button class="flag-btn" onclick="toggleFlag('uipath')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/uipath.svg" alt="UiPath" /></div>
-          <div class="name">UiPath</div>
-          <div class="meta">uipath.svg</div>
-        </div>
-        <div class="card" data-slug="amnic-ai" id="card-amnic-ai">
-          <button class="flag-btn" onclick="toggleFlag('amnic-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/amnic-ai.png" alt="Amnic AI" /></div>
-          <div class="name">Amnic AI</div>
-          <div class="meta">amnic-ai.png</div>
-        </div>
-        <div class="card" data-slug="whatfix" id="card-whatfix">
-          <button class="flag-btn" onclick="toggleFlag('whatfix')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/whatfix.svg" alt="Whatfix" /></div>
-          <div class="name">Whatfix</div>
-          <div class="meta">whatfix.svg</div>
-        </div>
-        <div class="card" data-slug="shopos" id="card-shopos">
-          <button class="flag-btn" onclick="toggleFlag('shopos')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/shopos.png" alt="ShopOS" /></div>
-          <div class="name">ShopOS</div>
-          <div class="meta">shopos.png</div>
-        </div>
-        <div class="card" data-slug="raga-ai" id="card-raga-ai">
-          <button class="flag-btn" onclick="toggleFlag('raga-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/raga-ai.svg" alt="Raga AI" /></div>
-          <div class="name">Raga AI</div>
-          <div class="meta">raga-ai.svg</div>
-        </div>
-        <div class="card" data-slug="convin-ai" id="card-convin-ai">
-          <button class="flag-btn" onclick="toggleFlag('convin-ai')">&#x2717;</button>
-          <div class="logo-wrap"><img src="/logos/companies/convin-ai.svg" alt="Convin AI" /></div>
-          <div class="name">Convin AI</div>
-          <div class="meta">convin-ai.svg</div>
-        </div></div>
-<script>
-const flagged = new Set();
-function toggleFlag(slug) {
-  const card = document.getElementById("card-" + slug);
-  if (flagged.has(slug)) { flagged.delete(slug); card.classList.remove("flagged"); }
-  else { flagged.add(slug); card.classList.add("flagged"); }
-  document.getElementById("flagCount").textContent = flagged.size;
-}
-function copyFlagged() {
-  navigator.clipboard.writeText(Array.from(flagged).join(", ")).then(() => {
-    const btn = document.getElementById("copyBtn");
-    btn.textContent = "Copied!"; btn.classList.add("copied");
-    setTimeout(() => { btn.textContent = "Copy flagged slugs"; btn.classList.remove("copied"); }, 2000);
-  });
-}
-function resetAll() {
-  flagged.clear();
-  document.querySelectorAll(".card.flagged").forEach(c => c.classList.remove("flagged"));
-  document.getElementById("flagCount").textContent = "0";
-}
-function toggleDark() { document.body.classList.toggle("dark"); }
-function toggleChecker() { document.body.classList.toggle("checker"); }
-</script></body></html>
+  <h1>Logo Audit</h1>
+  <p class="subtitle">178 company logos — click "Needs Dark BG" on any logo that looks bad on white.</p>
+
+  <div class="instructions">
+    <strong>How to use:</strong> Each card shows the logo on white (left) and dark (right).
+    If a logo is invisible or looks bad on white, click the <strong>"Needs Dark BG"</strong> button.
+    When done, click <strong>"Copy Slugs"</strong> at the top to get the list. Paste that back to me.
+  </div>
+
+  <div class="export-bar">
+    <button onclick="copyFlagged()">Copy Slugs</button>
+    <span class="count" id="flagCount">0 flagged</span>
+    <span id="output"></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const logos = [
+      "abacus-ai.webp","abnormal-ai.svg","abridge.webp","abstrabit-technologies.png","accion-labs.svg",
+      "ada.png","adya-ai.png","akasa.png","alphasense.svg","ambience-healthcare.png",
+      "amnic-ai.png","amplemarket.svg","anysphere-cursor.svg","apollo-io.svg","arize-ai.png",
+      "artera.svg","arya-ai.png","ashby.svg","assembled.svg","augment-code.svg",
+      "automation-anywhere.svg","browserstack.svg","calsoft.png","clari.svg","clay.png",
+      "clio.png","coforge.svg","cognition-ai.svg","cohere.svg","constructor.svg",
+      "contractpodai.svg","convin-ai.svg","corover-ai.png","corti.svg","cresta.svg",
+      "darwinbox.webp","decagon.svg","devrev.svg","dhiwise.png","dialpad.svg",
+      "digits.svg","drata.png","edgeverve.png","eightfold-ai.png","elevenlabs.svg",
+      "ema.svg","evenup.svg","fathom.svg","freshworks.svg","gem.svg",
+      "gong.svg","gupshup.svg","happiest-minds.png","haptik.png","harness.webp",
+      "harvey.svg","hasura.svg","hcltech.svg","hebbia.png","hexaware.svg",
+      "highspot.svg","hightouch.svg","hippocratic-ai.png","hugging-face.svg","hyperverge.webp",
+      "indium-software.svg","infosys.svg","innovaccer.svg","intercom.svg","jasper.svg",
+      "kapture-cx.svg","kissanai.webp","kissflow-ai.svg","kore-ai.svg","krutrim-ai.svg",
+      "l-t-technology-services-ltts.svg","lambdatest.svg","langchain.svg","leena-ai.svg","legora.png",
+      "lilt.png","livekit.svg","lovable.svg","ltimindtree.png","luminance.png",
+      "mad-street-den.svg","maven-agi.png","mercor.png","mihup.svg","mimica.svg",
+      "mistral-ai.svg","molecule-ai.png","mphasis.png","murf-ai.svg","n8n.svg",
+      "nabla.png","nanonets.webp","netradyne.svg","numeric.svg","observe-ai.png",
+      "outreach.svg","pactum.svg","parloa.svg","pennylane.png","pepper-content-ai.svg",
+      "perfios-ai.svg","perplexity-ai.png","persistent-systems.png","phenom.svg","pixis-ai.svg",
+      "polyai.svg","postman.svg","project44.svg","q3-technologies.png","qodo.svg",
+      "quickads-ai.svg","qure-ai.png","raga-ai.svg","ramp.svg","razorpay.svg",
+      "redacto-ai.png","regie-ai.svg","replit.png","riverline-ai.png","rocketlane.svg",
+      "runway.svg","sarvam-ai.svg","satsure.svg","senseforth-ai.jpg","shopos.png",
+      "sierra.svg","sigtuple.png","simform.svg","skit-ai.svg","softweb-solutions.svg",
+      "sonata-software.png","speak.svg","spellbook.svg","spyne.webp","suki.svg",
+      "swimlane.svg","synthesia.svg","synthflow.svg","tabnine.png","talentica-software.svg",
+      "tata-elxsi.png","tcs-tata-consultancy-services.svg","tech-mahindra.png","tellius.svg","tennr.svg",
+      "tidio.svg","tines.svg","together-ai.svg","torq.png","truefoundry.png",
+      "tungsten-automation-formerly-kofax.svg","typeface.svg","uipath.svg","uniphore.svg","unscript-ai.webp",
+      "vanta.svg","vapi.svg","vectra-ai.svg","vercel.svg","vishwa-ai.png",
+      "voiceflow.svg","whatfix.svg","wipro.svg","wonderful.svg","writer.svg",
+      "wysa.png","wyzard-ai.svg","yellow-ai.svg","zencoder.svg","zensar.svg",
+      "zip.svg","zoho.svg","zowie.svg"
+    ];
+
+    const flagged = new Set();
+
+    const grid = document.getElementById('grid');
+    grid.innerHTML = logos.map(file => {
+      const slug = file.replace(/\.(svg|png|webp|jpg|jpeg|avif)$/, '');
+      return `
+        <div class="card" id="card-${slug}">
+          <div class="logo-row">
+            <div class="logo-cell white">
+              <img src="/logos/companies/${file}" alt="${slug}" loading="lazy">
+            </div>
+            <div class="logo-cell dark">
+              <img src="/logos/companies/${file}" alt="${slug}" loading="lazy">
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="slug">${slug}</span>
+            <button class="flag-btn" id="btn-${slug}" onclick="toggleFlag('${slug}')">Needs Dark BG</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    function toggleFlag(slug) {
+      if (flagged.has(slug)) {
+        flagged.delete(slug);
+      } else {
+        flagged.add(slug);
+      }
+      document.getElementById('btn-' + slug).classList.toggle('active', flagged.has(slug));
+      document.getElementById('card-' + slug).classList.toggle('flagged', flagged.has(slug));
+      document.getElementById('flagCount').textContent = flagged.size + ' flagged';
+    }
+
+    function copyFlagged() {
+      const list = [...flagged].sort().join('\n');
+      const output = document.getElementById('output');
+      if (flagged.size === 0) {
+        output.style.display = 'inline';
+        output.textContent = 'No logos flagged yet.';
+        return;
+      }
+      navigator.clipboard.writeText(list).then(() => {
+        output.style.display = 'inline';
+        output.textContent = 'Copied ' + flagged.size + ' slugs!';
+        setTimeout(() => { output.style.display = 'none'; }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>

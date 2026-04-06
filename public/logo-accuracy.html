@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Accuracy Check — Orbys360</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; padding: 24px; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 24px; font-size: 14px; }
+    .instructions { background: #eff6ff; border: 1px solid #3b82f6; border-radius: 8px; padding: 16px; margin-bottom: 24px; font-size: 13px; line-height: 1.6; }
+    .instructions strong { color: #1e40af; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .card { border-radius: 12px; overflow: hidden; border: 1px solid #e5e5e5; background: white; transition: border-color 0.15s; }
+    .card.flagged { border-color: #ef4444; border-width: 2px; }
+    .logo-area { height: 100px; display: flex; align-items: center; justify-content: center; padding: 16px; background: #ffffff; border-bottom: 1px solid #f0f0f0; }
+    .logo-area.dark-bg { background: #1a1a2e; }
+    .logo-area img { max-width: 160px; max-height: 68px; object-fit: contain; }
+    .card-body { padding: 12px 14px; }
+    .company-name { font-size: 14px; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+    .company-website { font-size: 11px; color: #3b82f6; text-decoration: none; display: block; margin-bottom: 8px; word-break: break-all; }
+    .company-website:hover { text-decoration: underline; }
+    .slug-line { font-size: 10px; font-family: monospace; color: #999; margin-bottom: 8px; }
+    .flag-btn { font-size: 11px; padding: 5px 12px; border-radius: 6px; border: 1px solid #ddd; background: white; cursor: pointer; transition: all 0.15s; width: 100%; }
+    .flag-btn:hover { border-color: #ef4444; color: #ef4444; }
+    .flag-btn.active { background: #ef4444; color: white; border-color: #ef4444; }
+    .export-bar { position: sticky; top: 0; z-index: 10; background: white; border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); flex-wrap: wrap; }
+    .export-bar button { padding: 8px 20px; border-radius: 8px; border: none; background: #1a1a2e; color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .export-bar button:hover { background: #2d2d4e; }
+    .count { font-size: 13px; color: #666; }
+    #output { display: none; padding: 8px 12px; background: #f0fdf4; border: 1px solid #22c55e; border-radius: 8px; font-family: monospace; font-size: 12px; }
+    .search-box { padding: 8px 14px; border-radius: 8px; border: 1px solid #ddd; font-size: 13px; width: 220px; }
+    .search-box:focus { outline: none; border-color: #3b82f6; }
+  </style>
+</head>
+<body>
+  <h1>Logo Accuracy Check</h1>
+  <p class="subtitle">Verify each logo matches the company name. Click the company website to confirm.</p>
+
+  <div class="instructions">
+    <strong>How to use:</strong> For each card, check if the logo matches the company name.
+    Click the website link to open the company site and compare.
+    If a logo is <strong>wrong or doesn't match</strong>, click <strong>"Wrong Logo"</strong>.
+    When done, click <strong>"Copy Flagged"</strong> and paste the list back to me.
+  </div>
+
+  <div class="export-bar">
+    <button onclick="copyFlagged()">Copy Flagged</button>
+    <span class="count" id="flagCount">0 flagged</span>
+    <input type="text" class="search-box" placeholder="Filter by name..." oninput="filterCards(this.value)">
+    <span id="output"></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const companies = [
+      {"slug":"tcs-tata-consultancy-services","name":"TCS (Tata Consultancy Services)","website":"https://www.tcs.com","logo":"tcs-tata-consultancy-services.svg"},
+      {"slug":"infosys","name":"Infosys","website":"https://www.infosys.com","logo":"infosys.svg"},
+      {"slug":"wipro","name":"Wipro","website":"https://www.wipro.com","logo":"wipro.svg"},
+      {"slug":"hcltech","name":"HCLTech","website":"https://www.hcltech.com","logo":"hcltech.svg"},
+      {"slug":"tech-mahindra","name":"Tech Mahindra","website":"https://www.techmahindra.com","logo":"tech-mahindra.png"},
+      {"slug":"ltimindtree","name":"LTIMindtree","website":"https://www.ltm.com","logo":"ltimindtree.png"},
+      {"slug":"persistent-systems","name":"Persistent Systems","website":"https://www.persistent.com","logo":"persistent-systems.png"},
+      {"slug":"mphasis","name":"Mphasis","website":"https://www.mphasis.com","logo":"mphasis.png"},
+      {"slug":"happiest-minds","name":"Happiest Minds","website":"https://www.happiestminds.com","logo":"happiest-minds.png"},
+      {"slug":"zensar","name":"Zensar","website":"https://www.zensar.com","logo":"zensar.svg"},
+      {"slug":"hexaware","name":"Hexaware","website":"https://hexaware.com","logo":"hexaware.svg"},
+      {"slug":"coforge","name":"Coforge","website":"https://www.coforge.com","logo":"coforge.svg"},
+      {"slug":"l-t-technology-services-ltts","name":"L&T Technology Services (LTTS)","website":"https://www.ltts.com","logo":"l-t-technology-services-ltts.svg"},
+      {"slug":"tata-elxsi","name":"Tata Elxsi","website":"https://www.tataelxsi.com","logo":"tata-elxsi.png"},
+      {"slug":"sonata-software","name":"Sonata Software","website":"https://www.sonata-software.com","logo":"sonata-software.png"},
+      {"slug":"indium-software","name":"Indium Software","website":"https://www.indium.tech","logo":"indium-software.svg"},
+      {"slug":"accion-labs","name":"Accion Labs","website":"https://www.accionlabs.com","logo":"accion-labs.svg"},
+      {"slug":"softweb-solutions","name":"Softweb Solutions","website":"https://www.softwebsolutions.com","logo":"softweb-solutions.svg"},
+      {"slug":"simform","name":"Simform","website":"https://www.simform.com","logo":"simform.svg"},
+      {"slug":"talentica-software","name":"Talentica Software","website":"https://www.talentica.com","logo":"talentica-software.svg"},
+      {"slug":"q3-technologies","name":"Q3 Technologies","website":"https://www.q3tech.com","logo":"q3-technologies.png"},
+      {"slug":"abstrabit-technologies","name":"Abstrabit Technologies","website":"https://www.abstrabit.com","logo":"abstrabit-technologies.png"},
+      {"slug":"calsoft","name":"Calsoft","website":"https://www.calsoftinc.com","logo":"calsoft.png"},
+      {"slug":"yellow-ai","name":"Yellow.ai","website":"https://yellow.ai","logo":"yellow-ai.svg"},
+      {"slug":"haptik","name":"Haptik","website":"https://www.haptik.ai","logo":"haptik.png"},
+      {"slug":"corover-ai","name":"CoRover.ai","website":"https://corover.ai","logo":"corover-ai.png"},
+      {"slug":"kapture-cx","name":"Kapture CX","website":"https://www.kapture.cx","logo":"kapture-cx.svg"},
+      {"slug":"gupshup","name":"Gupshup","website":"https://www.gupshup.ai","logo":"gupshup.svg"},
+      {"slug":"uniphore","name":"Uniphore","website":"https://www.uniphore.com","logo":"uniphore.svg"},
+      {"slug":"skit-ai","name":"Skit.ai","website":"https://skit.ai","logo":"skit-ai.svg"},
+      {"slug":"mihup","name":"Mihup","website":"https://mihup.ai","logo":"mihup.svg"},
+      {"slug":"senseforth-ai","name":"Senseforth.ai","website":"https://www.senseforth.ai","logo":"senseforth-ai.jpg"},
+      {"slug":"sarvam-ai","name":"Sarvam AI","website":"https://www.sarvam.ai","logo":"sarvam-ai.svg"},
+      {"slug":"krutrim-ai","name":"Krutrim AI","website":"https://www.olakrutrim.com","logo":"krutrim-ai.svg"},
+      {"slug":"truefoundry","name":"TrueFoundry","website":"https://www.truefoundry.com","logo":"truefoundry.png"},
+      {"slug":"mad-street-den","name":"Mad Street Den","website":"https://www.vue.ai","logo":"mad-street-den.svg"},
+      {"slug":"wysa","name":"Wysa","website":"https://www.wysa.com","logo":"wysa.png"},
+      {"slug":"sigtuple","name":"SigTuple","website":"https://sigtuple.com","logo":"sigtuple.png"},
+      {"slug":"arya-ai","name":"Arya.ai","website":"https://arya.ai","logo":"arya-ai.png"},
+      {"slug":"unscript-ai","name":"Unscript.ai","website":"https://www.unscript.ai","logo":"unscript-ai.webp"},
+      {"slug":"dhiwise","name":"DhiWise","website":"https://www.dhiwise.com","logo":"dhiwise.png"},
+      {"slug":"hasura","name":"Hasura","website":"https://hasura.io","logo":"hasura.svg"},
+      {"slug":"postman","name":"Postman","website":"https://www.postman.com","logo":"postman.svg"},
+      {"slug":"razorpay","name":"Razorpay","website":"https://razorpay.com","logo":"razorpay.svg"},
+      {"slug":"freshworks","name":"Freshworks","website":"https://www.freshworks.com","logo":"freshworks.svg"},
+      {"slug":"zoho","name":"Zoho","website":"https://www.zoho.com","logo":"zoho.svg"},
+      {"slug":"browserstack","name":"BrowserStack","website":"https://www.browserstack.com","logo":"browserstack.svg"},
+      {"slug":"lambdatest","name":"LambdaTest","website":"https://www.lambdatest.com","logo":"lambdatest.svg"},
+      {"slug":"rocketlane","name":"Rocketlane","website":"https://www.rocketlane.com","logo":"rocketlane.svg"},
+      {"slug":"devrev","name":"DevRev","website":"https://devrev.ai","logo":"devrev.svg"},
+      {"slug":"spyne","name":"Spyne","website":"https://www.spyne.ai","logo":"spyne.webp"},
+      {"slug":"murf-ai","name":"Murf.ai","website":"https://murf.ai","logo":"murf-ai.svg"},
+      {"slug":"netradyne","name":"Netradyne","website":"https://www.netradyne.com","logo":"netradyne.svg"},
+      {"slug":"satsure","name":"SatSure","website":"https://www.satsure.co","logo":"satsure.svg"},
+      {"slug":"pixis-ai","name":"Pixis AI","website":"https://pixis.ai","logo":"pixis-ai.svg"},
+      {"slug":"observe-ai","name":"Observe.AI","website":"https://www.observe.ai","logo":"observe-ai.png"},
+      {"slug":"redacto-ai","name":"Redacto AI","website":"https://www.redacto.ai","logo":"redacto-ai.png"},
+      {"slug":"riverline-ai","name":"Riverline AI","website":"https://riverline.ai","logo":"riverline-ai.png"},
+      {"slug":"adya-ai","name":"Adya AI","website":"https://adya.ai","logo":"adya-ai.png"},
+      {"slug":"wyzard-ai","name":"Wyzard AI","website":"https://wyzard.ai","logo":"wyzard-ai.svg"},
+      {"slug":"quickads-ai","name":"QuickAds AI","website":"https://www.quickads.ai","logo":"quickads-ai.svg"},
+      {"slug":"molecule-ai","name":"Molecule AI","website":"https://moleculeai.com","logo":"molecule-ai.png"},
+      {"slug":"vishwa-ai","name":"Vishwa AI","website":"https://www.vishwa.ai","logo":"vishwa-ai.png"},
+      {"slug":"hyperverge","name":"HyperVerge","website":"https://hyperverge.co","logo":"hyperverge.webp"},
+      {"slug":"pepper-content-ai","name":"Pepper Content AI","website":"https://www.pepper.inc","logo":"pepper-content-ai.svg"},
+      {"slug":"kissflow-ai","name":"Kissflow AI","website":"https://kissflow.com","logo":"kissflow-ai.svg"},
+      {"slug":"kissanai","name":"KissanAI","website":"https://kissan.ai","logo":"kissanai.webp"},
+      {"slug":"automation-anywhere","name":"Automation Anywhere","website":"https://www.automationanywhere.com","logo":"automation-anywhere.svg"},
+      {"slug":"perfios-ai","name":"Perfios AI","website":"https://perfios.ai","logo":"perfios-ai.svg"},
+      {"slug":"nanonets","name":"Nanonets","website":"https://nanonets.com","logo":"nanonets.webp"},
+      {"slug":"tungsten-automation-formerly-kofax","name":"Tungsten Automation (formerly Kofax)","website":"https://www.tungstenautomation.com","logo":"tungsten-automation-formerly-kofax.svg"},
+      {"slug":"edgeverve","name":"EdgeVerve","website":"https://www.edgeverve.com","logo":"edgeverve.png"},
+      {"slug":"uipath","name":"UiPath","website":"https://www.uipath.com","logo":"uipath.svg"},
+      {"slug":"amnic-ai","name":"Amnic AI","website":"https://amnic.com","logo":"amnic-ai.png"},
+      {"slug":"whatfix","name":"Whatfix","website":"https://whatfix.com","logo":"whatfix.svg"},
+      {"slug":"shopos","name":"ShopOS","website":"https://shopos.ai","logo":"shopos.png"},
+      {"slug":"raga-ai","name":"Raga AI","website":"https://raga.ai","logo":"raga-ai.svg"},
+      {"slug":"convin-ai","name":"Convin AI","website":"https://convin.ai","logo":"convin-ai.svg"},
+      {"slug":"sierra","name":"Sierra","website":"https://sierra.ai","logo":"sierra.svg"},
+      {"slug":"decagon","name":"Decagon","website":"https://decagon.ai","logo":"decagon.svg"},
+      {"slug":"polyai","name":"PolyAI","website":"https://poly.ai","logo":"polyai.svg"},
+      {"slug":"parloa","name":"Parloa","website":"https://www.parloa.com","logo":"parloa.svg"},
+      {"slug":"wonderful","name":"Wonderful","website":"https://www.wonderful.ai","logo":"wonderful.svg"},
+      {"slug":"ada","name":"Ada","website":"https://www.ada.cx","logo":"ada.png"},
+      {"slug":"intercom","name":"Intercom","website":"https://www.intercom.com","logo":"intercom.svg"},
+      {"slug":"kore-ai","name":"Kore.ai","website":"https://www.kore.ai","logo":"kore-ai.svg"},
+      {"slug":"cresta","name":"Cresta","website":"https://cresta.com","logo":"cresta.svg"},
+      {"slug":"tidio","name":"Tidio","website":"https://www.tidio.com","logo":"tidio.svg"},
+      {"slug":"maven-agi","name":"Maven AGI","website":"https://www.mavenagi.com","logo":"maven-agi.png"},
+      {"slug":"zowie","name":"Zowie","website":"https://getzowie.com","logo":"zowie.svg"},
+      {"slug":"assembled","name":"Assembled","website":"https://www.assembled.com","logo":"assembled.svg"},
+      {"slug":"dialpad","name":"Dialpad","website":"https://www.dialpad.com","logo":"dialpad.svg"},
+      {"slug":"gong","name":"Gong","website":"https://www.gong.io","logo":"gong.svg"},
+      {"slug":"outreach","name":"Outreach","website":"https://www.outreach.io","logo":"outreach.svg"},
+      {"slug":"clari","name":"Clari","website":"https://www.clari.com","logo":"clari.svg"},
+      {"slug":"apollo-io","name":"Apollo.io","website":"https://www.apollo.io","logo":"apollo-io.svg"},
+      {"slug":"clay","name":"Clay","website":"https://www.clay.com","logo":"clay.png"},
+      {"slug":"hightouch","name":"Hightouch","website":"https://hightouch.com","logo":"hightouch.svg"},
+      {"slug":"highspot","name":"Highspot","website":"https://www.highspot.com","logo":"highspot.svg"},
+      {"slug":"regie-ai","name":"Regie.ai","website":"https://www.regie.ai","logo":"regie-ai.svg"},
+      {"slug":"amplemarket","name":"Amplemarket","website":"https://www.amplemarket.com","logo":"amplemarket.svg"},
+      {"slug":"jasper","name":"Jasper","website":"https://www.jasper.ai","logo":"jasper.svg"},
+      {"slug":"typeface","name":"Typeface","website":"https://www.typeface.ai","logo":"typeface.svg"},
+      {"slug":"writer","name":"Writer","website":"https://writer.com","logo":"writer.svg"},
+      {"slug":"cognition-ai","name":"Cognition AI","website":"https://cognition.ai","logo":"cognition-ai.svg"},
+      {"slug":"anysphere-cursor","name":"Anysphere (Cursor)","website":"https://cursor.com","logo":"anysphere-cursor.svg"},
+      {"slug":"replit","name":"Replit","website":"https://replit.com","logo":"replit.png"},
+      {"slug":"augment-code","name":"Augment Code","website":"https://www.augmentcode.com","logo":"augment-code.svg"},
+      {"slug":"lovable","name":"Lovable","website":"https://lovable.dev","logo":"lovable.svg"},
+      {"slug":"vercel","name":"Vercel","website":"https://vercel.com","logo":"vercel.svg"},
+      {"slug":"harness","name":"Harness","website":"https://www.harness.io","logo":"harness.webp"},
+      {"slug":"tabnine","name":"Tabnine","website":"https://www.tabnine.com","logo":"tabnine.png"},
+      {"slug":"qodo","name":"Qodo","website":"https://www.qodo.ai","logo":"qodo.svg"},
+      {"slug":"zencoder","name":"Zencoder","website":"https://zencoder.ai","logo":"zencoder.svg"},
+      {"slug":"elevenlabs","name":"ElevenLabs","website":"https://elevenlabs.io","logo":"elevenlabs.svg"},
+      {"slug":"synthflow","name":"Synthflow","website":"https://synthflow.ai","logo":"synthflow.svg"},
+      {"slug":"vapi","name":"Vapi","website":"https://vapi.ai","logo":"vapi.svg"},
+      {"slug":"livekit","name":"LiveKit","website":"https://livekit.com","logo":"livekit.svg"},
+      {"slug":"n8n","name":"n8n","website":"https://n8n.io","logo":"n8n.svg"},
+      {"slug":"tines","name":"Tines","website":"https://www.tines.com","logo":"tines.svg"},
+      {"slug":"ema","name":"Ema","website":"https://www.ema.ai","logo":"ema.svg"},
+      {"slug":"langchain","name":"LangChain","website":"https://www.langchain.com","logo":"langchain.svg"},
+      {"slug":"hippocratic-ai","name":"Hippocratic AI","website":"https://hippocraticai.com","logo":"hippocratic-ai.png"},
+      {"slug":"ambience-healthcare","name":"Ambience Healthcare","website":"https://www.ambiencehealthcare.com","logo":"ambience-healthcare.png"},
+      {"slug":"abridge","name":"Abridge","website":"https://www.abridge.com","logo":"abridge.webp"},
+      {"slug":"innovaccer","name":"Innovaccer","website":"https://innovaccer.com","logo":"innovaccer.svg"},
+      {"slug":"corti","name":"Corti","website":"https://www.corti.ai","logo":"corti.svg"},
+      {"slug":"tennr","name":"Tennr","website":"https://www.tennr.com","logo":"tennr.svg"},
+      {"slug":"artera","name":"Artera","website":"https://artera.io","logo":"artera.svg"},
+      {"slug":"suki","name":"Suki","website":"https://www.suki.ai","logo":"suki.svg"},
+      {"slug":"akasa","name":"AKASA","website":"https://akasa.com","logo":"akasa.png"},
+      {"slug":"nabla","name":"Nabla","website":"https://www.nabla.com","logo":"nabla.png"},
+      {"slug":"qure-ai","name":"Qure.ai","website":"https://www.qure.ai","logo":"qure-ai.png"},
+      {"slug":"harvey","name":"Harvey","website":"https://www.harvey.ai","logo":"harvey.svg"},
+      {"slug":"clio","name":"Clio","website":"https://www.clio.com","logo":"clio.png"},
+      {"slug":"spellbook","name":"Spellbook","website":"https://www.spellbook.legal","logo":"spellbook.svg"},
+      {"slug":"legora","name":"Legora","website":"https://legora.com","logo":"legora.png"},
+      {"slug":"hebbia","name":"Hebbia","website":"https://www.hebbia.com","logo":"hebbia.png"},
+      {"slug":"evenup","name":"EvenUp","website":"https://www.evenuplaw.com","logo":"evenup.svg"},
+      {"slug":"luminance","name":"Luminance","website":"https://www.luminance.com","logo":"luminance.png"},
+      {"slug":"contractpodai","name":"ContractPodAi","website":"https://leahai.com","logo":"contractpodai.svg"},
+      {"slug":"zip","name":"Zip","website":"https://ziphq.com","logo":"zip.svg"},
+      {"slug":"ramp","name":"Ramp","website":"https://ramp.com","logo":"ramp.svg"},
+      {"slug":"alphasense","name":"AlphaSense","website":"https://www.alpha-sense.com","logo":"alphasense.svg"},
+      {"slug":"abacus-ai","name":"Abacus.AI","website":"https://abacus.ai","logo":"abacus-ai.webp"},
+      {"slug":"numeric","name":"Numeric","website":"https://www.numeric.io","logo":"numeric.svg"},
+      {"slug":"digits","name":"Digits","website":"https://digits.com","logo":"digits.svg"},
+      {"slug":"pennylane","name":"Pennylane","website":"https://www.pennylane.com","logo":"pennylane.png"},
+      {"slug":"eightfold-ai","name":"Eightfold AI","website":"https://eightfold.ai","logo":"eightfold-ai.png"},
+      {"slug":"phenom","name":"Phenom","website":"https://www.phenom.com","logo":"phenom.svg"},
+      {"slug":"darwinbox","name":"Darwinbox","website":"https://darwinbox.com","logo":"darwinbox.webp"},
+      {"slug":"mercor","name":"Mercor","website":"https://www.mercor.com","logo":"mercor.png"},
+      {"slug":"gem","name":"Gem","website":"https://www.gem.com","logo":"gem.svg"},
+      {"slug":"leena-ai","name":"Leena AI","website":"https://leena.ai","logo":"leena-ai.svg"},
+      {"slug":"ashby","name":"Ashby","website":"https://www.ashbyhq.com","logo":"ashby.svg"},
+      {"slug":"abnormal-ai","name":"Abnormal AI","website":"https://abnormal.ai","logo":"abnormal-ai.svg"},
+      {"slug":"torq","name":"Torq","website":"https://torq.io","logo":"torq.png"},
+      {"slug":"swimlane","name":"Swimlane","website":"https://swimlane.com","logo":"swimlane.svg"},
+      {"slug":"vectra-ai","name":"Vectra AI","website":"https://www.vectra.ai","logo":"vectra-ai.svg"},
+      {"slug":"drata","name":"Drata","website":"https://drata.com","logo":"drata.png"},
+      {"slug":"vanta","name":"Vanta","website":"https://www.vanta.com","logo":"vanta.svg"},
+      {"slug":"cohere","name":"Cohere","website":"https://cohere.com","logo":"cohere.svg"},
+      {"slug":"perplexity-ai","name":"Perplexity AI","website":"https://www.perplexity.ai","logo":"perplexity-ai.png"},
+      {"slug":"mistral-ai","name":"Mistral AI","website":"https://mistral.ai","logo":"mistral-ai.svg"},
+      {"slug":"together-ai","name":"Together AI","website":"https://www.together.ai","logo":"together-ai.svg"},
+      {"slug":"hugging-face","name":"Hugging Face","website":"https://huggingface.co","logo":"hugging-face.svg"},
+      {"slug":"synthesia","name":"Synthesia","website":"https://www.synthesia.io","logo":"synthesia.svg"},
+      {"slug":"runway","name":"Runway","website":"https://runwayml.com","logo":"runway.svg"},
+      {"slug":"project44","name":"Project44","website":"https://www.project44.com","logo":"project44.svg"},
+      {"slug":"pactum","name":"Pactum","website":"https://pactum.com","logo":"pactum.svg"},
+      {"slug":"constructor","name":"Constructor","website":"https://constructor.com","logo":"constructor.svg"},
+      {"slug":"arize-ai","name":"Arize AI","website":"https://arize.com","logo":"arize-ai.png"},
+      {"slug":"tellius","name":"Tellius","website":"https://www.tellius.com","logo":"tellius.svg"},
+      {"slug":"speak","name":"Speak","website":"https://www.speak.com","logo":"speak.svg"},
+      {"slug":"lilt","name":"LILT","website":"https://lilt.com","logo":"lilt.png"},
+      {"slug":"fathom","name":"Fathom","website":"https://fathom.ai","logo":"fathom.svg"},
+      {"slug":"mimica","name":"Mimica","website":"https://www.mimica.ai","logo":"mimica.svg"},
+      {"slug":"voiceflow","name":"Voiceflow","website":"https://www.voiceflow.com","logo":"voiceflow.svg"}
+    ];
+
+    const flagged = new Set();
+    const darkBgSlugs = new Set(["sonata-software","q3-technologies","calsoft","mad-street-den","arya-ai","satsure","raga-ai","clari","regie-ai","augment-code","harness","livekit","harvey","spellbook","evenup","luminance","abacus-ai","darwinbox","torq","swimlane","lilt","fathom"]);
+
+    function renderGrid(filter = '') {
+      const grid = document.getElementById('grid');
+      const q = filter.toLowerCase();
+      const filtered = q ? companies.filter(c => c.name.toLowerCase().includes(q) || c.slug.includes(q)) : companies;
+
+      grid.innerHTML = filtered.map(c => `
+        <div class="card ${flagged.has(c.slug) ? 'flagged' : ''}" id="card-${c.slug}">
+          <div class="logo-area ${darkBgSlugs.has(c.slug) ? 'dark-bg' : ''}">
+            <img src="/logos/companies/${c.logo}" alt="${c.name}" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="company-name">${c.name}</div>
+            <a class="company-website" href="${c.website}" target="_blank" rel="noopener">${c.website}</a>
+            <div class="slug-line">${c.slug}</div>
+            <button class="flag-btn ${flagged.has(c.slug) ? 'active' : ''}" id="btn-${c.slug}" onclick="toggleFlag('${c.slug}')">Wrong Logo</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleFlag(slug) {
+      if (flagged.has(slug)) {
+        flagged.delete(slug);
+      } else {
+        flagged.add(slug);
+      }
+      const btn = document.getElementById('btn-' + slug);
+      const card = document.getElementById('card-' + slug);
+      if (btn) btn.classList.toggle('active', flagged.has(slug));
+      if (card) card.classList.toggle('flagged', flagged.has(slug));
+      document.getElementById('flagCount').textContent = flagged.size + ' flagged';
+    }
+
+    function filterCards(value) {
+      renderGrid(value);
+    }
+
+    function copyFlagged() {
+      const list = [...flagged].sort().join('\n');
+      const output = document.getElementById('output');
+      if (flagged.size === 0) {
+        output.style.display = 'inline';
+        output.textContent = 'No logos flagged yet.';
+        return;
+      }
+      navigator.clipboard.writeText(list).then(() => {
+        output.style.display = 'inline';
+        output.textContent = 'Copied ' + flagged.size + ' slugs!';
+        setTimeout(() => { output.style.display = 'none'; }, 3000);
+      });
+    }
+
+    renderGrid();
+  </script>
+</body>
+</html>

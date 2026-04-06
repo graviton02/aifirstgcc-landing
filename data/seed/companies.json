@@ -508,7 +508,8 @@
     ],
     "contact_email": "chat@corover.ai",
     "verification_status": "verified",
-    "contact_url": "https://corover.ai/company/contact"
+    "contact_url": "https://corover.ai/company/contact",
+    "logo_bg": "dark"
   },
   {
     "name": "Kapture CX",
@@ -776,7 +777,8 @@
     ],
     "contact_email": "help@dhiwise.com",
     "verification_status": "verified",
-    "contact_url": "mailto:help@dhiwise.com"
+    "contact_url": "mailto:help@dhiwise.com",
+    "logo_bg": "dark"
   },
   {
     "name": "Hasura",
@@ -976,7 +978,8 @@
     ],
     "contact_email": "enterprise@murf.ai",
     "verification_status": "verified",
-    "contact_url": "https://murf.ai/enterprise"
+    "contact_url": "https://murf.ai/enterprise",
+    "logo_bg": "dark"
   },
   {
     "name": "Netradyne",
@@ -1010,7 +1013,6 @@
     ],
     "contact_email": "info@satsure.co",
     "verification_status": "verified",
-    "logo_bg": "dark",
     "contact_url": "https://www.satsure.co/contact-us/"
   },
   {
@@ -1603,7 +1605,8 @@
     "verification_status": "verified",
     "founded": 2013,
     "contact_email": "support@tidio.net",
-    "contact_url": "https://www.tidio.com/contact-sales/"
+    "contact_url": "https://www.tidio.com/contact-sales/",
+    "logo_bg": "dark"
   },
   {
     "slug": "maven-agi",
@@ -2163,7 +2166,8 @@
     "verification_status": "verified",
     "founded": 2019,
     "contact_email": "support@n8n.io",
-    "contact_url": "https://n8n.io/contact/"
+    "contact_url": "https://n8n.io/contact/",
+    "logo_bg": "dark"
   },
   {
     "slug": "tines",
@@ -3008,7 +3012,8 @@
     ],
     "verification_status": "verified",
     "founded": 2018,
-    "contact_url": "https://runwayml.com/contact"
+    "contact_url": "https://runwayml.com/contact",
+    "logo_bg": "dark"
   },
   {
     "slug": "project44",
@@ -3046,7 +3051,8 @@
     "verification_status": "verified",
     "founded": 2019,
     "contact_email": "info@pactum.com",
-    "contact_url": "https://pactum.com/contact-us"
+    "contact_url": "https://pactum.com/contact-us",
+    "logo_bg": "dark"
   },
   {
     "slug": "constructor",
