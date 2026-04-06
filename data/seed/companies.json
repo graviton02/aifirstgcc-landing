@@ -692,7 +692,8 @@
     ],
     "contact_email": "sales@madstreetden.com",
     "verification_status": "verified",
-    "contact_url": "mailto:sales@madstreetden.com"
+    "contact_url": "mailto:sales@madstreetden.com",
+    "logo_bg": "dark"
   },
   {
     "name": "Wysa",
@@ -738,7 +739,8 @@
     ],
     "contact_email": "hello@arya.ai",
     "verification_status": "verified",
-    "contact_url": "https://arya.ai/contact-us"
+    "contact_url": "https://arya.ai/contact-us",
+    "logo_bg": "dark"
   },
   {
     "name": "Unscript.ai",
@@ -1507,7 +1509,7 @@
   {
     "slug": "wonderful",
     "name": "Wonderful",
-    "website": "",
+    "website": "https://www.wonderful.ai",
     "headquarters": "",
     "company_size": "startup",
     "description": "",
@@ -1723,7 +1725,8 @@
     "verification_status": "verified",
     "founded": 2012,
     "contact_email": "support@clari.com",
-    "contact_url": "https://www.clari.com/demo-request/"
+    "contact_url": "https://www.clari.com/demo-request/",
+    "logo_bg": "dark"
   },
   {
     "slug": "apollo-io",
@@ -1811,7 +1814,8 @@
     "verification_status": "verified",
     "founded": 2021,
     "contact_email": "info@regie.ai",
-    "contact_url": "https://www.regie.ai/demo"
+    "contact_url": "https://www.regie.ai/demo",
+    "logo_bg": "dark"
   },
   {
     "slug": "amplemarket",
@@ -1868,7 +1872,7 @@
   {
     "slug": "writer",
     "name": "Writer",
-    "website": "",
+    "website": "https://writer.com",
     "headquarters": "",
     "company_size": "startup",
     "description": "",
@@ -1949,7 +1953,8 @@
     "verification_status": "verified",
     "founded": 2022,
     "contact_email": "press@augmentcode.com",
-    "contact_url": "https://www.augmentcode.com/contact"
+    "contact_url": "https://www.augmentcode.com/contact",
+    "logo_bg": "dark"
   },
   {
     "slug": "lovable",
@@ -2004,7 +2009,8 @@
     ],
     "verification_status": "verified",
     "founded": 2017,
-    "contact_url": "https://www.harness.io/company/contact-sales"
+    "contact_url": "https://www.harness.io/company/contact-sales",
+    "logo_bg": "dark"
   },
   {
     "slug": "tabnine",
@@ -2136,7 +2142,8 @@
     ],
     "verification_status": "verified",
     "founded": 2021,
-    "contact_url": "https://livekit.com/contact-sales"
+    "contact_url": "https://livekit.com/contact-sales",
+    "logo_bg": "dark"
   },
   {
     "slug": "n8n",
@@ -2231,7 +2238,7 @@
   {
     "slug": "ambience-healthcare",
     "name": "Ambience Healthcare",
-    "website": "",
+    "website": "https://www.ambiencehealthcare.com",
     "headquarters": "",
     "company_size": "startup",
     "description": "",
@@ -2333,7 +2340,7 @@
   {
     "slug": "akasa",
     "name": "AKASA",
-    "website": "",
+    "website": "https://akasa.com",
     "headquarters": "",
     "company_size": "startup",
     "description": "",
@@ -2385,7 +2392,8 @@
     "verification_status": "verified",
     "founded": 2022,
     "contact_email": "support@harvey.ai",
-    "contact_url": "https://www.harvey.ai/contact-sales"
+    "contact_url": "https://www.harvey.ai/contact-sales",
+    "logo_bg": "dark"
   },
   {
     "slug": "clio",
@@ -2416,7 +2424,8 @@
     ],
     "verification_status": "verified",
     "founded": 2018,
-    "contact_url": "https://www.spellbook.legal/contact"
+    "contact_url": "https://www.spellbook.legal/contact",
+    "logo_bg": "dark"
   },
   {
     "slug": "legora",
@@ -2460,7 +2469,8 @@
     "verification_status": "verified",
     "founded": 2019,
     "contact_email": "marketing@evenuplaw.com",
-    "contact_url": "https://www.evenuplaw.com/contact/"
+    "contact_url": "https://www.evenuplaw.com/contact/",
+    "logo_bg": "dark"
   },
   {
     "slug": "luminance",
@@ -2479,7 +2489,8 @@
     "verification_status": "verified",
     "founded": 2015,
     "contact_email": "info@luminance.com",
-    "contact_url": "https://www.luminance.com/contact/"
+    "contact_url": "https://www.luminance.com/contact/",
+    "logo_bg": "dark"
   },
   {
     "slug": "contractpodai",
@@ -2571,7 +2582,8 @@
     "verification_status": "verified",
     "founded": 2019,
     "contact_email": "contact@abacus.ai",
-    "contact_url": "mailto:contact@abacus.ai"
+    "contact_url": "mailto:contact@abacus.ai",
+    "logo_bg": "dark"
   },
   {
     "slug": "numeric",
@@ -2676,7 +2688,8 @@
     "verification_status": "verified",
     "founded": 2015,
     "contact_email": "contact@darwinbox.in",
-    "contact_url": "https://darwinbox.com/contact-us"
+    "contact_url": "https://darwinbox.com/contact-us",
+    "logo_bg": "dark"
   },
   {
     "slug": "mercor",
@@ -2790,7 +2803,8 @@
     "verification_status": "verified",
     "founded": 2020,
     "contact_email": "support@torq.io",
-    "contact_url": "https://torq.io/contact-us/"
+    "contact_url": "https://torq.io/contact-us/",
+    "logo_bg": "dark"
   },
   {
     "slug": "swimlane",
@@ -2809,7 +2823,8 @@
     "verification_status": "verified",
     "founded": 2014,
     "contact_email": "info@swimlane.com",
-    "contact_url": "https://swimlane.com/contact/"
+    "contact_url": "https://swimlane.com/contact/",
+    "logo_bg": "dark"
   },
   {
     "slug": "vectra-ai",
@@ -3117,7 +3132,8 @@
     "verification_status": "verified",
     "founded": 2015,
     "contact_email": "sales@lilt.com",
-    "contact_url": "https://lilt.com/contact"
+    "contact_url": "https://lilt.com/contact",
+    "logo_bg": "dark"
   },
   {
     "slug": "fathom",
@@ -3134,7 +3150,8 @@
     "verification_status": "verified",
     "founded": 2020,
     "contact_email": "help@fathom.video",
-    "contact_url": "https://fathomvideo.typeform.com/to/AYeoqHBS"
+    "contact_url": "https://fathomvideo.typeform.com/to/AYeoqHBS",
+    "logo_bg": "dark"
   },
   {
     "slug": "mimica",
