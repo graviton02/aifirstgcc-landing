@@ -36,7 +36,7 @@ export function Footer() {
 
           {/* Tagline */}
           <p className="text-white/70 text-sm max-w-md mx-auto mb-8">
-            A global knowledge initiative to shape the future of Global Capability Centers.
+            One platform to find, evaluate, and deploy AI agents at enterprise scale.
           </p>
 
           {/* Divider */}
