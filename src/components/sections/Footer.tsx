@@ -51,9 +51,6 @@ export function Footer() {
             <p className="text-white/60 text-sm">
               © 2026 Orbys360. All rights reserved.
             </p>
-            <p className="text-white/50 text-xs">
-              Launching soon.
-            </p>
           </div>
         </motion.div>
       </Container>

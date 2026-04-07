@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/Container'
 
@@ -38,17 +38,6 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
-          >
-            <Sparkles className="w-4 h-4 text-purple-300" />
-            <span className="text-sm font-medium text-white/90">Coming Soon</span>
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
