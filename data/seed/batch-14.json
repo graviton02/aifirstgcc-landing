@@ -6,7 +6,6 @@
       "website": "https://www.unscript.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2021,
-      "company_size": "startup",
       "description": "Unscript AI is an AI-powered video creation platform that uses lifelike AI avatars, automated scriptwriting, and personalization to produce studio-quality marketing and onboarding videos at scale. The platform serves brands across FMCG, e-commerce, financial services, and other verticals.",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -23,7 +22,6 @@
       "website": "https://www.dhiwise.com",
       "headquarters": "Surat, India",
       "founded": 2021,
-      "company_size": "startup",
       "description": "DhiWise (operating as Rocket.new) is a multi-agent AI software development platform that automates full-stack application creation through natural language input and Figma design conversion. The platform supports React, Next.js, Flutter, and HTML/CSS, generating production-ready, developer-owned source code with no vendor lock-in.",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -40,7 +38,6 @@
       "website": "https://hasura.io",
       "headquarters": "San Francisco, USA",
       "founded": 2017,
-      "company_size": "scaleup",
       "description": "Hasura builds data access infrastructure for modern applications and AI, offering the open-source GraphQL Engine, the Data Delivery Network (DDN), and PromptQL — an AI analyst platform that enables natural-language querying and automation across fragmented enterprise data sources.",
       "primary_verticals": [
         "Financial Services (BFSI)",

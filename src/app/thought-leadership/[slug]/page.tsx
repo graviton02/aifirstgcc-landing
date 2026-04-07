@@ -9,7 +9,7 @@ import {
   getPostsByTheme,
   thoughtLeadershipThemes,
 } from "@/data/thoughtLeadershipContent";
-import { articleJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
+import { articleJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
@@ -90,7 +90,7 @@ export default async function ThoughtLeadershipArticlePage({ params }: Props) {
       <Navbar />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <ThoughtLeadershipArticleClient
         post={post}

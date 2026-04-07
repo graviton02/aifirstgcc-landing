@@ -2,11 +2,15 @@ import { mutation, query } from "./_generated/server";
 import type { MutationCtx, QueryCtx } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
+import { withResolvedLogoUrl } from "./lib/companyLogos";
+import { assertCanCreateProviderPersona } from "./lib/personas";
 
 export type ProviderOnboardingPath = "claim_existing" | "create_new";
 
-type ProviderProfileWriterCtx = Pick<MutationCtx, "db">;
-type ProviderProfileReaderCtx = Pick<MutationCtx, "db"> | Pick<QueryCtx, "db">;
+type ProviderProfileWriterCtx = Pick<MutationCtx, "db" | "storage">;
+type ProviderProfileReaderCtx =
+  | Pick<MutationCtx, "db" | "storage">
+  | Pick<QueryCtx, "db" | "storage">;
 
 export async function upsertProviderProfile(
   ctx: ProviderProfileWriterCtx,
@@ -27,6 +31,8 @@ export async function upsertProviderProfile(
     });
     return existing._id;
   }
+
+  await assertCanCreateProviderPersona(ctx, userId);
 
   return await ctx.db.insert("providerProfiles", {
     user_id: userId,
@@ -66,15 +72,19 @@ async function getLatestCompanySubmissionForUser(ctx: ProviderProfileReaderCtx, 
     return null;
   }
 
+  const hydratedSubmission = await withResolvedLogoUrl(ctx, latestSubmission);
   const createdCompany = latestSubmission.created_company_id
-    ? await ctx.db.get(latestSubmission.created_company_id)
+    ? await withResolvedLogoUrl(
+        ctx,
+        await ctx.db.get(latestSubmission.created_company_id)
+      )
     : null;
   const initialAgentSubmission = latestSubmission.initial_agent_submission_id
     ? await ctx.db.get(latestSubmission.initial_agent_submission_id)
     : null;
 
   return {
-    ...latestSubmission,
+    ...hydratedSubmission,
     created_company_name: createdCompany?.name ?? null,
     created_company_slug: createdCompany?.slug ?? null,
     initial_agent_submission: initialAgentSubmission,

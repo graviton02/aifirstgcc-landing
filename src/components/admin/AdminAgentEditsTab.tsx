@@ -30,12 +30,10 @@ function formatDate(timestamp: number): string {
 
 function AgentEditCard({
   edit,
-  token,
   approveEdit,
   rejectEdit,
 }: {
   edit: any;
-  token: string;
   approveEdit: any;
   rejectEdit: any;
 }) {
@@ -47,7 +45,7 @@ function AgentEditCard({
   const handleApprove = async () => {
     setLoading("approve");
     try {
-      await approveEdit({ edit_id: edit._id as Id<"agentEdits">, token });
+      await approveEdit({ edit_id: edit._id as Id<"agentEdits"> });
     } finally {
       setLoading(null);
     }
@@ -58,7 +56,6 @@ function AgentEditCard({
     try {
       await rejectEdit({
         edit_id: edit._id as Id<"agentEdits">,
-        token,
         notes: rejectionNotes.trim() || undefined,
       });
     } finally {
@@ -191,12 +188,12 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export function AdminAgentEditsTab({ token }: { token: string }) {
+export function AdminAgentEditsTab() {
   const [view, setView] = useState<"pending" | "history">("pending");
-  const edits = useQuery(api.admin.getPendingAgentEdits, { token });
+  const edits = useQuery(api.admin.getPendingAgentEdits, {});
   const history = useQuery(
     api.admin.getAgentEditsHistory,
-    view === "history" ? { token } : "skip"
+    view === "history" ? {} : "skip"
   );
   const approveEdit = useMutation(api.admin.approveAgentEdit);
   const rejectEdit = useMutation(api.admin.rejectAgentEdit);
@@ -242,7 +239,6 @@ export function AdminAgentEditsTab({ token }: { token: string }) {
                 <AgentEditCard
                   key={edit._id}
                   edit={edit}
-                  token={token}
                   approveEdit={approveEdit}
                   rejectEdit={rejectEdit}
                 />

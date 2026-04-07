@@ -1,35 +1,50 @@
+"use client";
+
+import {
+  createContext,
+  createElement,
+  useContext,
+  useMemo,
+  type ReactNode,
+} from "react";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import type { UserRole } from "./roles";
 
-type Role = "gcc" | "provider" | null;
+type UserRoleState = {
+  role: UserRole | null;
+  isLoaded: boolean;
+  providerSetupStarted: boolean;
+};
+
+const UserRoleContext = createContext<UserRoleState | null>(null);
+
+function useResolvedUserRole(): UserRoleState {
+  const { isLoaded } = useUser();
+  const viewerContext = useQuery(api.viewer.getContext);
+
+  return useMemo(
+    () => ({
+      role: viewerContext?.role ?? null,
+      isLoaded: isLoaded && viewerContext !== undefined,
+      providerSetupStarted: viewerContext?.providerSetupStarted ?? false,
+    }),
+    [isLoaded, viewerContext]
+  );
+}
+
+export function UserRoleProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const value = useResolvedUserRole();
+
+  return createElement(UserRoleContext.Provider, { value }, children);
+}
 
 export function useUserRole() {
-  const { user, isLoaded } = useUser();
-  const company = useQuery(api.companyMembers.getMyCompany);
-  const gccProfile = useQuery(api.gccProfiles.getProfile);
-  const providerProfile = useQuery(api.providerProfiles.getMine);
-
-  const metadataRole =
-    isLoaded && user
-      ? ((user.publicMetadata.role as "gcc" | "provider" | undefined) ?? null)
-      : null;
-
-  let role: Role = null;
-  if (metadataRole) {
-    role = metadataRole;
-  } else if (company) {
-    role = "provider";
-  } else if (providerProfile) {
-    role = "provider";
-  } else if (gccProfile) {
-    role = "gcc";
-  }
-
-  const roleLoaded =
-    !isLoaded
-      ? false
-      : company !== undefined && gccProfile !== undefined && providerProfile !== undefined;
-
-  return { role, isLoaded: roleLoaded };
+  const context = useContext(UserRoleContext);
+  return context ?? useResolvedUserRole();
 }

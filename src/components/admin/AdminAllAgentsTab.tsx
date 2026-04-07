@@ -6,8 +6,8 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { AgentReviewDetails } from "./AgentReviewDetails";
 
-export function AdminAllAgentsTab({ token }: { token: string }) {
-  const agents = useQuery(api.admin.getAllAgentsCatalog, { token });
+export function AdminAllAgentsTab() {
+  const agents = useQuery(api.admin.getAllAgentsCatalog, {});
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("active");
   const [company, setCompany] = useState("all");

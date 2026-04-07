@@ -1,11 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ConvexClientProvider } from "@/components/providers/ConvexClientProvider";
+import { UserRoleProvider } from "@/auth/useUserRole";
+import { AppPerformanceTracker } from "@/components/analytics/AppPerformanceTracker";
 import "./globals.css";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
+const THEME_COLOR = "#2d1650";
 
 export const metadata: Metadata = {
+  applicationName: "Orbys360",
   title: "Orbys360 | The AI-First GCC Platform",
   description: "Discover, compare, and connect with AI agents across industries and functions.",
   metadataBase: new URL(BASE_URL),
@@ -27,6 +33,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: THEME_COLOR,
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider signInUrl="/sign-in" signUpUrl="/sign-up" appearance={{ baseTheme: undefined }}>
@@ -41,7 +51,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
         <body>
           <ConvexClientProvider>
-            {children}
+            <UserRoleProvider>
+              {children}
+            </UserRoleProvider>
+            <Analytics />
+            <SpeedInsights />
+            <AppPerformanceTracker />
           </ConvexClientProvider>
         </body>
       </html>

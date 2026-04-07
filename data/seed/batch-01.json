@@ -6,7 +6,6 @@
       "website": "https://www.tcs.com",
       "headquarters": "Mumbai, India",
       "founded": 1968,
-      "company_size": "enterprise",
       "description": "Tata Consultancy Services is a global IT services, consulting, and business solutions company and a subsidiary of the Tata Group. TCS is a leading provider of AI-powered enterprise solutions, offering industry-specific platforms across financial services, manufacturing, telecom, healthcare, and retail.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -25,7 +24,6 @@
       "website": "https://www.infosys.com",
       "headquarters": "Bengaluru, India",
       "founded": 1981,
-      "company_size": "enterprise",
       "description": "Infosys is a global leader in next-generation digital services and consulting, serving clients in over 50 countries. The company provides IT services, business consulting, and outsourcing across industries including financial services, manufacturing, retail, healthcare, and telecommunications.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -44,7 +42,6 @@
       "website": "https://www.wipro.com",
       "headquarters": "Bengaluru, India",
       "founded": 1945,
-      "company_size": "enterprise",
       "description": "Wipro Limited is a global IT services, consulting, and business process company offering digital transformation, cloud, and AI-led solutions. Under its Wipro Intelligence suite, the company has built a portfolio of named AI-powered platforms spanning software delivery, IT operations, and industry-specific verticals.",
       "primary_verticals": [
         "Financial Services (BFSI)",

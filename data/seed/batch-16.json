@@ -6,7 +6,6 @@
       "website": "https://www.zoho.com",
       "headquarters": "Chennai, India",
       "founded": 1996,
-      "company_size": "enterprise",
       "description": "Zoho is a privately held enterprise software company that builds a unified suite of 55+ business applications spanning CRM, finance, HR, marketing, IT management, and workplace collaboration, owning its entire technology stack from data center infrastructure through the application layer. The company serves businesses across automotive, financial services, healthcare, real estate, manufacturing, retail, and education verticals.",
       "primary_verticals": [
         "Automotive & Mobility",
@@ -27,7 +26,6 @@
       "website": "https://www.browserstack.com",
       "headquarters": "Mumbai, India",
       "founded": 2011,
-      "company_size": "midmarket",
       "description": "BrowserStack is a cloud-based software testing platform that enables developers and QA teams to test websites and mobile applications across thousands of real devices and browsers. The platform spans manual testing, automated testing, visual testing, accessibility testing, and test management, making it one of the most comprehensive testing infrastructure providers in the industry.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -45,7 +43,6 @@
       "website": "https://www.testmuai.com (rebranded from lambdatest.com in January 2026)",
       "headquarters": "San Francisco, USA",
       "founded": 2017,
-      "company_size": "scaleup",
       "description": "LambdaTest (rebranded to TestMu AI in January 2026) is an AI-powered cloud platform for software testing and quality engineering, offering autonomous test creation, execution, and analysis through agentic AI. The platform supports cross-browser, cross-device, and cross-platform testing across 3,000+ environments, serving engineering and QA teams across industries.",
       "primary_verticals": [
         "Financial Services (BFSI)",

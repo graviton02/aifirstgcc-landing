@@ -1,6 +1,7 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
+import { assertCanCreateGccPersona } from "./lib/personas";
 
 export const getProfile = query({
   args: {},
@@ -29,6 +30,8 @@ export const createProfile = mutation({
       .withIndex("by_userId", (q) => q.eq("user_id", userId))
       .unique();
     if (existing) return existing._id;
+
+    await assertCanCreateGccPersona(ctx, userId);
 
     const now = Date.now();
     return await ctx.db.insert("gccProfiles", {

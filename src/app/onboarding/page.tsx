@@ -10,10 +10,11 @@ import { useUserRole } from "@/auth/useUserRole";
 import { GccOnboardingForm } from "@/components/onboarding/GccOnboardingForm";
 import { RoleSelector } from "@/components/onboarding/RoleSelector";
 import { usePendingInviteActivation } from "@/hooks/usePendingInviteActivation";
+import { getErrorMessage } from "@/lib/report-error";
 
 export default function OnboardingPage() {
   const { isSignedIn, isLoaded: authLoaded } = useAuth();
-  const { role, isLoaded } = useUserRole();
+  const { role, isLoaded, providerSetupStarted } = useUserRole();
   const { user } = useUser();
   const router = useRouter();
   const [selectedRole, setSelectedRole] = useState<"gcc" | "provider" | null>(null);
@@ -38,8 +39,10 @@ export default function OnboardingPage() {
     if (role === "provider") {
       if (myCompany === undefined) return;
       router.replace(myCompany ? "/dashboard" : "/provider/setup");
+      return;
     }
-  }, [role, isLoaded, isResolvingInvite, myCompany, router]);
+    if (providerSetupStarted) router.replace("/provider/setup");
+  }, [role, isLoaded, isResolvingInvite, myCompany, providerSetupStarted, router]);
 
   const handleRoleSelect = async (selected: "gcc" | "provider") => {
     if (selected === "gcc") {
@@ -53,13 +56,13 @@ export default function OnboardingPage() {
       await ensureProvider();
       await fetch("/api/set-role", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role: "provider" }),
       }).catch(() => null);
       await user?.reload();
       router.push("/provider/setup");
-    } catch {
-      setProviderError("We couldn't start provider setup. Please try again.");
+    } catch (error) {
+      setProviderError(
+        getErrorMessage(error, "We couldn't start provider setup. Please try again.")
+      );
     } finally {
       setSettingRole(false);
     }

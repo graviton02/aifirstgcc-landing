@@ -49,21 +49,12 @@ describe("usePendingInviteActivation", () => {
   it("accepts pending invites and upgrades the user to provider", async () => {
     acceptPendingInviteMock.mockResolvedValue({ status: "accepted", company_id: "company-1" });
     vi.mocked(fetch)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: vi.fn().mockResolvedValue({ synced_count: 1 }),
-      } as unknown as Response)
-      .mockResolvedValueOnce({
-        ok: true,
-      } as Response);
+      .mockResolvedValueOnce({ ok: true } as Response);
 
     render(<TestComponent />);
 
     await waitFor(() => expect(screen.getByText("done")).toBeInTheDocument());
     expect(acceptPendingInviteMock).toHaveBeenCalledWith({});
-    expect(fetch).toHaveBeenCalledWith("/api/provider-org/sync", expect.objectContaining({
-      method: "POST",
-    }));
     expect(fetch).toHaveBeenCalledWith("/api/set-role", expect.objectContaining({
       method: "POST",
     }));
@@ -75,10 +66,6 @@ describe("usePendingInviteActivation", () => {
       status: "conflict",
       message: "Multiple pending team invites were found for your email. Contact support to resolve them.",
     });
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: vi.fn().mockResolvedValue({ synced_count: 0 }),
-    } as unknown as Response);
 
     render(<TestComponent />);
 
@@ -87,10 +74,7 @@ describe("usePendingInviteActivation", () => {
         screen.getByText(/multiple pending team invites were found for your email/i)
       ).toBeInTheDocument()
     );
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith("/api/provider-org/sync", expect.objectContaining({
-      method: "POST",
-    }));
+    expect(fetch).not.toHaveBeenCalled();
     expect(reloadMock).not.toHaveBeenCalled();
   });
 });

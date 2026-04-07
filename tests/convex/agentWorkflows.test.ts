@@ -3,7 +3,10 @@ import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { createTestConvex } from "./testHarness";
 
-const adminToken = "admin-session-token";
+const adminIdentity = {
+  subject: "admin-user-id",
+  email: "admin@example.com",
+};
 const providerIdentity = {
   subject: "provider-user-id",
   email: "owner@example.com",
@@ -17,6 +20,7 @@ describe("agent workflows", () => {
   let t: ReturnType<typeof createTestConvex>;
 
   beforeEach(() => {
+    process.env.ADMIN_CLERK_USER_IDS = adminIdentity.subject;
     t = createTestConvex();
   });
 
@@ -51,11 +55,8 @@ describe("agent workflows", () => {
       })
     );
 
-    await seedAdminSession(t);
-
     await expect(
-      t.mutation(api.admin.approveAgentEdit, {
-        token: adminToken,
+      t.withIdentity(adminIdentity).mutation(api.admin.approveAgentEdit, {
         edit_id: editId,
       })
     ).rejects.toThrow("Select at least one functional category.");
@@ -81,11 +82,7 @@ describe("agent workflows", () => {
       })
     );
 
-    await seedAdminSession(t);
-
-    const pending = await t.query(api.admin.getPendingAgents, {
-      token: adminToken,
-    });
+    const pending = await t.withIdentity(adminIdentity).query(api.admin.getPendingAgents, {});
 
     expect(pending).toHaveLength(1);
     expect(pending[0]?.company?.name).toBe("Acme Systems");
@@ -96,6 +93,40 @@ describe("agent workflows", () => {
         "Add at least one use case.",
       ])
     );
+  });
+
+  it("indexes company, use-case, infrastructure, and alias terms for seeded agents", async () => {
+    const companyId = await seedCompany(t);
+    const agentId = await t.mutation(api.agents.seed, {
+      slug: "orbit-cx-copilot",
+      agent_name: "Orbit CX Copilot",
+      tagline: "Generative AI support for finance operations",
+      description: "Helps enterprise teams route customer issues faster.",
+      company_id: companyId,
+      category: "Customer Experience",
+      functional_categories: ["Customer Experience"],
+      industry_categories: ["Technology"],
+      infrastructure_categories: ["AI Infrastructure & Models"],
+      use_cases: [
+        {
+          title: "Ticket triage",
+          description: "Prioritizes and routes service cases automatically.",
+        },
+      ],
+      expected_outcomes: ["Faster response times"],
+      integrations: ["Slack"],
+      source_url: "https://example.com/source",
+    });
+
+    const agent = await t.run((ctx) => ctx.db.get(agentId));
+    const searchText = agent?.search_text ?? "";
+
+    expect(searchText).toContain("Acme Systems");
+    expect(searchText).toContain("Ticket triage");
+    expect(searchText).toContain("AI Infrastructure & Models");
+    expect(searchText.toLowerCase()).toContain("cx");
+    expect(searchText.toLowerCase()).toContain("genai");
+    expect(searchText.toLowerCase()).toContain("finops");
   });
 
   it("resubmits change-requested submissions back into the pending queue", async () => {
@@ -237,7 +268,6 @@ async function seedCompany(t: ReturnType<typeof createTestConvex>) {
         "Acme Systems builds enterprise automation products for global delivery teams and shared services organizations.",
       website: "https://acme.example.com",
       headquarters: "Bengaluru, India",
-      company_size: "201-500",
       primary_verticals: ["Technology"],
       contact_email: "owner@example.com",
       verification_status: "verified",
@@ -292,16 +322,6 @@ async function seedAgent(
       search_text: "ops pilot technology it operations slack faster response times",
       created_at: Date.now(),
       updated_at: Date.now(),
-    })
-  );
-}
-
-async function seedAdminSession(t: ReturnType<typeof createTestConvex>) {
-  await t.run((ctx) =>
-    ctx.db.insert("adminSessions", {
-      session_token: adminToken,
-      expires_at: Date.now() + 60_000,
-      created_at: Date.now(),
     })
   );
 }

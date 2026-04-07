@@ -18,7 +18,6 @@ export interface AgentFormData {
   category: string;
   functional_categories: string[];
   industry_categories: string[];
-  infrastructure_categories: string[];
   use_cases: AgentUseCase[];
   integrations: string[];
   expected_outcomes: string[];
@@ -33,7 +32,6 @@ export const EMPTY_AGENT_FORM: AgentFormData = {
   category: "",
   functional_categories: [],
   industry_categories: [],
-  infrastructure_categories: [],
   use_cases: [],
   integrations: [],
   expected_outcomes: [],
@@ -63,7 +61,6 @@ export interface NormalizedAgentDraft {
   functional_categories?: string[];
   industry_categories?: string[];
   industries?: string[];
-  infrastructure_categories?: string[];
   use_cases: AgentUseCase[];
   integrations?: string[];
   expected_outcomes?: string[];
@@ -79,7 +76,6 @@ export function agentToFormData(agent: AgentDraftInput | null | undefined): Agen
     category: asString(agent?.category),
     functional_categories: [...(agent?.functional_categories ?? [])],
     industry_categories: [...(agent?.industry_categories ?? agent?.industries ?? [])],
-    infrastructure_categories: [...(agent?.infrastructure_categories ?? [])],
     use_cases: normalizeAgentUseCases(agent?.use_cases),
     integrations: [...(agent?.integrations ?? [])],
     expected_outcomes: [...(agent?.expected_outcomes ?? [])],
@@ -104,7 +100,6 @@ export function normalizeAgentDraftInput(input: AgentDraftInput): NormalizedAgen
     functional_categories,
     industry_categories,
     industries: industry_categories,
-    infrastructure_categories: normalizeCategorySelections(input.infrastructure_categories),
     use_cases: normalizeAgentUseCases(input.use_cases),
     integrations: normalizeCategorySelections(input.integrations),
     expected_outcomes: normalizeCategorySelections(input.expected_outcomes),
@@ -137,8 +132,24 @@ export function getAgentDraftValidationErrors(input: AgentDraftInput): string[] 
     errors.push("Select at least one industry category.");
   }
 
+  if (!normalized.tagline) {
+    errors.push("Tagline is required.");
+  }
+
   if (normalized.use_cases.length === 0) {
     errors.push("Add at least one use case.");
+  }
+
+  if ((normalized.integrations?.length ?? 0) === 0) {
+    errors.push("Add at least one integration.");
+  }
+
+  if ((normalized.expected_outcomes?.length ?? 0) === 0) {
+    errors.push("Add at least one expected outcome.");
+  }
+
+  if (!normalized.source_url) {
+    errors.push("Product page URL is required.");
   }
 
   const invalidFunctional = getInvalidFunctionalCategories(

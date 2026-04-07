@@ -4,7 +4,7 @@ import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { AIPulseDetailClient } from "@/components/resource-pages/AIPulseDetailClient";
 import { dailyBriefs } from "@/data/aiPulseBriefs";
-import { newsArticleJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
+import { newsArticleJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
 
@@ -75,7 +75,7 @@ export default async function AIPulseDetailPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
+          __html: serializeJsonLd([
             newsArticleJsonLd({
               title: headline,
               description,

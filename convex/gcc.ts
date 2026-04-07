@@ -2,11 +2,18 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
 import { appError } from "./lib/errors";
+import { withResolvedLogoUrl } from "./lib/companyLogos";
+import { normalizeProviderRequest } from "./lib/providerRequests";
 
 const requestSourceValidator = v.union(
   v.literal("agent_detail"),
   v.literal("company_profile")
 );
+const BLOCKING_REQUEST_STATUSES = new Set([
+  "pending_admin",
+  "approved",
+  "contacted",
+] as const);
 
 function cleanRequiredText(value: string, label: string, minLength = 8) {
   const cleaned = value.trim();
@@ -30,6 +37,23 @@ function sortRequests<T extends { contacted_at?: number; reviewed_at?: number; c
   );
 }
 
+async function getLatestBlockingProviderRequest(
+  ctx: any,
+  gccUserId: string,
+  companyId: any
+) {
+  const requests: Array<any> = await ctx.db
+    .query("providerRequests")
+    .withIndex("by_gccUserAndCompany", (q: any) =>
+      q.eq("gcc_user_id", gccUserId).eq("company_id", companyId)
+    )
+    .collect();
+
+  return requests
+    .filter((request: any) => BLOCKING_REQUEST_STATUSES.has(request.status))
+    .sort(sortRequests)[0] ?? null;
+}
+
 export const getMyContactRequests = query({
   args: {},
   handler: async (ctx) => {
@@ -38,23 +62,46 @@ export const getMyContactRequests = query({
       .query("providerRequests")
       .withIndex("by_gccUserId", (q) => q.eq("gcc_user_id", userId))
       .collect();
+    const myReviews = await ctx.db
+      .query("reviews")
+      .withIndex("by_reviewer", (q) => q.eq("reviewer_id", userId))
+      .collect();
+
+    const reviewByAgentId = new Map(
+      myReviews.map((review) => [review.agent_id, review])
+    );
 
     const enriched = await Promise.all(
       requests.map(async (request) => {
         const agent = await ctx.db.get(request.agent_id);
         const company = request.company_id
-          ? await ctx.db.get(request.company_id)
+          ? await withResolvedLogoUrl(ctx, await ctx.db.get(request.company_id))
           : null;
+        const review = reviewByAgentId.get(request.agent_id);
 
         return {
-          ...request,
+          ...normalizeProviderRequest(request),
           agent,
           company,
+          review_id: review?._id ?? null,
+          review_status: review?.status ?? null,
         };
       })
     );
 
     return enriched.sort(sortRequests);
+  },
+});
+
+export const getMyProviderRequestStatus = query({
+  args: {
+    company_id: v.id("companies"),
+  },
+  handler: async (ctx, { company_id }) => {
+    const userId = await requireAuth(ctx);
+    const request = await getLatestBlockingProviderRequest(ctx, userId, company_id);
+
+    return request ? normalizeProviderRequest(request) : null;
   },
 });
 
@@ -101,6 +148,19 @@ export const createContactRequest = mutation({
         "contact_request_unavailable",
         "Reachout requests are only available for provider-owned listings.",
         400
+      );
+    }
+
+    const existingRequest = await getLatestBlockingProviderRequest(
+      ctx,
+      userId,
+      agent.company_id
+    );
+    if (existingRequest) {
+      appError(
+        "contact_request_duplicate",
+        "You have already contacted this provider. Track the request from your GCC dashboard.",
+        409
       );
     }
 

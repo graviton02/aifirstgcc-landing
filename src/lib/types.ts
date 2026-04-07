@@ -10,6 +10,11 @@ export interface Agent {
   description: string;
   category: string;
   company_id?: string;
+  company_name?: string;
+  company_slug?: string;
+  company_logo_storage_id?: string;
+  company_logo_url?: string;
+  company_logo_bg?: string;
   logo_url?: string;
   functional_categories?: string[];
   industry_categories?: string[];
@@ -19,6 +24,10 @@ export interface Agent {
   integrations?: string[];
   source_url?: string;
   demo_url?: string;
+  rating?: number;
+  rating_effectiveness?: number;
+  rating_value?: number;
+  review_count?: number;
   status: string;
 }
 
@@ -30,7 +39,6 @@ export interface Company {
   website: string;
   headquarters: string;
   founded?: number;
-  company_size: string;
   logo_url?: string;
   logo_bg?: string;
   primary_verticals: string[];

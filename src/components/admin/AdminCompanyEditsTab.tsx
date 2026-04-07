@@ -20,6 +20,23 @@ import {
   summarizeFieldValue,
 } from "./EditDiffViewer";
 
+function getPayloadEntries(payload?: Record<string, unknown>) {
+  const entries = Object.entries(payload ?? {}).filter(
+    ([key]) => key !== "logo_preview_url"
+  );
+  const hasLogoChange = entries.some(
+    ([key]) => key === "logo_storage_id" || key === "logo_bg"
+  );
+  const nonLogoEntries = entries.filter(
+    ([key]) => key !== "logo_storage_id" && key !== "logo_bg"
+  );
+
+  return {
+    hasLogoChange,
+    entries: nonLogoEntries,
+  };
+}
+
 function formatDate(timestamp: number): string {
   return new Date(timestamp).toLocaleDateString("en-US", {
     year: "numeric",
@@ -30,12 +47,10 @@ function formatDate(timestamp: number): string {
 
 function EditCard({
   edit,
-  token,
   approveEdit,
   rejectEdit,
 }: {
   edit: any;
-  token: string;
   approveEdit: any;
   rejectEdit: any;
 }) {
@@ -47,7 +62,7 @@ function EditCard({
   const handleApprove = async () => {
     setLoading("approve");
     try {
-      await approveEdit({ edit_id: edit._id as Id<"companyEdits">, token });
+      await approveEdit({ edit_id: edit._id as Id<"companyEdits"> });
     } finally {
       setLoading(null);
     }
@@ -58,7 +73,6 @@ function EditCard({
     try {
       await rejectEdit({
         edit_id: edit._id as Id<"companyEdits">,
-        token,
         notes: rejectionNotes.trim() || undefined,
       });
     } finally {
@@ -191,12 +205,12 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export function AdminCompanyEditsTab({ token }: { token: string }) {
+export function AdminCompanyEditsTab() {
   const [view, setView] = useState<"pending" | "history">("pending");
-  const edits = useQuery(api.admin.getPendingCompanyEdits, { token });
+  const edits = useQuery(api.admin.getPendingCompanyEdits, {});
   const history = useQuery(
     api.admin.getCompanyEditsHistory,
-    view === "history" ? { token } : "skip"
+    view === "history" ? {} : "skip"
   );
   const approveEdit = useMutation(api.admin.approveCompanyEdit);
   const rejectEdit = useMutation(api.admin.rejectCompanyEdit);
@@ -242,7 +256,6 @@ export function AdminCompanyEditsTab({ token }: { token: string }) {
                 <EditCard
                   key={edit._id}
                   edit={edit}
-                  token={token}
                   approveEdit={approveEdit}
                   rejectEdit={rejectEdit}
                 />
@@ -264,6 +277,7 @@ export function AdminCompanyEditsTab({ token }: { token: string }) {
             <div className="space-y-3">
               {history.map((edit: any) => {
                 const payload = edit.payload as Record<string, unknown> | undefined;
+                const payloadEntries = getPayloadEntries(payload);
                 return (
                   <div key={edit._id} className="p-4 bg-white border border-enterprise-200 rounded-xl">
                     <div className="flex items-start justify-between gap-4">
@@ -275,9 +289,19 @@ export function AdminCompanyEditsTab({ token }: { token: string }) {
                           </p>
                           <StatusBadge status={edit.status} />
                         </div>
-                        {payload && Object.keys(payload).length > 0 && (
+                        {(payloadEntries.hasLogoChange || payloadEntries.entries.length > 0) && (
                           <div className="mt-2 space-y-1">
-                            {Object.entries(payload).map(([key, value]) => (
+                            {payloadEntries.hasLogoChange ? (
+                              <div className="flex gap-2 text-sm">
+                                <span className="text-enterprise-500 font-medium min-w-[120px] shrink-0">
+                                  Logo:
+                                </span>
+                                <span className="text-enterprise-800">
+                                  Updated
+                                </span>
+                              </div>
+                            ) : null}
+                            {payloadEntries.entries.map(([key, value]) => (
                               <div key={key} className="flex gap-2 text-sm">
                                 <span className="text-enterprise-500 font-medium min-w-[120px] shrink-0">
                                   {formatFieldLabel(key)}:

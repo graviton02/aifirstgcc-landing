@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft, Edit, Clock, CheckCircle } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Edit, Clock, CheckCircle } from "lucide-react";
 import { CATEGORY_COLORS } from "@/lib/category-colors";
 import { AgentForm } from "./AgentForm";
 
@@ -97,13 +98,24 @@ export function AgentDetailView({
           <ArrowLeft className="w-4 h-4" />
           Back to Agents
         </button>
-        <button
-          onClick={() => setEditing(true)}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm border border-enterprise-300 rounded-lg hover:bg-enterprise-50"
-        >
-          <Edit className="w-4 h-4" />
-          Edit Agent
-        </button>
+        <div className="flex items-center gap-2">
+          {agent.slug && (
+            <Link
+              href={`/agents/${agent.slug}`}
+              className="flex items-center gap-2 px-3 py-1.5 text-sm border border-primary/20 text-primary rounded-lg hover:bg-primary/5"
+            >
+              <ArrowUpRight className="w-4 h-4" />
+              View in Directory
+            </Link>
+          )}
+          <button
+            onClick={() => setEditing(true)}
+            className="flex items-center gap-2 px-3 py-1.5 text-sm border border-enterprise-300 rounded-lg hover:bg-enterprise-50"
+          >
+            <Edit className="w-4 h-4" />
+            Edit Agent
+          </button>
+        </div>
       </div>
 
       {hasPending && (

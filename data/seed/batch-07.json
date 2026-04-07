@@ -6,7 +6,6 @@
       "website": "https://www.simform.com",
       "headquarters": "Orlando, FL, USA",
       "founded": 2010,
-      "company_size": "midmarket",
       "description": "Simform is a product engineering company specializing in AI/ML, cloud, and data solutions that help enterprises modernize and scale with intelligent automation. The company builds proprietary AI accelerator platforms alongside custom engineering services for clients across multiple industries.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -23,7 +22,6 @@
       "website": "https://www.talentica.com",
       "headquarters": "Pune, India",
       "founded": 2003,
-      "company_size": "midmarket",
       "description": "Talentica Software is a product engineering services company that builds software products for startups and enterprises, specializing in AI-native development, cloud engineering, and DevSecOps. The company offers proprietary prefab solutions alongside custom product engineering across multiple verticals.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -40,7 +38,6 @@
       "website": "https://www.q3tech.com",
       "headquarters": "Walpole, MA, USA",
       "founded": 1998,
-      "company_size": "midmarket",
       "description": "Q3 Technologies is a global IT solutions and digital transformation company offering software development, AI-driven solutions, managed IT services, and enterprise system implementations across 17+ industries. The company holds Microsoft Gold Partner, ISO 27001, CMMI, and Salesforce Consulting Partner certifications.",
       "primary_verticals": [
         "Healthcare & Life Sciences",

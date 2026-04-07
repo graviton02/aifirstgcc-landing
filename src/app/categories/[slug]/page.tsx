@@ -1,12 +1,13 @@
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ALL_CATEGORIES, slugifyCategory, categoryFromSlug } from "@/lib/categories";
 import { Navbar } from "@/components/shared/Navbar";
 import { AgentCard } from "@/components/directory/AgentCard";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Footer } from "@/components/sections/Footer";
-import { categoryJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
+import { categoryJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
 
@@ -37,16 +38,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryPage({ params }: Props) {
   const { slug } = await params;
   const category = categoryFromSlug(slug);
-  if (!category) return <div>Category not found</div>;
+  if (!category) {
+    notFound();
+  }
 
   const result = await fetchQuery(api.agents.list, { category, limit: 50 });
-  const companies = await fetchQuery(api.companies.listAll);
-  const companyMap = new Map(companies.map((c: any) => [c._id, c]));
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(categoryJsonLd(category, result.count)) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(categoryJsonLd(category, result.count)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd([
         { name: "Home", url: BASE_URL },
         { name: "Directory", url: `${BASE_URL}/directory` },
         { name: category, url: `${BASE_URL}/categories/${slug}` },
@@ -68,7 +69,7 @@ export default async function CategoryPage({ params }: Props) {
         {result.data.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {result.data.map((agent: any) => (
-              <AgentCard key={agent._id} agent={agent} company={companyMap.get(agent.company_id)} />
+              <AgentCard key={agent._id} agent={agent} />
             ))}
           </div>
         ) : (

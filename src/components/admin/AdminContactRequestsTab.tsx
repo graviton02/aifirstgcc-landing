@@ -59,12 +59,10 @@ function DetailRow({ label, value }: { label: string; value: string }) {
 
 function ContactRequestCard({
   request,
-  token,
   approveRequest,
   rejectRequest,
 }: {
   request: any;
-  token: string;
   approveRequest: any;
   rejectRequest: any;
 }) {
@@ -79,7 +77,6 @@ function ContactRequestCard({
     try {
       await approveRequest({
         request_id: request._id as Id<"providerRequests">,
-        token,
       });
     } catch (actionError) {
       setError(
@@ -99,7 +96,6 @@ function ContactRequestCard({
     try {
       await rejectRequest({
         request_id: request._id as Id<"providerRequests">,
-        token,
         notes: rejectionNotes.trim() || undefined,
       });
       setRejecting(false);
@@ -266,12 +262,12 @@ function ContactRequestCard({
   );
 }
 
-export function AdminContactRequestsTab({ token }: { token: string }) {
+export function AdminContactRequestsTab() {
   const [view, setView] = useState<"pending" | "history">("pending");
-  const requests = useQuery(api.admin.getPendingContactRequests, { token });
+  const requests = useQuery(api.admin.getPendingContactRequests, {});
   const history = useQuery(
     api.admin.getContactRequestsHistory,
-    view === "history" ? { token } : "skip"
+    view === "history" ? {} : "skip"
   );
   const approveRequest = useAction(api.admin.approveContactRequest);
   const rejectRequest = useAction(api.admin.rejectContactRequest);
@@ -319,7 +315,6 @@ export function AdminContactRequestsTab({ token }: { token: string }) {
                 <ContactRequestCard
                   key={request._id}
                   request={request}
-                  token={token}
                   approveRequest={approveRequest}
                   rejectRequest={rejectRequest}
                 />

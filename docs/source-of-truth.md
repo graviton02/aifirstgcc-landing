@@ -66,10 +66,11 @@ This means provider routing no longer depends entirely on `POST /api/set-role`.
 All other routes (directory, agent pages, company pages, etc.) are **public**.
 
 ### Admin Auth
-Admin uses a **separate password-based session system** (not Clerk):
-- Password is SHA-256 hashed and compared against `ADMIN_PASSWORD_HASH` env var
-- On success, a session token is created in the `adminSessions` table (8-hour TTL)
-- All admin queries/mutations require the token and validate it via `requireAdmin()`
+Admin uses **Clerk-authenticated allowlist access**:
+- `/admin` is protected by Clerk middleware
+- Convex admin functions derive identity from `ctx.auth.getUserIdentity()`
+- Admin access is granted only when the Clerk user ID is included in `ADMIN_CLERK_USER_IDS` or the account email is included in `ADMIN_CLERK_EMAILS`
+- Admin actions and moderation events are attributed in `adminAuditLogs`
 
 ### Convex Auth
 `convex/lib/auth.ts` provides:
@@ -84,7 +85,7 @@ Admin uses a **separate password-based session system** (not Clerk):
 |---------|-----------|-----------|-------------|
 | **GCC Buyer** | `"gcc"` | `/gcc-dashboard` | Enterprise leaders looking for AI solutions. Browse, compare, shortlist agents, and contact providers. |
 | **Provider** | `"provider"` | `/provider/setup` → `/dashboard` | Companies offering AI agents/services. Choose whether to claim an existing listing or create a net-new company profile, then manage company profile, agents, and team after ownership is active. |
-| **Admin** | N/A (password auth) | `/admin` | Platform moderators. Review all claims, edits, submissions, and contact requests. |
+| **Admin** | N/A (Clerk allowlist) | `/admin` | Platform moderators. Review all claims, edits, submissions, and contact requests. |
 
 ---
 
@@ -392,20 +393,20 @@ This page is the new entry point for all provider users who do not yet own a com
 ### 7.1 Admin Authentication
 **Route:** `/admin`
 **File:** `src/app/admin/page.tsx` (Client Component)
-**Auth:** Password-based (not Clerk). Password → SHA-256 hash → compared with `ADMIN_PASSWORD_HASH` env var.
+**Auth:** Clerk session required. Access is granted only to allowlisted Clerk user IDs from `ADMIN_CLERK_USER_IDS`.
 
 **Flow:**
-1. Enter password on login form
-2. `admin.login` action validates hash, creates session token (8-hour TTL) in `adminSessions` table
-3. Token stored in component state (not persisted — refreshing requires re-login)
-4. "Logout" button → `admin.logout` → deletes session
+1. Clerk middleware protects `/admin`
+2. Client queries `api.admin.getViewerAccess`
+3. Convex admin functions enforce allowlist membership via `requireAdmin()`
+4. "Logout" button signs the Clerk session out
 
 ### 7.2 Admin Dashboard
 **7 tabs** with pending count badges in tab bar:
 
 #### 7.2.1 Overview Tab
 **Component:** `src/components/admin/AdminOverviewTab.tsx`
-**Data:** `useQuery(api.admin.getDirectoryStats, { token })`
+**Data:** `useQuery(api.admin.getDirectoryStats, {})`
 
 **Stats displayed:**
 - Total active agents
@@ -542,7 +543,7 @@ This page is the new entry point for all provider users who do not yet own a com
 | `agentShortlists` | GCC user shortlisted agents | user_id, agent_id→agents |
 | `contactLogs` | Contact interaction logs | gcc_user_id, agent_id→agents, company_id→companies |
 | `providerRequests` | GCC-to-Provider contact requests | company_id→companies, gcc_user_email, gcc_user_id, agent_id→agents, message, status (pending_admin/approved/rejected/contacted/archived) |
-| `adminSessions` | Admin auth sessions | session_token, expires_at |
+| `adminAuditLogs` | Admin audit trail | actor_user_id, action, entity_type, entity_id, metadata, created_at |
 
 ### 9.2 Key Indexes
 
@@ -638,9 +639,9 @@ This page is the new entry point for all provider users who do not yet own a com
 
 | Operation | Type | Purpose |
 |-----------|------|---------|
-| `admin.login` | Action | Password auth → session token |
-| `admin.logout` | Mutation | Delete session |
-| `admin.checkSession` | Query | Validate token |
+| `admin.getViewerAccess` | Query | Return Clerk-authenticated admin allowlist access |
+| `admin.getAuthReconciliationSnapshot` | Query | Snapshot local provider memberships and cached role targets |
+| `admin.setCompanyClerkOrganization` | Mutation | Admin-only company ↔ Clerk org link |
 | `admin.getDirectoryStats` | Query | Dashboard stats |
 | `admin.getPendingClaims` | Query | Pending claim requests |
 | `admin.approveClaim` | Action | Approve + send magic link email |

@@ -6,7 +6,6 @@
       "website": "https://www.zensar.com",
       "headquarters": "Pune, India",
       "founded": 2000,
-      "company_size": "enterprise",
       "description": "Zensar Technologies is a digital solutions and technology services company, a subsidiary of RPG Group, serving clients across experience, engineering, and data domains. The company operates globally with offices in the US, UK, Europe, South Africa, and India, specializing in AI-driven modernization and automation solutions.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -25,7 +24,6 @@
       "website": "https://hexaware.com",
       "headquarters": "Navi Mumbai, India",
       "founded": 1990,
-      "company_size": "enterprise",
       "description": "Hexaware Technologies is a global IT services and digital transformation company serving industries including financial services, healthcare, manufacturing, retail, and telecom. It is known for its platform-led approach to automation, AI, and cloud modernization, with proprietary platforms spanning software engineering, IT operations, and enterprise AI agents.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -43,7 +41,6 @@
       "website": "https://www.coforge.com",
       "headquarters": "Greater Noida, India",
       "founded": 1992,
-      "company_size": "enterprise",
       "description": "Coforge is an IT services and digital solutions company serving industries including banking, insurance, travel and transportation, manufacturing, and healthcare. The company is notable for its suite of proprietary AI-native platforms spanning enterprise AI orchestration, autonomous IT operations, and AI-driven software engineering.",
       "primary_verticals": [
         "Financial Services (BFSI)",

@@ -4,14 +4,15 @@ import { useState } from "react";
 import type { Company } from "@/lib/types";
 
 interface CompanyLogoProps {
-  company?: Company;
-  size?: "sm" | "md" | "lg";
+  company?: Pick<Company, "name" | "logo_url" | "logo_bg"> | null;
+  size?: "xs" | "sm" | "md" | "lg";
 }
 
 export function CompanyLogo({ company, size = "sm" }: CompanyLogoProps) {
   const [imgError, setImgError] = useState(false);
 
   const sizeClasses = {
+    xs: "w-5 h-5 text-[8px]",
     lg: "w-16 h-16 text-xl",
     md: "w-14 h-14 text-lg",
     sm: "w-[57px] h-[57px] text-base",

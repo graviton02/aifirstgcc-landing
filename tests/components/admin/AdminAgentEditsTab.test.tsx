@@ -78,7 +78,7 @@ describe("AdminAgentEditsTab", () => {
       },
     ];
 
-    render(<AdminAgentEditsTab token="admin-token" />);
+    render(<AdminAgentEditsTab />);
 
     expect(screen.getByText(/5 fields changed/i)).toBeInTheDocument();
 
@@ -107,7 +107,7 @@ describe("AdminAgentEditsTab", () => {
       },
     ];
 
-    render(<AdminAgentEditsTab token="admin-token" />);
+    render(<AdminAgentEditsTab />);
 
     fireEvent.click(screen.getByTitle(/reject/i));
     fireEvent.change(screen.getByPlaceholderText(/reason for rejection/i), {
@@ -118,7 +118,6 @@ describe("AdminAgentEditsTab", () => {
     await waitFor(() =>
       expect(rejectMock).toHaveBeenCalledWith({
         edit_id: "edit-1",
-        token: "admin-token",
         notes: "Need more detail.",
       })
     );

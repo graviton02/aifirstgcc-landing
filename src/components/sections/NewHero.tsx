@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MeshGradient } from '@paper-design/shaders-react'
 import { Search } from 'lucide-react'
 import { Container } from '@/components/shared/Container'
 import { slugifyCategory } from '@/lib/categories'
@@ -51,14 +50,7 @@ export function NewHero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* MeshGradient Background */}
       <div className="absolute inset-0 z-0">
-        <MeshGradient
-          speed={0.66}
-          scale={1}
-          distortion={0.68}
-          swirl={0.29}
-          colors={['#B3A4E8', '#241D9A', '#B36FFF', '#9E4FD2']}
-          className="w-full h-full"
-        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_#cbbcf7_0%,_#8d6cff_22%,_#241d9a_48%,_#120b4a_72%,_#05030f_100%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-enterprise-950/30 via-transparent to-enterprise-950/60" />
       </div>
 

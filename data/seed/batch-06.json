@@ -6,7 +6,6 @@
       "website": "https://www.indium.tech",
       "headquarters": "Chennai, India",
       "founded": 1999,
-      "company_size": "enterprise",
       "description": "Indium is an AI-driven digital engineering services company that builds solutions for Fortune 500 and Global 2000 enterprises across BFSI, healthcare, manufacturing, retail, and technology verticals. The company specializes in product engineering, data and AI, quality engineering, and intelligent automation, with proprietary AI platforms for application modernization, document intelligence, and test automation.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -24,7 +23,6 @@
       "website": "https://www.accionlabs.com",
       "headquarters": "Pittsburgh, PA, USA",
       "founded": 2011,
-      "company_size": "midmarket",
       "description": "Accion Labs is an innovation engineering services and solutions company specializing in cloud engineering, digital transformation, data and AI, and enterprise software development. The company serves clients across healthcare, financial services, manufacturing, education, and retail through offices in over 20 global locations.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -42,7 +40,6 @@
       "website": "https://www.softwebsolutions.com",
       "headquarters": "Plano, TX, USA",
       "founded": 2004,
-      "company_size": "midmarket",
       "description": "Softweb Solutions is an Avnet company that provides data and AI consulting services, digital transformation, and IoT solutions for enterprises. The company specializes in building generative AI frameworks, autonomous AI agents, and intelligent automation solutions across manufacturing, healthcare, finance, and legal verticals.",
       "primary_verticals": [
         "Manufacturing",

@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowSquareOut, Scales, Check } from "@phosphor-icons/react";
+import { ArrowSquareOut, Scales, Check, Star } from "@phosphor-icons/react";
 import type { Agent, Company } from "@/lib/types";
 import { CATEGORY_COLORS } from "@/lib/category-colors";
 import { useCompare } from "@/hooks/useCompare";
 import { ShortlistButton } from "@/components/shared/ShortlistButton";
+import { CompanyLogo } from "@/components/directory/CompanyLogo";
 
 interface Props {
   agent: Agent;
@@ -18,13 +19,6 @@ export function AgentHero({ agent, company }: Props) {
   const slug = agent.slug ?? agent._id;
   const { has, add, remove, isFull } = useCompare();
   const isSelected = has(slug);
-
-  const initials = (company?.name || "Unknown")
-    .split(/[\s.]+/)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase();
 
   const toggleCompare = () => {
     if (isSelected) {
@@ -50,9 +44,7 @@ export function AgentHero({ agent, company }: Props) {
         </div>
         <span className="text-enterprise-200">|</span>
         <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded bg-enterprise-900 text-white flex items-center justify-center text-[8px] font-bold">
-            {initials}
-          </div>
+          <CompanyLogo company={company} size="xs" />
           {company ? (
             <Link
               href={`/companies/${company.slug}`}
@@ -72,6 +64,14 @@ export function AgentHero({ agent, company }: Props) {
       <h1 className="font-display text-display-md md:text-display-lg text-enterprise-950 tracking-tighter leading-none mb-4">
         {agent.agent_name}
       </h1>
+
+      {(agent.review_count ?? 0) > 0 && agent.rating ? (
+        <div className="mb-4 flex items-center gap-2 text-sm text-enterprise-600">
+          <Star weight="fill" className="h-4 w-4 text-amber-500" />
+          <span className="font-medium text-enterprise-900">{agent.rating.toFixed(1)}</span>
+          <span>({agent.review_count} review{agent.review_count === 1 ? "" : "s"})</span>
+        </div>
+      ) : null}
 
       {/* Tagline */}
       <p className="text-lg text-enterprise-500 leading-relaxed mb-6">
@@ -115,17 +115,31 @@ export function AgentHero({ agent, company }: Props) {
         </p>
       </div>
 
-      {/* Source link */}
-      {agent.source_url && (
-        <a
-          href={agent.source_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
-        >
-          Visit product page
-          <ArrowSquareOut weight="bold" className="w-4 h-4" />
-        </a>
+      {(agent.source_url || agent.demo_url) && (
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          {agent.source_url ? (
+            <a
+              href={agent.source_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+            >
+              Visit product page
+              <ArrowSquareOut weight="bold" className="w-4 h-4" />
+            </a>
+          ) : null}
+          {agent.demo_url ? (
+            <a
+              href={agent.demo_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+            >
+              View demo
+              <ArrowSquareOut weight="bold" className="w-4 h-4" />
+            </a>
+          ) : null}
+        </div>
       )}
     </motion.div>
   );

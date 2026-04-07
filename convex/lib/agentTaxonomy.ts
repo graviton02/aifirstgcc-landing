@@ -37,12 +37,45 @@ type AgentSearchTextInput = {
   agent_name: string;
   description: string;
   tagline?: string;
+  company_name?: string;
   category?: string;
   functional_categories?: readonly string[];
   industry_categories?: readonly string[];
+  infrastructure_categories?: readonly string[];
   integrations?: readonly string[];
   expected_outcomes?: readonly string[];
+  use_cases?: readonly {
+    title: string;
+    description: string;
+  }[];
 };
+
+const SEARCH_ALIASES = [
+  {
+    pattern: /\bcustomer experience\b|\bcx\b/i,
+    terms: ["customer experience", "cx"],
+  },
+  {
+    pattern: /\bhr\b|\bhuman resources\b|\bworkforce\b/i,
+    terms: ["hr", "human resources", "workforce"],
+  },
+  {
+    pattern: /\bit operations\b|\bit ops\b/i,
+    terms: ["it operations", "it ops"],
+  },
+  {
+    pattern: /\bgenerative ai\b|\bgen ai\b|\bgenai\b/i,
+    terms: ["generative ai", "gen ai", "genai"],
+  },
+  {
+    pattern: /\bresearch and development\b|\br&d\b|\brd\b/i,
+    terms: ["research and development", "r&d", "rd"],
+  },
+  {
+    pattern: /\bfinance operations\b|\bfinops\b/i,
+    terms: ["finance operations", "finops"],
+  },
+];
 
 export function normalizeAndValidateFunctionalCategories(
   values?: readonly string[]
@@ -160,18 +193,61 @@ export function normalizeAgentEditPayload(
 }
 
 export function buildAgentSearchText(input: AgentSearchTextInput) {
-  return (
-    normalizeCategorySelections([
-      input.agent_name,
-      input.description,
-      input.tagline ?? "",
-      input.category ?? "",
-      ...(input.functional_categories ?? []),
-      ...(input.industry_categories ?? []),
-      ...(input.integrations ?? []),
-      ...(input.expected_outcomes ?? []),
-    ])?.join(" ") ?? ""
-  );
+  const normalizedFunctional = normalizeCategorySelections(
+    input.functional_categories
+  ) ?? [];
+  const normalizedIndustry = normalizeCategorySelections(
+    input.industry_categories
+  ) ?? [];
+  const normalizedInfrastructure = normalizeCategorySelections(
+    input.infrastructure_categories
+  ) ?? [];
+  const normalizedIntegrations = normalizeCategorySelections(
+    input.integrations
+  ) ?? [];
+  const normalizedOutcomes = normalizeCategorySelections(
+    input.expected_outcomes
+  ) ?? [];
+
+  const useCaseTerms = (input.use_cases ?? []).flatMap((useCase) => [
+    useCase.title,
+    useCase.description,
+  ]);
+
+  const baseTerms = [
+    input.agent_name,
+    input.company_name ?? "",
+    input.tagline ?? "",
+    input.category ?? "",
+    ...normalizedFunctional,
+    ...normalizedIndustry,
+    ...normalizedInfrastructure,
+    ...normalizedIntegrations,
+    ...normalizedOutcomes,
+    ...useCaseTerms,
+    input.description,
+  ];
+
+  const aliasTerms = collectSearchAliases(baseTerms);
+
+  return compactSearchTerms([
+    input.agent_name,
+    input.agent_name,
+    input.agent_name,
+    input.company_name ?? "",
+    input.company_name ?? "",
+    input.tagline ?? "",
+    input.tagline ?? "",
+    input.category ?? "",
+    ...normalizedFunctional,
+    ...normalizedIndustry,
+    ...normalizedInfrastructure,
+    ...normalizedIntegrations,
+    ...normalizedOutcomes,
+    ...useCaseTerms,
+    ...aliasTerms,
+    input.description,
+  ]).join(" ");
 }
 
 export function stringArraysEqual(
@@ -205,4 +281,25 @@ function isEditableArrayField(key: string): key is AgentEditableArrayField {
     "integrations",
     "expected_outcomes",
   ].includes(key);
+}
+
+function compactSearchTerms(values: readonly string[]) {
+  return values
+    .map((value) => value.trim())
+    .filter(Boolean);
+}
+
+function collectSearchAliases(values: readonly string[]) {
+  const haystack = values.join(" ").toLowerCase();
+  const aliases = new Set<string>();
+
+  for (const { pattern, terms } of SEARCH_ALIASES) {
+    if (!pattern.test(haystack)) continue;
+
+    for (const term of terms) {
+      aliases.add(term);
+    }
+  }
+
+  return [...aliases];
 }

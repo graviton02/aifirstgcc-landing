@@ -3,7 +3,10 @@ import { api, internal } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { createTestConvex } from "./testHarness";
 
-const adminToken = "admin-session-token";
+const adminIdentity = {
+  subject: "admin-user-id",
+  email: "admin@example.com",
+};
 const ownerIdentity = {
   subject: "owner-user-id",
   email: "owner@example.com",
@@ -25,6 +28,7 @@ describe("notifications", () => {
   let t: ReturnType<typeof createTestConvex>;
 
   beforeEach(() => {
+    process.env.ADMIN_CLERK_USER_IDS = adminIdentity.subject;
     t = createTestConvex();
     vi.unstubAllGlobals();
     delete process.env.RESEND_API_KEY;
@@ -42,10 +46,7 @@ describe("notifications", () => {
       })
     );
 
-    await seedAdminSession(t);
-
-    await t.mutation(api.admin.approveCompanyEdit, {
-      token: adminToken,
+    await t.withIdentity(adminIdentity).mutation(api.admin.approveCompanyEdit, {
       edit_id: editId,
     });
 
@@ -58,8 +59,29 @@ describe("notifications", () => {
     expect(notifications.every((notification) => notification.type === "provider.company_edit.approved")).toBe(true);
   });
 
+  it("rebuilds related agent search text when a company rename is approved", async () => {
+    const companyId = await seedCompany(t);
+    const agentId = await seedAgent(t, companyId);
+    const editId = await t.run((ctx) =>
+      ctx.db.insert("companyEdits", {
+        company_id: companyId,
+        user_id: ownerIdentity.subject,
+        payload: { name: "Orbit Systems" },
+        status: "pending",
+        created_at: Date.now(),
+      })
+    );
+
+    await t.withIdentity(adminIdentity).mutation(api.admin.approveCompanyEdit, {
+      edit_id: editId,
+    });
+
+    const agent = await t.run((ctx) => ctx.db.get(agentId));
+    expect(agent?.search_text).toContain("Orbit Systems");
+    expect(agent?.search_text).toContain("Workflow triage");
+  });
+
   it("creates a provider notification for approved company submissions", async () => {
-    await seedAdminSession(t);
     const submissionId = await t.run((ctx) =>
       ctx.db.insert("companySubmissions", {
         user_id: ownerIdentity.subject,
@@ -68,7 +90,6 @@ describe("notifications", () => {
         website: "https://launchpad.example.com",
         description: "Launchpad builds enterprise orchestration tools for operations teams.",
         headquarters: "Bengaluru, India",
-        company_size: "51-200",
         primary_verticals: ["Technology"],
         status: "pending",
         created_at: Date.now(),
@@ -76,8 +97,7 @@ describe("notifications", () => {
       })
     );
 
-    await t.mutation(api.admin.approveCompanySubmission, {
-      token: adminToken,
+    await t.withIdentity(adminIdentity).mutation(api.admin.approveCompanySubmission, {
       submission_id: submissionId,
     });
 
@@ -109,10 +129,7 @@ describe("notifications", () => {
       })
     );
 
-    await seedAdminSession(t);
-
-    await t.action(api.admin.rejectContactRequest, {
-      token: adminToken,
+    await t.withIdentity(adminIdentity).action(api.admin.rejectContactRequest, {
       request_id: requestId,
       notes: "This request needs more context before we can proceed.",
     });
@@ -242,16 +259,6 @@ async function listNotifications(t: ReturnType<typeof createTestConvex>) {
   return await t.run((ctx) => ctx.db.query("notifications").collect());
 }
 
-async function seedAdminSession(t: ReturnType<typeof createTestConvex>) {
-  await t.run((ctx) =>
-    ctx.db.insert("adminSessions", {
-      session_token: adminToken,
-      expires_at: Date.now() + 60_000,
-      created_at: Date.now(),
-    })
-  );
-}
-
 async function seedCompany(t: ReturnType<typeof createTestConvex>) {
   return await t.run(async (ctx) => {
     const companyId = await ctx.db.insert("companies", {
@@ -260,7 +267,6 @@ async function seedCompany(t: ReturnType<typeof createTestConvex>) {
       description: "Acme Systems builds enterprise AI products for global delivery teams.",
       website: "https://acme.example.com",
       headquarters: "Bengaluru, India",
-      company_size: "201-500",
       primary_verticals: ["Technology"],
       contact_email: ownerIdentity.email,
       verification_status: "verified",

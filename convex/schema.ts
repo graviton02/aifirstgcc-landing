@@ -36,7 +36,8 @@ export default defineSchema({
     website: v.string(),
     headquarters: v.string(),
     founded: v.optional(v.number()),
-    company_size: v.string(),
+    company_size: v.optional(v.string()),
+    logo_storage_id: v.optional(v.string()),
     logo_url: v.optional(v.string()),
     logo_bg: v.optional(v.string()),
     primary_verticals: v.array(v.string()),
@@ -111,8 +112,10 @@ export default defineSchema({
     website: v.string(),
     description: v.string(),
     headquarters: v.string(),
-    company_size: v.string(),
+    company_size: v.optional(v.string()),
+    logo_storage_id: v.optional(v.string()),
     primary_verticals: v.array(v.string()),
+    logo_bg: v.optional(v.string()),
     initial_agent: v.optional(initialAgentValidator),
     status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected")),
     admin_notes: v.optional(v.string()),
@@ -194,9 +197,16 @@ export default defineSchema({
     compliance_certifications: v.optional(v.array(v.string())),
     security_features: v.optional(v.array(v.string())),
     rating: v.optional(v.number()),
+    rating_effectiveness: v.optional(v.number()),
+    rating_value: v.optional(v.number()),
     review_count: v.optional(v.number()),
     status: v.union(v.literal("active"), v.literal("inactive")),
     search_text: v.optional(v.string()),
+    company_name: v.optional(v.string()),
+    company_slug: v.optional(v.string()),
+    company_logo_storage_id: v.optional(v.string()),
+    company_logo_url: v.optional(v.string()),
+    company_logo_bg: v.optional(v.string()),
     created_at: v.number(),
     updated_at: v.number(),
     // Legacy field from old schema
@@ -253,6 +263,15 @@ export default defineSchema({
     .index("by_userId", ["user_id"])
     .index("by_status", ["submission_status"]),
 
+  // --- Materialized Directory Stats ---
+  directoryStats: defineTable({
+    key: v.string(),
+    total_active_agents: v.number(),
+    company_count: v.number(),
+    category_counts: v.any(),
+    updated_at: v.number(),
+  }).index("by_key", ["key"]),
+
   // --- Agent Edits ---
   agentEdits: defineTable({
     agent_id: v.id("agents"),
@@ -293,15 +312,16 @@ export default defineSchema({
   providerRequests: defineTable({
     company_id: v.optional(v.id("companies")),
     gcc_user_id: v.string(),
-    gcc_name: v.string(),
-    gcc_email: v.string(),
-    gcc_organization: v.string(),
-    gcc_industry: v.string(),
+    // Keep these optional while legacy production rows are backfilled.
+    gcc_name: v.optional(v.string()),
+    gcc_email: v.optional(v.string()),
+    gcc_organization: v.optional(v.string()),
+    gcc_industry: v.optional(v.string()),
     agent_id: v.id("agents"),
-    use_case: v.string(),
-    current_challenge: v.string(),
-    expected_outcome: v.string(),
-    timeline: v.string(),
+    use_case: v.optional(v.string()),
+    current_challenge: v.optional(v.string()),
+    expected_outcome: v.optional(v.string()),
+    timeline: v.optional(v.string()),
     request_source: v.optional(
       v.union(v.literal("agent_detail"), v.literal("company_profile"))
     ),
@@ -324,8 +344,67 @@ export default defineSchema({
     provider_profile_id: v.optional(v.string()),
   })
     .index("by_gccUserId", ["gcc_user_id"])
+    .index("by_gccUserAndCompany", ["gcc_user_id", "company_id"])
     .index("by_status", ["status"])
     .index("by_companyId", ["company_id"]),
+
+  // --- Reviews ---
+  reviews: defineTable({
+    reviewer_id: v.string(),
+    reviewer_name: v.string(),
+    reviewer_organization: v.optional(v.string()),
+    provider_request_id: v.optional(v.id("providerRequests")),
+    agent_id: v.id("agents"),
+    company_id: v.id("companies"),
+    rating_overall: v.number(),
+    rating_effectiveness: v.number(),
+    rating_value: v.number(),
+    title: v.string(),
+    pros: v.string(),
+    cons: v.string(),
+    use_case: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected"),
+      v.literal("flagged"),
+      v.literal("removed")
+    ),
+    moderation_reason: v.optional(v.string()),
+    admin_notes: v.optional(v.string()),
+    created_at: v.number(),
+    updated_at: v.number(),
+    reviewed_at: v.optional(v.number()),
+  })
+    .index("by_agent_status_created", ["agent_id", "status", "created_at"])
+    .index("by_reviewer", ["reviewer_id", "created_at"])
+    .index("by_reviewer_agent", ["reviewer_id", "agent_id"])
+    .index("by_company_status_created", ["company_id", "status", "created_at"])
+    .index("by_status_created", ["status", "created_at"])
+    .index("by_provider_request", ["provider_request_id"]),
+
+  // --- Review Responses ---
+  reviewResponses: defineTable({
+    review_id: v.id("reviews"),
+    company_id: v.id("companies"),
+    responder_id: v.string(),
+    responder_name: v.optional(v.string()),
+    body: v.string(),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected"),
+      v.literal("removed")
+    ),
+    moderation_reason: v.optional(v.string()),
+    admin_notes: v.optional(v.string()),
+    created_at: v.number(),
+    updated_at: v.number(),
+    reviewed_at: v.optional(v.number()),
+  })
+    .index("by_review", ["review_id"])
+    .index("by_company_status_created", ["company_id", "status", "created_at"])
+    .index("by_status_created", ["status", "created_at"]),
 
   // --- User Notifications ---
   notifications: defineTable({
@@ -346,10 +425,15 @@ export default defineSchema({
     .index("by_recipientUserIdAndCreatedAt", ["recipient_user_id", "created_at"])
     .index("by_dedupeKey", ["dedupe_key"]),
 
-  // --- Admin Sessions ---
-  adminSessions: defineTable({
-    session_token: v.string(),
-    expires_at: v.number(),
+  // --- Admin Audit Logs ---
+  adminAuditLogs: defineTable({
+    actor_user_id: v.string(),
+    action: v.string(),
+    entity_type: v.string(),
+    entity_id: v.optional(v.string()),
+    metadata: v.optional(v.any()),
     created_at: v.number(),
-  }).index("by_token", ["session_token"]),
+  })
+    .index("by_actorUserId", ["actor_user_id"])
+    .index("by_createdAt", ["created_at"]),
 });

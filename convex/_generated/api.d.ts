@@ -23,14 +23,22 @@ import type * as emails_notification from "../emails/notification.js";
 import type * as gcc from "../gcc.js";
 import type * as gccProfiles from "../gccProfiles.js";
 import type * as http from "../http.js";
+import type * as lib_admin from "../lib/admin.js";
+import type * as lib_agentSearch from "../lib/agentSearch.js";
 import type * as lib_agentTaxonomy from "../lib/agentTaxonomy.js";
 import type * as lib_auth from "../lib/auth.js";
+import type * as lib_companyLogos from "../lib/companyLogos.js";
+import type * as lib_directoryStats from "../lib/directoryStats.js";
 import type * as lib_errors from "../lib/errors.js";
+import type * as lib_personas from "../lib/personas.js";
+import type * as lib_providerRequests from "../lib/providerRequests.js";
 import type * as notifications from "../notifications.js";
 import type * as providerProfiles from "../providerProfiles.js";
 import type * as providerRequests from "../providerRequests.js";
+import type * as reviews from "../reviews.js";
 import type * as shortlists from "../shortlists.js";
 import type * as storage from "../storage.js";
+import type * as viewer from "../viewer.js";
 
 import type {
   ApiFromModules,
@@ -54,14 +62,22 @@ declare const fullApi: ApiFromModules<{
   gcc: typeof gcc;
   gccProfiles: typeof gccProfiles;
   http: typeof http;
+  "lib/admin": typeof lib_admin;
+  "lib/agentSearch": typeof lib_agentSearch;
   "lib/agentTaxonomy": typeof lib_agentTaxonomy;
   "lib/auth": typeof lib_auth;
+  "lib/companyLogos": typeof lib_companyLogos;
+  "lib/directoryStats": typeof lib_directoryStats;
   "lib/errors": typeof lib_errors;
+  "lib/personas": typeof lib_personas;
+  "lib/providerRequests": typeof lib_providerRequests;
   notifications: typeof notifications;
   providerProfiles: typeof providerProfiles;
   providerRequests: typeof providerRequests;
+  reviews: typeof reviews;
   shortlists: typeof shortlists;
   storage: typeof storage;
+  viewer: typeof viewer;
 }>;
 
 /**

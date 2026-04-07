@@ -51,7 +51,7 @@ describe("AgentsTab", () => {
 
     render(<AgentsTab companyId="company-1" />);
 
-    expect(screen.getByText("Pending Agent Submissions")).toBeInTheDocument();
+    expect(screen.getByText("Pending Review")).toBeInTheDocument();
     expect(screen.getByText("Acme Resolver")).toBeInTheDocument();
     expect(
       screen.getByText(/pending submissions will appear here once approved/i)

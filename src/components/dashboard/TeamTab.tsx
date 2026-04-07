@@ -1,7 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, Users, Plus, Trash2, CheckCircle, AlertCircle } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Loader2,
+  Mail,
+  Plus,
+  Shield,
+  Star,
+  Trash2,
+  Users,
+} from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
@@ -11,7 +23,9 @@ type TeamTabProps = {
 };
 
 export function TeamTab({ companyId, membershipRole }: TeamTabProps) {
-  const members = useQuery(api.companyMembers.getMembers, { company_id: companyId as any });
+  const members = useQuery(api.companyMembers.getMembers, {
+    company_id: companyId as any,
+  });
   const [showInvite, setShowInvite] = useState(false);
   const [email, setEmail] = useState("");
   const [isInviting, setIsInviting] = useState(false);
@@ -43,7 +57,9 @@ export function TeamTab({ companyId, membershipRole }: TeamTabProps) {
 
       setEmail("");
       setShowInvite(false);
-      setSuccess("Invite sent. The teammate will appear as pending until they accept it.");
+      setSuccess(
+        "Invite sent. The teammate will appear as pending until they accept it.",
+      );
     } catch (err: any) {
       setError(err?.message || "We couldn't send that invite.");
     } finally {
@@ -79,102 +95,212 @@ export function TeamTab({ companyId, membershipRole }: TeamTabProps) {
   };
 
   if (members === undefined) {
-    return <div className="flex items-center gap-2 text-enterprise-500"><Loader2 className="w-4 h-4 animate-spin" /> Loading...</div>;
+    return <TeamSkeleton />;
   }
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="font-semibold text-enterprise-900">Team Members</h3>
+      <div className="mb-6 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <h3 className="font-semibold text-enterprise-900">Team Members</h3>
+          <span className="rounded-full bg-enterprise-100 px-2 py-0.5 text-xs text-enterprise-500">
+            {members.length}
+          </span>
+        </div>
         {canManageTeam && (
           <button
             onClick={() => {
               setError("");
               setSuccess("");
-              setShowInvite(!showInvite);
+              setShowInvite((prev) => !prev);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark"
+            className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90"
           >
-            <Plus className="w-4 h-4" />
-            Invite
+            <Plus className="h-4 w-4" />
+            Invite Member
           </button>
         )}
       </div>
 
       {!canManageTeam && (
-        <div className="mb-6 rounded-xl border border-enterprise-200 bg-enterprise-50 px-4 py-3 text-sm text-enterprise-600">
-          Only company owners can invite or remove team members.
+        <div className="mb-6 flex items-start gap-3 rounded-xl bg-enterprise-100 px-4 py-3">
+          <Shield className="mt-0.5 h-4 w-4 shrink-0 text-enterprise-500" />
+          <span className="text-sm text-enterprise-600">
+            Only company owners can invite or remove team members.
+          </span>
         </div>
       )}
 
-      {showInvite && (
-        <form onSubmit={handleInvite} className="p-4 bg-enterprise-50 rounded-xl mb-6 flex gap-3">
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="flex-1 px-3 py-2 border border-enterprise-300 rounded-lg"
-          />
-          <button type="submit" disabled={isInviting}
-            className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium disabled:opacity-50">
-            {isInviting ? "Inviting..." : "Send Invite"}
-          </button>
-        </form>
-      )}
+      <AnimatePresence initial={false}>
+        {showInvite && (
+          <motion.form
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            onSubmit={handleInvite}
+            className="mb-6 overflow-hidden"
+          >
+            <div className="flex gap-3 rounded-2xl bg-white p-4 shadow-card">
+              <div className="relative flex-1">
+                <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-enterprise-400" />
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full rounded-lg border border-enterprise-300 py-2.5 pl-10 pr-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isInviting}
+                className="whitespace-nowrap rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90 disabled:opacity-50"
+              >
+                {isInviting ? "Sending..." : "Send Invite"}
+              </button>
+            </div>
+          </motion.form>
+        )}
+      </AnimatePresence>
 
       {error && (
-        <div className="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="mb-4 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           <AlertCircle className="h-4 w-4 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="mb-4 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+        <div className="mb-4 flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
           <CheckCircle className="h-4 w-4 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
       {!members.length ? (
-        <div className="text-center py-12 text-enterprise-500">
-          <Users className="w-12 h-12 mx-auto mb-3 opacity-50" />
-          <p>No team members yet.</p>
+        <div className="py-16 text-center">
+          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-accent-purple/10">
+            <Users className="h-12 w-12 text-primary/40" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold text-enterprise-900">
+            Your team
+          </h3>
+          <p className="mx-auto mt-2 max-w-sm text-sm text-enterprise-500">
+            Invite colleagues to help manage your company profile and agents.
+          </p>
+          {canManageTeam && (
+            <button
+              onClick={() => setShowInvite(true)}
+              className="mt-6 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90"
+            >
+              Invite a Team Member
+            </button>
+          )}
         </div>
       ) : (
         <div className="space-y-3">
-          {members.map((member: any) => (
-            <div key={member._id} className="p-4 bg-white border border-enterprise-200 rounded-xl flex items-center justify-between">
-              <div>
-                <p className="font-medium text-enterprise-900">{member.email || member.user_id}</p>
-                <div className="mt-1 flex items-center gap-2 text-xs font-medium">
-                  <span className={member.role === "owner" ? "text-primary" : "text-enterprise-500"}>
-                    {member.role}
-                  </span>
-                  <span className={member.status === "active" ? "text-green-600" : "text-amber-600"}>
-                    {member.status}
-                  </span>
+          {members.map((member: any, index: number) => {
+            const initial = (member.email || member.user_id || "?")
+              .charAt(0)
+              .toUpperCase();
+            const isOwner = member.role === "owner";
+
+            return (
+              <motion.div
+                key={member._id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.05,
+                  ease: [0.4, 0, 0.2, 1],
+                }}
+                className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-accent-purple/20 text-sm font-semibold text-primary">
+                      {initial}
+                    </div>
+                    {isOwner && (
+                      <Star className="absolute -right-1 -top-1 h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-enterprise-900">
+                      {member.email || member.user_id}
+                    </p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                          isOwner
+                            ? "bg-primary/10 text-primary"
+                            : "bg-enterprise-100 text-enterprise-600"
+                        }`}
+                      >
+                        {member.role}
+                      </span>
+                      <span
+                        className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
+                          member.status === "active"
+                            ? "bg-green-50 text-green-700"
+                            : "bg-amber-50 text-amber-700"
+                        }`}
+                      >
+                        {member.status === "pending" && (
+                          <Clock className="h-3 w-3" />
+                        )}
+                        {member.status}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              {canManageTeam && member.role !== "owner" && (
-                <button
-                  onClick={() => handleRemove(member._id)}
-                  disabled={isRemovingId === member._id}
-                  className="p-2 text-enterprise-400 hover:text-red-500 transition-colors"
-                >
-                  {isRemovingId === member._id ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Trash2 className="w-4 h-4" />
-                  )}
-                </button>
-              )}
-            </div>
-          ))}
+
+                {canManageTeam && !isOwner && (
+                  <button
+                    onClick={() => handleRemove(member._id)}
+                    disabled={isRemovingId === member._id}
+                    className="rounded-lg p-2 text-enterprise-400 transition-colors hover:bg-red-50 hover:text-red-500"
+                  >
+                    {isRemovingId === member._id ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Trash2 className="h-4 w-4" />
+                    )}
+                  </button>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       )}
+    </div>
+  );
+}
+
+function TeamSkeleton() {
+  return (
+    <div>
+      <div className="mb-6 flex items-center justify-between">
+        <div className="h-5 w-36 animate-pulse rounded bg-enterprise-200" />
+        <div className="h-9 w-36 animate-pulse rounded-lg bg-enterprise-200" />
+      </div>
+      <div className="space-y-3">
+        {[0, 1, 2].map((index) => (
+          <div
+            key={index}
+            className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-card animate-pulse"
+          >
+            <div className="h-10 w-10 rounded-full bg-enterprise-200" />
+            <div className="flex-1">
+              <div className="h-4 w-48 rounded bg-enterprise-200" />
+              <div className="mt-2 h-3 w-24 rounded bg-enterprise-100" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

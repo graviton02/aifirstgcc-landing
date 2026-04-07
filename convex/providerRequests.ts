@@ -11,6 +11,11 @@ import { getActiveMembershipForUser } from "./companyMembers";
 import { gccReachoutContactedEmail } from "./emails/contactRequest";
 import { requireAuth } from "./lib/auth";
 import { appError } from "./lib/errors";
+import { withResolvedLogoUrl } from "./lib/companyLogos";
+import {
+  buildLegacyProviderRequestBackfillPatch,
+  normalizeProviderRequest,
+} from "./lib/providerRequests";
 
 function getBaseUrl() {
   return (
@@ -86,11 +91,11 @@ export const getMyCompanyLeads = query({
       visibleRequests.map(async (request) => {
         const agent = await ctx.db.get(request.agent_id);
         const company = request.company_id
-          ? await ctx.db.get(request.company_id)
+          ? await withResolvedLogoUrl(ctx, await ctx.db.get(request.company_id))
           : null;
 
         return {
-          ...request,
+          ...normalizeProviderRequest(request),
           agent,
           company,
         };
@@ -110,10 +115,12 @@ export const _getLeadDetails = internalQuery({
     }
 
     const agent = await ctx.db.get(request.agent_id);
-    const company = request.company_id ? await ctx.db.get(request.company_id) : null;
+    const company = request.company_id
+      ? await withResolvedLogoUrl(ctx, await ctx.db.get(request.company_id))
+      : null;
 
     return {
-      request,
+      request: normalizeProviderRequest(request),
       agent,
       company,
     };
@@ -188,6 +195,13 @@ export const markLeadContacted = action({
       contacted_by_user_id: userId,
     });
 
+    await ctx.runMutation(
+      internal.reviews._createReviewSolicitationNotification,
+      {
+        provider_request_id: request_id,
+      }
+    );
+
     const email = gccReachoutContactedEmail({
       companyName: details.company?.name ?? "the provider",
       agentName: details.agent?.agent_name ?? "your selected solution",
@@ -195,9 +209,46 @@ export const markLeadContacted = action({
     });
 
     await sendEmailIfConfigured({
-      to: details.request.gcc_email ?? details.request.gcc_user_email ?? "",
+      to: details.request.gcc_email,
       subject: email.subject,
       html: email.html,
     });
+  },
+});
+
+export const _backfillLegacyProviderRequests = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const requests = await ctx.db.query("providerRequests").collect();
+    const gccProfileCache = new Map<string, any | null>();
+    let patched = 0;
+
+    for (const request of requests) {
+      if (!gccProfileCache.has(request.gcc_user_id)) {
+        const gccProfile = await ctx.db
+          .query("gccProfiles")
+          .withIndex("by_userId", (q) => q.eq("user_id", request.gcc_user_id))
+          .unique();
+        gccProfileCache.set(request.gcc_user_id, gccProfile ?? null);
+      }
+
+      const patch = buildLegacyProviderRequestBackfillPatch(
+        request,
+        gccProfileCache.get(request.gcc_user_id) ?? null
+      );
+
+      if (Object.keys(patch).length === 0) {
+        continue;
+      }
+
+      await ctx.db.patch(request._id, patch);
+      patched += 1;
+    }
+
+    return {
+      scanned: requests.length,
+      patched,
+      skipped: requests.length - patched,
+    };
   },
 });

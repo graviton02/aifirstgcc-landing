@@ -5,51 +5,108 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "convex/react";
 import { useUser } from "@clerk/nextjs";
+import { motion, AnimatePresence } from "framer-motion";
 import { api } from "../../../../convex/_generated/api";
 import { useUserRole } from "@/auth/useUserRole";
-import { AgentFormSections } from "@/components/dashboard/AgentFormFields";
-import { Navbar } from "@/components/shared/Navbar";
 import {
   EMPTY_AGENT_FORM,
   agentToFormData,
   getAgentDraftValidationErrors,
   type AgentFormData,
 } from "@/lib/agentSubmission";
-import { getErrorMessage } from "@/lib/report-error";
 import {
-  ArrowLeft,
-  ArrowRight,
-  Building2,
-  CheckCircle2,
-  Loader2,
-  Search,
-  ShieldCheck,
-  Store,
-} from "lucide-react";
+  uploadFileToConvexStorage,
+  validateCompanyLogoFile,
+} from "@/lib/companyLogoUpload";
+import { getErrorMessage } from "@/lib/report-error";
+import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { Navbar } from "@/components/shared/Navbar";
 
-const COMPANY_SIZE_OPTIONS = [
-  "1-50 employees",
-  "51-200 employees",
-  "201-500 employees",
-  "501-1,000 employees",
-  "1,001-5,000 employees",
-  "5,000+ employees",
-] as const;
+import { SetupSidebar, type SetupStep } from "./_components/SetupSidebar";
+import { SetupMobileStepper } from "./_components/SetupMobileStepper";
+import { PathSelectionView } from "./_components/PathSelectionView";
+import { CompanyInfoStep } from "./_components/CompanyInfoStep";
+import { AgentStep } from "./_components/AgentStep";
+import { ReviewStep } from "./_components/ReviewStep";
+import { ClaimStatusView } from "./_components/ClaimStatusView";
+import { StatusCard } from "./_components/shared";
+
+/* ------------------------------------------------------------------ */
+/*  Step definitions                                                   */
+/* ------------------------------------------------------------------ */
+
+const CREATE_STEPS: SetupStep[] = [
+  { key: "company", label: "Company Info", subtitle: "Your company details" },
+  { key: "agent", label: "First Agent", subtitle: "Agent you want listed" },
+  { key: "review", label: "Review & Submit", subtitle: "Confirm and submit" },
+];
+
+const CLAIM_STEPS: SetupStep[] = [
+  { key: "find", label: "Find Your Company", subtitle: "Browse the directory" },
+  { key: "review", label: "Under Review", subtitle: "Admin reviews your claim" },
+  { key: "activate", label: "Activate", subtitle: "Finish activation" },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Animation variants                                                 */
+/* ------------------------------------------------------------------ */
+
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 24 : -24,
+    opacity: 0,
+  }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -24 : 24,
+    opacity: 0,
+  }),
+};
+
+const slideTransition = {
+  duration: 0.2,
+  ease: [0.4, 0, 0.2, 1] as const,
+};
+
+/* ------------------------------------------------------------------ */
+/*  Step title/description map                                         */
+/* ------------------------------------------------------------------ */
+
+const STEP_META: Record<number, { title: string; description: string }> = {
+  1: {
+    title: "Company Information",
+    description: "Tell us about your company so we can set up your provider profile.",
+  },
+  2: {
+    title: "Add Your First Agent",
+    description: "Describe your first AI agent — this is what GCC buyers will see.",
+  },
+  3: {
+    title: "Review & Submit",
+    description: "Review your details before submitting for admin approval.",
+  },
+};
 
 type ProviderPath = "claim_existing" | "create_new";
+
+/* ------------------------------------------------------------------ */
+/*  Page component                                                     */
+/* ------------------------------------------------------------------ */
 
 export default function ProviderSetupPage() {
   const router = useRouter();
   const { user } = useUser();
-  const { role, isLoaded } = useUserRole();
+  const { role, isLoaded, providerSetupStarted } = useUserRole();
   const companyStepFormRef = useRef<HTMLFormElement>(null);
   const myCompany = useQuery(api.companyMembers.getMyCompany);
   const setupState = useQuery(api.providerProfiles.getSetupState);
   const setOnboardingPath = useMutation(api.providerProfiles.setOnboardingPath);
   const createCompanySubmission = useMutation(api.companySubmissions.create);
+  const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
 
   const [changingPath, setChangingPath] = useState<ProviderPath | null>(null);
-  const [createStep, setCreateStep] = useState<1 | 2>(1);
+  const [createStep, setCreateStep] = useState<1 | 2 | 3>(1);
+  const [direction, setDirection] = useState(1);
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [seededSubmissionId, setSeededSubmissionId] = useState<string | null>(null);
@@ -59,33 +116,45 @@ export default function ProviderSetupPage() {
     website: "",
     description: "",
     headquarters: "",
-    company_size: "",
+    logo_storage_id: "",
+    logo_url: "",
+    logo_bg: "" as "" | "dark",
     primary_verticals: "",
   });
+  const [companyLogoFile, setCompanyLogoFile] = useState<File | null>(null);
   const [agentForm, setAgentForm] = useState<AgentFormData>({
     ...EMPTY_AGENT_FORM,
     use_cases: [{ title: "", description: "" }],
   });
+  const logoPreviewUrlRef = useRef<string | null>(null);
 
+  /* ---- Redirects ---- */
   useEffect(() => {
     if (!isLoaded) return;
     if (role === "gcc") router.replace("/gcc-dashboard");
-    if (!role) router.replace("/onboarding");
     if (role === "provider" && myCompany) router.replace("/dashboard");
-  }, [role, isLoaded, myCompany, router]);
+    if (!role && !providerSetupStarted) router.replace("/onboarding");
+  }, [role, isLoaded, myCompany, providerSetupStarted, router]);
 
+  /* ---- Pre-fill email ---- */
   useEffect(() => {
     const email = user?.primaryEmailAddress?.emailAddress;
     if (!email) return;
-
     setCompanyForm((current) =>
       current.contact_email ? current : { ...current, contact_email: email }
     );
   }, [user]);
 
+  /* ---- Seed from existing submission ---- */
   useEffect(() => {
     const submission = setupState?.companySubmission;
     if (!submission || seededSubmissionId === submission._id) return;
+
+    if (logoPreviewUrlRef.current) {
+      URL.revokeObjectURL(logoPreviewUrlRef.current);
+      logoPreviewUrlRef.current = null;
+    }
+    setCompanyLogoFile(null);
 
     setCompanyForm((current) => ({
       ...current,
@@ -94,17 +163,15 @@ export default function ProviderSetupPage() {
       website: submission.website,
       description: submission.description,
       headquarters: submission.headquarters,
-      company_size: submission.company_size,
+      logo_storage_id: submission.logo_storage_id ?? "",
+      logo_url: submission.logo_url ?? "",
+      logo_bg: submission.logo_bg === "dark" ? "dark" : "",
       primary_verticals: submission.primary_verticals.join(", "),
     }));
     setAgentForm(() => {
       const nextAgent = submission.initial_agent
         ? agentToFormData(submission.initial_agent)
-        : {
-            ...EMPTY_AGENT_FORM,
-            use_cases: [{ title: "", description: "" }],
-          };
-
+        : { ...EMPTY_AGENT_FORM, use_cases: [{ title: "", description: "" }] };
       return nextAgent.use_cases.length > 0
         ? nextAgent
         : { ...nextAgent, use_cases: [{ title: "", description: "" }] };
@@ -113,20 +180,39 @@ export default function ProviderSetupPage() {
     setSeededSubmissionId(submission._id);
   }, [setupState, seededSubmissionId]);
 
+  useEffect(() => {
+    return () => {
+      if (logoPreviewUrlRef.current) {
+        URL.revokeObjectURL(logoPreviewUrlRef.current);
+      }
+    };
+  }, []);
+
+  /* ---- Derived state ---- */
   const selectedPath = setupState?.profile?.onboarding_path ?? null;
   const claimRequest = setupState?.claimRequest;
   const companySubmission = setupState?.companySubmission;
-  const canSwitchToClaim = !claimRequest && (!companySubmission || companySubmission.status === "rejected");
-  const canSwitchToCreate = !companySubmission && (!claimRequest || claimRequest.status === "rejected");
+  const canSwitchToClaim =
+    !claimRequest && (!companySubmission || companySubmission.status === "rejected");
+  const canSwitchToCreate =
+    !companySubmission && (!claimRequest || claimRequest.status === "rejected");
 
+  /* ---- Claim path: derive active step from status ---- */
+  const claimActiveStep = !claimRequest
+    ? 1
+    : claimRequest.status === "pending"
+      ? 2
+      : claimRequest.status === "approved"
+        ? 3
+        : 1; // rejected → back to 1
+
+  /* ---- Handlers ---- */
   const handleChoosePath = async (path: ProviderPath) => {
     setChangingPath(path);
     setSubmitError("");
     try {
       await setOnboardingPath({ onboarding_path: path });
-      if (path === "create_new") {
-        setCreateStep(1);
-      }
+      if (path === "create_new") setCreateStep(1);
     } catch (error: any) {
       setSubmitError(getErrorMessage(error, "Failed to update your setup path."));
     } finally {
@@ -141,65 +227,115 @@ export default function ProviderSetupPage() {
     setAgentForm((current) => ({ ...current, [key]: value }));
   };
 
-  const handleContinueToAgent = () => {
-    if (!companyStepFormRef.current?.reportValidity()) {
-      return;
-    }
-
+  const goToStep = (step: 1 | 2 | 3) => {
+    setDirection(step > createStep ? 1 : -1);
     setSubmitError("");
-    setCreateStep(2);
+    setCreateStep(step);
   };
 
-  const handleCompanySubmission = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleContinueToAgent = () => {
+    if (!companyForm.logo_url && !companyForm.logo_storage_id) {
+      setSubmitError("Upload a company logo before continuing.");
+      return;
+    }
+    if (!companyStepFormRef.current?.reportValidity()) return;
+    setSubmitError("");
+    goToStep(2);
+  };
+
+  const handleContinueToReview = () => {
     const validationErrors = getAgentDraftValidationErrors(agentForm);
     if (validationErrors.length > 0) {
       setSubmitError(validationErrors[0]);
       return;
     }
+    setSubmitError("");
+    goToStep(3);
+  };
 
+  const handleCompanySubmission = async (event: React.FormEvent) => {
+    event.preventDefault();
     setIsSubmitting(true);
     setSubmitError("");
 
     try {
+      const logoStorageId =
+        companyLogoFile != null
+          ? await uploadFileToConvexStorage(companyLogoFile, generateUploadUrl)
+          : companyForm.logo_storage_id;
+
+      if (!logoStorageId) {
+        throw new Error("Upload a company logo before submitting.");
+      }
+
       await createCompanySubmission({
         contact_email: companyForm.contact_email,
         company_name: companyForm.company_name,
         website: companyForm.website,
         description: companyForm.description,
         headquarters: companyForm.headquarters,
-        company_size: companyForm.company_size,
+        logo_storage_id: logoStorageId as any,
         primary_verticals: companyForm.primary_verticals
           .split(",")
-          .map((value) => value.trim())
+          .map((v) => v.trim())
           .filter(Boolean),
+        logo_bg: companyForm.logo_bg || undefined,
         initial_agent: {
           agent_name: agentForm.agent_name,
-          tagline: agentForm.tagline.trim() || undefined,
+          tagline: agentForm.tagline.trim(),
           description: agentForm.description,
           category: agentForm.category,
           functional_categories: agentForm.functional_categories,
           industry_categories: agentForm.industry_categories,
-          infrastructure_categories: agentForm.infrastructure_categories.length
-            ? agentForm.infrastructure_categories
-            : undefined,
           use_cases: agentForm.use_cases,
-          integrations: agentForm.integrations.length ? agentForm.integrations : undefined,
-          expected_outcomes: agentForm.expected_outcomes.length
-            ? agentForm.expected_outcomes
-            : undefined,
-          source_url: agentForm.source_url.trim() || undefined,
+          integrations: agentForm.integrations,
+          expected_outcomes: agentForm.expected_outcomes,
+          source_url: agentForm.source_url.trim(),
           demo_url: agentForm.demo_url.trim() || undefined,
         },
       });
     } catch (error: any) {
-      setSubmitError(getErrorMessage(error, "We couldn't submit your company. Please try again."));
+      setSubmitError(
+        getErrorMessage(error, "We couldn't submit your company. Please try again.")
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (!isLoaded || role !== "provider" || myCompany || setupState === undefined) {
+  const handleLogoFileChange = (file: File | null) => {
+    if (!file) {
+      return;
+    }
+
+    const validationError = validateCompanyLogoFile(file);
+    if (validationError) {
+      setSubmitError(validationError);
+      return;
+    }
+
+    if (logoPreviewUrlRef.current) {
+      URL.revokeObjectURL(logoPreviewUrlRef.current);
+    }
+
+    const previewUrl = URL.createObjectURL(file);
+    logoPreviewUrlRef.current = previewUrl;
+    setCompanyLogoFile(file);
+    setCompanyForm((current) => ({
+      ...current,
+      logo_storage_id: "",
+      logo_url: previewUrl,
+    }));
+    setSubmitError("");
+  };
+
+  /* ---- Loading state ---- */
+  if (
+    !isLoaded ||
+    (role === "gcc" || (!providerSetupStarted && role !== "provider")) ||
+    myCompany ||
+    setupState === undefined
+  ) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-enterprise-50">
         <Loader2 className="w-6 h-6 animate-spin text-enterprise-400" />
@@ -207,614 +343,206 @@ export default function ProviderSetupPage() {
     );
   }
 
+  /* ---- Path selection (no path chosen yet) ---- */
+  if (!selectedPath) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen bg-enterprise-50 pt-24 pb-16">
+          <PathSelectionView
+            onChoosePath={handleChoosePath}
+            changingPath={changingPath}
+            submitError={submitError}
+          />
+        </main>
+      </>
+    );
+  }
+
+  /* ---- Determine sidebar config based on path ---- */
+  const isCreatePath = selectedPath === "create_new";
+  const steps = isCreatePath ? CREATE_STEPS : CLAIM_STEPS;
+  const activeStep = isCreatePath ? createStep : claimActiveStep;
+
+  const pathSwitchLabel = isCreatePath
+    ? canSwitchToClaim
+      ? "My company already exists"
+      : undefined
+    : canSwitchToCreate
+      ? "My company isn't listed"
+      : undefined;
+
+  const handlePathSwitch = () => {
+    handleChoosePath(isCreatePath ? "claim_existing" : "create_new");
+  };
+
+  /* ---- Has a pending/approved submission? Show status instead of form ---- */
+  const showCreateForm =
+    isCreatePath &&
+    (companySubmission?.status === "rejected" || !companySubmission);
+
+  const showCreateStatus =
+    isCreatePath && companySubmission && companySubmission.status !== "rejected";
+
+  /* ---- Render two-panel layout ---- */
   return (
     <>
       <Navbar />
       <main className="min-h-screen bg-enterprise-50 pt-24 pb-16">
-        <div className="mx-auto max-w-5xl px-4">
-          <div className="rounded-3xl border border-enterprise-200 bg-white p-8 shadow-card">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-                Provider Setup
-              </p>
-              <h1 className="mt-3 text-3xl font-bold text-enterprise-900">
-                Choose how you want to get your company live on Orbys360
-              </h1>
-              <p className="mt-3 text-enterprise-600">
-                Provider accounts now start in setup. Your dashboard unlocks after you either
-                activate a claim for an existing company profile or get a brand-new company listing
-                approved by admin.
-              </p>
+        {/* Mobile stepper */}
+        <div className="md:hidden">
+          <SetupMobileStepper
+            steps={steps}
+            activeStep={activeStep}
+            onStepClick={(step) => {
+              if (isCreatePath && step < createStep) goToStep(step as 1 | 2 | 3);
+            }}
+          />
+        </div>
+
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="flex gap-8"
+          >
+            {/* Sidebar — desktop only */}
+            <div className="hidden md:block w-72 shrink-0">
+              <div className="sticky top-24 rounded-2xl border border-enterprise-200 bg-white p-6 shadow-card">
+                <SetupSidebar
+                  steps={steps}
+                  activeStep={activeStep}
+                  onStepClick={(step) => {
+                    if (isCreatePath && step < createStep)
+                      goToStep(step as 1 | 2 | 3);
+                  }}
+                  pathSwitchLabel={pathSwitchLabel}
+                  onPathSwitch={pathSwitchLabel ? handlePathSwitch : undefined}
+                />
+              </div>
             </div>
 
-            {!selectedPath && (
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-                <PathCard
-                  icon={Store}
-                  title="Create a new company profile"
-                  description="Use this if your company is not in the directory yet and you need a fresh listing plus a new provider workspace."
-                  actionLabel="Create New Listing"
-                  isLoading={changingPath === "create_new"}
-                  onClick={() => handleChoosePath("create_new")}
-                />
-                <PathCard
-                  icon={Search}
-                  title="Claim an existing company"
-                  description="Use this if your company already appears in the public directory and you want to take ownership of that listing."
-                  actionLabel="Claim Existing Listing"
-                  isLoading={changingPath === "claim_existing"}
-                  onClick={() => handleChoosePath("claim_existing")}
-                />
-              </div>
-            )}
-
-            {selectedPath === "claim_existing" && (
-              <div className="mt-8 space-y-6">
-                <SectionHeader
-                  title="Claim an existing company profile"
-                  description="Search the directory, open your company page, and submit a claim using your corporate email."
-                  action={
-                    canSwitchToCreate ? (
-                      <button
-                        onClick={() => handleChoosePath("create_new")}
-                        className="text-sm font-medium text-primary hover:underline"
-                      >
-                        My company isn't listed
-                      </button>
-                    ) : undefined
-                  }
-                />
-
-                {!claimRequest && (
-                  <StatusCard
-                    icon={ShieldCheck}
-                    title="No claim submitted yet"
-                    tone="neutral"
-                    body="Browse the directory to find your company. Once you submit a claim, this page will track the review and activation status."
-                    action={
-                      <Link
-                        href="/directory"
-                        className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
-                      >
-                        Browse Directory
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    }
-                  />
-                )}
-
-                {claimRequest?.status === "pending" && (
-                  <StatusCard
-                    icon={Loader2}
-                    title={`Claim under review for ${claimRequest.company_name}`}
-                    tone="pending"
-                    body="Admin has your claim and the company listing stays reserved while it is being reviewed."
-                  />
-                )}
-
-                {claimRequest?.status === "approved" && (
-                  <StatusCard
-                    icon={CheckCircle2}
-                    title={`Claim approved for ${claimRequest.company_name}`}
-                    tone="success"
-                    body="Finish activation to convert the approved claim into an active provider dashboard."
-                    action={
-                      claimRequest.magic_link_token ? (
+            {/* Content panel */}
+            <div className="flex-1 min-w-0 max-w-3xl py-2">
+              {/* ---- CREATE PATH: Status cards ---- */}
+              {showCreateStatus && (
+                <div className="space-y-4">
+                  {companySubmission.status === "pending" && (
+                    <StatusCard
+                      icon={Loader2}
+                      title={`${companySubmission.company_name} is under review`}
+                      tone="pending"
+                      body="Your new company submission is waiting for admin approval. Once approved, your provider workspace goes live and the first agent you submitted will move into the admin agent review queue."
+                    />
+                  )}
+                  {companySubmission.status === "approved" && (
+                    <StatusCard
+                      icon={CheckCircle2}
+                      title={`${companySubmission.company_name} is approved`}
+                      tone="success"
+                      body={
+                        companySubmission.initial_agent_submission
+                          ? "Your company is live and your first agent is being tracked in the provider dashboard."
+                          : "Your company is live. If you are not redirected automatically, continue to your dashboard."
+                      }
+                      action={
                         <Link
-                          href={`/claim/activate?token=${encodeURIComponent(claimRequest.magic_link_token)}`}
-                          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
+                          href="/dashboard"
+                          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
                         >
-                          Finish Activation
+                          Open Dashboard
                           <ArrowRight className="h-4 w-4" />
                         </Link>
-                      ) : undefined
-                    }
-                  />
-                )}
+                      }
+                    />
+                  )}
+                </div>
+              )}
 
-                {claimRequest?.status === "rejected" && (
-                  <StatusCard
-                    icon={Building2}
-                    title={`Claim rejected for ${claimRequest.company_name}`}
-                    tone="danger"
-                    body={claimRequest.admin_notes || "Admin rejected this claim. You can try a different listing or contact support with more proof of ownership."}
-                    action={
-                      <Link
-                        href="/directory"
-                        className="inline-flex items-center gap-2 rounded-lg border border-enterprise-300 px-4 py-2 text-sm font-medium text-enterprise-700 hover:bg-enterprise-50"
-                      >
-                        Browse Directory Again
-                      </Link>
-                    }
-                  />
-                )}
-              </div>
-            )}
-
-            {selectedPath === "create_new" && (
-              <div className="mt-8 space-y-6">
-                <SectionHeader
-                  title="Create a new company profile"
-                  description="Complete company details first, then add the first agent you want reviewed. Admin approval creates your company profile and sends that first agent into the review queue."
-                  action={
-                    canSwitchToClaim ? (
-                      <button
-                        onClick={() => handleChoosePath("claim_existing")}
-                        className="text-sm font-medium text-primary hover:underline"
-                      >
-                        My company already exists
-                      </button>
-                    ) : undefined
-                  }
-                />
-
-                {companySubmission?.status === "pending" && (
-                  <StatusCard
-                    icon={Loader2}
-                    title={`${companySubmission.company_name} is under review`}
-                    tone="pending"
-                    body="Your new company submission is waiting for admin approval. Once approved, your provider workspace goes live and the first agent you submitted will move into the admin agent review queue."
-                  />
-                )}
-
-                {companySubmission?.status === "approved" && (
-                  <StatusCard
-                    icon={CheckCircle2}
-                    title={`${companySubmission.company_name} is approved`}
-                    tone="success"
-                    body={
-                      companySubmission.initial_agent_submission
-                        ? "Your company is live and your first agent is being tracked in the provider dashboard."
-                        : "Your company is live. If you are not redirected automatically, continue to your dashboard."
-                    }
-                    action={
-                      <Link
-                        href="/dashboard"
-                        className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
-                      >
-                        Open Dashboard
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    }
-                  />
-                )}
-
-                {(companySubmission?.status === "rejected" || !companySubmission) && (
-                  <div className="rounded-2xl border border-enterprise-200 bg-enterprise-50/60 p-6">
-                    <div className="mb-6 flex flex-wrap gap-3">
-                      <WizardStepBadge
-                        step={1}
-                        title="Company Info"
-                        active={createStep === 1}
-                        complete={createStep === 2}
-                      />
-                      <WizardStepBadge
-                        step={2}
-                        title="First Agent"
-                        active={createStep === 2}
-                      />
-                    </div>
-
-                    {companySubmission?.status === "rejected" && (
-                      <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                        {companySubmission.admin_notes ||
-                          "Admin rejected the last submission. Update the details below and resubmit."}
-                      </div>
-                    )}
-
-                    {createStep === 1 ? (
-                      <form
-                        ref={companyStepFormRef}
-                        onSubmit={(event) => {
-                          event.preventDefault();
-                          handleContinueToAgent();
-                        }}
-                        className="grid gap-4 md:grid-cols-2"
-                      >
-                        <FormField label="Contact Email">
-                          <input
-                            type="email"
-                            required
-                            value={companyForm.contact_email}
-                            onChange={(event) =>
-                              setCompanyForm({
-                                ...companyForm,
-                                contact_email: event.target.value,
-                              })
-                            }
-                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                            placeholder="you@company.com"
-                          />
-                        </FormField>
-
-                        <FormField label="Company Name">
-                          <input
-                            type="text"
-                            required
-                            value={companyForm.company_name}
-                            onChange={(event) =>
-                              setCompanyForm({
-                                ...companyForm,
-                                company_name: event.target.value,
-                              })
-                            }
-                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                            placeholder="Acme AI Labs"
-                          />
-                        </FormField>
-
-                        <FormField label="Website">
-                          <input
-                            type="url"
-                            required
-                            value={companyForm.website}
-                            onChange={(event) =>
-                              setCompanyForm({
-                                ...companyForm,
-                                website: event.target.value,
-                              })
-                            }
-                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                            placeholder="https://acme.ai"
-                          />
-                        </FormField>
-
-                        <FormField label="Headquarters">
-                          <input
-                            type="text"
-                            required
-                            value={companyForm.headquarters}
-                            onChange={(event) =>
-                              setCompanyForm({
-                                ...companyForm,
-                                headquarters: event.target.value,
-                              })
-                            }
-                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                            placeholder="Bengaluru, India"
-                          />
-                        </FormField>
-
-                        <FormField label="Company Size">
-                          <select
-                            required
-                            value={companyForm.company_size}
-                            onChange={(event) =>
-                              setCompanyForm({
-                                ...companyForm,
-                                company_size: event.target.value,
-                              })
-                            }
-                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                          >
-                            <option value="">Select size</option>
-                            {COMPANY_SIZE_OPTIONS.map((option) => (
-                              <option key={option} value={option}>
-                                {option}
-                              </option>
-                            ))}
-                          </select>
-                        </FormField>
-
-                        <FormField label="Primary Verticals" className="md:col-span-2">
-                          <input
-                            type="text"
-                            required
-                            value={companyForm.primary_verticals}
-                            onChange={(event) =>
-                              setCompanyForm({
-                                ...companyForm,
-                                primary_verticals: event.target.value,
-                              })
-                            }
-                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                            placeholder="Banking, Healthcare, Retail"
-                          />
-                          <p className="mt-1 text-xs text-enterprise-500">
-                            Separate multiple verticals with commas.
-                          </p>
-                        </FormField>
-
-                        <FormField label="Company Description" className="md:col-span-2">
-                          <textarea
-                            required
-                            rows={5}
-                            minLength={20}
-                            value={companyForm.description}
-                            onChange={(event) =>
-                              setCompanyForm({
-                                ...companyForm,
-                                description: event.target.value,
-                              })
-                            }
-                            className="w-full rounded-lg border border-enterprise-300 bg-white px-3 py-2"
-                            placeholder="What does your company build, and which GCC problems do you solve?"
-                          />
-                        </FormField>
-
-                        <div className="md:col-span-2 flex items-center justify-between gap-3">
-                          <p className="text-sm text-enterprise-500">
-                            Admin approval creates the live company profile and your owner membership in one step.
-                          </p>
-                          <button
-                            type="submit"
-                            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
-                          >
-                            Continue to First Agent
-                            <ArrowRight className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </form>
-                    ) : (
-                      <form onSubmit={handleCompanySubmission} className="space-y-6">
-                        <div className="rounded-xl border border-enterprise-200 bg-white p-4">
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <div>
-                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-enterprise-500">
-                                Company Summary
-                              </p>
-                              <h3 className="mt-1 text-lg font-semibold text-enterprise-900">
-                                {companyForm.company_name}
-                              </h3>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => setCreateStep(1)}
-                              className="inline-flex items-center gap-2 rounded-lg border border-enterprise-300 px-3 py-1.5 text-sm font-medium text-enterprise-700 hover:bg-enterprise-50"
-                            >
-                              <ArrowLeft className="h-4 w-4" />
-                              Edit Company Info
-                            </button>
-                          </div>
-                          <div className="mt-4 grid gap-3 md:grid-cols-2">
-                            <SummaryItem label="Contact Email" value={companyForm.contact_email} />
-                            <SummaryItem label="Website" value={companyForm.website} />
-                            <SummaryItem label="Headquarters" value={companyForm.headquarters} />
-                            <SummaryItem label="Company Size" value={companyForm.company_size} />
-                            <SummaryItem
-                              label="Primary Verticals"
-                              value={companyForm.primary_verticals}
-                              className="md:col-span-2"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="rounded-xl border border-enterprise-200 bg-white p-4">
-                          <div className="mb-4">
-                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-enterprise-500">
-                              First Agent
-                            </p>
-                            <h3 className="mt-1 text-lg font-semibold text-enterprise-900">
-                              Add the first agent you want reviewed
-                            </h3>
-                            <p className="mt-1 text-sm text-enterprise-600">
-                              This agent will be submitted automatically once the company is approved.
-                            </p>
-                          </div>
-
-                          <AgentFormSections
-                            form={agentForm}
-                            updateField={updateAgentField}
-                            mode="setup"
-                          />
-                        </div>
-
-                        {submitError && (
-                          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                            {submitError}
-                          </p>
-                        )}
-
-                        <div className="flex items-center justify-between gap-3">
-                          <p className="text-sm text-enterprise-500">
-                            Company approval creates your provider workspace. Agent approval happens next in the admin queue.
-                          </p>
-                          <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark disabled:opacity-50"
-                          >
-                            {isSubmitting ? (
-                              <>
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                                Submitting...
-                              </>
-                            ) : (
-                              <>
-                                Submit for Review
-                                <ArrowRight className="h-4 w-4" />
-                              </>
-                            )}
-                          </button>
-                        </div>
-                      </form>
-                    )}
+              {/* ---- CREATE PATH: Form steps ---- */}
+              {showCreateForm && (
+                <div>
+                  {/* Step header */}
+                  <div className="mb-6">
+                    <h1 className="font-display text-2xl font-bold text-enterprise-900">
+                      {STEP_META[createStep].title}
+                    </h1>
+                    <p className="mt-1 text-sm text-enterprise-600">
+                      {STEP_META[createStep].description}
+                    </p>
                   </div>
-                )}
-              </div>
-            )}
 
-            {submitError && !selectedPath && (
-              <p className="mt-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                {submitError}
-              </p>
-            )}
-          </div>
+                  <AnimatePresence mode="wait" custom={direction}>
+                    <motion.div
+                      key={createStep}
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={slideTransition}
+                    >
+                      {createStep === 1 && (
+                        <CompanyInfoStep
+                          formRef={companyStepFormRef}
+                          companyForm={companyForm}
+                          setCompanyForm={setCompanyForm}
+                          onLogoFileChange={handleLogoFileChange}
+                          onContinue={handleContinueToAgent}
+                          validationError={submitError}
+                          rejectionNotice={
+                            companySubmission?.status === "rejected"
+                              ? companySubmission.admin_notes ||
+                                "Admin rejected the last submission. Update the details below and resubmit."
+                              : null
+                          }
+                        />
+                      )}
+                      {createStep === 2 && (
+                        <AgentStep
+                          agentForm={agentForm}
+                          updateAgentField={updateAgentField}
+                          onContinue={handleContinueToReview}
+                          onBack={() => goToStep(1)}
+                          validationError={submitError}
+                        />
+                      )}
+                      {createStep === 3 && (
+                        <ReviewStep
+                          companyForm={companyForm}
+                          agentForm={agentForm}
+                          onEditCompany={() => goToStep(1)}
+                          onEditAgent={() => goToStep(2)}
+                          onSubmit={handleCompanySubmission}
+                          isSubmitting={isSubmitting}
+                          submitError={submitError}
+                        />
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              )}
+
+              {/* ---- CLAIM PATH ---- */}
+              {selectedPath === "claim_existing" && (
+                <div>
+                  <div className="mb-6">
+                    <h1 className="font-display text-2xl font-bold text-enterprise-900">
+                      Claim an existing company profile
+                    </h1>
+                    <p className="mt-1 text-sm text-enterprise-600">
+                      Search the directory, open your company page, and submit a claim
+                      using your corporate email.
+                    </p>
+                  </div>
+                  <ClaimStatusView claimRequest={claimRequest} />
+                </div>
+              )}
+            </div>
+          </motion.div>
         </div>
       </main>
     </>
-  );
-}
-
-function PathCard({
-  icon: Icon,
-  title,
-  description,
-  actionLabel,
-  isLoading,
-  onClick,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-  actionLabel: string;
-  isLoading: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="rounded-2xl border border-enterprise-200 bg-enterprise-50 p-6 text-left transition-all hover:border-primary/40 hover:bg-white hover:shadow-sm"
-    >
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-        <Icon className="h-6 w-6" />
-      </div>
-      <h2 className="mt-4 text-xl font-semibold text-enterprise-900">{title}</h2>
-      <p className="mt-2 text-sm leading-6 text-enterprise-600">{description}</p>
-      <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
-        {isLoading ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" />
-            Setting up...
-          </>
-        ) : (
-          <>
-            {actionLabel}
-            <ArrowRight className="h-4 w-4" />
-          </>
-        )}
-      </div>
-    </button>
-  );
-}
-
-function SectionHeader({
-  title,
-  description,
-  action,
-}: {
-  title: string;
-  description: string;
-  action?: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-      <div>
-        <h2 className="text-xl font-semibold text-enterprise-900">{title}</h2>
-        <p className="mt-1 text-sm text-enterprise-600">{description}</p>
-      </div>
-      {action}
-    </div>
-  );
-}
-
-function WizardStepBadge({
-  step,
-  title,
-  active,
-  complete = false,
-}: {
-  step: number;
-  title: string;
-  active: boolean;
-  complete?: boolean;
-}) {
-  return (
-    <div
-      className={`inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm ${
-        active
-          ? "border-primary bg-primary/10 text-primary"
-          : complete
-            ? "border-green-200 bg-green-50 text-green-700"
-            : "border-enterprise-200 bg-white text-enterprise-500"
-      }`}
-    >
-      <span
-        className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
-          active
-            ? "bg-primary text-white"
-            : complete
-              ? "bg-green-600 text-white"
-              : "bg-enterprise-100 text-enterprise-600"
-        }`}
-      >
-        {step}
-      </span>
-      <span className="font-medium">{title}</span>
-    </div>
-  );
-}
-
-function SummaryItem({
-  label,
-  value,
-  className,
-}: {
-  label: string;
-  value: string;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      <p className="text-xs font-medium uppercase tracking-wide text-enterprise-500">
-        {label}
-      </p>
-      <p className="mt-1 text-sm text-enterprise-800 break-words">
-        {value || "—"}
-      </p>
-    </div>
-  );
-}
-
-function StatusCard({
-  icon: Icon,
-  title,
-  body,
-  tone,
-  action,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  body: string;
-  tone: "neutral" | "pending" | "success" | "danger";
-  action?: React.ReactNode;
-}) {
-  const toneClasses = {
-    neutral: "border-enterprise-200 bg-enterprise-50 text-enterprise-700",
-    pending: "border-amber-200 bg-amber-50 text-amber-800",
-    success: "border-green-200 bg-green-50 text-green-800",
-    danger: "border-red-200 bg-red-50 text-red-800",
-  };
-
-  return (
-    <div className={`rounded-2xl border p-5 ${toneClasses[tone]}`}>
-      <div className="flex items-start gap-3">
-        <div className="mt-0.5 rounded-lg bg-white/70 p-2">
-          <Icon className="h-5 w-5" />
-        </div>
-        <div className="flex-1">
-          <h3 className="font-semibold">{title}</h3>
-          <p className="mt-1 text-sm leading-6">{body}</p>
-          {action && <div className="mt-4">{action}</div>}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FormField({
-  label,
-  className,
-  children,
-}: {
-  label: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className={className}>
-      <span className="mb-1 block text-sm font-medium text-enterprise-700">{label}</span>
-      {children}
-    </label>
   );
 }

@@ -44,38 +44,12 @@ export function usePendingInviteActivation() {
       let shouldReloadUser = false;
 
       try {
-        try {
-          const syncResponse = await fetch("/api/provider-org/sync", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-          });
-
-          if (syncResponse.ok) {
-            const syncResult = await syncResponse.json();
-            if ((syncResult?.synced_count ?? 0) > 0) {
-              shouldReloadUser = true;
-            }
-          }
-        } catch (error) {
-          reportHandledError(error, {
-            tags: {
-              area: "client",
-              feature: "pending-invite-activation",
-              operation: "provider-org-sync",
-            },
-            userId: user.id,
-          });
-          // Fall through to the legacy invite activation path below.
-        }
-
         const result = (await acceptPendingInvite({})) as ActivationResult;
 
         if (result.status === "accepted" || result.status === "already_active") {
           try {
             const response = await fetch("/api/set-role", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ role: "provider" }),
             });
 
             if (response.ok) {

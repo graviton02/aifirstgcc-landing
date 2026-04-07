@@ -6,7 +6,6 @@
       "website": "https://pixis.ai",
       "headquarters": "Chicago, Illinois, USA",
       "founded": 2018,
-      "company_size": "scaleup",
       "description": "Pixis develops a codeless AI infrastructure platform for performance marketing, combining creative generation, campaign optimization, and cross-channel intelligence to help consumer brands and agencies maximize advertising ROI at scale. The platform is built on over 200 proprietary AI models trained on more than 3 billion data points spanning a decade of marketing performance data.",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -22,7 +21,6 @@
       "website": "https://www.observe.ai",
       "headquarters": "Redwood City, California, USA",
       "founded": 2017,
-      "company_size": "scaleup",
       "description": "Observe.AI is an agentic AI platform for contact centers that unifies autonomous voice and chat AI agents, real-time human-agent copilots, and GenAI-powered conversation intelligence to automate customer interactions, augment live agents, and analyze 100% of conversations across enterprise support channels. The platform serves 350+ enterprise customers and supports 250+ out-of-the-box integrations with CCaaS, CRM, BI, and workforce systems.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -39,7 +37,6 @@
       "website": "https://www.redacto.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2025,
-      "company_size": "startup",
       "description": "Redacto (legal entity: VertexTech Labs) is an AI-agentic privacy, security, and third-party risk technology platform built for BFSI and HealthTech teams. The platform automates data discovery, vendor risk management, consent management, and privacy compliance workflows using AI agents and automated risk scoring, supporting DPDPA, GDPR, and CCPA compliance.",
       "primary_verticals": [
         "Financial Services (BFSI)",

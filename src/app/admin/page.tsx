@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useAction, useMutation, useQuery } from "convex/react";
+import { useEffect, useState } from "react";
+import { useClerk, useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { AdminClaimsTab } from "@/components/admin/AdminClaimsTab";
 import { AdminCompanySubmissionsTab } from "@/components/admin/AdminCompanySubmissionsTab";
@@ -11,8 +13,8 @@ import { AdminAllAgentsTab } from "@/components/admin/AdminAllAgentsTab";
 import { AdminAgentEditsTab } from "@/components/admin/AdminAgentEditsTab";
 import { AdminContactRequestsTab } from "@/components/admin/AdminContactRequestsTab";
 import { AdminOverviewTab } from "@/components/admin/AdminOverviewTab";
+import { AdminReviewsTab } from "@/components/admin/AdminReviewsTab";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
-import { getErrorMessage } from "@/lib/report-error";
 import {
   LogOut,
   Loader2,
@@ -24,6 +26,7 @@ import {
   List,
   FilePenLine,
   Mail,
+  Star,
 } from "lucide-react";
 import type { NavItem } from "@/components/dashboard/DashboardSidebar";
 
@@ -36,6 +39,7 @@ const TABS = [
   "All Agents",
   "Agent Edits",
   "Contact Requests",
+  "Reviews",
 ] as const;
 
 type Tab = (typeof TABS)[number];
@@ -49,54 +53,36 @@ const ICON_MAP: Record<Tab, NavItem["icon"]> = {
   "All Agents": List,
   "Agent Edits": FilePenLine,
   "Contact Requests": Mail,
+  Reviews: Star,
 };
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState<Tab>("Overview");
-  const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
-  const [hydrated, setHydrated] = useState(false);
-  const [error, setError] = useState("");
-
-  // Read session from sessionStorage after hydration to avoid SSR mismatch
-  useEffect(() => {
-    const stored = sessionStorage.getItem("admin_token");
-    if (stored) setToken(stored);
-    setHydrated(true);
-  }, []);
+  const router = useRouter();
+  const { isLoaded: authLoaded, isSignedIn } = useAuth();
+  const { signOut } = useClerk();
+  const viewerAccess = useQuery(api.admin.getViewerAccess, isSignedIn ? {} : "skip");
+  const stats = useQuery(
+    api.admin.getDirectoryStats,
+    viewerAccess?.isAdmin ? {} : "skip"
+  );
 
   useEffect(() => {
-    if (!hydrated) return;
-    if (token) {
-      sessionStorage.setItem("admin_token", token);
-    } else {
-      sessionStorage.removeItem("admin_token");
+    if (!authLoaded) return;
+    if (!isSignedIn) {
+      router.replace("/sign-in?redirect_url=%2Fadmin");
     }
-  }, [token, hydrated]);
-
-  const login = useAction(api.admin.login);
-  const logout = useMutation(api.admin.logout);
-  const stats = useQuery(api.admin.getDirectoryStats, token ? { token } : "skip");
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    try {
-      const result = await login({ password });
-      setToken(result.session_token);
-    } catch (error) {
-      setError(getErrorMessage(error, "Invalid password"));
-    }
-  };
+  }, [authLoaded, isSignedIn, router]);
 
   const handleLogout = async () => {
-    await logout({ token });
-    setToken("");
-    setPassword("");
+    await signOut({ redirectUrl: "/" });
   };
 
-  // Show nothing until hydrated to avoid login form flash
-  if (!hydrated) {
+  if (
+    !authLoaded ||
+    (isSignedIn && viewerAccess === undefined) ||
+    (viewerAccess?.isAdmin && stats === undefined)
+  ) {
     return (
       <div className="min-h-screen bg-enterprise-50 flex items-center justify-center px-4">
         <Loader2 className="w-6 h-6 animate-spin text-enterprise-400" />
@@ -104,23 +90,39 @@ export default function AdminDashboardPage() {
     );
   }
 
-  if (!token) {
+  if (!isSignedIn) {
     return (
       <div className="min-h-screen bg-enterprise-50 flex items-center justify-center px-4">
-        <form onSubmit={handleLogin} className="bg-white rounded-2xl shadow-card p-8 w-full max-w-sm">
-          <h1 className="text-xl font-bold text-enterprise-900 mb-4">Admin Login</h1>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Admin password"
-            className="w-full px-3 py-2 border border-enterprise-300 rounded-lg mb-4"
-          />
-          {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
-          <button type="submit" className="w-full py-2 bg-primary text-white rounded-lg font-medium">
-            Login
-          </button>
-        </form>
+        <Loader2 className="w-6 h-6 animate-spin text-enterprise-400" />
+      </div>
+    );
+  }
+
+  if (!viewerAccess?.isAdmin) {
+    return (
+      <div className="min-h-screen bg-enterprise-50 flex items-center justify-center px-4">
+        <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-card">
+          <h1 className="text-xl font-bold text-enterprise-900">Admin Access Required</h1>
+          <p className="mt-3 text-sm text-enterprise-600">
+            This Clerk account is signed in, but it is not allowlisted for the admin workspace.
+          </p>
+          <div className="mt-6 flex gap-3">
+            <button
+              type="button"
+              onClick={() => router.replace("/")}
+              className="rounded-lg border border-enterprise-200 px-4 py-2 text-sm font-medium text-enterprise-700 transition-colors hover:bg-enterprise-50"
+            >
+              Back to site
+            </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -132,6 +134,8 @@ export default function AdminDashboardPage() {
     Agents: stats?.pendingAgentSubmissions ?? 0,
     "Agent Edits": stats?.pendingAgentEdits ?? 0,
     "Contact Requests": stats?.pendingContactRequests ?? 0,
+    Reviews:
+      (stats?.pendingReviews ?? 0) + (stats?.pendingReviewResponses ?? 0),
   };
 
   const navItems: NavItem[] = TABS.map((tab) => ({
@@ -158,14 +162,15 @@ export default function AdminDashboardPage() {
         </button>
       }
     >
-      {activeTab === "Overview" && <AdminOverviewTab token={token} onTabChange={(t) => setActiveTab(t as Tab)} />}
-      {activeTab === "Claims" && <AdminClaimsTab token={token} />}
-      {activeTab === "New Companies" && <AdminCompanySubmissionsTab token={token} />}
-      {activeTab === "Company Edits" && <AdminCompanyEditsTab token={token} />}
-      {activeTab === "Agents" && <AdminAgentsTab token={token} />}
-      {activeTab === "All Agents" && <AdminAllAgentsTab token={token} />}
-      {activeTab === "Agent Edits" && <AdminAgentEditsTab token={token} />}
-      {activeTab === "Contact Requests" && <AdminContactRequestsTab token={token} />}
+      {activeTab === "Overview" && <AdminOverviewTab onTabChange={(t) => setActiveTab(t as Tab)} />}
+      {activeTab === "Claims" && <AdminClaimsTab />}
+      {activeTab === "New Companies" && <AdminCompanySubmissionsTab />}
+      {activeTab === "Company Edits" && <AdminCompanyEditsTab />}
+      {activeTab === "Agents" && <AdminAgentsTab />}
+      {activeTab === "All Agents" && <AdminAllAgentsTab />}
+      {activeTab === "Agent Edits" && <AdminAgentEditsTab />}
+      {activeTab === "Contact Requests" && <AdminContactRequestsTab />}
+      {activeTab === "Reviews" && <AdminReviewsTab />}
     </DashboardShell>
   );
 }

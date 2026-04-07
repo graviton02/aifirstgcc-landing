@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "convex/react";
 import { useUser } from "@clerk/nextjs";
 import { api } from "../../../convex/_generated/api";
+import { getErrorMessage } from "@/lib/report-error";
 
 const INDUSTRIES = [
   "Healthcare & Life Sciences", "Financial Services (BFSI)", "Manufacturing",
@@ -19,6 +20,7 @@ export function GccOnboardingForm() {
   const { user } = useUser();
   const createProfile = useMutation(api.gccProfiles.createProfile);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const [form, setForm] = useState({
     name: "",
@@ -31,16 +33,16 @@ export function GccOnboardingForm() {
     e.preventDefault();
     if (!form.name || !form.organization || !form.email || !form.industry) return;
     setIsSubmitting(true);
+    setError("");
     try {
       await createProfile(form);
       await fetch("/api/set-role", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role: "gcc" }),
-      });
-      // Reload Clerk user so publicMetadata.role is available immediately
+      }).catch(() => null);
       await user?.reload();
       router.push("/gcc-dashboard");
+    } catch (err) {
+      setError(getErrorMessage(err, "We couldn't start GCC onboarding. Please try again."));
     } finally {
       setIsSubmitting(false);
     }
@@ -50,6 +52,7 @@ export function GccOnboardingForm() {
     <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
       <h1 className="text-2xl font-bold text-enterprise-900">Complete Your Profile</h1>
       <p className="text-enterprise-600">Tell us about yourself to get started.</p>
+      {error ? <p className="text-sm text-red-600">{error}</p> : null}
 
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-enterprise-700 mb-1">Name</label>

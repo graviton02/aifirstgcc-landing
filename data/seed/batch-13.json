@@ -6,7 +6,6 @@
       "website": "https://www.wysa.com",
       "headquarters": "Boston, USA",
       "founded": 2015,
-      "company_size": "scaleup",
       "description": "Wysa is a clinically validated AI-powered mental health platform that provides conversational support, evidence-based therapeutic exercises, and hybrid digital-human care for individuals, employers, healthcare systems, and insurers. The platform combines rule-based algorithms with large language models to deliver mental health support in 10+ languages across 95 countries.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -21,7 +20,6 @@
       "website": "https://sigtuple.com",
       "headquarters": "Bengaluru, India",
       "founded": 2015,
-      "company_size": "scaleup",
       "description": "SigTuple is a healthcare AI company that combines artificial intelligence, robotics, and cloud computing to develop intelligent diagnostic screening solutions that automate medical microscopy. The company builds AI-powered digital analyzers for peripheral blood smear and urine sediment analysis.",
       "primary_verticals": [
         "Healthcare & Life Sciences"
@@ -35,7 +33,6 @@
       "website": "https://arya.ai",
       "headquarters": "Mumbai, India",
       "founded": 2013,
-      "company_size": "scaleup",
       "description": "Arya.ai is an AI cloud platform purpose-built for banks, insurers, and financial services institutions, offering pre-trained AI models, a domain-specific LLM, and an agent orchestration layer to accelerate AI adoption across BFSI operations. The company operates as a subsidiary of Aurionpro Solutions.",
       "primary_verticals": [
         "Financial Services (BFSI)"

@@ -6,7 +6,6 @@
       "website": "https://shopos.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2024,
-      "company_size": "startup",
       "description": "ShopOS is an AI-native operating system for e-commerce brands that uses autonomous agents to automate content creation, catalog management, marketing, pricing, and storefront personalization. The platform consolidates PIM, DAM, and PXM capabilities into a single AI-driven system.",
       "primary_verticals": [
         "Retail & E-commerce"
@@ -20,7 +19,6 @@
       "website": "https://raga.ai",
       "headquarters": "Milpitas, California, USA (R&D in Bengaluru, India)",
       "founded": 2022,
-      "company_size": "startup",
       "description": "RagaAI is an AI testing and observability company that helps enterprises build, evaluate, and deploy reliable AI agents. The platform offers automated testing with 300+ tests across computer vision, NLP, and structured data, plus observability and debugging tools for agentic AI workflows.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -36,7 +34,6 @@
       "website": "https://convin.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2020,
-      "company_size": "scaleup",
       "description": "Convin AI is an AI-native contact center platform that automates and optimizes customer conversations across voice, chat, and email channels. The platform combines virtual voice agents, real-time agent assistance, conversation intelligence, and automated coaching to help sales, support, and collections teams scale operations.",
       "primary_verticals": [
         "Financial Services (BFSI)",

@@ -6,7 +6,6 @@
       "website": "https://www.quickads.ai",
       "headquarters": "Liberty Hill, Texas, USA",
       "founded": 2023,
-      "company_size": "startup",
       "description": "QuickAds AI is a full-stack AI-powered advertising creation and intelligence platform that enables startups, SMBs, and agencies to research competitor ads, generate image and video ad creatives, run AI product photoshoots, and launch campaigns across Meta, Google, TikTok, and YouTube from a single interface. The platform includes a proprietary library of 20M+ scored ads and supports 35+ languages.",
       "primary_verticals": [
         "Retail & E-commerce"
@@ -20,7 +19,6 @@
       "website": "https://moleculeai.com",
       "headquarters": "Delhi, India",
       "founded": 2023,
-      "company_size": "startup",
       "description": "Molecule AI is an AI-driven drug discovery startup that builds intelligent systems combining deep learning, molecular science, and generative AI to accelerate therapeutic candidate discovery. The company offers a cloud-based SaaS platform enabling researchers to perform end-to-end computational drug design including de novo molecule generation, virtual screening, ADMET prediction, and lead optimization.",
       "primary_verticals": [
         "Healthcare & Life Sciences"
@@ -34,7 +32,6 @@
       "website": "https://www.vishwa.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2023,
-      "company_size": "startup",
       "description": "Vishwa AI provides a suite of actionable AI products for document intelligence, lending risk assessment, demand forecasting, content automation, and workflow orchestration. The platform emphasizes no-code, low-touch generative AI for finance and operations teams, with enterprise-grade compliance certifications including SOC 2 Type 2, ISO 27001, GDPR, and CCPA.",
       "primary_verticals": [
         "Financial Services (BFSI)",

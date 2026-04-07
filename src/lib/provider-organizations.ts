@@ -7,7 +7,7 @@ import { api } from "../../convex/_generated/api";
 type ServerAuth = Awaited<ReturnType<typeof auth>>;
 
 async function getConvexToken(authState: ServerAuth) {
-  const token = await authState.getToken();
+  const token = await authState.getToken({ template: "convex" });
   if (!token) {
     throw new Error("Unable to authenticate with Convex");
   }

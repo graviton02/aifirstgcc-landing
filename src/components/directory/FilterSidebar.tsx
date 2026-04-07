@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CaretDown, X } from "@phosphor-icons/react";
 import {
   FUNCTIONAL_CATEGORIES,
+  INFRASTRUCTURE_CATEGORIES,
   INDUSTRY_CATEGORIES,
 } from "@/lib/categories";
 
@@ -17,16 +18,19 @@ interface FilterSidebarProps {
   filters: Filters;
   onFilterChange: (filters: Filters) => void;
   agentCounts: Record<string, number>;
+  activeTab: string | null;
 }
 
 export function FilterSidebar({
   filters,
   onFilterChange,
   agentCounts,
+  activeTab,
 }: FilterSidebarProps) {
   const hasAnyFilter =
     filters.functional.length > 0 ||
-    filters.industry.length > 0;
+    filters.industry.length > 0 ||
+    filters.infrastructure.length > 0;
 
   const clearAll = () =>
     onFilterChange({ functional: [], industry: [], infrastructure: [] });
@@ -51,13 +55,17 @@ export function FilterSidebar({
         </button>
       )}
 
-      <FilterGroup
-        label="Function"
-        items={[...FUNCTIONAL_CATEGORIES]}
-        selected={filters.functional}
-        onToggle={(v) => toggleFilter("functional", v)}
-        counts={agentCounts}
-      />
+      {activeTab ? (
+        <FilterGroupNote label="Function" note={`Filtered by tab: ${activeTab}`} />
+      ) : (
+        <FilterGroup
+          label="Function"
+          items={[...FUNCTIONAL_CATEGORIES]}
+          selected={filters.functional}
+          onToggle={(v) => toggleFilter("functional", v)}
+          counts={agentCounts}
+        />
+      )}
       <FilterGroup
         label="Industry"
         items={[...INDUSTRY_CATEGORIES]}
@@ -65,7 +73,35 @@ export function FilterSidebar({
         onToggle={(v) => toggleFilter("industry", v)}
         counts={agentCounts}
       />
+      <FilterGroup
+        label="Infrastructure"
+        items={[...INFRASTRUCTURE_CATEGORIES]}
+        selected={filters.infrastructure}
+        onToggle={(v) => toggleFilter("infrastructure", v)}
+        counts={agentCounts}
+      />
     </nav>
+  );
+}
+
+function FilterGroupNote({
+  label,
+  note,
+}: {
+  label: string;
+  note: string;
+}) {
+  return (
+    <div className="border-b border-enterprise-100 pb-3 mb-3">
+      <div className="flex items-center justify-between w-full px-1 py-2 text-xs font-semibold text-enterprise-500 uppercase tracking-widest">
+        {label}
+      </div>
+      <div className="mt-1 px-1">
+        <div className="rounded-md border border-enterprise-200 bg-enterprise-50 px-3 py-2 text-sm text-enterprise-600">
+          {note}
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -20,7 +20,9 @@ type NotificationEntityType =
   | "agentSubmission"
   | "agentEdit"
   | "providerRequest"
-  | "companyMember";
+  | "companyMember"
+  | "review"
+  | "reviewResponse";
 
 type NotificationWriteCtx = Pick<MutationCtx, "db" | "scheduler">;
 type NotificationReadCtx = Pick<QueryCtx, "db"> | Pick<MutationCtx, "db">;
@@ -35,6 +37,7 @@ type NotificationArgs = {
   entityType: NotificationEntityType;
   entityId: string;
   metadata?: Record<string, unknown>;
+  dedupeKey?: string;
   shouldEmail?: boolean;
   recipientEmail?: string;
   emailSubject?: string;
@@ -63,6 +66,12 @@ function getDedupeKey(type: string, entityId: string, recipientUserId: string) {
   return `${type}:${entityId}:${recipientUserId}`;
 }
 
+function resolveDedupeKey(args: Pick<NotificationArgs, "type" | "entityId" | "recipientUserId" | "dedupeKey">) {
+  return args.dedupeKey
+    ? `${args.dedupeKey}:${args.recipientUserId}`
+    : getDedupeKey(args.type, args.entityId, args.recipientUserId);
+}
+
 async function getActiveCompanyOwners(
   ctx: NotificationReadCtx,
   companyId: Id<"companies">
@@ -82,6 +91,30 @@ async function getActiveCompanyOwners(
   const deduped = new Map<string, string>();
   for (const owner of owners) {
     deduped.set(owner.user_id!, owner.email);
+  }
+
+  return Array.from(deduped.entries()).map(([userId, email]) => ({
+    userId,
+    email,
+  }));
+}
+
+async function getActiveCompanyMembers(
+  ctx: NotificationReadCtx,
+  companyId: Id<"companies">
+): Promise<Array<{ userId: string; email: string }>> {
+  const memberships = await ctx.db
+    .query("companyMembers")
+    .withIndex("by_companyId", (q) => q.eq("company_id", companyId))
+    .collect();
+
+  const activeMembers = memberships.filter(
+    (membership) => membership.status === "active" && Boolean(membership.user_id)
+  );
+
+  const deduped = new Map<string, string>();
+  for (const member of activeMembers) {
+    deduped.set(member.user_id!, member.email);
   }
 
   return Array.from(deduped.entries()).map(([userId, email]) => ({
@@ -113,7 +146,7 @@ export async function createUserNotification(
   ctx: NotificationWriteCtx,
   args: NotificationArgs
 ) {
-  const dedupeKey = getDedupeKey(args.type, args.entityId, args.recipientUserId);
+  const dedupeKey = resolveDedupeKey(args);
   const existing = await ctx.db
     .query("notifications")
     .withIndex("by_dedupeKey", (q) => q.eq("dedupe_key", dedupeKey))
@@ -187,6 +220,42 @@ export async function createCompanyOwnerNotifications(
   return notifications;
 }
 
+export async function createCompanyMemberNotifications(
+  ctx: NotificationWriteCtx,
+  args: Omit<NotificationArgs, "recipientUserId"> & {
+    companyId: Id<"companies">;
+    submitterUserId?: string;
+    submitterEmail?: string;
+  }
+) {
+  const recipients = new Map<string, string>();
+  const members = await getActiveCompanyMembers(ctx, args.companyId);
+
+  for (const member of members) {
+    recipients.set(member.userId, member.email);
+  }
+
+  if (args.submitterUserId) {
+    const submitterEmail =
+      args.submitterEmail ??
+      (await getCompanyMembershipEmail(ctx, args.companyId, args.submitterUserId));
+    recipients.set(args.submitterUserId, submitterEmail ?? "");
+  }
+
+  const notifications: Id<"notifications">[] = [];
+  for (const [recipientUserId, recipientEmail] of recipients.entries()) {
+    const notificationId = await createUserNotification(ctx, {
+      ...args,
+      recipientUserId,
+      recipientEmail: recipientEmail || undefined,
+    });
+
+    notifications.push(notificationId);
+  }
+
+  return notifications;
+}
+
 export const createUserNotificationInternal = internalMutation({
   args: {
     recipient_user_id: v.string(),
@@ -198,6 +267,7 @@ export const createUserNotificationInternal = internalMutation({
     entity_type: v.string(),
     entity_id: v.string(),
     metadata: v.optional(v.any()),
+    dedupe_key: v.optional(v.string()),
     should_email: v.optional(v.boolean()),
     recipient_email: v.optional(v.string()),
     email_subject: v.optional(v.string()),
@@ -214,6 +284,7 @@ export const createUserNotificationInternal = internalMutation({
       entityType: args.entity_type as NotificationEntityType,
       entityId: args.entity_id,
       metadata: args.metadata,
+      dedupeKey: args.dedupe_key,
       shouldEmail: args.should_email,
       recipientEmail: args.recipient_email,
       emailSubject: args.email_subject,

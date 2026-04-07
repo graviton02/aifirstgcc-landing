@@ -6,7 +6,6 @@
       "website": "https://www.haptik.ai",
       "headquarters": "Mumbai, India",
       "founded": 2013,
-      "company_size": "scaleup",
       "description": "Haptik is a conversational AI platform that builds enterprise-grade AI agents for customer experience across chat, voice, and messaging channels. The platform supports 100+ languages across 10+ channels and serves industries including retail, fintech, healthcare, travel, and education.",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -24,7 +23,6 @@
       "website": "https://corover.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2016,
-      "company_size": "scaleup",
       "description": "CoRover.ai is a conversational and agentic AI platform company that builds multilingual, multi-modal AI assistants and copilots for enterprises and government organizations. The platform supports 100+ languages across text, voice, and video channels and is notable for its sovereign language model BharatGPT and CMMI Level 5 certification.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -44,7 +42,6 @@
       "website": "https://www.kapture.cx",
       "headquarters": "Bengaluru, India",
       "founded": 2014,
-      "company_size": "scaleup",
       "description": "Kapture CX is an AI-powered customer experience platform that uses agentic AI trained on over one billion real conversations to automate support workflows across voice, email, chat, and social channels. The platform serves enterprises in regulated and high-volume industries with modular self-service, agent productivity, and analytics solutions.",
       "primary_verticals": [
         "Financial Services (BFSI)",

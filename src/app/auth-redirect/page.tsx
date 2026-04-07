@@ -9,7 +9,7 @@ import { useUserRole } from "@/auth/useUserRole";
 import { usePendingInviteActivation } from "@/hooks/usePendingInviteActivation";
 
 export default function AuthRedirectPage() {
-  const { role, isLoaded } = useUserRole();
+  const { role, isLoaded, providerSetupStarted } = useUserRole();
   const myCompany = useQuery(api.companyMembers.getMyCompany);
   const router = useRouter();
   const { isResolving: isResolvingInvite } = usePendingInviteActivation();
@@ -21,8 +21,9 @@ export default function AuthRedirectPage() {
       if (myCompany === undefined) return;
       router.replace(myCompany ? "/dashboard" : "/provider/setup");
     }
+    else if (providerSetupStarted) router.replace("/provider/setup");
     else router.replace("/onboarding");
-  }, [role, isLoaded, isResolvingInvite, myCompany, router]);
+  }, [role, isLoaded, isResolvingInvite, myCompany, providerSetupStarted, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-enterprise-50">

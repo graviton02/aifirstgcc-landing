@@ -1,11 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, CheckCircle, XCircle, Building2, Calendar, Globe, MapPin, Store } from "lucide-react";
+import {
+  Loader2,
+  CheckCircle,
+  XCircle,
+  Calendar,
+  Globe,
+  MapPin,
+  Building2,
+} from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
 import { AgentReviewDetails } from "./AgentReviewDetails";
+import { CompanyLogo } from "@/components/directory/CompanyLogo";
 
 function formatDate(timestamp: number): string {
   return new Date(timestamp).toLocaleDateString("en-US", {
@@ -17,12 +26,10 @@ function formatDate(timestamp: number): string {
 
 function SubmissionCard({
   submission,
-  token,
   approveSubmission,
   rejectSubmission,
 }: {
   submission: any;
-  token: string;
   approveSubmission: any;
   rejectSubmission: any;
 }) {
@@ -35,7 +42,6 @@ function SubmissionCard({
     try {
       await approveSubmission({
         submission_id: submission._id as Id<"companySubmissions">,
-        token,
       });
     } finally {
       setLoading(null);
@@ -47,7 +53,6 @@ function SubmissionCard({
     try {
       await rejectSubmission({
         submission_id: submission._id as Id<"companySubmissions">,
-        token,
         notes: rejectionNotes.trim() || undefined,
       });
     } finally {
@@ -62,8 +67,36 @@ function SubmissionCard({
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex items-center gap-2">
-            <Store className="h-4 w-4 text-enterprise-400" />
+            <CompanyLogo
+              company={{
+                name: submission.company_name,
+                logo_url: submission.logo_url,
+                logo_bg: submission.logo_bg,
+              }}
+              size="xs"
+            />
             <p className="font-semibold text-enterprise-900">{submission.company_name}</p>
+          </div>
+
+          <div className="rounded-xl border border-enterprise-200 bg-enterprise-50 px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-enterprise-500">
+              Submitted Logo
+            </p>
+            <div className="mt-3 flex items-center gap-3">
+              <CompanyLogo
+                company={{
+                  name: submission.company_name,
+                  logo_url: submission.logo_url,
+                  logo_bg: submission.logo_bg,
+                }}
+                size="lg"
+              />
+              <p className="text-sm text-enterprise-600">
+                {submission.logo_bg === "dark"
+                  ? "Dark background treatment requested."
+                  : "Standard background treatment requested."}
+              </p>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 text-sm text-enterprise-600">
@@ -206,12 +239,12 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export function AdminCompanySubmissionsTab({ token }: { token: string }) {
+export function AdminCompanySubmissionsTab() {
   const [view, setView] = useState<"pending" | "history">("pending");
-  const pending = useQuery(api.admin.getPendingCompanySubmissions, { token });
+  const pending = useQuery(api.admin.getPendingCompanySubmissions, {});
   const history = useQuery(
     api.admin.getCompanySubmissionsHistory,
-    view === "history" ? { token } : "skip"
+    view === "history" ? {} : "skip"
   );
   const approveSubmission = useMutation(api.admin.approveCompanySubmission);
   const rejectSubmission = useMutation(api.admin.rejectCompanySubmission);
@@ -257,7 +290,6 @@ export function AdminCompanySubmissionsTab({ token }: { token: string }) {
                 <SubmissionCard
                   key={submission._id}
                   submission={submission}
-                  token={token}
                   approveSubmission={approveSubmission}
                   rejectSubmission={rejectSubmission}
                 />

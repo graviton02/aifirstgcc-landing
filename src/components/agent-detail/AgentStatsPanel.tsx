@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useAuth } from "@clerk/nextjs";
 import {
   Buildings,
   MapPin,
@@ -10,7 +11,9 @@ import {
 } from "@phosphor-icons/react";
 import Link from "next/link";
 import type { Agent, Company } from "@/lib/types";
+import { useUserRole } from "@/auth/useUserRole";
 import { ReachoutRequestButton } from "@/components/reachout/ReachoutRequestButton";
+import { StarRatingDisplay } from "@/components/reviews/StarRating";
 
 interface Props {
   agent: Agent;
@@ -18,6 +21,17 @@ interface Props {
 }
 
 export function AgentStatsPanel({ agent, company }: Props) {
+  const { isSignedIn } = useAuth();
+  const { role, isLoaded: roleLoaded } = useUserRole();
+  const foundedYear = company?.founded;
+  const primaryVerticals = company?.primary_verticals ?? [];
+  const suppressClaimCtas = isSignedIn && (!roleLoaded || role === "gcc");
+  const isUnclaimedCompany =
+    company &&
+    company.claim_status !== "claimed" &&
+    company.claim_status !== "approved" &&
+    company.claim_status !== "pending";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -54,15 +68,34 @@ export function AgentStatsPanel({ agent, company }: Props) {
                   {company.headquarters}
                 </span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Calendar
-                  weight="duotone"
-                  className="w-4 h-4 text-enterprise-400"
-                />
-                <span className="text-sm text-enterprise-600">
-                  Founded {company.founded}
-                </span>
-              </div>
+              {foundedYear ? (
+                <div className="flex items-center gap-2.5">
+                  <Calendar
+                    weight="duotone"
+                    className="w-4 h-4 text-enterprise-400"
+                  />
+                  <span className="text-sm text-enterprise-600">
+                    Founded {foundedYear}
+                  </span>
+                </div>
+              ) : null}
+              {primaryVerticals.length > 0 ? (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-enterprise-400">
+                    Primary Verticals
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {primaryVerticals.map((vertical) => (
+                      <span
+                        key={vertical}
+                        className="rounded-md border border-enterprise-100 bg-enterprise-50 px-2.5 py-1 text-xs text-enterprise-600"
+                      >
+                        {vertical}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
               {company.claim_status === "claimed" ? (
                 <div className="flex items-center gap-2.5">
                   <ShieldCheck
@@ -93,20 +126,7 @@ export function AgentStatsPanel({ agent, company }: Props) {
                     Claim under review
                   </span>
                 </div>
-              ) : (
-                <div className="flex items-center gap-2.5">
-                  <Shield
-                    weight="duotone"
-                    className="w-4 h-4 text-enterprise-400"
-                  />
-                  <Link
-                    href={`/claim/${company.slug}`}
-                    className="text-sm font-medium text-primary hover:underline"
-                  >
-                    Claim this profile
-                  </Link>
-                </div>
-              )}
+              ) : null}
               <ReachoutRequestButton
                 company={company}
                 agents={[agent]}
@@ -119,6 +139,31 @@ export function AgentStatsPanel({ agent, company }: Props) {
         )}
 
         <div className="h-px bg-enterprise-100" />
+
+        {(agent.review_count ?? 0) > 0 && agent.rating ? (
+          <>
+            <div>
+              <h3 className="text-xs font-semibold text-enterprise-400 uppercase tracking-widest mb-3">
+                Ratings
+              </h3>
+              <div className="space-y-3">
+                <RatingRow label="Overall" value={agent.rating} />
+                {agent.rating_effectiveness ? (
+                  <RatingRow label="Effectiveness" value={agent.rating_effectiveness} />
+                ) : null}
+                {agent.rating_value ? (
+                  <RatingRow label="Value" value={agent.rating_value} />
+                ) : null}
+                <p className="text-xs text-enterprise-400">
+                  Based on {agent.review_count} review
+                  {agent.review_count === 1 ? "" : "s"}.
+                </p>
+              </div>
+            </div>
+
+            <div className="h-px bg-enterprise-100" />
+          </>
+        ) : null}
 
         {/* Functions */}
         <div>
@@ -158,6 +203,28 @@ export function AgentStatsPanel({ agent, company }: Props) {
 
         <div className="h-px bg-enterprise-100" />
 
+        {agent.infrastructure_categories?.length ? (
+          <>
+            <div>
+              <h3 className="text-xs font-semibold text-enterprise-400 uppercase tracking-widest mb-3">
+                Infrastructure
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {agent.infrastructure_categories.map((category) => (
+                  <span
+                    key={category}
+                    className="px-2.5 py-1 rounded-md bg-enterprise-50 text-xs text-enterprise-600 border border-enterprise-100"
+                  >
+                    {category}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="h-px bg-enterprise-100" />
+          </>
+        ) : null}
+
         {/* Quick stats */}
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -180,7 +247,7 @@ export function AgentStatsPanel({ agent, company }: Props) {
       </div>
 
       {/* Claim CTA card — only for unclaimed profiles */}
-      {company && company.claim_status !== "claimed" && company.claim_status !== "approved" && company.claim_status !== "pending" && (
+      {isUnclaimedCompany && !suppressClaimCtas && (
         <div className="rounded-2xl border border-enterprise-200/60 bg-white p-4 mt-3">
           <p className="text-xs text-enterprise-700">
             Is this your company?{" "}
@@ -197,5 +264,17 @@ export function AgentStatsPanel({ agent, company }: Props) {
         </div>
       )}
     </motion.div>
+  );
+}
+
+function RatingRow({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-lg border border-enterprise-100 bg-enterprise-50/60 px-3 py-2.5">
+      <div>
+        <p className="text-sm font-medium text-enterprise-800">{label}</p>
+        <StarRatingDisplay value={value} className="mt-1" />
+      </div>
+      <span className="text-sm font-semibold text-enterprise-900">{value.toFixed(1)}</span>
+    </div>
   );
 }

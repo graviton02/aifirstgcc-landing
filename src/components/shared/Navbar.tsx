@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Sparkles, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, Brain, ChevronDown } from 'lucide-react'
 import { useAuth, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
@@ -58,14 +57,12 @@ export function Navbar() {
 
   const dashboardPath =
     role === 'gcc' ? '/gcc-dashboard' : providerSetupStarted ? '/provider/setup' : '/dashboard'
-  const showNotifications = isAuthLoaded && isSignedIn && (role === 'provider' || role === 'gcc')
+  const notificationRole = role === 'provider' || role === 'gcc' ? role : null
+  const showNotifications = isAuthLoaded && isSignedIn && notificationRole !== null
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           hasScrolledBg
             ? 'bg-white/80 backdrop-blur-xl shadow-lg shadow-purple-500/5 border-b border-enterprise-200/50'
@@ -76,11 +73,7 @@ export function Navbar() {
           <nav className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/">
-              <motion.div
-                className="flex items-center group"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-              >
+              <div className="flex items-center group">
                 <img
                   src="/aifirstgcclogo.svg"
                   alt="AI-First GCC logo"
@@ -104,7 +97,7 @@ export function Navbar() {
                     The AI-First GCC Platform
                   </span>
                 </div>
-              </motion.div>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -136,30 +129,22 @@ export function Navbar() {
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isAboutOpen ? 'rotate-180' : ''}`} />
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300" />
                 </button>
-                <AnimatePresence>
-                  {isAboutOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 mt-2 w-48 bg-white/95 backdrop-blur-xl rounded-xl border border-enterprise-200 shadow-xl overflow-hidden"
-                    >
-                      <div className="py-1.5">
-                        {aboutItems.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setIsAboutOpen(false)}
-                            className="flex items-center w-full px-4 py-2.5 text-sm text-enterprise-700 hover:bg-enterprise-50 hover:text-enterprise-900 transition-colors"
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {isAboutOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white/95 backdrop-blur-xl rounded-xl border border-enterprise-200 shadow-xl overflow-hidden">
+                    <div className="py-1.5">
+                      {aboutItems.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setIsAboutOpen(false)}
+                          className="flex items-center w-full px-4 py-2.5 text-sm text-enterprise-700 hover:bg-enterprise-50 hover:text-enterprise-900 transition-colors"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Resources dropdown */}
@@ -178,39 +163,31 @@ export function Navbar() {
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isResourcesOpen ? 'rotate-180' : ''}`} />
                   <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${isResourcesPage ? 'w-full' : 'w-0 group-hover:w-full'}`} />
                 </button>
-                <AnimatePresence>
-                  {isResourcesOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-xl border border-enterprise-200 shadow-xl overflow-hidden"
-                    >
-                      <div className="py-1.5">
-                        {resourcesItems.map((item) => {
-                          const isActive = pathname.startsWith(item.href)
-                          const Icon = item.icon
-                          return (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              onClick={() => setIsResourcesOpen(false)}
-                              className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
-                                isActive
-                                  ? 'text-purple-600 bg-purple-50'
-                                  : 'text-enterprise-700 hover:bg-enterprise-50 hover:text-enterprise-900'
-                              }`}
-                            >
-                              <Icon className="w-4 h-4" />
-                              {item.label}
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {isResourcesOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-xl border border-enterprise-200 shadow-xl overflow-hidden">
+                    <div className="py-1.5">
+                      {resourcesItems.map((item) => {
+                        const isActive = pathname.startsWith(item.href)
+                        const Icon = item.icon
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setIsResourcesOpen(false)}
+                            className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
+                              isActive
+                                ? 'text-purple-600 bg-purple-50'
+                                : 'text-enterprise-700 hover:bg-enterprise-50 hover:text-enterprise-900'
+                            }`}
+                          >
+                            <Icon className="w-4 h-4" />
+                            {item.label}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Auth-aware CTA */}
@@ -225,7 +202,9 @@ export function Navbar() {
                       Dashboard
                     </Button>
                   </Link>
-                  {showNotifications && <NotificationBell role={role} isScrolled={hasScrolledBg} />}
+                  {showNotifications && notificationRole && (
+                    <NotificationBell role={notificationRole} isScrolled={hasScrolledBg} />
+                  )}
                   <UserButton
                     appearance={{
                       elements: {
@@ -246,7 +225,9 @@ export function Navbar() {
 
             {/* Mobile Menu Button */}
             <div className="flex items-center gap-2 md:hidden">
-              {showNotifications && <NotificationBell role={role} isScrolled={hasScrolledBg} />}
+              {showNotifications && notificationRole && (
+                <NotificationBell role={notificationRole} isScrolled={hasScrolledBg} />
+              )}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={`p-2 rounded-lg transition-colors ${
@@ -260,21 +241,14 @@ export function Navbar() {
             </div>
           </nav>
         </Container>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-x-0 top-16 z-40 md:hidden"
-          >
-            <div className="bg-white/95 backdrop-blur-xl border-b border-enterprise-200 shadow-xl">
-              <Container>
-                <div className="py-4 space-y-2">
+      {isMobileMenuOpen && (
+        <div className="fixed inset-x-0 top-16 z-40 md:hidden">
+          <div className="bg-white/95 backdrop-blur-xl border-b border-enterprise-200 shadow-xl">
+            <Container>
+              <div className="py-4 space-y-2">
                   <Link
                     href="/directory"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -374,12 +348,11 @@ export function Navbar() {
                       )}
                     </div>
                   )}
-                </div>
-              </Container>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+            </Container>
+          </div>
+        </div>
+      )}
     </>
   )
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense, useMemo, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -24,7 +24,7 @@ import { Footer } from "@/components/sections/Footer";
 import { CompanyLogo } from "@/components/directory/CompanyLogo";
 import { CATEGORY_COLORS } from "@/lib/category-colors";
 import { useCompare } from "@/hooks/useCompare";
-import type { Agent, Company } from "@/lib/types";
+import type { Agent } from "@/lib/types";
 
 function CompareContent() {
   const searchParams = useSearchParams();
@@ -52,24 +52,14 @@ function CompareContent() {
     }
   }, [slugs, searchParams, router]);
 
-  // Fetch agents
-  const agent0 = useQuery(api.agents.getBySlug, slugs[0] ? { slug: slugs[0] } : "skip");
-  const agent1 = useQuery(api.agents.getBySlug, slugs[1] ? { slug: slugs[1] } : "skip");
-  const agent2 = useQuery(api.agents.getBySlug, slugs[2] ? { slug: slugs[2] } : "skip");
-  const agent3 = useQuery(api.agents.getBySlug, slugs[3] ? { slug: slugs[3] } : "skip");
+  const agents = useQuery(
+    api.agents.getBySlugs,
+    slugs.length > 0 ? { slugs } : "skip"
+  ) as Agent[] | undefined;
+  const loading = agents === undefined && slugs.length > 0;
+  const resolvedAgents = agents ?? [];
 
-  const agentResults = [agent0, agent1, agent2, agent3].slice(0, slugs.length);
-  const agents = agentResults.filter((a): a is NonNullable<typeof a> => a !== undefined && a !== null) as Agent[];
-  const loading = agentResults.some((a) => a === undefined) && slugs.length > 0;
-
-  // Fetch all companies for lookup
-  const allCompanies = useQuery(api.companies.listAll) as Company[] | undefined;
-  const companyMap = useMemo(() => {
-    if (!allCompanies) return new Map<string, Company>();
-    return new Map(allCompanies.map((c) => [c._id, c]));
-  }, [allCompanies]);
-
-  const colCount = agents.length;
+  const colCount = resolvedAgents.length;
   // Grid: label column + agent columns + optional empty column
   const showAddSlot = colCount < 4 && colCount >= 2;
 
@@ -168,8 +158,12 @@ function CompareContent() {
                   {/* Label spacer */}
                   <div />
 
-                  {agents.map((agent, i) => {
-                    const company = companyMap.get(agent.company_id!);
+                  {resolvedAgents.map((agent, i) => {
+                    const company = {
+                      name: agent.company_name || "Unknown",
+                      logo_url: agent.company_logo_url,
+                      logo_bg: agent.company_logo_bg,
+                    };
                     const dotColor = CATEGORY_COLORS[agent.category] || "bg-enterprise-400";
                     return (
                       <motion.div
@@ -197,7 +191,7 @@ function CompareContent() {
                               {agent.agent_name}
                             </Link>
                             <p className="text-sm text-enterprise-400 mt-0.5">
-                              {company?.name || "Unknown"}
+                              {company.name}
                             </p>
                           </div>
                         </div>
@@ -226,29 +220,51 @@ function CompareContent() {
                 {/* Comparison Rows */}
                 <div className="space-y-px">
                   <CompareRow
+                    label="Rating"
+                    icon={<Scales weight="duotone" className="w-4 h-4" />}
+                    agents={resolvedAgents}
+                    colCount={colCount}
+                    showAddSlot={showAddSlot}
+                    render={(a) =>
+                      (a.review_count ?? 0) > 0 && a.rating ? (
+                        <div>
+                          <p className="text-base font-semibold text-enterprise-900">
+                            {a.rating.toFixed(1)}
+                          </p>
+                          <p className="mt-1 text-xs text-enterprise-500">
+                            {a.review_count} review{a.review_count === 1 ? "" : "s"}
+                          </p>
+                        </div>
+                      ) : (
+                        <span className="text-enterprise-300">No reviews yet</span>
+                      )
+                    }
+                    index={0}
+                  />
+                  <CompareRow
                     label="Tagline"
                     icon={<Tag weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
+                    agents={resolvedAgents}
                     colCount={colCount}
                     showAddSlot={showAddSlot}
                     render={(a) => a.tagline || "—"}
-                    index={0}
+                    index={1}
                   />
                   <CompareRow
                     label="Description"
                     icon={<Lightbulb weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
+                    agents={resolvedAgents}
                     colCount={colCount}
                     showAddSlot={showAddSlot}
                     render={(a) => (
                       <span className="line-clamp-4">{a.description}</span>
                     )}
-                    index={1}
+                    index={2}
                   />
                   <CompareRow
                     label="Categories"
                     icon={<Briefcase weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
+                    agents={resolvedAgents}
                     colCount={colCount}
                     showAddSlot={showAddSlot}
                     render={(a) => (
@@ -261,12 +277,12 @@ function CompareContent() {
                         {(a.functional_categories ?? []).length === 0 && <span className="text-enterprise-300">—</span>}
                       </div>
                     )}
-                    index={2}
+                    index={3}
                   />
                   <CompareRow
                     label="Industries"
                     icon={<Buildings weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
+                    agents={resolvedAgents}
                     colCount={colCount}
                     showAddSlot={showAddSlot}
                     render={(a) => (
@@ -279,12 +295,12 @@ function CompareContent() {
                         {(a.industry_categories ?? []).length === 0 && <span className="text-enterprise-300">—</span>}
                       </div>
                     )}
-                    index={3}
+                    index={4}
                   />
                   <CompareRow
                     label="Use Cases"
                     icon={<Target weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
+                    agents={resolvedAgents}
                     colCount={colCount}
                     showAddSlot={showAddSlot}
                     render={(a) => (
@@ -298,12 +314,12 @@ function CompareContent() {
                         {(a.use_cases ?? []).length === 0 && <span className="text-enterprise-300">—</span>}
                       </div>
                     )}
-                    index={4}
+                    index={5}
                   />
                   <CompareRow
                     label="Integrations"
                     icon={<Plugs weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
+                    agents={resolvedAgents}
                     colCount={colCount}
                     showAddSlot={showAddSlot}
                     render={(a) => (
@@ -321,12 +337,12 @@ function CompareContent() {
                         {(a.integrations ?? []).length === 0 && <span className="text-enterprise-300">—</span>}
                       </div>
                     )}
-                    index={5}
+                    index={6}
                   />
                   <CompareRow
                     label="Outcomes"
                     icon={<Globe weight="duotone" className="w-4 h-4" />}
-                    agents={agents}
+                    agents={resolvedAgents}
                     colCount={colCount}
                     showAddSlot={showAddSlot}
                     render={(a) => (
@@ -340,7 +356,7 @@ function CompareContent() {
                         {(a.expected_outcomes ?? []).length === 0 && <span className="text-enterprise-300 text-xs">—</span>}
                       </ul>
                     )}
-                    index={6}
+                    index={7}
                   />
                 </div>
 
@@ -352,7 +368,7 @@ function CompareContent() {
                   className={`grid gap-3 mt-4 ${gridCols(colCount, showAddSlot)}`}
                 >
                   <div />
-                  {agents.map((agent) => (
+                  {resolvedAgents.map((agent) => (
                     <Link
                       key={agent._id}
                       href={`/agents/${agent.slug ?? agent._id}`}

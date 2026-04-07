@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, CheckCircle, XCircle, Building2, Calendar, Mail, User } from "lucide-react";
+import { Loader2, CheckCircle, XCircle, Building2, Calendar, Mail, User, Link as LinkIcon } from "lucide-react";
 import { useQuery, useMutation, useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
+import { CompanyLogo } from "@/components/directory/CompanyLogo";
 
 function formatDate(timestamp: number): string {
   return new Date(timestamp).toLocaleDateString("en-US", {
@@ -21,26 +22,9 @@ function CompanyBadge({ company }: { company: any }) {
     );
   }
 
-  const initials = company.name
-    .split(/[\s.]+/)
-    .slice(0, 2)
-    .map((w: string) => w[0])
-    .join("")
-    .toUpperCase();
-
   return (
     <div className="flex items-center gap-2 mt-1">
-      {company.logo_url ? (
-        <img
-          src={company.logo_url}
-          alt={company.name}
-          className="w-6 h-6 rounded object-contain bg-white border border-enterprise-100"
-        />
-      ) : (
-        <div className="w-6 h-6 rounded bg-enterprise-900 text-white flex items-center justify-center text-[10px] font-semibold shrink-0">
-          {initials}
-        </div>
-      )}
+      <CompanyLogo company={company} size="xs" />
       <span className="text-sm font-medium text-enterprise-800">{company.name}</span>
     </div>
   );
@@ -48,12 +32,10 @@ function CompanyBadge({ company }: { company: any }) {
 
 function ClaimCard({
   claim,
-  token,
   approveClaim,
   rejectClaim,
 }: {
   claim: any;
-  token: string;
   approveClaim: any;
   rejectClaim: any;
 }) {
@@ -69,7 +51,7 @@ function ClaimCard({
   const handleApproveConfirm = async () => {
     setLoading("approve");
     try {
-      await approveClaim({ claim_id: claim._id as Id<"claimRequests">, token });
+      await approveClaim({ claim_id: claim._id as Id<"claimRequests"> });
     } finally {
       setLoading(null);
       setConfirming(false);
@@ -89,7 +71,6 @@ function ClaimCard({
     try {
       await rejectClaim({
         claim_id: claim._id as Id<"claimRequests">,
-        token,
         notes: rejectionNotes.trim() || undefined,
       });
     } finally {
@@ -123,6 +104,20 @@ function ClaimCard({
               {claim.claimant_email}
             </a>
           </div>
+
+          {claim.claimant_linkedin ? (
+            <div className="flex items-center gap-2 mt-1">
+              <LinkIcon className="w-4 h-4 text-enterprise-400 shrink-0" />
+              <a
+                href={claim.claimant_linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-enterprise-600 hover:text-primary hover:underline"
+              >
+                LinkedIn profile
+              </a>
+            </div>
+          ) : null}
 
           <div className="flex items-center gap-2 mt-2">
             <Building2 className="w-4 h-4 text-enterprise-400 shrink-0" />
@@ -248,12 +243,12 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export function AdminClaimsTab({ token }: { token: string }) {
+export function AdminClaimsTab() {
   const [view, setView] = useState<"pending" | "history">("pending");
-  const claims = useQuery(api.admin.getPendingClaims, { token });
+  const claims = useQuery(api.admin.getPendingClaims, {});
   const history = useQuery(
     api.admin.getClaimsHistory,
-    view === "history" ? { token } : "skip"
+    view === "history" ? {} : "skip"
   );
   const approveClaim = useAction(api.admin.approveClaim);
   const rejectClaim = useMutation(api.admin.rejectClaim);
@@ -299,7 +294,6 @@ export function AdminClaimsTab({ token }: { token: string }) {
                 <ClaimCard
                   key={claim._id}
                   claim={claim}
-                  token={token}
                   approveClaim={approveClaim}
                   rejectClaim={rejectClaim}
                 />
@@ -332,6 +326,19 @@ export function AdminClaimsTab({ token }: { token: string }) {
                         <Mail className="w-4 h-4 text-enterprise-400 shrink-0" />
                         <span className="text-sm text-enterprise-600">{claim.claimant_email}</span>
                       </div>
+                      {claim.claimant_linkedin ? (
+                        <div className="flex items-center gap-2 mt-1">
+                          <LinkIcon className="w-4 h-4 text-enterprise-400 shrink-0" />
+                          <a
+                            href={claim.claimant_linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-enterprise-600 hover:text-primary hover:underline"
+                          >
+                            LinkedIn profile
+                          </a>
+                        </div>
+                      ) : null}
                       <div className="flex items-center gap-2 mt-2">
                         <Building2 className="w-4 h-4 text-enterprise-400 shrink-0" />
                         <CompanyBadge company={claim.company} />

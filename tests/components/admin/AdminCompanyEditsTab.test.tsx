@@ -17,6 +17,10 @@ vi.mock("convex/react", () => ({
   useMutation: (...args: unknown[]) => useMutationMock(...args),
 }));
 
+vi.mock("@/components/directory/CompanyLogo", () => ({
+  CompanyLogo: () => <div>Company Logo</div>,
+}));
+
 describe("AdminCompanyEditsTab", () => {
   beforeEach(() => {
     queryCall = 0;
@@ -67,7 +71,7 @@ describe("AdminCompanyEditsTab", () => {
       },
     ];
 
-    render(<AdminCompanyEditsTab token="admin-token" />);
+    render(<AdminCompanyEditsTab />);
 
     expect(screen.getByText("Acme AI Labs")).toBeInTheDocument();
     expect(screen.getByText(/2 fields changed/i)).toBeInTheDocument();
@@ -80,6 +84,37 @@ describe("AdminCompanyEditsTab", () => {
     expect(screen.getByText("https://old.example.com")).toBeInTheDocument();
     expect(screen.getByText("https://new.example.com")).toBeInTheDocument();
     expect(screen.queryByText("Headquarters")).not.toBeInTheDocument();
+  });
+
+  it("renders logo changes as a single visual diff entry", () => {
+    pendingResponse = [
+      {
+        _id: "edit-1",
+        company_id: "company-1",
+        status: "pending",
+        created_at: Date.now(),
+        company: {
+          name: "Acme AI Labs",
+          logo_url: "https://cdn.example.com/current-logo.svg",
+          logo_bg: undefined,
+        },
+        payload: {
+          logo_storage_id: "storage-logo-2",
+          logo_bg: "dark",
+          logo_preview_url: "https://cdn.example.com/proposed-logo.svg",
+        },
+      },
+    ];
+
+    render(<AdminCompanyEditsTab />);
+
+    expect(screen.getByText(/1 field changed/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /show changes/i }));
+
+    expect(screen.getByText("Logo")).toBeInTheDocument();
+    expect(screen.getAllByText("Company Logo")).toHaveLength(2);
+    expect(screen.queryByText("Logo Preview Url")).not.toBeInTheDocument();
   });
 
   it("keeps approve actions working and renders history without crashing", async () => {
@@ -106,14 +141,13 @@ describe("AdminCompanyEditsTab", () => {
       },
     ];
 
-    render(<AdminCompanyEditsTab token="admin-token" />);
+    render(<AdminCompanyEditsTab />);
 
     fireEvent.click(screen.getByTitle(/approve/i));
 
     await waitFor(() =>
       expect(approveMock).toHaveBeenCalledWith({
         edit_id: "edit-1",
-        token: "admin-token",
       })
     );
 

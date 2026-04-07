@@ -49,7 +49,11 @@ describe("agent submission helpers", () => {
       "Description is required.",
       "Select at least one functional category.",
       "Select at least one industry category.",
+      "Tagline is required.",
       "Add at least one use case.",
+      "Add at least one integration.",
+      "Add at least one expected outcome.",
+      "Product page URL is required.",
     ]);
   });
 });

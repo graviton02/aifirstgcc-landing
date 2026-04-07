@@ -1,9 +1,11 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { FlutedGlass } from '@paper-design/shaders-react'
 import { Container } from '@/components/shared/Container'
 import { AnimatedSection } from '@/components/shared/AnimatedSection'
+
+const FLUTED_GLASS_IMAGE =
+  "https://workers.paper.design/file-assets/01KH9JD322HQFK1KE4YGW4GNAT/01KH9JJHZ34GAY6YYZVV7KB90E.webp"
 
 const benefits = [
   {
@@ -69,27 +71,11 @@ const cardVariants = {
 export function ProvidersSection() {
   return (
     <section id="providers" className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
-      {/* FlutedGlass shader background */}
+      {/* Static background */}
       <div className="absolute inset-0">
-        <FlutedGlass
-          size={0.5}
-          shape="wave"
-          angle={0}
-          distortionShape="lens"
-          distortion={0.5}
-          shift={0}
-          blur={0}
-          edges={0}
-          stretch={0}
-          image="https://workers.paper.design/file-assets/01KH9JD322HQFK1KE4YGW4GNAT/01KH9JJHZ34GAY6YYZVV7KB90E.webp"
-          scale={1.3}
-          fit="cover"
-          highlights={0.1}
-          shadows={0.25}
-          colorBack="#00000000"
-          colorHighlight="#FFFFFF"
-          colorShadow="#000000"
-          className="w-full h-full"
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url("${FLUTED_GLASS_IMAGE}")` }}
         />
         {/* Overlay for text readability */}
         <div className="absolute inset-0 bg-black/40" />

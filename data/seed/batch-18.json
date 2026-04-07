@@ -6,7 +6,6 @@
       "website": "https://murf.ai",
       "headquarters": "Salt Lake City, Utah, USA",
       "founded": 2020,
-      "company_size": "scaleup",
       "description": "Murf.ai is an AI voice infrastructure company that provides text-to-speech, voice cloning, AI dubbing, and conversational AI voice technology for enterprises. The platform serves over 10 million developers and creators, powering voice agents, voiceover production, and multilingual content localization for 300+ Forbes 2000 companies across industries including healthcare, insurance, retail, and financial services.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -24,7 +23,6 @@
       "website": "https://www.netradyne.com",
       "headquarters": "San Diego, California, USA",
       "founded": 2015,
-      "company_size": "scaleup",
       "description": "Netradyne is an AI and edge computing company specializing in fleet safety and management. Its platform uses always-on computer vision and on-device AI processing across multi-camera systems to analyze 100% of driving time, providing real-time coaching, automated safety alerts, and natural-language video search for commercial fleets.",
       "primary_verticals": [
         "Logistics & Transportation",
@@ -39,7 +37,6 @@
       "website": "https://www.satsure.co",
       "headquarters": "Bengaluru, India",
       "founded": 2017,
-      "company_size": "scaleup",
       "description": "SatSure is a deep-tech Earth intelligence company that combines satellite Earth observation, machine learning, and advanced analytics to deliver decision intelligence across agriculture, aviation, banking, forestry, insurance, and utilities. The company builds AI-powered platforms that transform raw satellite and geospatial data into industry-specific insights for risk assessment, credit scoring, and infrastructure monitoring.",
       "primary_verticals": [
         "Agriculture & AgriTech",

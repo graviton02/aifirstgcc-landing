@@ -6,7 +6,6 @@
       "website": "https://nanonets.com",
       "headquarters": "San Francisco, California, USA",
       "founded": 2017,
-      "company_size": "scaleup",
       "description": "Nanonets is an AI-powered intelligent document processing and workflow automation company that builds autonomous AI agents for enterprise back-office operations. The platform combines deep learning, OCR, and agentic AI to automate document-heavy business processes with a focus on guaranteed straight-through processing at over 90% accuracy across millions of documents monthly. Nanonets serves over 34% of Fortune 500 companies across finance, healthcare, insurance, and logistics, and holds HIPAA, SOC 2, ISO 27001, and GDPR compliance certifications.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -24,7 +23,6 @@
       "website": "https://www.tungstenautomation.com",
       "headquarters": "Irvine, California, USA",
       "founded": 1985,
-      "company_size": "enterprise",
       "description": "Tungsten Automation, formerly Kofax, is an intelligent workflow automation software provider that uses AI and machine learning to automate data-intensive business processes including document processing, accounts payable, and process orchestration. The company serves financial services, healthcare, government, and insurance verticals across 32 countries.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -40,7 +38,6 @@
       "website": "https://www.edgeverve.com",
       "headquarters": "Bengaluru, India",
       "founded": 2014,
-      "company_size": "enterprise",
       "description": "EdgeVerve Systems is a wholly owned product subsidiary of Infosys that develops AI and automation software platforms for enterprise digital transformation. Its portfolio spans agentic AI orchestration, intelligent document processing, digital banking, supply chain networks, and robotic process automation.",
       "primary_verticals": [
         "Financial Services (BFSI)",

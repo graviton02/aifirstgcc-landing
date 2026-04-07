@@ -4,6 +4,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const routerReplaceMock = vi.fn();
 const useQueryMock = vi.fn();
 let mockTab = "";
+let mockUserRole = {
+  role: "provider" as "provider" | "gcc" | null,
+  isLoaded: true,
+  providerSetupStarted: false,
+};
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: routerReplaceMock }),
@@ -16,7 +21,7 @@ vi.mock("convex/react", () => ({
 }));
 
 vi.mock("@/auth/useUserRole", () => ({
-  useUserRole: () => ({ role: "provider", isLoaded: true }),
+  useUserRole: () => mockUserRole,
 }));
 
 vi.mock("@/components/dashboard/DashboardShell", () => ({
@@ -52,6 +57,7 @@ vi.mock("@/components/dashboard/TeamTab", () => ({
 describe("ProviderDashboardPage", () => {
   beforeEach(() => {
     mockTab = "";
+    mockUserRole = { role: "provider", isLoaded: true, providerSetupStarted: false };
     routerReplaceMock.mockReset();
     useQueryMock.mockReset();
     useQueryMock.mockReturnValue({
@@ -87,5 +93,15 @@ describe("ProviderDashboardPage", () => {
     fireEvent.click(screen.getByRole("button", { name: /go team/i }));
 
     expect(routerReplaceMock).toHaveBeenCalledWith("/dashboard?tab=team");
+  });
+
+  it("routes provider-setup-started users back into setup until provider access is active", async () => {
+    mockUserRole = { role: null, isLoaded: true, providerSetupStarted: true };
+    useQueryMock.mockReturnValue(null);
+
+    const Page = (await import("@/app/dashboard/page")).default;
+    render(<Page />);
+
+    expect(routerReplaceMock).toHaveBeenCalledWith("/provider/setup");
   });
 });

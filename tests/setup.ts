@@ -21,3 +21,8 @@ const localStorageMock = (() => {
   };
 })();
 Object.defineProperty(globalThis, "localStorage", { value: localStorageMock, writable: true });
+
+Object.defineProperty(globalThis, "scrollTo", {
+  value: () => {},
+  writable: true,
+});

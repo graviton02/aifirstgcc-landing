@@ -9,6 +9,7 @@ describe("AgentDetailView", () => {
         agent={
           {
             _id: "agent-1",
+            slug: "documind-ai",
             agent_name: "DocuMind AI",
             description: "Automates document-heavy workflows.",
             category: "Data & Analytics",
@@ -32,5 +33,37 @@ describe("AgentDetailView", () => {
     expect(screen.getByText("Industry Categories")).toBeInTheDocument();
     expect(screen.queryByText("Business Functions")).not.toBeInTheDocument();
     expect(screen.getByText("Technology")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "View in Directory" })
+    ).toHaveAttribute("href", "/agents/documind-ai");
+  });
+
+  it("hides the directory link when the approved agent has no slug", () => {
+    render(
+      <AgentDetailView
+        agent={
+          {
+            _id: "agent-2",
+            agent_name: "OpsPilot",
+            description: "Coordinates operational workflows.",
+            category: "Operations",
+            functional_categories: [],
+            industry_categories: [],
+            infrastructure_categories: [],
+            use_cases: [],
+            expected_outcomes: [],
+            integrations: [],
+            status: "active",
+          } as any
+        }
+        companyId="company-1"
+        onBack={() => {}}
+        pendingEdits={[]}
+      />
+    );
+
+    expect(
+      screen.queryByRole("link", { name: "View in Directory" })
+    ).not.toBeInTheDocument();
   });
 });

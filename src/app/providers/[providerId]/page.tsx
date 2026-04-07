@@ -4,7 +4,7 @@ import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { ProviderDetailClient } from "@/components/resource-pages/ProviderDetailClient";
 import { providerData } from "@/data/providerDirectoryData";
-import { breadcrumbJsonLd } from "@/lib/json-ld";
+import { breadcrumbJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
 
@@ -66,7 +66,7 @@ export default async function ProviderDetailPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd(breadcrumbItems)),
+          __html: serializeJsonLd(breadcrumbJsonLd(breadcrumbItems)),
         }}
       />
       <Navbar />

@@ -6,7 +6,6 @@
       "website": "https://www.postman.com",
       "headquarters": "San Francisco, USA",
       "founded": 2014,
-      "company_size": "scaleup",
       "description": "Postman is an API platform for building, testing, and using APIs, serving over 30 million registered users. The platform has evolved into an AI-native development environment with tools for building, testing, and deploying AI agents powered by APIs and the Model Context Protocol (MCP).",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -23,7 +22,6 @@
       "website": "https://razorpay.com",
       "headquarters": "Bengaluru, India",
       "founded": 2014,
-      "company_size": "scaleup",
       "description": "Razorpay is a full-stack payments and financial services platform serving businesses across India and internationally, providing payment gateway, payroll, banking, and lending products. The company has expanded into AI-powered payments infrastructure through its RAY assistant and Agentic Payments product lines.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -39,7 +37,6 @@
       "website": "https://www.freshworks.com",
       "headquarters": "San Mateo, California, USA",
       "founded": 2010,
-      "company_size": "enterprise",
       "description": "Freshworks provides cloud-based SaaS for customer service, IT service management, and CRM, unified by the Freddy AI agentic platform that spans its Freshdesk, Freshservice, and Freshsales product lines. The company is publicly traded on NASDAQ (FRSH) and serves over 68,000 businesses globally.",
       "primary_verticals": [
         "Retail & E-commerce",

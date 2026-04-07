@@ -8,15 +8,24 @@ import { Navbar } from "@/components/shared/Navbar";
 import { AgentHero } from "@/components/agent-detail/AgentHero";
 import { AgentDetailSections } from "@/components/agent-detail/AgentDetailSections";
 import { AgentStatsPanel } from "@/components/agent-detail/AgentStatsPanel";
+import { ReviewsSection } from "@/components/reviews/ReviewsSection";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Footer } from "@/components/sections/Footer";
 import { CompareTray } from "@/components/compare/CompareTray";
-import { agentJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
+import { agentJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+function humanizeSlug(slug: string) {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
 
 export async function generateStaticParams() {
@@ -30,18 +39,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const agent = await fetchQuery(api.agents.getBySlug, { slug });
-
-  if (!agent) {
-    return { title: "Agent Not Found | Orbys360" };
-  }
-
-  const company = agent.company_id
-    ? await fetchQuery(api.companies.getById, { id: agent.company_id })
-    : null;
-
-  const title = `${agent.agent_name}${company ? ` by ${company.name}` : ""} | Orbys360`;
-  const description = agent.tagline || agent.description.slice(0, 160);
+  const agentName = humanizeSlug(slug);
+  const title = `${agentName} | Orbys360`;
+  const description = `Explore ${agentName} on Orbys360 and review its capabilities, integrations, and outcomes.`;
   const url = `${BASE_URL}/agents/${slug}`;
 
   return {
@@ -71,9 +71,15 @@ export default async function AgentDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const company = agent.company_id
-    ? await fetchQuery(api.companies.getById, { id: agent.company_id })
-    : null;
+  const [company, reviewData] = await Promise.all([
+    agent.company_id
+      ? fetchQuery(api.companies.getById, { id: agent.company_id })
+      : Promise.resolve(null),
+    fetchQuery(api.reviews.getAgentPublicData, {
+      agent_id: agent._id,
+      limit: 5,
+    }),
+  ]);
 
   const breadcrumbItems = [
     { name: "Home", url: BASE_URL },
@@ -87,16 +93,17 @@ export default async function AgentDetailPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(agentJsonLd(
+          __html: serializeJsonLd(agentJsonLd(
             agent as any,
-            company ? { name: company.name, slug: company.slug, website: company.website } : undefined
+            company ? { name: company.name, slug: company.slug, website: company.website } : undefined,
+            reviewData?.summary ?? undefined
           )),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd(breadcrumbItems)),
+          __html: serializeJsonLd(breadcrumbJsonLd(breadcrumbItems)),
         }}
       />
       <Navbar />
@@ -130,6 +137,10 @@ export default async function AgentDetailPage({ params }: PageProps) {
             <div className="space-y-14 min-w-0">
               <AgentHero agent={agent as any} company={company as any} />
               <AgentDetailSections agent={agent as any} />
+              <ReviewsSection
+                agentId={agent._id}
+                initialData={reviewData}
+              />
             </div>
 
             <div className="lg:sticky lg:top-28 lg:self-start">

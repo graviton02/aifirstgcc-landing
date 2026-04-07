@@ -1,6 +1,7 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
+import { withResolvedLogoUrl } from "./lib/companyLogos";
 
 export const getMine = query({
   args: {},
@@ -55,5 +56,42 @@ export const remove = mutation({
       .withIndex("by_userAndAgent", (q) => q.eq("user_id", userId).eq("agent_id", agent_id))
       .unique();
     if (existing) await ctx.db.delete(existing._id);
+  },
+});
+
+export const getMineWithDetails = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return [];
+
+    const shortlist = await ctx.db
+      .query("agentShortlists")
+      .withIndex("by_userId", (q) => q.eq("user_id", identity.subject))
+      .collect();
+
+    const rows = await Promise.all(
+      shortlist.map(async (entry) => {
+        const agent = await ctx.db.get(entry.agent_id);
+        if (!agent) return null;
+
+        const company = agent.company_id
+          ? await withResolvedLogoUrl(ctx, await ctx.db.get(agent.company_id))
+          : null;
+
+        return {
+          shortlistId: entry._id,
+          agent,
+          company,
+          createdAt: entry.created_at,
+        };
+      }),
+    );
+
+    return rows
+      .filter(
+        (row): row is NonNullable<(typeof rows)[number]> => row !== null,
+      )
+      .sort((left, right) => right.createdAt - left.createdAt);
   },
 });

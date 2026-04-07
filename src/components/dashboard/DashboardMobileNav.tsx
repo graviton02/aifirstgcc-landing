@@ -10,9 +10,16 @@ interface DashboardMobileNavProps {
   activeKey: string;
   onNavigate: (key: string) => void;
   stickyTop?: string;
+  brandName?: string;
 }
 
-export function DashboardMobileNav({ navItems, activeKey, onNavigate, stickyTop = "top-16" }: DashboardMobileNavProps) {
+export function DashboardMobileNav({
+  navItems,
+  activeKey,
+  onNavigate,
+  stickyTop = "top-16",
+  brandName,
+}: DashboardMobileNavProps) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -36,9 +43,11 @@ export function DashboardMobileNav({ navItems, activeKey, onNavigate, stickyTop 
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center justify-between w-full px-4 py-3 text-sm font-medium text-enterprise-900"
       >
-        <span className="flex items-center gap-2">
-          {activeItem && <activeItem.icon className="w-4 h-4" />}
-          {activeItem?.label}
+        <span className="flex min-w-0 items-center gap-2">
+          {activeItem && <activeItem.icon className="h-4 w-4 shrink-0" />}
+          <span className="truncate">
+            {brandName ? `${brandName} - ${activeItem?.label}` : activeItem?.label}
+          </span>
         </span>
         <ChevronDown
           className={`w-4 h-4 text-enterprise-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
@@ -52,7 +61,7 @@ export function DashboardMobileNav({ navItems, activeKey, onNavigate, stickyTop 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 top-16 bg-black/20 z-10"
+              className={`fixed inset-0 ${stickyTop} bg-black/20 z-10`}
               onClick={() => setOpen(false)}
             />
             <motion.div

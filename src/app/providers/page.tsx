@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { ProvidersPageClient } from "@/components/resource-pages/ProvidersPageClient";
@@ -15,7 +16,9 @@ export default function ProvidersPage() {
   return (
     <>
       <Navbar />
-      <ProvidersPageClient />
+      <Suspense fallback={null}>
+        <ProvidersPageClient />
+      </Suspense>
       <Footer />
     </>
   );

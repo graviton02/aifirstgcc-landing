@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useQuery, useMutation } from "convex/react";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { useAuth, useClerk, useUser } from "@clerk/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import { Navbar } from "@/components/shared/Navbar";
 import { getErrorMessage } from "@/lib/report-error";
@@ -32,6 +32,7 @@ function ActivateContent() {
   const router = useRouter();
   const token = searchParams.get("token") ?? "";
   const { isSignedIn, isLoaded } = useAuth();
+  const clerk = useClerk();
   const { user } = useUser();
   const validation = useQuery(api.claims.validateMagicLink, token ? { token } : "skip");
   const activateClaim = useMutation(api.claims.activateClaim);
@@ -55,8 +56,6 @@ function ActivateContent() {
           try {
             const res = await fetch("/api/set-role", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ role: "provider" }),
             });
             if (res.ok) {
               break;
@@ -134,9 +133,30 @@ function ActivateContent() {
   }
 
   if (error) {
+    const requiresAccountSwitch = error.includes("Sign in with the same company email");
+    const redirectUrl = `/claim/activate?token=${token}`;
+
     return (
       <ActivateLayout>
-        <ErrorCard message={error} />
+        <ErrorCard
+          message={error}
+          action={
+            requiresAccountSwitch ? (
+              <button
+                type="button"
+                onClick={() =>
+                  clerk.signOut({
+                    redirectUrl: `/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`,
+                  })
+                }
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
+              >
+                <LogIn className="h-4 w-4" />
+                Switch account
+              </button>
+            ) : null
+          }
+        />
       </ActivateLayout>
     );
   }
@@ -186,7 +206,13 @@ function ActivateLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ErrorCard({ message }: { message: string }) {
+function ErrorCard({
+  message,
+  action,
+}: {
+  message: string;
+  action?: React.ReactNode;
+}) {
   return (
     <div className="text-center py-4">
       <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -194,6 +220,7 @@ function ErrorCard({ message }: { message: string }) {
       </div>
       <h2 className="text-xl font-bold text-enterprise-900 mb-2">Activation Failed</h2>
       <p className="text-enterprise-600 mb-6">{message}</p>
+      {action ? <div className="mb-4 flex justify-center">{action}</div> : null}
       <Link
         href="/directory"
         className="text-primary hover:underline text-sm"

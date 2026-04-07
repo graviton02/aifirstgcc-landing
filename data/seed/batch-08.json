@@ -6,7 +6,6 @@
       "website": "https://www.abstrabit.com",
       "headquarters": "Bangalore, India",
       "founded": 2022,
-      "company_size": "startup",
       "description": "Abstrabit Technologies is an AI solutions provider incubated at NSRCEL (IIM Bangalore) that builds production-grade AI agents with a human-in-the-loop architecture. The company focuses on voice AI and sales intelligence solutions for enterprises and SMBs across multiple industries.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -22,7 +21,6 @@
       "website": "https://www.calsoftinc.com",
       "headquarters": "San Jose, CA, USA",
       "founded": 1998,
-      "company_size": "midmarket",
       "description": "Calsoft is a global digital engineering and Data & AI solutions provider specializing in cloud, AI/ML, IoT, security, and product engineering for enterprises and ISVs. The company delivers engineering services alongside proprietary AI-powered accelerator platforms for testing and quality automation.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -40,7 +38,6 @@
       "website": "https://yellow.ai",
       "headquarters": "San Mateo, California, USA",
       "founded": 2016,
-      "company_size": "scaleup",
       "description": "Yellow.ai is an agentic AI platform for customer and employee experience automation, enabling enterprises to deploy AI agents across chat, voice, email, and messaging channels in 135+ languages. The platform serves enterprises across retail, BFSI, healthcare, telecom, and logistics with a multi-LLM architecture and 150+ pre-built enterprise integrations.",
       "primary_verticals": [
         "Financial Services (BFSI)",

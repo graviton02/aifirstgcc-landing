@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { MeshGradient } from '@paper-design/shaders-react'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/Container'
@@ -12,14 +11,7 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* MeshGradient Background */}
       <div className="absolute inset-0 z-0">
-        <MeshGradient
-          speed={0.66}
-          scale={1}
-          distortion={0.68}
-          swirl={0.29}
-          colors={['#B3A4E8', '#241D9A', '#B36FFF', '#9E4FD2']}
-          className="w-full h-full"
-        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_#cbbcf7_0%,_#8d6cff_22%,_#241d9a_48%,_#120b4a_72%,_#05030f_100%)]" />
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-enterprise-950/30 via-transparent to-enterprise-950/60" />
       </div>

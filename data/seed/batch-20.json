@@ -6,7 +6,6 @@
       "website": "https://riverline.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2024,
-      "company_size": "startup",
       "description": "Riverline AI is an AI-powered debt counselling platform that deploys autonomous AI agents to interact with distressed borrowers across WhatsApp, email, and voice, guiding them toward creditworthy financial decisions while improving recovery rates for lenders. The company serves digital-first lenders and manages collections across INR 100 crore+ of bad loans monthly.",
       "primary_verticals": [
         "Financial Services (BFSI)"
@@ -19,7 +18,6 @@
       "website": "https://adya.ai",
       "headquarters": "Mumbai, India",
       "founded": 2023,
-      "company_size": "scaleup",
       "description": "Adya AI is a cloud-based AI operating system that enables businesses to build and deploy customized AI agents and enterprise applications. The platform centers on Vanij, an agentic AI development suite featuring proprietary innovations including a Multi-Agentic Network for decentralized agent orchestration, an Adaptive Learning Protocol for deterministic business rule enforcement, and a custom large language model (ADI).",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -37,7 +35,6 @@
       "website": "https://wyzard.ai",
       "headquarters": "Gurugram, India",
       "founded": 2024,
-      "company_size": "startup",
       "description": "Wyzard AI is a B2B SaaS startup that provides an AI-agentic \"Signal-to-Revenue\" platform for go-to-market teams. The platform unifies buyer intent signals across web, email, LinkedIn, and voice channels, then orchestrates autonomous engagement through AI agents to convert inbound leads into qualified pipeline and revenue.",
       "primary_verticals": [
         "Retail & E-commerce",

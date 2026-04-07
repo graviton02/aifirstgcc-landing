@@ -40,7 +40,7 @@ describe("AdminAllAgentsTab", () => {
   });
 
   it("lists active agents and exposes full details in the admin catalog", () => {
-    render(<AdminAllAgentsTab token="admin-token" />);
+    render(<AdminAllAgentsTab />);
 
     expect(screen.getByText("Acme Resolver")).toBeInTheDocument();
     expect(screen.queryByText("Dormant Agent")).not.toBeInTheDocument();

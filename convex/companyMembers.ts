@@ -6,6 +6,8 @@ import { requireAuth } from "./lib/auth";
 import { appError } from "./lib/errors";
 import { createCompanyOwnerNotifications } from "./notifications";
 import { upsertProviderProfile } from "./providerProfiles";
+import { withResolvedLogoUrl } from "./lib/companyLogos";
+import { assertCanCreateProviderPersona } from "./lib/personas";
 
 type MembershipReaderCtx = Pick<QueryCtx, "db"> | Pick<MutationCtx, "db">;
 
@@ -27,6 +29,19 @@ export async function getActiveMembershipForUser(
   return memberships
     .filter((membership) => membership.status === "active")
     .sort((a, b) => b.updated_at - a.updated_at)[0] ?? null;
+}
+
+export async function getActiveMembershipConflict(
+  ctx: MembershipReaderCtx,
+  userId: string,
+  companyId: Id<"companies">
+): Promise<Doc<"companyMembers"> | null> {
+  const activeMembership = await getActiveMembershipForUser(ctx, userId);
+  if (!activeMembership || activeMembership.company_id === companyId) {
+    return null;
+  }
+
+  return activeMembership;
 }
 
 export async function getActiveMembershipForCompany(
@@ -81,8 +96,12 @@ export const getMyCompany = query({
     if (!membership) return null;
     const company = await ctx.db.get(membership.company_id);
     if (!company) return null;
+
+    const hydratedCompany = await withResolvedLogoUrl(ctx, company);
+    if (!hydratedCompany) return null;
+
     return {
-      ...company,
+      ...hydratedCompany,
       membership_role: membership.role,
       membership_status: membership.status,
     };
@@ -215,62 +234,14 @@ export const syncClerkMemberships = mutation({
     if (!identity) appError("unauthenticated", "Unauthenticated", 401);
 
     const userId = identity.subject;
-    const email = identity.email?.trim().toLowerCase();
-    if (!email) {
-      return { synced_count: 0 };
-    }
-
-    const now = Date.now();
-    let syncedCount = 0;
-
-    for (const membership of memberships) {
-      const company = await ctx.db
-        .query("companies")
-        .withIndex("by_clerkOrgId", (q) => q.eq("clerk_org_id", membership.clerk_org_id))
-        .unique();
-
-      if (!company) continue;
-
-      const existingByEmail = await ctx.db
-        .query("companyMembers")
-        .withIndex("by_companyAndEmail", (q) => q.eq("company_id", company._id).eq("email", email))
-        .collect();
-
-      const existingByUserId = (await getMembershipsForUser(ctx, userId)).find(
-        (entry) => entry.company_id === company._id
-      );
-
-      const targetMembership = existingByEmail[0] ?? existingByUserId;
-      const nextRole = membership.role === "org:admin" ? "owner" : "member";
-
-      if (targetMembership) {
-        await ctx.db.patch(targetMembership._id, {
-          user_id: userId,
-          email,
-          role: nextRole,
-          status: "active",
-          updated_at: now,
-        });
-      } else {
-        await ctx.db.insert("companyMembers", {
-          company_id: company._id,
-          user_id: userId,
-          email,
-          role: nextRole,
-          status: "active",
-          created_at: now,
-          updated_at: now,
-        });
-      }
-
-      syncedCount += 1;
-    }
-
-    if (syncedCount > 0) {
-      await upsertProviderProfile(ctx, userId);
-    }
-
-    return { synced_count: syncedCount };
+    return {
+      synced_count: 0,
+      user_id: userId,
+      memberships: memberships.map((membership) => ({
+        clerk_org_id: membership.clerk_org_id,
+        role: membership.role,
+      })),
+    };
   },
 });
 
@@ -286,20 +257,31 @@ export const acceptPendingInvite = mutation({
       return { status: "no_email" as const };
     }
 
+    const pendingInvites = (await ctx.db
+      .query("companyMembers")
+      .withIndex("by_email", (q) => q.eq("email", email))
+      .collect())
+      .filter((membership: any) => membership.status === "pending");
+
     const activeMembership = await getActiveMembershipForUser(ctx, userId);
     if (activeMembership) {
+      const conflictingInvite = pendingInvites.find(
+        (membership) => membership.company_id !== activeMembership.company_id
+      );
+      if (conflictingInvite) {
+        return {
+          status: "conflict" as const,
+          message:
+            "This account already has access to another provider company. Use a different email or contact support to resolve the invite.",
+        };
+      }
+
       await upsertProviderProfile(ctx, userId);
       return {
         status: "already_active" as const,
         company_id: activeMembership.company_id,
       };
     }
-
-    const pendingInvites = (await ctx.db
-      .query("companyMembers")
-      .withIndex("by_email", (q) => q.eq("email", email))
-      .collect())
-      .filter((membership: any) => membership.status === "pending");
 
     if (pendingInvites.length === 0) {
       return { status: "none" as const };
@@ -312,6 +294,8 @@ export const acceptPendingInvite = mutation({
         message: "Multiple pending team invites were found for your email. Contact support to resolve them.",
       };
     }
+
+    await assertCanCreateProviderPersona(ctx, userId);
 
     const invite = pendingInvites.sort((a: any, b: any) => b.created_at - a.created_at)[0];
     const now = Date.now();

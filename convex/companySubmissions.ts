@@ -2,8 +2,10 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
 import { appError } from "./lib/errors";
+import { assertCanCreateProviderPersona } from "./lib/personas";
 import { upsertProviderProfile } from "./providerProfiles";
 import { normalizeAndValidateCompleteAgent } from "./lib/agentTaxonomy";
+import { withResolvedLogoUrl } from "./lib/companyLogos";
 
 const agentUseCaseValidator = v.object({
   title: v.string(),
@@ -12,16 +14,15 @@ const agentUseCaseValidator = v.object({
 
 const initialAgentValidator = v.object({
   agent_name: v.string(),
-  tagline: v.optional(v.string()),
+  tagline: v.string(),
   description: v.string(),
   category: v.string(),
   functional_categories: v.array(v.string()),
   industry_categories: v.array(v.string()),
-  infrastructure_categories: v.optional(v.array(v.string())),
   use_cases: v.array(agentUseCaseValidator),
-  integrations: v.optional(v.array(v.string())),
-  expected_outcomes: v.optional(v.array(v.string())),
-  source_url: v.optional(v.string()),
+  integrations: v.array(v.string()),
+  expected_outcomes: v.array(v.string()),
+  source_url: v.string(),
   demo_url: v.optional(v.string()),
 });
 
@@ -45,15 +46,16 @@ export const getMine = query({
       return null;
     }
 
+    const hydratedLatest = await withResolvedLogoUrl(ctx, latest);
     const createdCompany = latest.created_company_id
-      ? await ctx.db.get(latest.created_company_id)
+      ? await withResolvedLogoUrl(ctx, await ctx.db.get(latest.created_company_id))
       : null;
     const initialAgentSubmission = latest.initial_agent_submission_id
       ? await ctx.db.get(latest.initial_agent_submission_id)
       : null;
 
     return {
-      ...latest,
+      ...hydratedLatest,
       created_company_name: createdCompany?.name ?? null,
       created_company_slug: createdCompany?.slug ?? null,
       initial_agent_submission: initialAgentSubmission,
@@ -68,8 +70,9 @@ export const create = mutation({
     website: v.string(),
     description: v.string(),
     headquarters: v.string(),
-    company_size: v.string(),
+    logo_storage_id: v.string(),
     primary_verticals: v.array(v.string()),
+    logo_bg: v.optional(v.string()),
     initial_agent: initialAgentValidator,
   },
   handler: async (ctx, args) => {
@@ -80,8 +83,8 @@ export const create = mutation({
     const website = cleanString(args.website);
     const description = cleanString(args.description);
     const headquarters = cleanString(args.headquarters);
-    const company_size = cleanString(args.company_size);
     const primary_verticals = args.primary_verticals.map(cleanString).filter(Boolean);
+    const logo_bg = args.logo_bg === "dark" ? "dark" : undefined;
     const normalizedInitialAgent = normalizeAndValidateCompleteAgent(args.initial_agent);
     const initial_agent = {
       agent_name: normalizedInitialAgent.agent_name,
@@ -90,7 +93,6 @@ export const create = mutation({
       category: normalizedInitialAgent.category,
       functional_categories: normalizedInitialAgent.functional_categories ?? [],
       industry_categories: normalizedInitialAgent.industry_categories ?? [],
-      infrastructure_categories: normalizedInitialAgent.infrastructure_categories,
       use_cases: normalizedInitialAgent.use_cases,
       integrations: normalizedInitialAgent.integrations,
       expected_outcomes: normalizedInitialAgent.expected_outcomes,
@@ -102,7 +104,7 @@ export const create = mutation({
     if (!contact_email.includes("@")) appError("company_contact_email_invalid", "A valid contact email is required.", 400);
     if (description.length < 20) appError("company_description_short", "Description must be at least 20 characters.", 400);
     if (headquarters.length < 2) appError("company_headquarters_required", "Headquarters is required.", 400);
-    if (company_size.length < 1) appError("company_size_required", "Company size is required.", 400);
+    if (!args.logo_storage_id) appError("company_logo_required", "Upload a company logo before submitting.", 400);
     if (primary_verticals.length < 1) appError("company_vertical_required", "Add at least one primary vertical.", 400);
 
     const existing = await ctx.db
@@ -122,6 +124,7 @@ export const create = mutation({
       appError("company_submission_active", "Your company listing is already active.", 409);
     }
 
+    await assertCanCreateProviderPersona(ctx, userId);
     await upsertProviderProfile(ctx, userId, "create_new");
 
     const now = Date.now();
@@ -132,8 +135,9 @@ export const create = mutation({
       website,
       description,
       headquarters,
-      company_size,
+      logo_storage_id: args.logo_storage_id,
       primary_verticals,
+      ...(logo_bg ? { logo_bg } : {}),
       initial_agent,
       status: "pending",
       created_at: now,

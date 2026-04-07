@@ -11,7 +11,7 @@ vi.mock("convex/react", async () => {
   const actual = await vi.importActual<typeof import("convex/react")>("convex/react");
   return {
     ...actual,
-    useQuery: () => false,
+    useQuery: () => [],
     useMutation: () => vi.fn(),
   };
 });
@@ -27,6 +27,9 @@ const mockAgent = {
   tagline: "AI for testing",
   description: "A test agent",
   category: "Testing",
+  company_name: "Example Co",
+  company_logo_url: "https://example.com/logo.svg",
+  company_logo_bg: "light",
   status: "active",
   use_cases: [],
   functional_categories: ["Engineering & DevOps"],
@@ -81,5 +84,11 @@ describe("AgentCard", () => {
     // The button should have bottom/right positioning classes
     expect(btn.className).toMatch(/bottom/);
     expect(btn.className).toMatch(/right/);
+  });
+
+  it("renders the denormalized company logo when no company prop is provided", () => {
+    render(<AgentCard agent={mockAgent} />);
+    const logo = screen.getByRole("img", { name: /example co/i });
+    expect(logo).toHaveAttribute("src", "https://example.com/logo.svg");
   });
 });

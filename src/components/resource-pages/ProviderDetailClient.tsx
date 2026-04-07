@@ -5,7 +5,6 @@ import {
   ArrowLeft,
   MapPin,
   Users,
-  Sparkles,
   Target,
   Cpu,
   Award,
@@ -217,25 +216,6 @@ export function ProviderDetailClient({ provider }: ProviderDetailClientProps) {
         </>
       )}
 
-      {/* CTA */}
-      <Container size="narrow">
-        <div className="mt-10 rounded-xl border border-enterprise-200 bg-gradient-to-br from-enterprise-50 to-white p-8 text-center">
-          <h2 className="text-lg font-display font-semibold text-enterprise-900 mb-2">
-            Interested in {provider.name}?
-          </h2>
-          <p className="text-sm text-enterprise-600 max-w-lg mx-auto mb-5">
-            Join Orbys360 to connect with providers through facilitated
-            introductions and explore partnership opportunities.
-          </p>
-          <a
-            href="/#signup"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-enterprise-900 text-white text-sm font-medium hover:bg-enterprise-800 transition-colors"
-          >
-            <Sparkles className="w-4 h-4" />
-            Join Waitlist
-          </a>
-        </div>
-      </Container>
     </div>
   );
 }

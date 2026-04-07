@@ -1,17 +1,26 @@
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Navbar } from "@/components/shared/Navbar";
 import { CompanyHeader } from "@/components/company/CompanyHeader";
 import { ClaimProfileButton } from "@/components/company/ClaimProfileButton";
 import { AgentCard } from "@/components/directory/AgentCard";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Footer } from "@/components/sections/Footer";
-import { companyJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
+import { companyJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
 
 interface Props { params: Promise<{ slug: string }> }
+
+function humanizeSlug(slug: string) {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
 
 export async function generateStaticParams() {
   try {
@@ -24,11 +33,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const company = await fetchQuery(api.companies.getBySlug, { slug });
-  if (!company) return { title: "Company Not Found" };
-
-  const title = `${company.name} — Company Profile | Orbys360`;
-  const description = company.description?.slice(0, 160) || `View ${company.name} on Orbys360`;
+  const companyName = humanizeSlug(slug);
+  const title = `${companyName} | Company Profile | Orbys360`;
+  const description = `View ${companyName} on Orbys360 and explore the company's AI solutions and presence in the directory.`;
   const url = `${BASE_URL}/companies/${slug}`;
 
   return {
@@ -43,14 +50,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CompanyProfilePage({ params }: Props) {
   const { slug } = await params;
   const company = await fetchQuery(api.companies.getBySlug, { slug });
-  if (!company) return <div>Company not found</div>;
+  if (!company) {
+    notFound();
+  }
 
-  const agents = await fetchQuery(api.agents.getByCompany, { company_id: company._id });
+  const [agents, reviewSummary] = await Promise.all([
+    fetchQuery(api.agents.getByCompany, { company_id: company._id }),
+    fetchQuery(api.reviews.getCompanyPublicSummary, { company_id: company._id }),
+  ]);
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(companyJsonLd(company as any)) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(companyJsonLd(company as any, reviewSummary ?? undefined)),
+        }}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd([
         { name: "Home", url: BASE_URL },
         { name: "Directory", url: `${BASE_URL}/directory` },
         { name: company.name, url: `${BASE_URL}/companies/${slug}` },
@@ -65,7 +82,11 @@ export default async function CompanyProfilePage({ params }: Props) {
           ]}
         />
         <div className="mt-6">
-          <CompanyHeader company={company as any} agents={agents as any} />
+          <CompanyHeader
+            company={company as any}
+            agents={agents as any}
+            reviewSummary={reviewSummary}
+          />
         </div>
         <div className="mt-3">
           <ClaimProfileButton companySlug={slug} claimStatus={company.claim_status} />

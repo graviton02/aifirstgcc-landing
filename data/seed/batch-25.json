@@ -6,7 +6,6 @@
       "website": "https://www.uipath.com",
       "headquarters": "New York, NY, USA",
       "founded": 2005,
-      "company_size": "midmarket",
       "description": "UiPath is a global software company specializing in AI-powered agentic automation and orchestration. The platform unifies AI agents, robotic process automation, and human oversight to automate complex enterprise processes across financial services, healthcare, manufacturing, and government.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -25,7 +24,6 @@
       "website": "https://amnic.com",
       "headquarters": "Los Altos, California, USA (offices in Bengaluru, India)",
       "founded": 2021,
-      "company_size": "startup",
       "description": "Amnic is a FinOps SaaS company that builds an agentic AI platform for cloud cost management automation. Its platform deploys context-aware, role-specific AI agents that automate reporting, root-cause analysis, anomaly detection, budgeting, and cost optimization across multi-cloud environments.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -40,7 +38,6 @@
       "website": "https://whatfix.com",
       "headquarters": "San Jose, California, USA / Bengaluru, India",
       "founded": 2014,
-      "company_size": "midmarket",
       "description": "Whatfix is an AI-powered digital adoption platform that helps enterprises drive software adoption, user productivity, and business outcomes across their technology stack. The platform uses ScreenSense, a proprietary context- and intent-aware AI engine, to interpret application workflows and user intent in real time.",
       "primary_verticals": [
         "Financial Services (BFSI)",

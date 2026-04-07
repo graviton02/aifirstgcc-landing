@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import DirectoryContent from "@/components/directory/DirectoryContent";
-import { directoryJsonLd } from "@/lib/json-ld";
+import { directoryJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
 
@@ -29,7 +29,7 @@ export default function DirectoryPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(directoryJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(directoryJsonLd()) }}
       />
       <Suspense>
         <DirectoryContent />

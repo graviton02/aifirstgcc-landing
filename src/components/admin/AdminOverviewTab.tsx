@@ -1,17 +1,26 @@
 "use client";
 
-import { Loader2, Building2, Bot, Users, Shield, FileText, Edit3, MessageSquare, Store } from "lucide-react";
+import {
+  Loader2,
+  Building2,
+  Bot,
+  Users,
+  Shield,
+  FileText,
+  Edit3,
+  MessageSquare,
+  Store,
+  Star,
+} from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
 export function AdminOverviewTab({
-  token,
   onTabChange,
 }: {
-  token: string;
   onTabChange?: (tab: string) => void;
 }) {
-  const stats = useQuery(api.admin.getDirectoryStats, { token });
+  const stats = useQuery(api.admin.getDirectoryStats, {});
 
   if (stats === undefined) {
     return (
@@ -35,6 +44,7 @@ export function AdminOverviewTab({
     { label: "Agents", count: stats.pendingAgentSubmissions, icon: Bot, tab: "Agents", color: "text-blue-600 bg-blue-50" },
     { label: "Agent Edits", count: stats.pendingAgentEdits, icon: FileText, tab: "Agent Edits", color: "text-indigo-600 bg-indigo-50" },
     { label: "Contact Requests", count: stats.pendingContactRequests, icon: MessageSquare, tab: "Contact Requests", color: "text-rose-600 bg-rose-50" },
+    { label: "Reviews", count: (stats.pendingReviews ?? 0) + (stats.pendingReviewResponses ?? 0), icon: Star, tab: "Reviews", color: "text-amber-600 bg-amber-50" },
   ];
 
   const totalPending = pendingCards.reduce((sum, c) => sum + c.count, 0);

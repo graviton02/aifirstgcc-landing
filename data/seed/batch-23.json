@@ -6,7 +6,6 @@
       "website": "https://kissan.ai",
       "headquarters": "Surat, India",
       "founded": 2023,
-      "company_size": "startup",
       "description": "KissanAI is an agriculture-focused AI company that builds multilingual generative AI platforms and domain-specific large language models for the farming sector. The company develops the Dhenu family of agriculture LLMs and the AgriCopilot enterprise platform, serving both smallholder farmers directly and agribusiness enterprises through API-driven AI solutions supporting 10+ Indian languages including Hindi, Gujarati, Marathi, Tamil, and Telugu.",
       "primary_verticals": [
         "Agriculture & AgriTech"
@@ -20,7 +19,6 @@
       "website": "https://www.automationanywhere.com",
       "headquarters": "San Jose, California, USA",
       "founded": 2003,
-      "company_size": "midmarket",
       "description": "Automation Anywhere is a leader in agentic process automation, providing an enterprise platform that combines AI agents, robotic process automation, and intelligent document processing to automate mission-critical business workflows. The company's Agentic Process Automation System uses a proprietary Process Reasoning Engine trained on over 400 million enterprise workflow data points, enabling goal-driven AI agents that reason, plan, and execute across complex multi-system environments with built-in governance and human-in-the-loop controls.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -39,7 +37,6 @@
       "website": "https://perfios.ai",
       "headquarters": "Bengaluru, India",
       "founded": 2008,
-      "company_size": "midmarket",
       "description": "Perfios is a global B2B SaaS company serving the banking, financial services, and insurance (BFSI) industry in 18 countries, powering over 1,000 financial institutions. The company provides an AI-powered real-time operating system that unifies onboarding, underwriting, risk management, collections, and embedded finance through domain-trained LLMs, agentic AI, and vision-language models purpose-built for financial workflows.",
       "primary_verticals": [
         "Financial Services (BFSI)",

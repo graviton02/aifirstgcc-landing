@@ -17,13 +17,11 @@ function formatDate(timestamp: number): string {
 
 function AgentCard({
   agent,
-  token,
   approve,
   reject,
   requestChanges,
 }: {
   agent: any;
-  token: string;
   approve: any;
   reject: any;
   requestChanges: any;
@@ -36,7 +34,7 @@ function AgentCard({
   const handleApprove = async () => {
     setLoading("approve");
     try {
-      await approve({ submission_id: agent._id as Id<"agentSubmissions">, token });
+      await approve({ submission_id: agent._id as Id<"agentSubmissions"> });
     } finally {
       setLoading(null);
     }
@@ -49,13 +47,11 @@ function AgentCard({
       if (actionType === "reject") {
         await reject({
           submission_id: agent._id as Id<"agentSubmissions">,
-          token,
           notes: notes.trim() || undefined,
         });
       } else {
         await requestChanges({
           submission_id: agent._id as Id<"agentSubmissions">,
-          token,
           notes: notes.trim() || undefined,
         });
       }
@@ -238,12 +234,12 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export function AdminAgentsTab({ token }: { token: string }) {
+export function AdminAgentsTab() {
   const [view, setView] = useState<"pending" | "history">("pending");
-  const pending = useQuery(api.admin.getPendingAgents, { token });
+  const pending = useQuery(api.admin.getPendingAgents, {});
   const history = useQuery(
     api.admin.getAgentSubmissionsHistory,
-    view === "history" ? { token } : "skip"
+    view === "history" ? {} : "skip"
   );
   const approve = useMutation(api.admin.approveAgent);
   const reject = useMutation(api.admin.rejectAgent);
@@ -290,7 +286,6 @@ export function AdminAgentsTab({ token }: { token: string }) {
                 <AgentCard
                   key={agent._id}
                   agent={agent}
-                  token={token}
                   approve={approve}
                   reject={reject}
                   requestChanges={requestChanges}

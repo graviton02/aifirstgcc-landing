@@ -24,7 +24,6 @@ interface SeedCompany {
   website: string;
   headquarters: string;
   founded?: number;
-  company_size: string;
   description: string;
   primary_verticals: string[];
   contact_email?: string;
@@ -87,7 +86,6 @@ async function main() {
         website: company.website,
         headquarters: company.headquarters,
         founded: company.founded,
-        company_size: company.company_size,
         primary_verticals: company.primary_verticals,
         contact_email: company.contact_email,
         verification_status: company.verification_status,

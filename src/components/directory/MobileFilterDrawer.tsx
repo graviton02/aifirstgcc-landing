@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Funnel } from "@phosphor-icons/react";
 import {
   FUNCTIONAL_CATEGORIES,
+  INFRASTRUCTURE_CATEGORIES,
   INDUSTRY_CATEGORIES,
 } from "@/lib/categories";
 import type { Filters } from "./FilterSidebar";
@@ -16,6 +17,7 @@ interface MobileFilterDrawerProps {
   onFilterChange: (filters: Filters) => void;
   agentCounts: Record<string, number>;
   activeCount: number;
+  activeTab: string | null;
 }
 
 export function MobileFilterDrawer({
@@ -25,6 +27,7 @@ export function MobileFilterDrawer({
   onFilterChange,
   agentCounts,
   activeCount,
+  activeTab,
 }: MobileFilterDrawerProps) {
   // Lock body scroll when open
   useEffect(() => {
@@ -92,18 +95,32 @@ export function MobileFilterDrawer({
 
             {/* Scrollable filter groups */}
             <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
-              <MobileFilterGroup
-                label="Function"
-                items={[...FUNCTIONAL_CATEGORIES]}
-                selected={filters.functional}
-                onToggle={(v) => toggleFilter("functional", v)}
-                counts={agentCounts}
-              />
+              {activeTab ? (
+                <MobileFilterGroupNote
+                  label="Function"
+                  note={`Filtered by tab: ${activeTab}`}
+                />
+              ) : (
+                <MobileFilterGroup
+                  label="Function"
+                  items={[...FUNCTIONAL_CATEGORIES]}
+                  selected={filters.functional}
+                  onToggle={(v) => toggleFilter("functional", v)}
+                  counts={agentCounts}
+                />
+              )}
               <MobileFilterGroup
                 label="Industry"
                 items={[...INDUSTRY_CATEGORIES]}
                 selected={filters.industry}
                 onToggle={(v) => toggleFilter("industry", v)}
+                counts={agentCounts}
+              />
+              <MobileFilterGroup
+                label="Infrastructure"
+                items={[...INFRASTRUCTURE_CATEGORIES]}
+                selected={filters.infrastructure}
+                onToggle={(v) => toggleFilter("infrastructure", v)}
                 counts={agentCounts}
               />
             </div>
@@ -127,6 +144,25 @@ export function MobileFilterDrawer({
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+function MobileFilterGroupNote({
+  label,
+  note,
+}: {
+  label: string;
+  note: string;
+}) {
+  return (
+    <div>
+      <h3 className="text-xs font-semibold text-enterprise-500 uppercase tracking-widest mb-2">
+        {label}
+      </h3>
+      <div className="rounded-xl border border-enterprise-200 bg-enterprise-50 px-4 py-3 text-sm text-enterprise-600">
+        {note}
+      </div>
+    </div>
   );
 }
 

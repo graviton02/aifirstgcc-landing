@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { isFreeEmailProvider } from "@/lib/email-validation";
+import { isValidLinkedInProfileUrl } from "@/lib/linkedin-validation";
 import { getErrorMessage } from "@/lib/report-error";
 import { CheckCircle, Send } from "lucide-react";
 import Link from "next/link";
@@ -18,12 +19,14 @@ export function ClaimForm({ companySlug }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [linkedinError, setLinkedinError] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const [form, setForm] = useState({
     claimant_name: "",
     claimant_email: "",
+    claimant_linkedin: "",
   });
 
   const validateName = (name: string) => {
@@ -55,9 +58,32 @@ export function ClaimForm({ companySlug }: Props) {
     return true;
   };
 
+  const validateLinkedIn = (linkedin: string) => {
+    const trimmed = linkedin.trim();
+    if (!trimmed) {
+      setLinkedinError("Please enter your LinkedIn profile URL.");
+      return false;
+    }
+    if (!isValidLinkedInProfileUrl(trimmed)) {
+      setLinkedinError(
+        "Enter a valid LinkedIn profile URL ending in /in/... or /pub/...."
+      );
+      return false;
+    }
+    setLinkedinError("");
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!company || !validateName(form.claimant_name) || !validateEmail(form.claimant_email)) return;
+    if (
+      !company ||
+      !validateName(form.claimant_name) ||
+      !validateEmail(form.claimant_email) ||
+      !validateLinkedIn(form.claimant_linkedin)
+    ) {
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitError("");
@@ -66,6 +92,7 @@ export function ClaimForm({ companySlug }: Props) {
         company_id: company._id,
         claimant_name: form.claimant_name,
         claimant_email: form.claimant_email,
+        claimant_linkedin: form.claimant_linkedin,
       });
       setSuccess(true);
     } catch (err: any) {
@@ -194,13 +221,37 @@ export function ClaimForm({ companySlug }: Props) {
         {emailError && <p className="text-sm text-red-600 mt-1">{emailError}</p>}
       </div>
 
+      <div>
+        <label htmlFor="claimant_linkedin" className="block text-sm font-medium text-enterprise-700 mb-1">
+          LinkedIn Profile
+        </label>
+        <input
+          id="claimant_linkedin"
+          type="url"
+          required
+          value={form.claimant_linkedin}
+          onChange={(e) => {
+            setForm({ ...form, claimant_linkedin: e.target.value });
+            if (linkedinError || e.target.value.includes("linkedin.com")) {
+              validateLinkedIn(e.target.value);
+            }
+          }}
+          onBlur={(e) => validateLinkedIn(e.target.value)}
+          className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
+            linkedinError ? "border-red-400" : "border-enterprise-300"
+          }`}
+          placeholder="https://www.linkedin.com/in/your-profile"
+        />
+        {linkedinError && <p className="text-sm text-red-600 mt-1">{linkedinError}</p>}
+      </div>
+
       {submitError && (
         <p className="text-sm text-red-600 bg-red-50 p-3 rounded-lg">{submitError}</p>
       )}
 
       <button
         type="submit"
-        disabled={isSubmitting || !!emailError || !!nameError}
+        disabled={isSubmitting || !!emailError || !!linkedinError || !!nameError}
         className="w-full py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
       >
         {isSubmitting ? (

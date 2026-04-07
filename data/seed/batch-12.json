@@ -6,7 +6,6 @@
       "website": "https://www.olakrutrim.com",
       "headquarters": "Bengaluru, India",
       "founded": 2023,
-      "company_size": "scaleup",
       "description": "Krutrim AI, founded by Ola's Bhavish Aggarwal, builds foundational AI models, a sovereign cloud platform, and agentic AI products optimized for Indian languages and markets. The company is India's first AI unicorn, offering enterprise and consumer AI solutions across multiple verticals.",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -24,7 +23,6 @@
       "website": "https://www.truefoundry.com",
       "headquarters": "San Francisco, USA",
       "founded": 2021,
-      "company_size": "scaleup",
       "description": "TrueFoundry is a Kubernetes-native AI infrastructure company that provides enterprise-grade gateways and deployment tools for building, governing, and scaling agentic AI systems. Its platform serves Fortune 500 enterprises across regulated industries with SOC 2, HIPAA, and GDPR compliance.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -42,7 +40,6 @@
       "website": "https://www.vue.ai",
       "headquarters": "Chennai, India",
       "founded": 2013,
-      "company_size": "scaleup",
       "description": "Mad Street Den builds Vue.ai, an enterprise AI orchestration platform that combines computer vision, NLP, and generative AI to automate document processing, personalization, and data workflows across industries. The company serves retail, BFSI, healthcare, and logistics verticals with a full-stack AI platform.",
       "primary_verticals": [
         "Retail & E-commerce",

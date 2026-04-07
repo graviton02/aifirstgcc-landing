@@ -39,33 +39,6 @@ const mockAgents = {
   },
 } as const;
 
-const mockCompanies = [
-  {
-    _id: "company-1",
-    slug: "company-one",
-    name: "Company One",
-    description: "",
-    website: "https://example.com",
-    headquarters: "Bengaluru",
-    company_size: "mid-market",
-    primary_verticals: [],
-    verification_status: "verified",
-    claim_status: "unclaimed",
-  },
-  {
-    _id: "company-2",
-    slug: "company-two",
-    name: "Company Two",
-    description: "",
-    website: "https://example.com",
-    headquarters: "Mumbai",
-    company_size: "enterprise",
-    primary_verticals: [],
-    verification_status: "verified",
-    claim_status: "unclaimed",
-  },
-];
-
 vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams("agents=agent-one,agent-two"),
   useRouter: () => ({ replace: mockRouterReplace }),
@@ -74,10 +47,12 @@ vi.mock("next/navigation", () => ({
 vi.mock("convex/react", () => ({
   useQuery: (_query: unknown, args?: unknown) => {
     if (args === "skip") return null;
-    if (args && typeof args === "object" && "slug" in args) {
-      return mockAgents[(args as { slug: keyof typeof mockAgents }).slug];
+    if (args && typeof args === "object" && "slugs" in args) {
+      return (args as { slugs: Array<keyof typeof mockAgents> }).slugs.map(
+        (slug) => mockAgents[slug]
+      );
     }
-    return mockCompanies;
+    return undefined;
   },
 }));
 

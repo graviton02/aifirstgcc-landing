@@ -1,7 +1,10 @@
 import { query, mutation, action, internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
-import { api, internal } from "./_generated/api";
 import { Resend } from "resend";
+import {
+  makeFunctionReference,
+  type FunctionReference,
+} from "convex/server";
 import { claimApprovedEmail } from "./emails/claimApproved";
 import {
   gccReachoutApprovedEmail,
@@ -14,26 +17,127 @@ import {
 } from "./notifications";
 import { upsertProviderProfile } from "./providerProfiles";
 import {
-  buildAgentSearchText,
   getAgentValidationErrors,
   normalizeAgentEditPayload,
   normalizeAndValidateCompleteAgent,
 } from "./lib/agentTaxonomy";
+import {
+  buildAgentCompanyFields,
+  buildAgentSearchTextForDocument,
+  syncCompanyAgentSearchTexts,
+} from "./lib/agentSearch";
+import { resolveLogoUrl, withResolvedLogoUrl } from "./lib/companyLogos";
+import { rebuildDirectoryStats } from "./lib/directoryStats";
 import { appError } from "./lib/errors";
+import { getAdminViewerAccess, requireAdmin } from "./lib/admin";
+import { assertCanCreateProviderPersona } from "./lib/personas";
+import { normalizeProviderRequest } from "./lib/providerRequests";
 
-// ---------------------------------------------------------------------------
-// Session helpers
-// ---------------------------------------------------------------------------
+function makeInternalQueryReference<Args extends Record<string, unknown>, Return = unknown>(
+  name: string
+) {
+  return makeFunctionReference<"query", Args, Return>(name) as unknown as FunctionReference<
+    "query",
+    "internal",
+    Args,
+    Return
+  >;
+}
 
-async function requireAdmin(ctx: { db: any }, token: string) {
-  const session = await ctx.db
-    .query("adminSessions")
-    .withIndex("by_token", (q: any) => q.eq("session_token", token))
-    .unique();
-  if (!session || session.expires_at < Date.now()) {
-    appError("admin_session_invalid", "Invalid or expired admin session", 401);
+function makeInternalMutationReference<
+  Args extends Record<string, unknown>,
+  Return = unknown,
+>(name: string) {
+  return makeFunctionReference<"mutation", Args, Return>(name) as unknown as FunctionReference<
+    "mutation",
+    "internal",
+    Args,
+    Return
+  >;
+}
+
+function makeInternalActionReference<Args extends Record<string, unknown>, Return = unknown>(
+  name: string
+) {
+  return makeFunctionReference<"action", Args, Return>(name) as unknown as FunctionReference<
+    "action",
+    "internal",
+    Args,
+    Return
+  >;
+}
+
+const backfillLegacyProviderRequestsRef = makeInternalMutationReference(
+  "providerRequests:_backfillLegacyProviderRequests"
+);
+
+const getClaimByIdRef = makeInternalQueryReference<{ claim_id: any }>(
+  "admin:_getClaimById"
+);
+
+const getCompanyByIdRef = makeInternalQueryReference<{ company_id: any }>(
+  "admin:_getCompanyById"
+);
+
+const approveClaimInternalRef = makeInternalMutationReference<{
+  claim_id: any;
+  magic_link_token: string;
+  magic_link_expires_at: number;
+}>("admin:_approveClaimInternal");
+
+const createUserNotificationInternalRef = makeInternalMutationReference(
+  "notifications:createUserNotificationInternal"
+);
+
+const sendNotificationEmailRef = makeInternalActionReference(
+  "notifications:sendNotificationEmail"
+);
+
+const getContactRequestDetailsRef = makeInternalQueryReference<{ request_id: any }>(
+  "admin:_getContactRequestDetails"
+);
+
+const approveContactRequestInternalRef = makeInternalMutationReference<{
+  request_id: any;
+}>("admin:_approveContactRequestInternal");
+
+const rejectContactRequestInternalRef = makeInternalMutationReference<{
+  request_id: any;
+  notes?: string;
+}>("admin:_rejectContactRequestInternal");
+
+const logAuditEventInternalRef = makeInternalMutationReference<{
+  actor_user_id: string;
+  action: string;
+  entity_type: string;
+  entity_id?: string;
+  metadata?: unknown;
+}>("admin:logAuditEventInternal");
+
+async function insertAdminAuditLog(
+  ctx: { db: any },
+  {
+    actor_user_id,
+    action,
+    entity_type,
+    entity_id,
+    metadata,
+  }: {
+    actor_user_id: string;
+    action: string;
+    entity_type: string;
+    entity_id?: string;
+    metadata?: unknown;
   }
-  return session;
+) {
+  await ctx.db.insert("adminAuditLogs", {
+    actor_user_id,
+    action,
+    entity_type,
+    ...(entity_id ? { entity_id } : {}),
+    ...(metadata !== undefined ? { metadata } : {}),
+    created_at: Date.now(),
+  });
 }
 
 function getBaseUrl() {
@@ -101,15 +205,19 @@ async function getUniqueCompanySlug(ctx: { db: any }, companyName: string) {
 }
 
 async function enrichCompanySubmission(ctx: { db: any }, submission: any) {
+  const hydratedSubmission = await withResolvedLogoUrl(ctx as any, submission);
   const createdCompany = submission.created_company_id
-    ? await ctx.db.get(submission.created_company_id)
+    ? await withResolvedLogoUrl(
+        ctx as any,
+        await ctx.db.get(submission.created_company_id)
+      )
     : null;
   const initialAgentSubmission = submission.initial_agent_submission_id
     ? await ctx.db.get(submission.initial_agent_submission_id)
     : null;
 
   return {
-    ...submission,
+    ...hydratedSubmission,
     createdCompany,
     initialAgentSubmission,
     initialAgentValidationErrors: submission.initial_agent
@@ -119,7 +227,9 @@ async function enrichCompanySubmission(ctx: { db: any }, submission: any) {
 }
 
 async function enrichAgentSubmission(ctx: { db: any }, submission: any) {
-  const company = submission.company_id ? await ctx.db.get(submission.company_id) : null;
+  const company = submission.company_id
+    ? await withResolvedLogoUrl(ctx as any, await ctx.db.get(submission.company_id))
+    : null;
   return {
     ...submission,
     company,
@@ -128,7 +238,9 @@ async function enrichAgentSubmission(ctx: { db: any }, submission: any) {
 }
 
 async function enrichAgentRecord(ctx: { db: any }, agent: any) {
-  const company = agent.company_id ? await ctx.db.get(agent.company_id) : null;
+  const company = agent.company_id
+    ? await withResolvedLogoUrl(ctx as any, await ctx.db.get(agent.company_id))
+    : null;
   return {
     ...agent,
     company,
@@ -137,11 +249,36 @@ async function enrichAgentRecord(ctx: { db: any }, agent: any) {
 
 async function enrichContactRequest(ctx: { db: any }, request: any) {
   const agent = await ctx.db.get(request.agent_id);
-  const company = request.company_id ? await ctx.db.get(request.company_id) : null;
+  const company = request.company_id
+    ? await withResolvedLogoUrl(ctx as any, await ctx.db.get(request.company_id))
+    : null;
   return {
-    ...request,
+    ...normalizeProviderRequest(request),
     agent,
     company,
+  };
+}
+
+async function enrichCompanyEdit(ctx: { db: any }, edit: any) {
+  const company = await withResolvedLogoUrl(ctx as any, await ctx.db.get(edit.company_id));
+  const payload =
+    edit.payload && typeof edit.payload === "object" && !Array.isArray(edit.payload)
+      ? { ...(edit.payload as Record<string, unknown>) }
+      : {};
+
+  if ("logo_storage_id" in payload || "logo_bg" in payload) {
+    payload.logo_preview_url =
+      (await resolveLogoUrl(
+        ctx as any,
+        payload.logo_storage_id as any,
+        company?.logo_url
+      )) ?? null;
+  }
+
+  return {
+    ...edit,
+    company,
+    payload,
   };
 }
 
@@ -150,68 +287,125 @@ function buildReviewBody(defaultMessage: string, notes?: string) {
   return trimmedNotes && trimmedNotes.length > 0 ? trimmedNotes : defaultMessage;
 }
 
-// ---------------------------------------------------------------------------
-// Auth
-// ---------------------------------------------------------------------------
-
-export const login = action({
-  args: { password: v.string() },
-  handler: async (ctx, { password }) => {
-    const expectedHash = process.env.ADMIN_PASSWORD_HASH;
-    if (!expectedHash) throw new Error("Admin password not configured");
-
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-
-    if (hashHex !== expectedHash) {
-      appError("admin_password_invalid", "Invalid password", 401);
-    }
-
-    const token = crypto.randomUUID();
-    const now = Date.now();
-    await ctx.runMutation(internal.admin.createSession, {
-      session_token: token,
-      expires_at: now + 8 * 60 * 60 * 1000, // 8 hours
-      created_at: now,
-    });
-
-    return { session_token: token, expires_at: now + 8 * 60 * 60 * 1000 };
-  },
-});
-
-export const createSession = internalMutation({
+export const logAuditEventInternal = internalMutation({
   args: {
-    session_token: v.string(),
-    expires_at: v.number(),
-    created_at: v.number(),
+    actor_user_id: v.string(),
+    action: v.string(),
+    entity_type: v.string(),
+    entity_id: v.optional(v.string()),
+    metadata: v.optional(v.any()),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("adminSessions", args);
+    await insertAdminAuditLog(ctx, args);
   },
 });
 
-export const checkSession = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    const session = await ctx.db
-      .query("adminSessions")
-      .withIndex("by_token", (q) => q.eq("session_token", token))
-      .unique();
-    return !!session && session.expires_at > Date.now();
+export const backfillLegacyProviderRequests = action({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    return await ctx.runMutation(backfillLegacyProviderRequestsRef, {});
   },
 });
 
-export const logout = mutation({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    const session = await ctx.db
-      .query("adminSessions")
-      .withIndex("by_token", (q) => q.eq("session_token", token))
+export const getViewerAccess = query({
+  args: {},
+  handler: async (ctx) => {
+    return await getAdminViewerAccess(ctx);
+  },
+});
+
+export const getAuthReconciliationSnapshot = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+
+    const [companies, memberships, providerProfiles, gccProfiles] = await Promise.all([
+      ctx.db.query("companies").collect(),
+      ctx.db.query("companyMembers").collect(),
+      ctx.db.query("providerProfiles").collect(),
+      ctx.db.query("gccProfiles").collect(),
+    ]);
+
+    const activeMemberships = memberships.filter((membership) => membership.status === "active");
+    const activeMembershipsByCompany = new Map<string, typeof activeMemberships>();
+    for (const membership of activeMemberships) {
+      const key = String(membership.company_id);
+      const bucket = activeMembershipsByCompany.get(key) ?? [];
+      bucket.push(membership);
+      activeMembershipsByCompany.set(key, bucket);
+    }
+
+    const providerUserIds = new Set(activeMemberships.map((membership) => membership.user_id));
+    const providerProfileUserIds = new Set(providerProfiles.map((profile) => profile.user_id));
+    const gccUserIds = new Set(gccProfiles.map((profile) => profile.user_id));
+    const knownUserIds = new Set<string>([
+      ...Array.from(providerUserIds).filter(
+        (userId): userId is string => Boolean(userId)
+      ),
+      ...Array.from(providerProfileUserIds).filter(
+        (userId): userId is string => Boolean(userId)
+      ),
+      ...Array.from(gccUserIds).filter(
+        (userId): userId is string => Boolean(userId)
+      ),
+    ]);
+
+    return {
+      companies: companies
+        .map((company) => ({
+          company_id: company._id,
+          name: company.name,
+          slug: company.slug,
+          clerk_org_id: company.clerk_org_id ?? null,
+          members: (activeMembershipsByCompany.get(String(company._id)) ?? []).map(
+            (member) => ({
+              user_id: member.user_id,
+              email: member.email,
+              role: member.role,
+            })
+          ),
+        }))
+        .filter((company) => company.members.length > 0),
+      users: Array.from(knownUserIds).map((userId) => ({
+        user_id: userId,
+        role: providerUserIds.has(userId) ? "provider" : gccUserIds.has(userId) ? "gcc" : null,
+      })),
+    };
+  },
+});
+
+export const setCompanyClerkOrganization = mutation({
+  args: {
+    company_id: v.id("companies"),
+    clerk_org_id: v.string(),
+  },
+  handler: async (ctx, { company_id, clerk_org_id }) => {
+    await requireAdmin(ctx);
+
+    const company = await ctx.db.get(company_id);
+    if (!company) {
+      appError("admin_company_not_found", "Company not found", 404);
+    }
+
+    const duplicateOrg = await ctx.db
+      .query("companies")
+      .withIndex("by_clerkOrgId", (q) => q.eq("clerk_org_id", clerk_org_id))
       .unique();
-    if (session) await ctx.db.delete(session._id);
+    if (duplicateOrg && duplicateOrg._id !== company_id) {
+      appError(
+        "admin_clerk_org_conflict",
+        "This Clerk organization is already linked to another company.",
+        409
+      );
+    }
+
+    await ctx.db.patch(company_id, {
+      clerk_org_id,
+      updated_at: Date.now(),
+    });
+
+    return company_id;
   },
 });
 
@@ -220,16 +414,19 @@ export const logout = mutation({
 // ---------------------------------------------------------------------------
 
 export const getPendingClaims = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const claims = await ctx.db
       .query("claimRequests")
       .withIndex("by_status", (q) => q.eq("status", "pending"))
       .collect();
     const enriched = await Promise.all(
       claims.map(async (c) => {
-        const company = await ctx.db.get(c.company_id);
+        const company = await withResolvedLogoUrl(
+          ctx,
+          await ctx.db.get(c.company_id)
+        );
         return { ...c, company };
       })
     );
@@ -265,19 +462,18 @@ export const _approveClaimInternal = internalMutation({
 });
 
 export const approveClaim = action({
-  args: { token: v.string(), claim_id: v.id("claimRequests") },
-  handler: async (ctx, { token, claim_id }) => {
-    // Validate admin session
-    const isValid = await ctx.runQuery(api.admin.checkSession, { token });
-    if (!isValid) appError("admin_session_invalid", "Invalid or expired admin session", 401);
-
+  args: { claim_id: v.id("claimRequests") },
+  handler: async (ctx, { claim_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
     // Get claim data
-    const claim = await ctx.runQuery(internal.admin._getClaimById, { claim_id });
+    const claim: any = await ctx.runQuery(getClaimByIdRef, { claim_id });
     if (!claim) appError("admin_claim_not_found", "Claim not found", 404);
     if (claim.status !== "pending") appError("admin_claim_state_invalid", "Claim is not pending", 400);
 
     // Get company data for the email
-    const company = await ctx.runQuery(internal.admin._getCompanyById, { company_id: claim.company_id });
+    const company: any = await ctx.runQuery(getCompanyByIdRef, {
+      company_id: claim.company_id,
+    });
     if (!company) appError("admin_company_not_found", "Company not found", 404);
 
     // Generate magic link token
@@ -287,7 +483,7 @@ export const approveClaim = action({
     const magicLinkUrl = `${baseUrl}/claim/activate?token=${magicLinkToken}`;
 
     // Update claim in DB
-    await ctx.runMutation(internal.admin._approveClaimInternal, {
+    await ctx.runMutation(approveClaimInternalRef, {
       claim_id,
       magic_link_token: magicLinkToken,
       magic_link_expires_at: magicLinkExpiresAt,
@@ -306,7 +502,7 @@ export const approveClaim = action({
     });
 
     if (claim.claimant_user_id) {
-      await ctx.runMutation(internal.notifications.createUserNotificationInternal, {
+      await ctx.runMutation(createUserNotificationInternalRef, {
         recipient_user_id: claim.claimant_user_id,
         audience_role: "provider",
         type: "provider.claim.approved",
@@ -317,6 +513,16 @@ export const approveClaim = action({
         entity_id: claim._id,
       });
     }
+
+    await ctx.runMutation(logAuditEventInternalRef, {
+      actor_user_id: adminIdentity.subject,
+      action: "claim.approved",
+      entity_type: "claimRequest",
+      entity_id: String(claim._id),
+      metadata: {
+        company_id: String(company._id),
+      },
+    });
   },
 });
 
@@ -336,9 +542,9 @@ export const _getCompanyById = internalQuery({
 });
 
 export const rejectClaim = mutation({
-  args: { token: v.string(), claim_id: v.id("claimRequests"), notes: v.optional(v.string()) },
-  handler: async (ctx, { token, claim_id, notes }) => {
-    await requireAdmin(ctx, token);
+  args: { claim_id: v.id("claimRequests"), notes: v.optional(v.string()) },
+  handler: async (ctx, { claim_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const claim = await ctx.db.get(claim_id);
     if (!claim) appError("admin_claim_not_found", "Claim not found", 404);
     const company = await ctx.db.get(claim.company_id);
@@ -366,7 +572,7 @@ export const rejectClaim = mutation({
         recipientEmail: claim.claimant_email,
       });
     } else if (claim.claimant_email) {
-      await ctx.scheduler.runAfter(0, internal.notifications.sendNotificationEmail, {
+      await ctx.scheduler.runAfter(0, sendNotificationEmailRef, {
         recipient_email: claim.claimant_email,
         title,
         body,
@@ -374,6 +580,16 @@ export const rejectClaim = mutation({
         cta_label: "View update",
       });
     }
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "claim.rejected",
+      entity_type: "claimRequest",
+      entity_id: String(claim._id),
+      metadata: {
+        company_id: String(claim.company_id),
+      },
+    });
   },
 });
 
@@ -382,9 +598,9 @@ export const rejectClaim = mutation({
 // ---------------------------------------------------------------------------
 
 export const getPendingCompanySubmissions = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const submissions = await ctx.db
       .query("companySubmissions")
       .withIndex("by_status", (q) => q.eq("status", "pending"))
@@ -394,9 +610,9 @@ export const getPendingCompanySubmissions = query({
 });
 
 export const approveCompanySubmission = mutation({
-  args: { token: v.string(), submission_id: v.id("companySubmissions") },
-  handler: async (ctx, { token, submission_id }) => {
-    await requireAdmin(ctx, token);
+  args: { submission_id: v.id("companySubmissions") },
+  handler: async (ctx, { submission_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
 
     const submission = await ctx.db.get(submission_id);
     if (!submission) appError("admin_company_submission_not_found", "Submission not found", 404);
@@ -411,6 +627,8 @@ export const approveCompanySubmission = mutation({
       appError("admin_company_submission_membership_exists", "This user already has an active company membership.", 409);
     }
 
+    await assertCanCreateProviderPersona(ctx, submission.user_id);
+
     const now = Date.now();
     const slug = await getUniqueCompanySlug(ctx, submission.company_name);
 
@@ -420,7 +638,10 @@ export const approveCompanySubmission = mutation({
       description: submission.description,
       website: submission.website,
       headquarters: submission.headquarters,
-      company_size: submission.company_size,
+      ...(submission.logo_storage_id
+        ? { logo_storage_id: submission.logo_storage_id }
+        : {}),
+      ...(submission.logo_bg ? { logo_bg: submission.logo_bg } : {}),
       primary_verticals: submission.primary_verticals,
       contact_email: submission.contact_email,
       verification_status: "verified",
@@ -462,6 +683,8 @@ export const approveCompanySubmission = mutation({
       updated_at: now,
     });
 
+    await rebuildDirectoryStats(ctx);
+
     await createUserNotification(ctx, {
       recipientUserId: submission.user_id,
       audienceRole: "provider",
@@ -474,17 +697,26 @@ export const approveCompanySubmission = mutation({
       shouldEmail: true,
       recipientEmail: submission.contact_email,
     });
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "company_submission.approved",
+      entity_type: "companySubmission",
+      entity_id: String(submission._id),
+      metadata: {
+        company_id: String(companyId),
+      },
+    });
   },
 });
 
 export const rejectCompanySubmission = mutation({
   args: {
-    token: v.string(),
     submission_id: v.id("companySubmissions"),
     notes: v.optional(v.string()),
   },
-  handler: async (ctx, { token, submission_id, notes }) => {
-    await requireAdmin(ctx, token);
+  handler: async (ctx, { submission_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const submission = await ctx.db.get(submission_id);
     if (!submission) appError("admin_company_submission_not_found", "Submission not found", 404);
 
@@ -510,6 +742,68 @@ export const rejectCompanySubmission = mutation({
       shouldEmail: true,
       recipientEmail: submission.contact_email,
     });
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "company_submission.rejected",
+      entity_type: "companySubmission",
+      entity_id: String(submission._id),
+    });
+  },
+});
+
+export const removeLegacyCompanySizeData = mutation({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+
+    const now = Date.now();
+    const [companies, companySubmissions, providerProfiles] = await Promise.all([
+      ctx.db.query("companies").collect(),
+      ctx.db.query("companySubmissions").collect(),
+      ctx.db.query("providerProfiles").collect(),
+    ]);
+
+    let companiesPatched = 0;
+    let submissionsPatched = 0;
+    let profilesPatched = 0;
+
+    for (const company of companies) {
+      if (company.company_size === undefined) continue;
+      await ctx.db.patch(company._id, {
+        company_size: undefined,
+        updated_at: now,
+      });
+      companiesPatched += 1;
+    }
+
+    for (const submission of companySubmissions) {
+      if (submission.company_size === undefined) continue;
+      await ctx.db.patch(submission._id, {
+        company_size: undefined,
+        updated_at: now,
+      });
+      submissionsPatched += 1;
+    }
+
+    for (const profile of providerProfiles) {
+      if (profile.company_size === undefined) continue;
+      await ctx.db.patch(profile._id, {
+        company_size: undefined,
+        updated_at: now,
+      });
+      profilesPatched += 1;
+    }
+
+    return {
+      companiesScanned: companies.length,
+      companiesPatched,
+      submissionsScanned: companySubmissions.length,
+      submissionsPatched,
+      profilesScanned: providerProfiles.length,
+      profilesPatched,
+      totalPatched: companiesPatched + submissionsPatched + profilesPatched,
+    };
   },
 });
 
@@ -518,9 +812,9 @@ export const rejectCompanySubmission = mutation({
 // ---------------------------------------------------------------------------
 
 export const getPendingAgents = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const submissions = await ctx.db
       .query("agentSubmissions")
       .withIndex("by_status", (q) => q.eq("submission_status", "pending"))
@@ -533,9 +827,9 @@ export const getPendingAgents = query({
 });
 
 export const approveAgent = mutation({
-  args: { token: v.string(), submission_id: v.id("agentSubmissions") },
-  handler: async (ctx, { token, submission_id }) => {
-    await requireAdmin(ctx, token);
+  args: { submission_id: v.id("agentSubmissions") },
+  handler: async (ctx, { submission_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const sub = await ctx.db.get(submission_id);
     if (!sub) appError("admin_agent_submission_not_found", "Submission not found", 404);
 
@@ -546,15 +840,19 @@ export const approveAgent = mutation({
       .replace(/^-|-$/g, "");
 
     const normalized = normalizeAndValidateCompleteAgent(sub);
-    const searchText = buildAgentSearchText({
+    const companyFields = await buildAgentCompanyFields(ctx, sub.company_id);
+    const searchText = await buildAgentSearchTextForDocument(ctx, {
       agent_name: normalized.agent_name,
       description: normalized.description,
       tagline: normalized.tagline,
       category: normalized.category,
+      company_id: sub.company_id,
+      company_name: companyFields.company_name,
       functional_categories: normalized.functional_categories,
       industry_categories: normalized.industry_categories,
       integrations: normalized.integrations,
       expected_outcomes: normalized.expected_outcomes,
+      use_cases: normalized.use_cases,
     });
 
     await ctx.db.insert("agents", {
@@ -564,12 +862,12 @@ export const approveAgent = mutation({
       description: normalized.description,
       category: normalized.category,
       company_id: sub.company_id,
+      ...companyFields,
       logo_url: sub.logo_url,
       use_cases: normalized.use_cases,
       functional_categories: normalized.functional_categories,
       industry_categories: normalized.industry_categories,
       industries: normalized.industries,
-      infrastructure_categories: normalized.infrastructure_categories,
       expected_outcomes: normalized.expected_outcomes,
       integrations: normalized.integrations,
       demo_url: normalized.demo_url,
@@ -587,6 +885,7 @@ export const approveAgent = mutation({
     });
 
     await ctx.db.patch(submission_id, { submission_status: "approved", reviewed_at: Date.now(), updated_at: now });
+    await rebuildDirectoryStats(ctx);
 
     if (sub.company_id) {
       await createCompanyOwnerNotifications(ctx, {
@@ -613,13 +912,20 @@ export const approveAgent = mutation({
         entityId: sub._id,
       });
     }
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "agent_submission.approved",
+      entity_type: "agentSubmission",
+      entity_id: String(sub._id),
+    });
   },
 });
 
 export const rejectAgent = mutation({
-  args: { token: v.string(), submission_id: v.id("agentSubmissions"), notes: v.optional(v.string()) },
-  handler: async (ctx, { token, submission_id, notes }) => {
-    await requireAdmin(ctx, token);
+  args: { submission_id: v.id("agentSubmissions"), notes: v.optional(v.string()) },
+  handler: async (ctx, { submission_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const submission = await ctx.db.get(submission_id);
     if (!submission) appError("admin_agent_submission_not_found", "Submission not found", 404);
     const now = Date.now();
@@ -661,13 +967,20 @@ export const rejectAgent = mutation({
         entityId: submission._id,
       });
     }
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "agent_submission.rejected",
+      entity_type: "agentSubmission",
+      entity_id: String(submission._id),
+    });
   },
 });
 
 export const requestChangesAgent = mutation({
-  args: { token: v.string(), submission_id: v.id("agentSubmissions"), notes: v.optional(v.string()) },
-  handler: async (ctx, { token, submission_id, notes }) => {
-    await requireAdmin(ctx, token);
+  args: { submission_id: v.id("agentSubmissions"), notes: v.optional(v.string()) },
+  handler: async (ctx, { submission_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const submission = await ctx.db.get(submission_id);
     if (!submission) appError("admin_agent_submission_not_found", "Submission not found", 404);
     const now = Date.now();
@@ -709,6 +1022,13 @@ export const requestChangesAgent = mutation({
         entityId: submission._id,
       });
     }
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "agent_submission.changes_requested",
+      entity_type: "agentSubmission",
+      entity_id: String(submission._id),
+    });
   },
 });
 
@@ -717,36 +1037,43 @@ export const requestChangesAgent = mutation({
 // ---------------------------------------------------------------------------
 
 export const getPendingCompanyEdits = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const edits = await ctx.db
       .query("companyEdits")
       .withIndex("by_status", (q) => q.eq("status", "pending"))
       .collect();
-    const enriched = await Promise.all(
-      edits.map(async (e) => {
-        const company = await ctx.db.get(e.company_id);
-        return { ...e, company };
-      })
-    );
+    const enriched = await Promise.all(edits.map((edit) => enrichCompanyEdit(ctx, edit)));
     return enriched;
   },
 });
 
 export const approveCompanyEdit = mutation({
-  args: { token: v.string(), edit_id: v.id("companyEdits") },
-  handler: async (ctx, { token, edit_id }) => {
-    await requireAdmin(ctx, token);
+  args: { edit_id: v.id("companyEdits") },
+  handler: async (ctx, { edit_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const edit = await ctx.db.get(edit_id);
     if (!edit) appError("admin_company_edit_not_found", "Edit not found", 404);
     const company = await ctx.db.get(edit.company_id);
 
+    const payload = edit.payload as Record<string, unknown>;
+
     await ctx.db.patch(edit.company_id, {
-      ...(edit.payload as Record<string, unknown>),
+      ...payload,
       updated_at: Date.now(),
     });
     await ctx.db.patch(edit_id, { status: "approved", reviewed_at: Date.now() });
+
+    if (
+      (typeof payload.name === "string" && payload.name.trim()) ||
+      "logo_storage_id" in payload ||
+      "logo_url" in payload ||
+      "logo_bg" in payload ||
+      "slug" in payload
+    ) {
+      await syncCompanyAgentSearchTexts(ctx, edit.company_id);
+    }
 
     await createCompanyOwnerNotifications(ctx, {
       audienceRole: "provider",
@@ -760,13 +1087,20 @@ export const approveCompanyEdit = mutation({
       submitterUserId: edit.user_id,
       shouldEmail: true,
     });
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "company_edit.approved",
+      entity_type: "companyEdit",
+      entity_id: String(edit._id),
+    });
   },
 });
 
 export const rejectCompanyEdit = mutation({
-  args: { token: v.string(), edit_id: v.id("companyEdits"), notes: v.optional(v.string()) },
-  handler: async (ctx, { token, edit_id, notes }) => {
-    await requireAdmin(ctx, token);
+  args: { edit_id: v.id("companyEdits"), notes: v.optional(v.string()) },
+  handler: async (ctx, { edit_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const edit = await ctx.db.get(edit_id);
     if (!edit) appError("admin_company_edit_not_found", "Edit not found", 404);
     const company = await ctx.db.get(edit.company_id);
@@ -787,6 +1121,13 @@ export const rejectCompanyEdit = mutation({
       submitterUserId: edit.user_id,
       shouldEmail: true,
     });
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "company_edit.rejected",
+      entity_type: "companyEdit",
+      entity_id: String(edit._id),
+    });
   },
 });
 
@@ -795,9 +1136,9 @@ export const rejectCompanyEdit = mutation({
 // ---------------------------------------------------------------------------
 
 export const getPendingAgentEdits = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const edits = await ctx.db
       .query("agentEdits")
       .withIndex("by_status", (q) => q.eq("status", "pending"))
@@ -813,9 +1154,9 @@ export const getPendingAgentEdits = query({
 });
 
 export const approveAgentEdit = mutation({
-  args: { token: v.string(), edit_id: v.id("agentEdits") },
-  handler: async (ctx, { token, edit_id }) => {
-    await requireAdmin(ctx, token);
+  args: { edit_id: v.id("agentEdits") },
+  handler: async (ctx, { edit_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const edit = await ctx.db.get(edit_id);
     if (!edit) appError("admin_agent_edit_not_found", "Edit not found", 404);
     const agent = await ctx.db.get(edit.agent_id);
@@ -831,6 +1172,7 @@ export const approveAgentEdit = mutation({
       ...agent,
       ...normalizedPayload,
     });
+    const companyFields = await buildAgentCompanyFields(ctx, agent.company_id);
 
     await ctx.db.patch(edit.agent_id, {
       ...normalizedPayload,
@@ -839,27 +1181,31 @@ export const approveAgentEdit = mutation({
       description: nextAgent.description,
       category: nextAgent.category,
       use_cases: nextAgent.use_cases,
+      ...companyFields,
       functional_categories: nextAgent.functional_categories,
       industry_categories: nextAgent.industry_categories,
       industries: nextAgent.industries,
-      infrastructure_categories: nextAgent.infrastructure_categories,
       integrations: nextAgent.integrations,
       expected_outcomes: nextAgent.expected_outcomes,
       source_url: nextAgent.source_url,
       demo_url: nextAgent.demo_url,
-      search_text: buildAgentSearchText({
+      search_text: await buildAgentSearchTextForDocument(ctx, {
         agent_name: nextAgent.agent_name,
         description: nextAgent.description,
         tagline: nextAgent.tagline,
         category: nextAgent.category,
+        company_id: agent.company_id,
+        company_name: companyFields.company_name,
         functional_categories: nextAgent.functional_categories,
         industry_categories: nextAgent.industry_categories,
         integrations: nextAgent.integrations,
         expected_outcomes: nextAgent.expected_outcomes,
+        use_cases: nextAgent.use_cases,
       }),
       updated_at: Date.now(),
     });
     await ctx.db.patch(edit_id, { status: "approved", reviewed_at: Date.now() });
+    await rebuildDirectoryStats(ctx);
 
     if (agent.company_id) {
       await createCompanyOwnerNotifications(ctx, {
@@ -886,13 +1232,20 @@ export const approveAgentEdit = mutation({
         entityId: edit._id,
       });
     }
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "agent_edit.approved",
+      entity_type: "agentEdit",
+      entity_id: String(edit._id),
+    });
   },
 });
 
 export const getAllAgentsCatalog = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const agents = await ctx.db.query("agents").collect();
     const enriched = await Promise.all(
       agents.map((agent) => enrichAgentRecord(ctx, agent))
@@ -902,9 +1255,9 @@ export const getAllAgentsCatalog = query({
 });
 
 export const rejectAgentEdit = mutation({
-  args: { token: v.string(), edit_id: v.id("agentEdits"), notes: v.optional(v.string()) },
-  handler: async (ctx, { token, edit_id, notes }) => {
-    await requireAdmin(ctx, token);
+  args: { edit_id: v.id("agentEdits"), notes: v.optional(v.string()) },
+  handler: async (ctx, { edit_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const edit = await ctx.db.get(edit_id);
     if (!edit) appError("admin_agent_edit_not_found", "Edit not found", 404);
     const agent = await ctx.db.get(edit.agent_id);
@@ -942,6 +1295,13 @@ export const rejectAgentEdit = mutation({
         entityId: edit._id,
       });
     }
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "agent_edit.rejected",
+      entity_type: "agentEdit",
+      entity_id: String(edit._id),
+    });
   },
 });
 
@@ -950,9 +1310,9 @@ export const rejectAgentEdit = mutation({
 // ---------------------------------------------------------------------------
 
 export const getPendingContactRequests = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const requests = await ctx.db
       .query("providerRequests")
       .withIndex("by_status", (q) => q.eq("status", "pending_admin"))
@@ -1037,21 +1397,19 @@ export const _rejectContactRequestInternal = internalMutation({
 });
 
 export const approveContactRequest = action({
-  args: { token: v.string(), request_id: v.id("providerRequests") },
-  handler: async (ctx, { token, request_id }) => {
-    const isValid = await ctx.runQuery(api.admin.checkSession, { token });
-    if (!isValid) {
-      appError("admin_session_invalid", "Invalid or expired admin session", 401);
-    }
-
-    const details = await ctx.runQuery(internal.admin._getContactRequestDetails, {
+  args: { request_id: v.id("providerRequests") },
+  handler: async (ctx, { request_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
+    const details: any = await ctx.runQuery(getContactRequestDetailsRef, {
       request_id,
     });
     if (!details) {
       appError("admin_contact_request_not_found", "Contact request not found", 404);
     }
 
-    await ctx.runMutation(internal.admin._approveContactRequestInternal, {
+    const request = normalizeProviderRequest(details.request);
+
+    await ctx.runMutation(approveContactRequestInternalRef, {
       request_id,
     });
 
@@ -1059,21 +1417,21 @@ export const approveContactRequest = action({
     const providerDashboardLink = "/dashboard";
     const gccNotificationBody = `Your request for ${details.agent?.agent_name ?? "this provider"} was approved. The provider team can now review your details and reach out directly.`;
 
-    await ctx.runMutation(internal.notifications.createUserNotificationInternal, {
-      recipient_user_id: details.request.gcc_user_id,
+    await ctx.runMutation(createUserNotificationInternalRef, {
+      recipient_user_id: request.gcc_user_id,
       audience_role: "gcc",
       type: "gcc.contact_request.approved",
       title: "Contact request approved",
       body: gccNotificationBody,
       link: gccDashboardLink,
       entity_type: "providerRequest",
-      entity_id: details.request._id,
+      entity_id: request._id,
     });
 
     const providerRecipients = Array.from(
       new Set(
         details.activeMembers
-          .map((member) => member.email?.trim().toLowerCase())
+          .map((member: any) => member.email?.trim().toLowerCase())
           .filter(Boolean)
       )
     ) as string[];
@@ -1081,18 +1439,14 @@ export const approveContactRequest = action({
     const providerEmail = providerLeadApprovedEmail({
       agentName: details.agent?.agent_name ?? "Selected solution",
       companyName: details.company?.name ?? "Provider",
-      gccName: details.request.gcc_name ?? "Unknown GCC",
-      gccEmail: details.request.gcc_email ?? details.request.gcc_user_email ?? "",
-      gccOrganization: details.request.gcc_organization ?? "Unknown organization",
-      gccIndustry: details.request.gcc_industry ?? "Unknown industry",
-      useCase: details.request.use_case ?? "No use case provided",
-      currentChallenge:
-        details.request.current_challenge ??
-        details.request.message ??
-        "No challenge provided",
-      expectedOutcome:
-        details.request.expected_outcome ?? "No expected outcome provided",
-      timeline: details.request.timeline ?? "Not specified",
+      gccName: request.gcc_name,
+      gccEmail: request.gcc_email,
+      gccOrganization: request.gcc_organization,
+      gccIndustry: request.gcc_industry,
+      useCase: request.use_case,
+      currentChallenge: request.current_challenge,
+      expectedOutcome: request.expected_outcome,
+      timeline: request.timeline,
       dashboardUrl: `${getBaseUrl()}${providerDashboardLink}`,
     });
 
@@ -1109,39 +1463,41 @@ export const approveContactRequest = action({
         html: providerEmail.html,
       }),
       sendEmailIfConfigured({
-        to: details.request.gcc_email ?? details.request.gcc_user_email ?? "",
+        to: request.gcc_email,
         subject: gccEmail.subject,
         html: gccEmail.html,
       }),
     ]);
+
+    await ctx.runMutation(logAuditEventInternalRef, {
+      actor_user_id: adminIdentity.subject,
+      action: "contact_request.approved",
+      entity_type: "providerRequest",
+      entity_id: String(details.request._id),
+    });
   },
 });
 
 export const rejectContactRequest = action({
   args: {
-    token: v.string(),
     request_id: v.id("providerRequests"),
     notes: v.optional(v.string()),
   },
-  handler: async (ctx, { token, request_id, notes }) => {
-    const isValid = await ctx.runQuery(api.admin.checkSession, { token });
-    if (!isValid) {
-      appError("admin_session_invalid", "Invalid or expired admin session", 401);
-    }
-
-    const details = await ctx.runQuery(internal.admin._getContactRequestDetails, {
+  handler: async (ctx, { request_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
+    const details: any = await ctx.runQuery(getContactRequestDetailsRef, {
       request_id,
     });
     if (!details) {
       appError("admin_contact_request_not_found", "Contact request not found", 404);
     }
 
-    await ctx.runMutation(internal.admin._rejectContactRequestInternal, {
+    await ctx.runMutation(rejectContactRequestInternalRef, {
       request_id,
       notes,
     });
 
-    await ctx.runMutation(internal.notifications.createUserNotificationInternal, {
+    await ctx.runMutation(createUserNotificationInternalRef, {
       recipient_user_id: details.request.gcc_user_id,
       audience_role: "gcc",
       type: "gcc.contact_request.rejected",
@@ -1167,6 +1523,13 @@ export const rejectContactRequest = action({
       subject: gccEmail.subject,
       html: gccEmail.html,
     });
+
+    await ctx.runMutation(logAuditEventInternalRef, {
+      actor_user_id: adminIdentity.subject,
+      action: "contact_request.rejected",
+      entity_type: "providerRequest",
+      entity_id: String(details.request._id),
+    });
   },
 });
 
@@ -1175,9 +1538,9 @@ export const rejectContactRequest = action({
 // ---------------------------------------------------------------------------
 
 export const getDirectoryStats = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const agents = await ctx.db.query("agents").collect();
     const companies = await ctx.db.query("companies").collect();
     const gccProfiles = await ctx.db.query("gccProfiles").collect();
@@ -1206,6 +1569,14 @@ export const getDirectoryStats = query({
       .query("providerRequests")
       .withIndex("by_status", (q) => q.eq("status", "pending_admin"))
       .collect();
+    const pendingReviews = await ctx.db
+      .query("reviews")
+      .withIndex("by_status_created", (q) => q.eq("status", "pending"))
+      .collect();
+    const pendingReviewResponses = await ctx.db
+      .query("reviewResponses")
+      .withIndex("by_status_created", (q) => q.eq("status", "pending"))
+      .collect();
 
     const claimed = companies.filter((c) => c.claim_status === "claimed").length;
 
@@ -1220,6 +1591,8 @@ export const getDirectoryStats = query({
       pendingAgentSubmissions: pendingAgentSubmissions.length,
       pendingAgentEdits: pendingAgentEdits.length,
       pendingContactRequests: pendingContactRequests.length,
+      pendingReviews: pendingReviews.length,
+      pendingReviewResponses: pendingReviewResponses.length,
     };
   },
 });
@@ -1229,9 +1602,9 @@ export const getDirectoryStats = query({
 // ---------------------------------------------------------------------------
 
 export const getClaimsHistory = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const all = await ctx.db.query("claimRequests").collect();
     const resolved = all.filter((c) => c.status !== "pending");
     const enriched = await Promise.all(
@@ -1247,9 +1620,9 @@ export const getClaimsHistory = query({
 });
 
 export const getAgentSubmissionsHistory = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const all = await ctx.db.query("agentSubmissions").collect();
     const resolved = all.filter((s) => s.submission_status !== "pending");
     const enriched = await Promise.all(
@@ -1262,9 +1635,9 @@ export const getAgentSubmissionsHistory = query({
 });
 
 export const getCompanySubmissionsHistory = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const all = await ctx.db.query("companySubmissions").collect();
     const resolved = all.filter((submission) => submission.status !== "pending");
     const enriched = await Promise.all(
@@ -1278,16 +1651,13 @@ export const getCompanySubmissionsHistory = query({
 });
 
 export const getCompanyEditsHistory = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const all = await ctx.db.query("companyEdits").collect();
     const resolved = all.filter((e) => e.status !== "pending");
     const enriched = await Promise.all(
-      resolved.map(async (e) => {
-        const company = await ctx.db.get(e.company_id);
-        return { ...e, company };
-      })
+      resolved.map((edit) => enrichCompanyEdit(ctx, edit))
     );
     return enriched
       .sort((a, b) => (b.reviewed_at ?? b.created_at) - (a.reviewed_at ?? a.created_at))
@@ -1296,9 +1666,9 @@ export const getCompanyEditsHistory = query({
 });
 
 export const getAgentEditsHistory = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const all = await ctx.db.query("agentEdits").collect();
     const resolved = all.filter((e) => e.status !== "pending");
     const enriched = await Promise.all(
@@ -1314,9 +1684,9 @@ export const getAgentEditsHistory = query({
 });
 
 export const getContactRequestsHistory = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const all = await ctx.db.query("providerRequests").collect();
     const resolved = all.filter((r) => r.status !== "pending_admin");
     const enriched = await Promise.all(
@@ -1337,9 +1707,9 @@ export const getContactRequestsHistory = query({
 // ---------------------------------------------------------------------------
 
 export const listClaimedCompanies = query({
-  args: { token: v.string() },
-  handler: async (ctx, { token }) => {
-    await requireAdmin(ctx, token);
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
     const companies = await ctx.db.query("companies").collect();
     return companies
       .filter((c) => c.claim_status !== "unclaimed")
@@ -1355,9 +1725,9 @@ export const listClaimedCompanies = query({
 });
 
 export const unclaimCompany = mutation({
-  args: { token: v.string(), company_id: v.id("companies") },
-  handler: async (ctx, { token, company_id }) => {
-    await requireAdmin(ctx, token);
+  args: { company_id: v.id("companies") },
+  handler: async (ctx, { company_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
     const company = await ctx.db.get(company_id);
     if (!company) appError("admin_company_not_found", "Company not found", 404);
 
@@ -1385,6 +1755,13 @@ export const unclaimCompany = mutation({
     for (const member of members) {
       await ctx.db.delete(member._id);
     }
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "company.unclaimed",
+      entity_type: "company",
+      entity_id: String(company._id),
+    });
 
     return { success: true, company: company.name };
   },

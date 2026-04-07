@@ -1,6 +1,9 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
+import { withResolvedLogoUrl } from "./lib/companyLogos";
+import { syncCompanyAgentSearchTexts } from "./lib/agentSearch";
+import { rebuildDirectoryStats } from "./lib/directoryStats";
 
 export const list = query({
   args: {
@@ -14,44 +17,59 @@ export const list = query({
         .query("companies")
         .withSearchIndex("search_companies", (q) => q.search("name", search))
         .take(pageSize);
-      return { data: results, count: results.length };
+      return {
+        data: await Promise.all(
+          results.map((company) => withResolvedLogoUrl(ctx, company))
+        ),
+        count: results.length,
+      };
     }
     const all = await ctx.db.query("companies").collect();
-    return { data: all.slice(0, pageSize), count: all.length };
+    return {
+      data: await Promise.all(
+        all.slice(0, pageSize).map((company) => withResolvedLogoUrl(ctx, company))
+      ),
+      count: all.length,
+    };
   },
 });
 
 export const listAll = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("companies").collect();
+    const companies = await ctx.db.query("companies").collect();
+    return await Promise.all(
+      companies.map((company) => withResolvedLogoUrl(ctx, company))
+    );
   },
 });
 
 export const getBySlug = query({
   args: { slug: v.string() },
   handler: async (ctx, { slug }) => {
-    return await ctx.db
+    const company = await ctx.db
       .query("companies")
       .withIndex("by_slug", (q) => q.eq("slug", slug))
       .unique();
+    return await withResolvedLogoUrl(ctx, company);
   },
 });
 
 export const getById = query({
   args: { id: v.id("companies") },
   handler: async (ctx, { id }) => {
-    return await ctx.db.get(id);
+    return await withResolvedLogoUrl(ctx, await ctx.db.get(id));
   },
 });
 
 export const getByClerkOrgId = query({
   args: { clerk_org_id: v.string() },
   handler: async (ctx, { clerk_org_id }) => {
-    return await ctx.db
+    const company = await ctx.db
       .query("companies")
       .withIndex("by_clerkOrgId", (q) => q.eq("clerk_org_id", clerk_org_id))
       .unique();
+    return await withResolvedLogoUrl(ctx, company);
   },
 });
 
@@ -71,7 +89,6 @@ export const seed = mutation({
     website: v.string(),
     headquarters: v.string(),
     founded: v.optional(v.number()),
-    company_size: v.string(),
     primary_verticals: v.array(v.string()),
     contact_email: v.optional(v.string()),
     contact_url: v.optional(v.string()),
@@ -86,24 +103,41 @@ export const seed = mutation({
       .unique();
     if (existing) {
       const patch: Record<string, unknown> = {};
+      let shouldSyncAgents = false;
       if (args.logo_url && args.logo_url !== existing.logo_url) patch.logo_url = args.logo_url;
       if (args.logo_bg !== undefined && args.logo_bg !== existing.logo_bg) patch.logo_bg = args.logo_bg;
       if (args.contact_url && args.contact_url !== existing.contact_url) patch.contact_url = args.contact_url;
+      if (existing.company_size !== undefined) patch.company_size = undefined;
+      if (args.name !== existing.name) {
+        patch.name = args.name;
+        shouldSyncAgents = true;
+      }
+      if (args.logo_url && args.logo_url !== existing.logo_url) {
+        shouldSyncAgents = true;
+      }
+      if (args.logo_bg !== undefined && args.logo_bg !== existing.logo_bg) {
+        shouldSyncAgents = true;
+      }
       if (Object.keys(patch).length > 0) {
         patch.updated_at = Date.now();
         await ctx.db.patch(existing._id, patch);
+        if (shouldSyncAgents) {
+          await syncCompanyAgentSearchTexts(ctx, existing._id);
+        }
       }
       return existing._id;
     }
 
     const now = Date.now();
-    return await ctx.db.insert("companies", {
+    const insertedId = await ctx.db.insert("companies", {
       ...args,
       verification_status: (args.verification_status as "unverified" | "verified" | "flagged") ?? "unverified",
       claim_status: "unclaimed",
       created_at: now,
       updated_at: now,
     });
+    await rebuildDirectoryStats(ctx);
+    return insertedId;
   },
 });
 

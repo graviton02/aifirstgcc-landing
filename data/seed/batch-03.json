@@ -6,7 +6,6 @@
       "website": "https://www.persistent.com",
       "headquarters": "Pune, India",
       "founded": 1990,
-      "company_size": "enterprise",
       "description": "Persistent Systems is an Indian multinational technology services company specializing in digital engineering, cloud computing, data analytics, and enterprise AI solutions. The company serves clients across multiple industries globally, with particular strength in healthcare, financial services, and software product engineering.",
       "primary_verticals": [
         "Healthcare & Life Sciences",
@@ -25,7 +24,6 @@
       "website": "https://www.mphasis.com",
       "headquarters": "Bengaluru, India",
       "founded": 2000,
-      "company_size": "enterprise",
       "description": "Mphasis is an IT services and consulting company applying next-generation technology to help enterprises transform businesses globally. The company specializes in cloud, cognitive computing, and AI-driven solutions across banking, insurance, healthcare, and other industries.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -43,7 +41,6 @@
       "website": "https://www.happiestminds.com",
       "headquarters": "Bengaluru, India",
       "founded": 2011,
-      "company_size": "enterprise",
       "description": "Happiest Minds Technologies is an AI-first digital engineering and IT services company operating across 43 global offices. The company specializes in product engineering, cybersecurity, analytics, and automation platforms, serving clients across financial services, healthcare, retail, and manufacturing.",
       "primary_verticals": [
         "Financial Services (BFSI)",

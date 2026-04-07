@@ -45,7 +45,7 @@ describe("AdminAgentsTab", () => {
   });
 
   it("shows enriched company and full agent detail in the pending review dropdown", () => {
-    render(<AdminAgentsTab token="admin-token" />);
+    render(<AdminAgentsTab />);
 
     fireEvent.click(screen.getByRole("button", { name: /show more/i }));
 

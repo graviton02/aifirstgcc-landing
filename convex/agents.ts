@@ -6,14 +6,24 @@ import { appError } from "./lib/errors";
 import {
   getInvalidFunctionalCategories,
   getInvalidIndustryCategories,
+  normalizeCategorySelections,
 } from "../src/lib/categories";
+import { dailyShuffle } from "../src/lib/directoryShuffle";
 import {
-  buildAgentSearchText,
   normalizeAgentEditPayload,
   normalizeAndValidateCompleteAgent,
   normalizeAndValidateAgentTaxonomy,
   stringArraysEqual,
 } from "./lib/agentTaxonomy";
+import {
+  buildAgentCompanyFields,
+  buildAgentSearchTextForDocument,
+} from "./lib/agentSearch";
+import { resolveLogoUrl } from "./lib/companyLogos";
+import {
+  getDirectoryStatsSnapshot,
+  rebuildDirectoryStats,
+} from "./lib/directoryStats";
 
 const agentUseCaseValidator = v.object({
   title: v.string(),
@@ -52,6 +62,11 @@ type AgentSubmissionDraft = {
   source_url?: string;
 };
 
+const DEFAULT_DIRECTORY_PAGE_SIZE = 20;
+const DEFAULT_SUGGESTION_LIMIT = 3;
+const DIRECTORY_SEARCH_MULTIPLIER = 8;
+const MAX_DIRECTORY_SEARCH_CANDIDATES = 200;
+
 function buildSubmissionDocument(args: AgentSubmissionDraft) {
   const normalized = normalizeAndValidateCompleteAgent(args);
 
@@ -65,12 +80,270 @@ function buildSubmissionDocument(args: AgentSubmissionDraft) {
     functional_categories: normalized.functional_categories,
     industry_categories: normalized.industry_categories,
     industries: normalized.industries,
-    infrastructure_categories: normalized.infrastructure_categories,
     integrations: normalized.integrations,
     expected_outcomes: normalized.expected_outcomes,
     source_url: normalized.source_url,
     demo_url: normalized.demo_url,
   };
+}
+
+function normalizeSearchQuery(search?: string) {
+  const trimmed = search?.trim();
+  return trimmed ? trimmed : undefined;
+}
+
+function normalizeDirectoryFilters(args: {
+  tab?: string;
+  functional?: string[];
+  industry?: string[];
+  infrastructure?: string[];
+}) {
+  const functional = normalizeCategorySelections(args.functional) ?? [];
+  const industry = normalizeCategorySelections(args.industry) ?? [];
+  const infrastructure = normalizeCategorySelections(args.infrastructure) ?? [];
+
+  if (args.tab && !functional.includes(args.tab)) {
+    functional.unshift(args.tab);
+  }
+
+  return {
+    functional,
+    industry,
+    infrastructure,
+  };
+}
+
+function applyDirectoryFilters(
+  agents: any[],
+  filters: {
+    functional: string[];
+    industry: string[];
+    infrastructure: string[];
+  }
+) {
+  return agents.filter((agent) => {
+    if (
+      filters.functional.length > 0 &&
+      !(agent.functional_categories ?? []).some((category: string) =>
+        filters.functional.includes(category)
+      )
+    ) {
+      return false;
+    }
+
+    if (
+      filters.industry.length > 0 &&
+      !(agent.industry_categories ?? []).some((category: string) =>
+        filters.industry.includes(category)
+      )
+    ) {
+      return false;
+    }
+
+    if (
+      filters.infrastructure.length > 0 &&
+      !(agent.infrastructure_categories ?? []).some((category: string) =>
+        filters.infrastructure.includes(category)
+      )
+    ) {
+      return false;
+    }
+
+    return true;
+  });
+}
+
+function normalizeForRanking(value?: string) {
+  return (value ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function includesAllTokens(value: string, tokens: string[]) {
+  return tokens.length > 0 && tokens.every((token) => value.includes(token));
+}
+
+function getDirectorySearchScore(agent: any, search: string) {
+  const query = normalizeForRanking(search);
+  const tokens = query.split(" ").filter(Boolean);
+  const agentName = normalizeForRanking(agent.agent_name);
+  const company = normalizeForRanking(agent.company_name);
+  const tagline = normalizeForRanking(agent.tagline);
+  const category = normalizeForRanking(agent.category);
+  const functional = normalizeForRanking((agent.functional_categories ?? []).join(" "));
+  const industry = normalizeForRanking((agent.industry_categories ?? []).join(" "));
+  const infrastructure = normalizeForRanking(
+    (agent.infrastructure_categories ?? []).join(" ")
+  );
+  const outcomes = normalizeForRanking((agent.expected_outcomes ?? []).join(" "));
+  const integrations = normalizeForRanking((agent.integrations ?? []).join(" "));
+  const useCases = normalizeForRanking(
+    (agent.use_cases ?? [])
+      .flatMap((useCase: { title?: string; description?: string }) => [
+        useCase.title ?? "",
+        useCase.description ?? "",
+      ])
+      .join(" ")
+  );
+  const description = normalizeForRanking(agent.description);
+
+  if (!query) return 0;
+  if (agentName === query) return 1200;
+  if (agentName.startsWith(query)) return 1100;
+  if (includesAllTokens(agentName, tokens)) return 1000;
+  if (company === query) return 900;
+  if (company.startsWith(query)) return 850;
+  if (includesAllTokens(company, tokens)) return 800;
+  if (includesAllTokens(category, tokens) || includesAllTokens(functional, tokens)) {
+    return 700;
+  }
+  if (includesAllTokens(industry, tokens) || includesAllTokens(infrastructure, tokens)) {
+    return 650;
+  }
+  if (includesAllTokens(tagline, tokens)) return 600;
+  if (includesAllTokens(useCases, tokens)) return 550;
+  if (includesAllTokens(outcomes, tokens) || includesAllTokens(integrations, tokens)) {
+    return 500;
+  }
+  if (includesAllTokens(description, tokens)) return 450;
+  return 0;
+}
+
+function rankDirectoryResults(agents: any[], search?: string) {
+  if (!search) {
+    return agents;
+  }
+
+  return [...agents]
+    .map((agent, index) => ({
+      agent,
+      index,
+      score: getDirectorySearchScore(agent, search),
+    }))
+    .sort((left, right) => right.score - left.score || left.index - right.index)
+    .map(({ agent }) => agent);
+}
+
+function getDirectorySearchCandidateLimit(page: number, pageSize: number) {
+  return Math.min(
+    MAX_DIRECTORY_SEARCH_CANDIDATES,
+    Math.max(pageSize, page * pageSize * DIRECTORY_SEARCH_MULTIPLIER)
+  );
+}
+
+async function resolveAgentCompanyPreview(
+  ctx: { db: any; storage: any },
+  agent: any
+) {
+  const fallbackUrl =
+    agent.company_logo_url ??
+    agent.logo_url ??
+    undefined;
+
+  if (agent.company_name && agent.company_slug) {
+    return {
+      ...agent,
+      company_logo_url: await resolveLogoUrl(
+        ctx,
+        agent.company_logo_storage_id,
+        fallbackUrl
+      ),
+    };
+  }
+
+  if (!agent.company_id) {
+    return {
+      ...agent,
+      company_logo_url: await resolveLogoUrl(
+        ctx,
+        agent.company_logo_storage_id,
+        fallbackUrl
+      ),
+    };
+  }
+
+  const company = await ctx.db.get(agent.company_id);
+
+  return {
+    ...agent,
+    company_name: agent.company_name ?? company?.name,
+    company_slug: agent.company_slug ?? company?.slug,
+    company_logo_storage_id:
+      agent.company_logo_storage_id ?? company?.logo_storage_id,
+    company_logo_bg: agent.company_logo_bg ?? company?.logo_bg,
+    company_logo_url: await resolveLogoUrl(
+      ctx,
+      agent.company_logo_storage_id ?? company?.logo_storage_id,
+      fallbackUrl ?? company?.logo_url
+    ),
+  };
+}
+
+function buildDirectorySuggestions(
+  rankedAgents: any[],
+  search?: string,
+  limit = DEFAULT_SUGGESTION_LIMIT
+) {
+  if (!search) {
+    return {
+      agents: [],
+      companies: [],
+      categories: [],
+    };
+  }
+
+  const normalizedQuery = normalizeForRanking(search);
+  const tokens = normalizedQuery.split(" ").filter(Boolean);
+
+  const agents = rankedAgents.slice(0, limit).map((agent) => ({
+    _id: agent._id,
+    slug: agent.slug,
+    agent_name: agent.agent_name,
+    company_name: agent.company_name ?? "",
+  }));
+
+  const companies = [
+    ...new Set(
+      rankedAgents
+        .map((agent) => agent.company_name ?? "")
+        .filter(Boolean)
+    ),
+  ]
+    .filter((name) => {
+      const normalizedName = normalizeForRanking(name);
+      return (
+        normalizedName.includes(normalizedQuery) ||
+        includesAllTokens(normalizedName, tokens)
+      );
+    })
+    .slice(0, limit);
+
+  const categories = [
+    ...new Set(
+      rankedAgents.flatMap((agent) => [
+        agent.category,
+        ...(agent.functional_categories ?? []),
+        ...(agent.industry_categories ?? []),
+        ...(agent.infrastructure_categories ?? []),
+      ])
+    ),
+  ]
+    .filter((category) =>
+      normalizeForRanking(category).includes(normalizedQuery)
+    )
+    .slice(0, limit);
+
+  return {
+    agents,
+    companies,
+    categories,
+  };
+}
+
+function paginateAgents(agents: any[], page: number, pageSize: number) {
+  const startIndex = (page - 1) * pageSize;
+  return agents.slice(startIndex, startIndex + pageSize);
 }
 
 export const list = query({
@@ -97,13 +370,85 @@ export const list = query({
         .take(pageSize * 3);
 
       const filtered = applyFilters(results, args);
-      return { data: filtered.slice(0, pageSize), count: filtered.length };
+      return {
+        data: await Promise.all(
+          filtered.slice(0, pageSize).map((agent) => resolveAgentCompanyPreview(ctx, agent))
+        ),
+        count: filtered.length,
+      };
     }
 
     const q = ctx.db.query("agents").withIndex("by_status", (q) => q.eq("status", "active"));
     const all = await q.collect();
     const filtered = applyFilters(all, args);
-    return { data: filtered.slice(0, pageSize), count: filtered.length };
+    return {
+      data: await Promise.all(
+        filtered.slice(0, pageSize).map((agent) => resolveAgentCompanyPreview(ctx, agent))
+      ),
+      count: filtered.length,
+    };
+  },
+});
+
+export const directoryPage = query({
+  args: {
+    search: v.optional(v.string()),
+    tab: v.optional(v.string()),
+    functional: v.optional(v.array(v.string())),
+    industry: v.optional(v.array(v.string())),
+    infrastructure: v.optional(v.array(v.string())),
+    page: v.optional(v.number()),
+    pageSize: v.optional(v.number()),
+    suggestionLimit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const search = normalizeSearchQuery(args.search);
+    const page = Math.max(1, args.page ?? 1);
+    const pageSize = Math.max(1, args.pageSize ?? DEFAULT_DIRECTORY_PAGE_SIZE);
+    const suggestionLimit = Math.max(
+      1,
+      args.suggestionLimit ?? DEFAULT_SUGGESTION_LIMIT
+    );
+    const filters = normalizeDirectoryFilters(args);
+    const stats = await getDirectoryStatsSnapshot(ctx);
+
+    let filteredAgents: any[];
+
+    if (search) {
+      const searchResults = await ctx.db
+        .query("agents")
+        .withSearchIndex("search_agents", (q) =>
+          q.search("search_text", search).eq("status", "active")
+        )
+        .take(getDirectorySearchCandidateLimit(page, pageSize));
+
+      filteredAgents = rankDirectoryResults(
+        applyDirectoryFilters(searchResults, filters),
+        search
+      );
+    } else {
+      const activeAgents = await ctx.db
+        .query("agents")
+        .withIndex("by_status", (q) => q.eq("status", "active"))
+        .collect();
+
+      filteredAgents = dailyShuffle(applyDirectoryFilters(activeAgents, filters));
+    }
+
+    const pageAgents = await Promise.all(
+      paginateAgents(filteredAgents, page, pageSize).map((agent) =>
+        resolveAgentCompanyPreview(ctx, agent)
+      )
+    );
+
+    return {
+      data: pageAgents,
+      count: filteredAgents.length,
+      totalAgents: stats.total_active_agents,
+      companyCount: stats.company_count,
+      categoryCounts: stats.category_counts as Record<string, number>,
+      suggestions: buildDirectorySuggestions(filteredAgents, search, suggestionLimit),
+    };
   },
 });
 
@@ -120,27 +465,32 @@ function applyFilters(agents: any[], args: any) {
 export const listAll = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db
+    const agents = await ctx.db
       .query("agents")
       .withIndex("by_status", (q) => q.eq("status", "active"))
       .collect();
+    return await Promise.all(
+      agents.map((agent) => resolveAgentCompanyPreview(ctx, agent))
+    );
   },
 });
 
 export const getById = query({
   args: { id: v.id("agents") },
   handler: async (ctx, { id }) => {
-    return await ctx.db.get(id);
+    const agent = await ctx.db.get(id);
+    return agent ? await resolveAgentCompanyPreview(ctx, agent) : null;
   },
 });
 
 export const getBySlug = query({
   args: { slug: v.string() },
   handler: async (ctx, { slug }) => {
-    return await ctx.db
+    const agent = await ctx.db
       .query("agents")
       .withIndex("by_slug", (q) => q.eq("slug", slug))
       .unique();
+    return agent ? await resolveAgentCompanyPreview(ctx, agent) : null;
   },
 });
 
@@ -148,7 +498,31 @@ export const getByIds = query({
   args: { ids: v.array(v.id("agents")) },
   handler: async (ctx, { ids }) => {
     const agents = await Promise.all(ids.map((id) => ctx.db.get(id)));
-    return agents.filter(Boolean);
+    return await Promise.all(
+      agents
+        .filter((agent): agent is NonNullable<typeof agent> => Boolean(agent))
+        .map((agent) => resolveAgentCompanyPreview(ctx, agent))
+    );
+  },
+});
+
+export const getBySlugs = query({
+  args: { slugs: v.array(v.string()) },
+  handler: async (ctx, { slugs }) => {
+    const agents = await Promise.all(
+      slugs.map(async (slug) => {
+        const agent = await ctx.db
+          .query("agents")
+          .withIndex("by_slug", (q) => q.eq("slug", slug))
+          .unique();
+
+        return agent ? await resolveAgentCompanyPreview(ctx, agent) : null;
+      })
+    );
+
+    return agents.filter(
+      (agent): agent is NonNullable<typeof agent> => agent !== null
+    );
   },
 });
 
@@ -160,9 +534,12 @@ export const getByCompany = query({
       .withIndex("by_companyId", (q) => q.eq("company_id", company_id))
       .collect();
 
-    return agents
-      .filter((agent) => agent.status === "active")
-      .sort((left, right) => right.updated_at - left.updated_at);
+    return await Promise.all(
+      agents
+        .filter((agent) => agent.status === "active")
+        .sort((left, right) => right.updated_at - left.updated_at)
+        .map((agent) => resolveAgentCompanyPreview(ctx, agent))
+    );
   },
 });
 
@@ -307,6 +684,7 @@ export const softDelete = mutation({
   handler: async (ctx, { agent_id }) => {
     await requireAuth(ctx);
     await ctx.db.patch(agent_id, { status: "inactive", updated_at: Date.now() });
+    await rebuildDirectoryStats(ctx);
   },
 });
 
@@ -336,19 +714,30 @@ export const seed = mutation({
     const now = Date.now();
     const { functional_categories, industry_categories, industries } =
       normalizeAndValidateAgentTaxonomy(args);
-    const searchText = buildAgentSearchText({
-      ...args,
+    const companyFields = await buildAgentCompanyFields(ctx, args.company_id);
+    const searchText = await buildAgentSearchTextForDocument(ctx, {
+      agent_name: args.agent_name,
+      description: args.description,
+      tagline: args.tagline,
+      category: args.category ?? "general",
+      company_id: args.company_id,
+      company_name: companyFields.company_name,
       functional_categories,
       industry_categories,
+      infrastructure_categories: args.infrastructure_categories,
+      use_cases: args.use_cases ?? [],
+      integrations: args.integrations,
+      expected_outcomes: args.expected_outcomes,
     });
 
-    return await ctx.db.insert("agents", {
+    const insertedId = await ctx.db.insert("agents", {
       slug: args.slug,
       agent_name: args.agent_name,
       tagline: args.tagline,
       description: args.description,
       category: args.category ?? "general",
       company_id: args.company_id,
+      ...companyFields,
       functional_categories,
       industry_categories,
       industries,
@@ -362,6 +751,9 @@ export const seed = mutation({
       created_at: now,
       updated_at: now,
     });
+
+    await rebuildDirectoryStats(ctx);
+    return insertedId;
   },
 });
 
@@ -386,16 +778,21 @@ export const backfillTaxonomy = mutation({
           industry_categories: agent.industry_categories,
           industries: agent.industries,
         });
+      const companyFields = await buildAgentCompanyFields(ctx, agent.company_id);
 
-      const search_text = buildAgentSearchText({
+      const search_text = await buildAgentSearchTextForDocument(ctx, {
         agent_name: agent.agent_name,
         description: agent.description,
         tagline: agent.tagline,
         category: agent.category,
+        company_id: agent.company_id,
+        company_name: companyFields.company_name,
         functional_categories,
         industry_categories,
+        infrastructure_categories: agent.infrastructure_categories,
         integrations: agent.integrations,
         expected_outcomes: agent.expected_outcomes,
+        use_cases: agent.use_cases,
       });
 
       const nextPatch: Record<string, unknown> = {};
@@ -410,6 +807,29 @@ export const backfillTaxonomy = mutation({
 
       if (!stringArraysEqual(agent.industries, industries)) {
         nextPatch.industries = industries;
+      }
+
+      if ((agent.company_name ?? undefined) !== companyFields.company_name) {
+        nextPatch.company_name = companyFields.company_name;
+      }
+
+      if ((agent.company_slug ?? undefined) !== companyFields.company_slug) {
+        nextPatch.company_slug = companyFields.company_slug;
+      }
+
+      if (
+        (agent.company_logo_storage_id ?? undefined) !==
+        companyFields.company_logo_storage_id
+      ) {
+        nextPatch.company_logo_storage_id = companyFields.company_logo_storage_id;
+      }
+
+      if ((agent.company_logo_url ?? undefined) !== companyFields.company_logo_url) {
+        nextPatch.company_logo_url = companyFields.company_logo_url;
+      }
+
+      if ((agent.company_logo_bg ?? undefined) !== companyFields.company_logo_bg) {
+        nextPatch.company_logo_bg = companyFields.company_logo_bg;
       }
 
       if ((agent.search_text ?? "") !== search_text) {
@@ -478,6 +898,8 @@ export const backfillTaxonomy = mutation({
         updatedEdits += 1;
       }
     }
+
+    await rebuildDirectoryStats(ctx);
 
     return {
       updatedAgents,
@@ -626,6 +1048,10 @@ export const adminCleanup = mutation({
       results.push(`${slug}: DELETED (${agents.length} agents, ${claims.length} claims, ${members.length} members)`);
     }
 
+    if (deleteSlugs.length > 0) {
+      await rebuildDirectoryStats(ctx);
+    }
+
     return results;
   },
 });
@@ -717,18 +1143,22 @@ export const fixQualityIssues = mutation({
       }
 
       if (Object.keys(patch).length > 0) {
-        // Rebuild search_text if tagline changed
-        if (patch.tagline) {
-          const searchText = buildAgentSearchText({
-            ...agent,
-            tagline: patch.tagline as string,
-          });
-          patch.search_text = searchText;
-        }
+        patch.search_text = await buildAgentSearchTextForDocument(ctx, {
+          ...agent,
+          tagline: (patch.tagline ?? agent.tagline) as string | undefined,
+          integrations: (patch.integrations ?? agent.integrations) as
+            | string[]
+            | undefined,
+          company_name: agent.company_name,
+        });
         patch.updated_at = Date.now();
         await ctx.db.patch(agent._id, patch);
         patched++;
       }
+    }
+
+    if (deleted > 0) {
+      await rebuildDirectoryStats(ctx);
     }
 
     return { patched, deleted, totalAgents: agents.length };
@@ -773,6 +1203,14 @@ export const fixAgentTextFields = mutation({
       }
 
       if (Object.keys(patch).length > 0) {
+        patch.search_text = await buildAgentSearchTextForDocument(ctx, {
+          ...agent,
+          use_cases: (patch.use_cases ?? agent.use_cases) as typeof agent.use_cases,
+          expected_outcomes: (
+            patch.expected_outcomes ?? agent.expected_outcomes
+          ) as typeof agent.expected_outcomes,
+          company_name: agent.company_name,
+        });
         patch.updated_at = Date.now();
         await ctx.db.patch(agent._id, patch);
         patchedCount++;

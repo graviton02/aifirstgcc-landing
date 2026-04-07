@@ -6,7 +6,6 @@
       "website": "https://www.gupshup.ai",
       "headquarters": "San Francisco, USA",
       "founded": 2004,
-      "company_size": "scaleup",
       "description": "Gupshup is a conversational AI platform that enables businesses to build and deploy AI agents for marketing, commerce, and customer support across messaging channels including WhatsApp, RCS, SMS, Voice, and Web. The platform processes messaging at scale across 130+ countries and offers pre-built, industry-trained AI agents through its Conversation Cloud.",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -23,7 +22,6 @@
       "website": "https://www.uniphore.com",
       "headquarters": "Palo Alto, USA",
       "founded": 2008,
-      "company_size": "scaleup",
       "description": "Uniphore is a business AI company that provides an enterprise platform combining conversational AI, emotion AI, and agentic automation to power customer service, sales, marketing, and HR functions. Its Business AI Cloud platform integrates data, knowledge, models, and AI agents in a composable, sovereign architecture for enterprise deployments.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -41,7 +39,6 @@
       "website": "https://skit.ai",
       "headquarters": "New York, USA (with offices in Bengaluru, India)",
       "founded": 2016,
-      "company_size": "scaleup",
       "description": "Skit.ai (formerly Vernacular.ai) builds AI-powered conversational agents for the accounts receivable and debt collections industry, automating multichannel consumer engagement across voice, SMS, email, and chat. The platform combines predictive analytics, compliance enforcement, and generative AI to manage end-to-end collection workflows.",
       "primary_verticals": [
         "Financial Services (BFSI)",

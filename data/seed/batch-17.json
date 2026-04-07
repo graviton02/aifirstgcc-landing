@@ -6,7 +6,6 @@
       "website": "https://www.rocketlane.com",
       "headquarters": "San Francisco, USA",
       "founded": 2020,
-      "company_size": "scaleup",
       "description": "Rocketlane is an agentic Professional Services Automation (PSA) platform that helps services teams automate delivery workflows, customer onboarding, and project execution. The platform embeds AI agents directly into project workflows rather than layering AI on top of traditional tracking tools, serving SaaS, fintech, marketing, and IT services companies.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -22,7 +21,6 @@
       "website": "https://devrev.ai",
       "headquarters": "Palo Alto, California, USA",
       "founded": 2020,
-      "company_size": "midmarket",
       "description": "DevRev builds Computer, an AI-native platform that unifies enterprise data across support, product, and engineering workflows through a proprietary knowledge graph and real-time data sync engine. The platform powers autonomous AI agents for customer support, IT service desk, and product development, serving technology companies and SaaS businesses globally.",
       "primary_verticals": [
         "Retail & E-commerce",
@@ -37,7 +35,6 @@
       "website": "https://www.spyne.ai",
       "headquarters": "Gurugram, India",
       "founded": 2018,
-      "company_size": "scaleup",
       "description": "Spyne builds an AI-powered automotive retail platform that combines generative AI visual merchandising with conversational AI agents to help car dealerships source, list, market, and sell vehicles. The platform serves over 3,200 dealerships across 40+ countries, processing more than 10 million vehicles through its integrated suite of tools spanning imagery, inventory, websites, CRM, and autonomous customer engagement.",
       "primary_verticals": [
         "Automotive"

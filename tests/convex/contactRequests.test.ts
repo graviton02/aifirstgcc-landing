@@ -3,7 +3,10 @@ import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { createTestConvex } from "./testHarness";
 
-const adminToken = "admin-session-token";
+const adminIdentity = {
+  subject: "admin-user-id",
+  email: "admin@example.com",
+};
 const providerOwnerIdentity = {
   subject: "provider-owner-id",
   email: "owner@acme.example",
@@ -25,6 +28,7 @@ describe("contact request workflows", () => {
   let t: ReturnType<typeof createTestConvex>;
 
   beforeEach(() => {
+    process.env.ADMIN_CLERK_USER_IDS = adminIdentity.subject;
     t = createTestConvex();
   });
 
@@ -87,6 +91,93 @@ describe("contact request workflows", () => {
     ).rejects.toThrow("Complete GCC onboarding before contacting providers.");
   });
 
+  it.each(["pending_admin", "approved", "contacted"] as const)(
+    "blocks duplicate requests for the same GCC user and provider when status is %s",
+    async (status) => {
+      const { companyId, agentId } = await seedProviderCompany(t);
+
+      await t.withIdentity(gccIdentity).mutation(api.gccProfiles.createProfile, {
+        name: "Priya Sharma",
+        email: "priya@gcc.example",
+        organization: "Global Capability Center",
+        industry: "Financial Services (BFSI)",
+      });
+
+      await seedLegacyContactRequest(t, {
+        agentId,
+        companyId,
+        status,
+      });
+
+      const existingRequest = await t
+        .withIdentity(gccIdentity)
+        .query(api.gcc.getMyProviderRequestStatus, {
+          company_id: companyId,
+        });
+
+      expect(existingRequest?.status).toBe(status);
+
+      await expect(
+        t.withIdentity(gccIdentity).mutation(api.gcc.createContactRequest, {
+          agent_id: agentId,
+          use_case: "Automate vendor response workflows",
+          current_challenge:
+            "Teams coordinate vendor follow-ups manually and lose status visibility.",
+          expected_outcome:
+            "Shorten turnaround times and improve leadership reporting on vendor asks.",
+          timeline: "Already evaluating vendors now",
+          request_source: "company_profile",
+        })
+      ).rejects.toThrow("You have already contacted this provider.");
+    }
+  );
+
+  it("allows a new request when earlier requests were rejected or archived", async () => {
+    const { companyId, agentId } = await seedProviderCompany(t);
+
+    await t.withIdentity(gccIdentity).mutation(api.gccProfiles.createProfile, {
+      name: "Priya Sharma",
+      email: "priya@gcc.example",
+      organization: "Global Capability Center",
+      industry: "Financial Services (BFSI)",
+    });
+
+    await seedLegacyContactRequest(t, {
+      agentId,
+      companyId,
+      status: "rejected",
+    });
+    await seedLegacyContactRequest(t, {
+      agentId,
+      companyId,
+      status: "archived",
+    });
+
+    const existingRequest = await t
+      .withIdentity(gccIdentity)
+      .query(api.gcc.getMyProviderRequestStatus, {
+        company_id: companyId,
+      });
+
+    expect(existingRequest).toBeNull();
+
+    const requestId = await t
+      .withIdentity(gccIdentity)
+      .mutation(api.gcc.createContactRequest, {
+        agent_id: agentId,
+        use_case: "Automate intake",
+        current_challenge:
+          "Our intake team still works from spreadsheets and email handoffs today.",
+        expected_outcome:
+          "Move intake into a governed workflow with clean stakeholder visibility.",
+        timeline: "Targeting a pilot in 1-3 months",
+        request_source: "agent_detail",
+      });
+
+    const request = await t.run((ctx) => ctx.db.get(requestId));
+    expect(request?.status).toBe("pending_admin");
+  });
+
   it("shows approved leads to all active provider members and lets them mark leads contacted", async () => {
     const { agentId } = await seedProviderCompany(t);
 
@@ -110,9 +201,7 @@ describe("contact request workflows", () => {
         request_source: "company_profile",
       });
 
-    await seedAdminSession(t);
-    await t.action(api.admin.approveContactRequest, {
-      token: adminToken,
+    await t.withIdentity(adminIdentity).action(api.admin.approveContactRequest, {
       request_id: requestId,
     });
 
@@ -177,9 +266,7 @@ describe("contact request workflows", () => {
         request_source: "agent_detail",
       });
 
-    await seedAdminSession(t);
-    await t.action(api.admin.rejectContactRequest, {
-      token: adminToken,
+    await t.withIdentity(adminIdentity).action(api.admin.rejectContactRequest, {
       request_id: requestId,
       notes: "Please narrow the scope before routing this provider introduction.",
     });
@@ -196,6 +283,123 @@ describe("contact request workflows", () => {
       "Please narrow the scope before routing this provider introduction."
     );
   });
+
+  it("normalizes legacy rows across GCC, provider, and admin flows", async () => {
+    const { companyId, agentId } = await seedProviderCompany(t);
+
+    const requestId = await seedLegacyContactRequest(t, {
+      agentId,
+      companyId,
+      status: "pending_admin",
+    });
+
+    await t.withIdentity(adminIdentity).action(api.admin.approveContactRequest, {
+      request_id: requestId,
+    });
+
+    const providerLeads = await t
+      .withIdentity(providerOwnerIdentity)
+      .query(api.providerRequests.getMyCompanyLeads, {});
+    const gccRequests = await t
+      .withIdentity(gccIdentity)
+      .query(api.gcc.getMyContactRequests, {});
+    const history = await t.withIdentity(adminIdentity).query(
+      api.admin.getContactRequestsHistory,
+      {}
+    );
+
+    expect(providerLeads).toHaveLength(1);
+    expect(gccRequests).toHaveLength(1);
+    expect(history).toHaveLength(1);
+
+    expect(providerLeads[0]).toMatchObject({
+      status: "approved",
+      gcc_name: "Unknown GCC",
+      gcc_email: gccIdentity.email,
+      gcc_organization: "Unknown organization",
+      gcc_industry: "Unknown industry",
+      use_case: "Not provided",
+      current_challenge:
+        "Legacy provider request message from the previous schema.",
+      expected_outcome: "Not provided",
+      timeline: "Not specified",
+    });
+
+    expect(gccRequests[0]).toMatchObject({
+      status: "approved",
+      current_challenge:
+        "Legacy provider request message from the previous schema.",
+      use_case: "Not provided",
+      expected_outcome: "Not provided",
+      timeline: "Not specified",
+    });
+
+    expect(history[0]).toMatchObject({
+      status: "approved",
+      current_challenge:
+        "Legacy provider request message from the previous schema.",
+      use_case: "Not provided",
+      expected_outcome: "Not provided",
+      timeline: "Not specified",
+    });
+  });
+
+  it("backfills missing structured fields for legacy provider requests", async () => {
+    const { companyId, agentId } = await seedProviderCompany(t);
+
+    await t.withIdentity(gccIdentity).mutation(api.gccProfiles.createProfile, {
+      name: "Priya Sharma",
+      email: "profile@gcc.example",
+      organization: "Global Capability Center",
+      industry: "Financial Services (BFSI)",
+    });
+
+    const requestId = await seedLegacyContactRequest(t, {
+      agentId,
+      companyId,
+      status: "approved",
+    });
+
+    const firstRun = await t.withIdentity(adminIdentity).action(
+      api.admin.backfillLegacyProviderRequests,
+      {}
+    );
+
+    expect(firstRun).toEqual({
+      scanned: 1,
+      patched: 1,
+      skipped: 0,
+    });
+
+    const request = await t.run((ctx) => ctx.db.get(requestId));
+
+    expect(request).toMatchObject({
+      status: "approved",
+      gcc_name: "Priya Sharma",
+      gcc_email: gccIdentity.email,
+      gcc_organization: "Global Capability Center",
+      gcc_industry: "Financial Services (BFSI)",
+      use_case: "Legacy provider introduction",
+      current_challenge:
+        "Legacy provider request message from the previous schema.",
+      expected_outcome: "Provider follow-up requested.",
+      timeline: "Not specified",
+      message: "Legacy provider request message from the previous schema.",
+      gcc_org_id: "org_legacy_request",
+      provider_profile_id: "legacy-profile-id",
+    });
+
+    const secondRun = await t.withIdentity(adminIdentity).action(
+      api.admin.backfillLegacyProviderRequests,
+      {}
+    );
+
+    expect(secondRun).toEqual({
+      scanned: 1,
+      patched: 0,
+      skipped: 1,
+    });
+  });
 });
 
 async function seedProviderCompany(t: ReturnType<typeof createTestConvex>) {
@@ -209,7 +413,6 @@ async function seedProviderCompany(t: ReturnType<typeof createTestConvex>) {
         "Acme Systems builds enterprise automation products for global service delivery teams.",
       website: "https://acme.example.com",
       headquarters: "Bengaluru, India",
-      company_size: "201-500 employees",
       primary_verticals: ["Technology"],
       contact_email: "hello@acme.example.com",
       verification_status: "verified",
@@ -274,12 +477,29 @@ async function seedProviderCompany(t: ReturnType<typeof createTestConvex>) {
   };
 }
 
-async function seedAdminSession(t: ReturnType<typeof createTestConvex>) {
-  await t.run((ctx) =>
-    ctx.db.insert("adminSessions", {
-      session_token: adminToken,
-      expires_at: Date.now() + 60_000,
+async function seedLegacyContactRequest(
+  t: ReturnType<typeof createTestConvex>,
+  {
+    agentId,
+    companyId,
+    status,
+  }: {
+    agentId: Id<"agents">;
+    companyId: Id<"companies">;
+    status: "pending_admin" | "approved" | "rejected" | "contacted" | "archived";
+  }
+) {
+  return await t.run((ctx) =>
+    ctx.db.insert("providerRequests", {
+      company_id: companyId,
+      gcc_user_id: gccIdentity.subject,
+      agent_id: agentId,
+      status,
       created_at: Date.now(),
+      gcc_user_email: gccIdentity.email,
+      message: "Legacy provider request message from the previous schema.",
+      gcc_org_id: "org_legacy_request",
+      provider_profile_id: "legacy-profile-id",
     })
   );
 }

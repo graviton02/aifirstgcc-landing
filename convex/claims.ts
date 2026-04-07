@@ -2,7 +2,10 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { getAuthUserId, requireAuth } from "./lib/auth";
 import { appError } from "./lib/errors";
+import { assertCanCreateProviderPersona } from "./lib/personas";
 import { upsertProviderProfile } from "./providerProfiles";
+import { getActiveMembershipConflict } from "./companyMembers";
+import { isValidLinkedInProfileUrl } from "../src/lib/linkedin-validation";
 
 const FREE_EMAIL_DOMAINS = new Set([
   "gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "live.com",
@@ -15,6 +18,7 @@ export const submitClaim = mutation({
     company_id: v.id("companies"),
     claimant_name: v.string(),
     claimant_email: v.string(),
+    claimant_linkedin: v.string(),
   },
   handler: async (ctx, args) => {
     // Name validation
@@ -27,9 +31,19 @@ export const submitClaim = mutation({
     }
 
     // Corporate email validation
-    const domain = args.claimant_email.split("@")[1]?.toLowerCase();
+    const trimmedEmail = args.claimant_email.trim().toLowerCase();
+    const domain = trimmedEmail.split("@")[1]?.toLowerCase();
     if (!domain || FREE_EMAIL_DOMAINS.has(domain)) {
       appError("claim_email_free_provider", "Please use a company email address, not a free email provider.", 400);
+    }
+
+    const trimmedLinkedIn = args.claimant_linkedin.trim();
+    if (!isValidLinkedInProfileUrl(trimmedLinkedIn)) {
+      appError(
+        "claim_linkedin_invalid",
+        "Please enter a valid LinkedIn profile URL.",
+        400
+      );
     }
 
     const company = await ctx.db.get(args.company_id);
@@ -50,13 +64,15 @@ export const submitClaim = mutation({
     }
 
     if (userId) {
+      await assertCanCreateProviderPersona(ctx, userId);
       await upsertProviderProfile(ctx, userId, "claim_existing");
     }
 
     const id = await ctx.db.insert("claimRequests", {
       company_id: args.company_id,
-      claimant_name: args.claimant_name,
-      claimant_email: args.claimant_email,
+      claimant_name: trimmedName,
+      claimant_email: trimmedEmail,
+      claimant_linkedin: trimmedLinkedIn,
       claimant_user_id: userId ?? undefined,
       status: "pending",
       created_at: Date.now(),
@@ -123,8 +139,6 @@ export const validateMagicLink = query({
     const company = await ctx.db.get(claim.company_id);
     return {
       valid: true,
-      claimant_name: claim.claimant_name,
-      claimant_email: claim.claimant_email,
       company_name: company?.name ?? "Unknown Company",
       company_slug: company?.slug,
     } as const;
@@ -135,6 +149,9 @@ export const activateClaim = mutation({
   args: { token: v.string() },
   handler: async (ctx, { token }) => {
     const userId = await requireAuth(ctx);
+    await assertCanCreateProviderPersona(ctx, userId);
+    const identity = await ctx.auth.getUserIdentity();
+    const signedInEmail = identity?.email?.trim().toLowerCase();
 
     const claim = await ctx.db
       .query("claimRequests")
@@ -147,6 +164,26 @@ export const activateClaim = mutation({
     }
     if (claim.magic_link_expires_at && claim.magic_link_expires_at < Date.now()) {
       appError("claim_link_expired", "This activation link has expired", 400);
+    }
+    if (!signedInEmail || signedInEmail !== claim.claimant_email.toLowerCase()) {
+      appError(
+        "claim_email_mismatch",
+        "Sign in with the same company email that submitted this claim before activating it.",
+        403
+      );
+    }
+
+    const conflictingMembership = await getActiveMembershipConflict(
+      ctx,
+      userId,
+      claim.company_id
+    );
+    if (conflictingMembership) {
+      appError(
+        "claim_membership_conflict",
+        "This account already has access to another provider company. Use a different email if you need to claim this company.",
+        409
+      );
     }
 
     const now = Date.now();

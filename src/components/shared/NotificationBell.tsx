@@ -28,8 +28,11 @@ export function NotificationBell({ role, isScrolled }: NotificationBellProps) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
-  const notifications = useQuery(api.notifications.listMine, { limit: 15 });
-  const unreadCount = useQuery(api.notifications.getUnreadCount);
+  const notifications = useQuery(
+    api.notifications.listMine,
+    open ? { limit: 15 } : "skip"
+  );
+  const unreadCount = useQuery(api.notifications.getUnreadCount, {});
   const markRead = useMutation(api.notifications.markRead);
   const markAllRead = useMutation(api.notifications.markAllRead);
   const [isMarkingAll, setIsMarkingAll] = useState(false);

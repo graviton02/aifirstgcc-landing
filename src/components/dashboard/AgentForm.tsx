@@ -65,9 +65,6 @@ export function AgentForm({
     use_cases: form.use_cases,
     functional_categories: form.functional_categories,
     industry_categories: form.industry_categories,
-    infrastructure_categories: form.infrastructure_categories.length
-      ? form.infrastructure_categories
-      : undefined,
     integrations: form.integrations.length
       ? form.integrations
       : undefined,

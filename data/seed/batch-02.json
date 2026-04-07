@@ -6,7 +6,6 @@
       "website": "https://www.hcltech.com",
       "headquarters": "Noida, India",
       "founded": 1976,
-      "company_size": "enterprise",
       "description": "HCLTech is a global IT services and consulting company operating across 60 countries, offering digital transformation, engineering, cloud, and AI services to enterprises worldwide. The company has been aggressively building agentic AI platforms, integrating with major hyperscaler ecosystems across manufacturing, telecom, financial services, and healthcare.",
       "primary_verticals": [
         "Financial Services (BFSI)",
@@ -26,7 +25,6 @@
       "website": "https://www.techmahindra.com",
       "headquarters": "Pune, India",
       "founded": 1986,
-      "company_size": "enterprise",
       "description": "Tech Mahindra is a global IT services and consulting company and part of the Mahindra Group, delivering digital transformation, consulting, and business re-engineering services across industries. The company has been aggressively building agentic AI platforms and solutions with a strong focus on telecom, financial services, and healthcare verticals.",
       "primary_verticals": [
         "Telecom & Media",
@@ -44,7 +42,6 @@
       "website": "https://www.ltm.com",
       "headquarters": "Mumbai, India",
       "founded": 1996,
-      "company_size": "enterprise",
       "description": "LTIMindtree is an Indian multinational IT services and consulting company and a subsidiary of Larsen & Toubro. It operates across 30+ countries, focusing on digital transformation, cloud, and AI-driven enterprise solutions for financial services, healthcare, manufacturing, and retail clients.",
       "primary_verticals": [
         "Financial Services (BFSI)",

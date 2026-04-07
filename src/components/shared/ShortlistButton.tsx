@@ -24,20 +24,26 @@ export function ShortlistButton({
   agentId,
   variant = "hero",
   className = "",
+  isShortlisted: isShortlistedProp,
 }: {
   agentId: string;
   variant?: Variant;
   className?: string;
+  isShortlisted?: boolean;
 }) {
   const { isSignedIn } = useAuth();
   const { role, isLoaded } = useUserRole();
-  const isShortlisted = useQuery(
-    api.shortlists.isShortlisted,
-    isSignedIn ? { agent_id: agentId as any } : "skip"
+  const shortlist = useQuery(
+    api.shortlists.getMine,
+    isSignedIn && isShortlistedProp === undefined ? {} : "skip"
   );
   const addToShortlist = useMutation(api.shortlists.add);
   const removeFromShortlist = useMutation(api.shortlists.remove);
   const [isSaving, setIsSaving] = useState(false);
+
+  const isShortlisted =
+    isShortlistedProp ??
+    Boolean(shortlist?.some((entry) => String(entry.agent_id) === agentId));
 
   if (isLoaded && role === "provider") {
     return null;
@@ -65,7 +71,9 @@ export function ShortlistButton({
   const styles = isShortlisted
     ? VARIANT_STYLES[variant].active
     : VARIANT_STYLES[variant].idle;
-  const disabled = isSaving || (isSignedIn && isShortlisted === undefined);
+  const disabled =
+    isSaving ||
+    (isSignedIn && isShortlistedProp === undefined && shortlist === undefined);
   const label = !isSignedIn ? "Shortlist" : isShortlisted ? "Shortlisted" : "Shortlist";
 
   return (

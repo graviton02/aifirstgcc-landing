@@ -1,15 +1,28 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
+import { getAuthoritativeRole } from "@/auth/roles";
 import { reportError } from "@/lib/report-error";
 
-const VALID_ROLES = ["gcc", "provider"] as const;
-type Role = (typeof VALID_ROLES)[number];
+async function getDerivedRole(token: string) {
+  const [company, gccProfile] = await Promise.all([
+    fetchQuery(api.companyMembers.getMyCompany, {}, { token }),
+    fetchQuery(api.gccProfiles.getProfile, {}, { token }),
+  ]);
 
-export async function POST(req: Request) {
+  return getAuthoritativeRole({
+    hasProviderAccess: Boolean(company),
+    hasGccProfile: Boolean(gccProfile),
+  });
+}
+
+export async function POST() {
   let userId: string | null = null;
+  let authState: Awaited<ReturnType<typeof auth>>;
   try {
-    const result = await auth();
-    userId = result.userId;
+    authState = await auth();
+    userId = authState.userId;
   } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -18,25 +31,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  let body: { role?: string };
   try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
-  }
+    const token = await authState.getToken({ template: "convex" });
+    if (!token) {
+      return NextResponse.json(
+        { error: "Unable to authenticate with Convex." },
+        { status: 401 }
+      );
+    }
 
-  const role = body.role as Role;
-  if (!role || !VALID_ROLES.includes(role)) {
-    return NextResponse.json(
-      { error: `Invalid role. Must be one of: ${VALID_ROLES.join(", ")}` },
-      { status: 400 }
-    );
-  }
+    const role = await getDerivedRole(token);
 
-  try {
     const client = await clerkClient();
     await client.users.updateUserMetadata(userId, {
-      publicMetadata: { role },
+      publicMetadata: { role: role ?? null },
     });
     return NextResponse.json({ success: true, role });
   } catch (error: any) {
@@ -47,7 +55,6 @@ export async function POST(req: Request) {
         route: "/api/set-role",
       },
       extra: {
-        role,
         userId,
       },
       userId,

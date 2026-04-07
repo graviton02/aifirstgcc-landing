@@ -41,17 +41,22 @@ export function TagInput({
   tags,
   onChange,
   placeholder,
+  hint,
 }: {
   tags: string[];
   onChange: (tags: string[]) => void;
   placeholder?: string;
+  hint?: string;
 }) {
   const [input, setInput] = useState("");
 
-  const addTag = () => {
-    const trimmed = input.trim();
-    if (trimmed && !tags.includes(trimmed)) {
-      onChange([...tags, trimmed]);
+  const addTags = (raw: string) => {
+    const newTags = raw
+      .split(",")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0 && !tags.includes(s));
+    if (newTags.length > 0) {
+      onChange([...tags, ...newTags]);
     }
     setInput("");
   };
@@ -63,12 +68,18 @@ export function TagInput({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      addTag();
+      addTags(input);
+    }
+    if (e.key === "Backspace" && input === "" && tags.length > 0) {
+      removeTag(tags.length - 1);
     }
   };
 
   return (
     <div>
+      {hint && (
+        <p className="mb-1.5 text-xs text-enterprise-500">{hint}</p>
+      )}
       <div className="flex gap-2">
         <input
           type="text"
@@ -80,10 +91,10 @@ export function TagInput({
         />
         <button
           type="button"
-          onClick={addTag}
-          className="px-3 py-2 bg-enterprise-100 text-enterprise-700 rounded-lg hover:bg-enterprise-200 text-sm font-medium"
+          onClick={() => addTags(input)}
+          className="px-3.5 py-2 bg-enterprise-100 text-enterprise-700 rounded-lg hover:bg-enterprise-200 text-sm font-medium"
         >
-          <Plus className="w-4 h-4" />
+          Add
         </button>
       </div>
       {tags.length > 0 && (
@@ -334,7 +345,7 @@ export function AgentFormSections({
             htmlFor={`${fieldIdPrefix}-tagline`}
             className="block text-sm font-medium text-enterprise-700 mb-1"
           >
-            Tagline
+            Tagline {showRequiredHints && <span className="text-red-500">*</span>}
           </label>
           <input
             id={`${fieldIdPrefix}-tagline`}
@@ -415,16 +426,6 @@ export function AgentFormSections({
             </p>
           )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-enterprise-700 mb-1">
-            Infrastructure Categories
-          </label>
-          <TagInput
-            tags={form.infrastructure_categories}
-            onChange={(value) => updateField("infrastructure_categories", value)}
-            placeholder="e.g. Cloud, On-Premise"
-          />
-        </div>
       </FormSection>
 
       <FormSection title="Use Cases" defaultOpen={mode !== "edit"}>
@@ -440,36 +441,51 @@ export function AgentFormSections({
         />
       </FormSection>
 
-      <FormSection title="Integrations" defaultOpen={false}>
+      <FormSection title="Integrations" defaultOpen={mode !== "edit"}>
+        {showRequiredHints && (
+          <p className="text-xs text-enterprise-500">
+            Tools and platforms this agent connects with. Add at least one.
+          </p>
+        )}
         <TagInput
           tags={form.integrations}
           onChange={(value) => updateField("integrations", value)}
           placeholder="e.g. Salesforce, Slack, HubSpot"
+          hint="Type an item and press Enter or click Add. Separate multiple items with commas."
         />
       </FormSection>
 
-      <FormSection title="Expected Outcomes" defaultOpen={false}>
+      <FormSection title="Expected Outcomes" defaultOpen={mode !== "edit"}>
+        {showRequiredHints && (
+          <p className="text-xs text-enterprise-500">
+            Measurable results buyers can expect. Add at least one.
+          </p>
+        )}
         <TagInput
           tags={form.expected_outcomes}
           onChange={(value) => updateField("expected_outcomes", value)}
           placeholder="e.g. 30% reduction in response time"
+          hint="Type an item and press Enter or click Add. Separate multiple items with commas."
         />
       </FormSection>
 
-      <FormSection title="Links" defaultOpen={false}>
+      <FormSection title="External Links" defaultOpen={mode !== "edit"}>
         <div>
           <label
             htmlFor={`${fieldIdPrefix}-source-url`}
             className="block text-sm font-medium text-enterprise-700 mb-1"
           >
-            Source URL
+            Product Page URL {showRequiredHints && <span className="text-red-500">*</span>}
           </label>
+          <p className="mb-1.5 text-xs text-enterprise-500">
+            Link to this agent&apos;s official page on your website.
+          </p>
           <input
             id={`${fieldIdPrefix}-source-url`}
             type="url"
             value={form.source_url}
             onChange={(e) => updateField("source_url", e.target.value)}
-            placeholder="https://..."
+            placeholder="https://yourcompany.com/agent"
             className="w-full px-3 py-2 border border-enterprise-300 rounded-lg"
           />
         </div>
@@ -478,8 +494,11 @@ export function AgentFormSections({
             htmlFor={`${fieldIdPrefix}-demo-url`}
             className="block text-sm font-medium text-enterprise-700 mb-1"
           >
-            Demo URL
+            Demo URL <span className="text-enterprise-400 text-xs font-normal">(optional)</span>
           </label>
+          <p className="mb-1.5 text-xs text-enterprise-500">
+            Link to a live demo or sandbox, if available.
+          </p>
           <input
             id={`${fieldIdPrefix}-demo-url`}
             type="url"

@@ -47,3 +47,4 @@ npm-debug.log*
 
 # QA / dogfood output
 dogfood-output/
+.vercel

@@ -1,6 +1,20 @@
 "use client";
 
+import { CompanyLogo } from "@/components/directory/CompanyLogo";
+
 type EditRecord = Record<string, unknown>;
+
+function isLogoPreviewField(key: string) {
+  return key === "logo_preview_url";
+}
+
+function hasLogoChange(payload?: EditRecord) {
+  return Boolean(
+    payload &&
+      (Object.prototype.hasOwnProperty.call(payload, "logo_storage_id") ||
+        Object.prototype.hasOwnProperty.call(payload, "logo_bg"))
+  );
+}
 
 export function formatFieldLabel(key: string): string {
   return key
@@ -9,7 +23,12 @@ export function formatFieldLabel(key: string): string {
 }
 
 export function getChangedFieldCount(payload?: EditRecord): number {
-  return Object.keys(payload ?? {}).length;
+  const keys = Object.keys(payload ?? {}).filter((key) => !isLogoPreviewField(key));
+  const nonLogoKeys = keys.filter(
+    (key) => key !== "logo_storage_id" && key !== "logo_bg"
+  );
+
+  return nonLogoKeys.length + (hasLogoChange(payload) ? 1 : 0);
 }
 
 export function summarizeFieldValue(value: unknown): string {
@@ -50,9 +69,14 @@ export function PendingEditDiff({
   currentRecord?: EditRecord | null;
   payload?: EditRecord;
 }) {
-  const entries = Object.entries(payload ?? {});
+  const filteredEntries = Object.entries(payload ?? {}).filter(
+    ([key]) =>
+      !isLogoPreviewField(key) &&
+      key !== "logo_storage_id" &&
+      key !== "logo_bg"
+  );
 
-  if (entries.length === 0) {
+  if (!hasLogoChange(payload) && filteredEntries.length === 0) {
     return (
       <div className="rounded-xl border border-enterprise-200 bg-enterprise-50 p-3 text-sm text-enterprise-600">
         No changed fields captured for this edit.
@@ -66,7 +90,52 @@ export function PendingEditDiff({
         Only changed fields shown
       </p>
 
-      {entries.map(([key, proposedValue]) => (
+      {hasLogoChange(payload) ? (
+        <div className="overflow-hidden rounded-xl border border-enterprise-200">
+          <div className="border-b border-enterprise-100 bg-enterprise-50 px-4 py-2">
+            <p className="text-sm font-medium text-enterprise-900">Logo</p>
+          </div>
+
+          <div className="grid gap-3 p-4 md:grid-cols-2">
+            <LogoPreviewPanel
+              label="Current"
+              name={String(currentRecord?.name ?? "Company")}
+              logoUrl={
+                typeof currentRecord?.logo_url === "string"
+                  ? currentRecord.logo_url
+                  : undefined
+              }
+              logoBg={
+                currentRecord?.logo_bg === "dark" ? "dark" : undefined
+              }
+              tone="muted"
+            />
+            <LogoPreviewPanel
+              label="Proposed"
+              name={String(currentRecord?.name ?? "Company")}
+              logoUrl={
+                typeof payload?.logo_preview_url === "string"
+                  ? payload.logo_preview_url
+                  : typeof currentRecord?.logo_url === "string"
+                    ? currentRecord.logo_url
+                    : undefined
+              }
+              logoBg={
+                payload?.logo_bg === "dark"
+                  ? "dark"
+                  : payload && Object.prototype.hasOwnProperty.call(payload, "logo_bg")
+                    ? undefined
+                    : currentRecord?.logo_bg === "dark"
+                      ? "dark"
+                      : undefined
+              }
+              tone="primary"
+            />
+          </div>
+        </div>
+      ) : null}
+
+      {filteredEntries.map(([key, proposedValue]) => (
         <div
           key={key}
           className="overflow-hidden rounded-xl border border-enterprise-200"
@@ -218,6 +287,49 @@ function ObjectValueContent({ value }: { value: EditRecord }) {
   );
 }
 
+function LogoPreviewPanel({
+  label,
+  name,
+  logoUrl,
+  logoBg,
+  tone,
+}: {
+  label: string;
+  name: string;
+  logoUrl?: string;
+  logoBg?: "dark";
+  tone: "muted" | "primary";
+}) {
+  const classes =
+    tone === "primary"
+      ? "border-primary/20 bg-primary/5"
+      : "border-enterprise-200 bg-white";
+
+  return (
+    <div className={`rounded-lg border p-3 ${classes}`}>
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-enterprise-500">
+        {label}
+      </p>
+      <div className="flex items-center gap-3">
+        <CompanyLogo
+          company={{
+            name,
+            logo_url: logoUrl,
+            logo_bg: logoBg,
+          }}
+          size="md"
+        />
+        <div className="text-sm text-enterprise-700">
+          <p>{logoUrl ? "Logo preview available" : "No logo available"}</p>
+          <p className="mt-1 text-enterprise-500">
+            {logoBg === "dark" ? "Dark background" : "Standard background"}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function isPlainObject(value: unknown): value is EditRecord {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -231,10 +343,7 @@ function isPrimitiveValue(
 function isUseCaseLike(
   value: unknown
 ): value is { title?: unknown; description?: unknown } {
-  return (
-    isPlainObject(value) &&
-    ("title" in value || "description" in value)
-  );
+  return isPlainObject(value) && ("title" in value || "description" in value);
 }
 
 function formatScalar(value: unknown): string {
@@ -248,3 +357,4 @@ function formatScalar(value: unknown): string {
 function normalizeText(value: unknown): string {
   return typeof value === "string" ? value : "";
 }
+

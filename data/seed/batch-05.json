@@ -6,7 +6,6 @@
       "website": "https://www.ltts.com",
       "headquarters": "Vadodara, India",
       "founded": 2006,
-      "company_size": "enterprise",
       "description": "L&T Technology Services is a global pure-play engineering R&D services company and a subsidiary of Larsen & Toubro, specializing in digital engineering, product development, and embedded systems across mobility, sustainability, and technology verticals. The company delivers engineering intelligence solutions that integrate physical and digital AI for industrial and enterprise clients.",
       "primary_verticals": [
         "Automotive & Mobility",
@@ -25,7 +24,6 @@
       "website": "https://www.tataelxsi.com",
       "headquarters": "Bangalore, India",
       "founded": 1989,
-      "company_size": "enterprise",
       "description": "Tata Elxsi is a design and technology services company that integrates digital technologies across automotive, media, healthcare, and communications industries. It combines deep domain expertise with AI, IoT, cloud, and design capabilities to deliver end-to-end product engineering and solutions.",
       "primary_verticals": [
         "Automotive & Mobility",
@@ -43,7 +41,6 @@
       "website": "https://www.sonata-software.com",
       "headquarters": "Bangalore, India",
       "founded": 1986,
-      "company_size": "enterprise",
       "description": "Sonata Software is a global IT services and technology modernization company specializing in digital transformation, cloud engineering, and AI-driven enterprise solutions. The company serves industries including BFSI, healthcare, retail, manufacturing, and telecom, with a strong focus on responsible AI adoption and Microsoft ecosystem expertise.",
       "primary_verticals": [
         "Financial Services (BFSI)",
