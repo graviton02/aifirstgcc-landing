@@ -46,7 +46,7 @@ export function ForProviders() {
                 <Link href="/sign-up">
                   <Button
                     size="lg"
-                    className="group bg-white text-enterprise-900 hover:bg-white/90 shadow-lg hover:shadow-xl"
+                    className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
                   >
                     List Your Agent
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

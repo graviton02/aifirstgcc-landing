@@ -29,7 +29,7 @@ export function Footer() {
                 Orbys360
               </span>
               <span className="text-[10px] md:text-xs font-medium tracking-wide text-white/70">
-                The AI-First GCC Platform
+                The AI Agent Marketplace for Enterprises
               </span>
             </div>
           </div>

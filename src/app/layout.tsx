@@ -12,19 +12,19 @@ const THEME_COLOR = "#2d1650";
 
 export const metadata: Metadata = {
   applicationName: "Orbys360",
-  title: "Orbys360 | The AI-First GCC Platform",
+  title: "Orbys360 | The AI Agent Marketplace for Enterprises",
   description: "Discover, compare, and connect with AI agents across industries and functions.",
   metadataBase: new URL(BASE_URL),
   openGraph: {
     type: "website",
     siteName: "Orbys360",
-    title: "Orbys360 | The AI-First GCC Platform",
+    title: "Orbys360 | The AI Agent Marketplace for Enterprises",
     description: "Discover, compare, and connect with AI agents across industries and functions.",
     url: BASE_URL,
   },
   twitter: {
     card: "summary",
-    title: "Orbys360 | The AI-First GCC Platform",
+    title: "Orbys360 | The AI Agent Marketplace for Enterprises",
     description: "Discover, compare, and connect with AI agents across industries and functions.",
   },
   robots: {
