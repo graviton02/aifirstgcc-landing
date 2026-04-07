@@ -41,10 +41,10 @@ export function Challenges() {
           {challenges.map((item) => (
             <StaggerItem key={item.number}>
               <div className="relative p-8 bg-enterprise-50 border border-enterprise-100 rounded-2xl">
-                <span className="absolute top-4 right-5 font-display text-5xl text-purple-100 leading-none select-none">
+                <span className="absolute top-4 right-5 font-display text-5xl text-purple-100 leading-none select-none -z-0">
                   {item.number}
                 </span>
-                <h3 className="text-base font-semibold text-enterprise-900 mb-2">
+                <h3 className="relative text-base font-semibold text-enterprise-900 mb-2 pr-12">
                   {item.title}
                 </h3>
                 <p className="text-sm text-enterprise-600 leading-relaxed">
