@@ -230,7 +230,7 @@ export function KnowledgeHub() {
                 {features.map((feature) => (
                   <div
                     key={feature.text}
-                    className="p-4 bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] rounded-xl text-center hover:bg-white/10 hover:border-white/15 transition-all duration-200"
+                    className="p-4 bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] rounded-xl text-center hover:bg-white/10 hover:border-white/15 transition-all duration-200 flex flex-col items-center justify-center"
                   >
                     <div className="w-10 h-10 mx-auto mb-3 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-300">
                       <feature.icon className="w-5 h-5" />
