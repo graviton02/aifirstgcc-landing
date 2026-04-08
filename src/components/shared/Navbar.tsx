@@ -94,7 +94,7 @@ export function Navbar() {
                       hasScrolledBg ? 'text-enterprise-600' : 'text-white/70'
                     }`}
                   >
-                    The AI Agent Marketplace for Enterprises
+                    AI Knowledge Hub for GCCs
                   </span>
                 </div>
               </div>

@@ -37,7 +37,7 @@ export default {
       },
       fontFamily: {
         sans: ['DM Sans', 'system-ui', 'sans-serif'],
-        display: ['Outfit', 'system-ui', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
         newspaper: ['Playfair Display', 'Georgia', 'serif'],
       },
       fontSize: {

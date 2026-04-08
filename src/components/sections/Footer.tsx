@@ -29,14 +29,14 @@ export function Footer() {
                 Orbys360
               </span>
               <span className="text-[10px] md:text-xs font-medium tracking-wide text-white/70">
-                The AI Agent Marketplace for Enterprises
+                AI Knowledge Hub for GCCs
               </span>
             </div>
           </div>
 
           {/* Tagline */}
           <p className="text-white/70 text-sm max-w-md mx-auto mb-8">
-            One platform to find, evaluate, and deploy AI agents at enterprise scale.
+            Intelligence, frameworks, and tools for AI-first Global Capability Centers.
           </p>
 
           {/* Divider */}

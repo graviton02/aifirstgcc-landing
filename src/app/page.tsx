@@ -1,5 +1,5 @@
 import { NewHero } from "@/components/sections/NewHero";
-import { SearchAndFeatures } from "@/components/sections/SearchAndFeatures";
+import { KnowledgeHub } from "@/components/sections/KnowledgeHub";
 import { Challenges } from "@/components/sections/Challenges";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { ForProviders } from "@/components/sections/ForProviders";
@@ -11,7 +11,7 @@ export default function HomePage() {
     <>
       <Navbar />
       <NewHero />
-      <SearchAndFeatures />
+      <KnowledgeHub />
       <Challenges />
       <HowItWorks />
       <ForProviders />

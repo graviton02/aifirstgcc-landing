@@ -6,18 +6,18 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/sha
 const challenges = [
   {
     number: '01',
-    title: 'Fragmented Discovery',
-    description: 'AI agent vendors are scattered across product hunt listings, blog posts, and LinkedIn ads. No single source of truth.',
+    title: 'Scattered Intelligence',
+    description: 'AI developments move daily. Vendor landscapes shift weekly. But most GCC leaders still rely on ad hoc searches, forwarded articles, and analyst decks that are outdated before they arrive.',
   },
   {
     number: '02',
-    title: 'Apples-to-Oranges Comparisons',
-    description: 'Every vendor frames their solution differently. Comparing capabilities, integrations, and outcomes takes days.',
+    title: 'No Shared Playbook',
+    description: 'Every GCC is reinventing the wheel on AI governance, business cases, and skills assessments. There is no standardized set of frameworks built for how GCCs actually operate.',
   },
   {
     number: '03',
-    title: 'Slow Procurement Cycles',
-    description: 'Getting from discovery to demo takes too many emails, forms, and handoffs. Urgency gets lost in the sales maze.',
+    title: 'Evaluation Without Context',
+    description: 'Choosing AI agents and providers without structured comparisons, peer benchmarks, or domain-specific research turns every procurement into a guess.',
   },
 ]
 
@@ -27,13 +27,13 @@ export function Challenges() {
       <Container>
         <AnimatedSection className="text-center max-w-xl mx-auto mb-14">
           <span className="inline-block px-4 py-1.5 mb-5 text-xs font-semibold text-purple-700 bg-purple-100 rounded-full uppercase tracking-wider">
-            The Challenge
+            The Reality
           </span>
           <h2 className="font-display text-display-sm text-enterprise-900 mb-4">
-            Finding the right AI agent shouldn&apos;t feel like a research project
+            The gap between AI ambition and AI readiness is widening
           </h2>
           <p className="text-enterprise-600 leading-relaxed">
-            GCC leaders spend weeks evaluating fragmented vendors across dozens of tabs, PDFs, and sales calls.
+            GCC leaders face pressure to move fast on AI, but the infrastructure for informed decision-making barely exists.
           </p>
         </AnimatedSection>
 
