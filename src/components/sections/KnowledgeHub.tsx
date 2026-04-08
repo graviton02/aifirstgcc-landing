@@ -153,7 +153,7 @@ export function KnowledgeHub() {
         >
           {/* ── MEGA CARD: Dark marketplace surface ── */}
           <StaggerItem className="md:col-span-2 md:row-span-2">
-            <div className="h-full rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-8 md:p-10 flex flex-col relative overflow-hidden shadow-glow-lg transition-all duration-400 group">
+            <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-8 md:p-10 flex flex-col relative overflow-hidden shadow-glow-lg transition-all duration-400 group">
               {/* Ambient glow */}
               <div className="absolute top-0 right-0 w-80 h-80 bg-[radial-gradient(circle,rgba(99,102,241,0.15),transparent_70%)] pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-60 h-60 bg-[radial-gradient(circle,rgba(139,92,246,0.1),transparent_70%)] pointer-events-none" />
