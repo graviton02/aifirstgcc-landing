@@ -226,7 +226,7 @@ export function KnowledgeHub() {
               </div>
 
               {/* 2x2 Feature Grid */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 flex-1">
                 {features.map((feature) => (
                   <div
                     key={feature.text}
