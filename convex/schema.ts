@@ -1,5 +1,15 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import {
+  APPLICATION_STATUSES,
+  JOB_BOARD_ROLES,
+  JOB_STATUSES,
+  JOB_TYPES,
+  JOB_WORKPLACE_TYPES,
+  JOB_SENIORITY_LEVELS,
+  JOB_CATEGORIES,
+  SALARY_TYPES,
+} from "../src/jobs/config";
 
 const agentUseCaseValidator = v.object({
   title: v.string(),
@@ -272,6 +282,35 @@ export default defineSchema({
     updated_at: v.number(),
   }).index("by_key", ["key"]),
 
+  // --- Lightweight Agent Directory Cards ---
+  agentDirectoryCards: defineTable({
+    agent_id: v.id("agents"),
+    slug: v.optional(v.string()),
+    agent_name: v.string(),
+    tagline: v.optional(v.string()),
+    category: v.string(),
+    company_id: v.optional(v.id("companies")),
+    company_name: v.optional(v.string()),
+    company_slug: v.optional(v.string()),
+    company_logo_storage_id: v.optional(v.string()),
+    company_logo_url: v.optional(v.string()),
+    company_logo_bg: v.optional(v.string()),
+    functional_categories: v.optional(v.array(v.string())),
+    industry_categories: v.optional(v.array(v.string())),
+    infrastructure_categories: v.optional(v.array(v.string())),
+    rating: v.optional(v.number()),
+    review_count: v.optional(v.number()),
+    status: v.union(v.literal("active"), v.literal("inactive")),
+    search_text: v.optional(v.string()),
+    updated_at: v.number(),
+  })
+    .index("by_agentId", ["agent_id"])
+    .index("by_status", ["status"])
+    .searchIndex("search_agent_directory_cards", {
+      searchField: "search_text",
+      filterFields: ["status", "category"],
+    }),
+
   // --- Agent Edits ---
   agentEdits: defineTable({
     agent_id: v.id("agents"),
@@ -347,6 +386,90 @@ export default defineSchema({
     .index("by_gccUserAndCompany", ["gcc_user_id", "company_id"])
     .index("by_status", ["status"])
     .index("by_companyId", ["company_id"]),
+
+  // --- Job Board Profiles ---
+  jobProfiles: defineTable({
+    clerk_user_id: v.string(),
+    role: v.union(...JOB_BOARD_ROLES.map((role) => v.literal(role))),
+    name: v.string(),
+    email: v.string(),
+    company_name: v.optional(v.string()),
+    current_title: v.optional(v.string()),
+    linkedin_url: v.optional(v.string()),
+    phone: v.optional(v.string()),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_clerkUserId", ["clerk_user_id"])
+    .index("by_role", ["role"]),
+
+  // --- Job Board Jobs ---
+  jobs: defineTable({
+    slug: v.string(),
+    recruiter_id: v.id("jobProfiles"),
+    title: v.string(),
+    company_name: v.string(),
+    location: v.string(),
+    workplace_type: v.union(
+      ...JOB_WORKPLACE_TYPES.map((value) => v.literal(value))
+    ),
+    job_type: v.union(...JOB_TYPES.map((value) => v.literal(value))),
+    seniority: v.union(
+      ...JOB_SENIORITY_LEVELS.map((value) => v.literal(value))
+    ),
+    category: v.union(...JOB_CATEGORIES.map((value) => v.literal(value))),
+    description: v.string(),
+    requirements: v.optional(v.string()),
+    skills: v.optional(v.array(v.string())),
+    salary_min: v.optional(v.number()),
+    salary_max: v.optional(v.number()),
+    salary_type: v.optional(v.union(...SALARY_TYPES.map((value) => v.literal(value)))),
+    salary_currency: v.optional(v.string()),
+    num_openings: v.optional(v.number()),
+    apply_url: v.optional(v.string()),
+    deadline: v.optional(v.number()),
+    status: v.union(...JOB_STATUSES.map((value) => v.literal(value))),
+    admin_notes: v.optional(v.string()),
+    reviewed_at: v.optional(v.number()),
+    closed_at: v.optional(v.number()),
+    search_text: v.string(),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status", ["status"])
+    .index("by_recruiterId", ["recruiter_id"])
+    .index("by_status_created", ["status", "created_at"])
+    .searchIndex("search_jobs", {
+      searchField: "search_text",
+      filterFields: ["status", "category", "workplace_type", "job_type", "seniority"],
+    }),
+
+  // --- Job Board Applications ---
+  jobApplications: defineTable({
+    job_id: v.id("jobs"),
+    applicant_id: v.id("jobProfiles"),
+    name: v.string(),
+    email: v.string(),
+    phone: v.string(),
+    current_company: v.optional(v.string()),
+    current_title: v.optional(v.string()),
+    linkedin_url: v.optional(v.string()),
+    years_of_experience: v.number(),
+    cover_note: v.optional(v.string()),
+    resume_storage_id: v.string(),
+    resume_file_name: v.string(),
+    resume_content_type: v.string(),
+    resume_size_bytes: v.number(),
+    recruiter_status: v.union(
+      ...APPLICATION_STATUSES.map((value) => v.literal(value))
+    ),
+    applied_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_jobId", ["job_id"])
+    .index("by_applicantId", ["applicant_id"])
+    .index("by_jobAndApplicant", ["job_id", "applicant_id"]),
 
   // --- Reviews ---
   reviews: defineTable({
@@ -424,6 +547,39 @@ export default defineSchema({
   })
     .index("by_recipientUserIdAndCreatedAt", ["recipient_user_id", "created_at"])
     .index("by_dedupeKey", ["dedupe_key"]),
+
+  notificationUserStates: defineTable({
+    user_id: v.string(),
+    unread_count: v.number(),
+    updated_at: v.number(),
+  }).index("by_userId", ["user_id"]),
+
+  // --- AI Pulse Daily Briefs ---
+  aiPulseBriefs: defineTable({
+    slug: v.string(),
+    date: v.string(),
+    editor_headline: v.optional(v.string()),
+    top_developments: v.array(
+      v.object({
+        headline: v.string(),
+        description: v.string(),
+        source: v.object({ label: v.string(), url: v.string() }),
+      })
+    ),
+    use_case: v.object({
+      title: v.string(),
+      description: v.string(),
+      source: v.object({ label: v.string(), url: v.string() }),
+    }),
+    enterprise_impact: v.array(v.string()),
+    opportunities: v.array(v.object({ title: v.string(), description: v.string() })),
+    risks: v.array(v.object({ title: v.string(), description: v.string() })),
+    generation_model: v.optional(v.string()),
+    generation_duration_ms: v.optional(v.number()),
+    created_at: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_date", ["date"]),
 
   // --- Admin Audit Logs ---
   adminAuditLogs: defineTable({

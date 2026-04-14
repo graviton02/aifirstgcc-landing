@@ -1,24 +1,53 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { AIPulseDetailClient } from "@/components/resource-pages/AIPulseDetailClient";
-import { dailyBriefs } from "@/data/aiPulseBriefs";
+import { dailyBriefs as staticBriefs } from "@/data/aiPulseBriefs";
 import { newsArticleJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/json-ld";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
+
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return dailyBriefs.map((brief) => ({ slug: brief.slug }));
+async function getAllBriefSlugs(): Promise<string[]> {
+  let convexSlugs: string[] = [];
+  try {
+    const results = await fetchQuery(api.aiPulse.listAllSlugs, {});
+    convexSlugs = results.map((s: { slug: string }) => s.slug);
+  } catch {
+    // Convex unavailable during build
+  }
+  const staticSlugs = staticBriefs.map((b) => b.slug);
+  const allSlugs = [...new Set([...convexSlugs, ...staticSlugs])];
+  allSlugs.sort((a, b) => b.localeCompare(a));
+  return allSlugs;
+}
+
+async function getBrief(slug: string) {
+  try {
+    const convexBrief = await fetchQuery(api.aiPulse.getBriefBySlug, { slug });
+    if (convexBrief) return convexBrief;
+  } catch {
+    // Convex unavailable; fall through
+  }
+  return staticBriefs.find((b) => b.slug === slug) ?? null;
+}
+
+export async function generateStaticParams() {
+  const slugs = await getAllBriefSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const brief = dailyBriefs.find((b) => b.slug === slug);
+  const brief = await getBrief(slug);
 
   if (!brief) {
     return { title: "Brief Not Found | Orbys360" };
@@ -26,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const headline = brief.editorHeadline ?? brief.topDevelopments[0].headline;
   const description = brief.topDevelopments
-    .map((d) => d.headline)
+    .map((d: any) => d.headline)
     .join(". ")
     .slice(0, 160);
   const url = `${BASE_URL}/ai-pulse/${slug}`;
@@ -53,22 +82,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function AIPulseDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const briefIndex = dailyBriefs.findIndex((b) => b.slug === slug);
+  const brief = await getBrief(slug);
 
-  if (briefIndex === -1) {
+  if (!brief) {
     notFound();
   }
 
-  const brief = dailyBriefs[briefIndex];
+  const allSlugs = await getAllBriefSlugs();
+  const slugIndex = allSlugs.indexOf(slug);
+  const prevSlug = slugIndex < allSlugs.length - 1 ? allSlugs[slugIndex + 1] : null;
+  const nextSlug = slugIndex > 0 ? allSlugs[slugIndex - 1] : null;
+
   const headline = brief.editorHeadline ?? brief.topDevelopments[0].headline;
   const description = brief.topDevelopments
-    .map((d) => d.headline)
+    .map((d: any) => d.headline)
     .join(". ")
     .slice(0, 160);
-
-  const prevBrief =
-    briefIndex < dailyBriefs.length - 1 ? dailyBriefs[briefIndex + 1] : null;
-  const nextBrief = briefIndex > 0 ? dailyBriefs[briefIndex - 1] : null;
 
   return (
     <>
@@ -92,9 +121,9 @@ export default async function AIPulseDetailPage({ params }: PageProps) {
       />
       <Navbar />
       <AIPulseDetailClient
-        brief={brief}
-        prevSlug={prevBrief?.slug ?? null}
-        nextSlug={nextBrief?.slug ?? null}
+        brief={brief as any}
+        prevSlug={prevSlug}
+        nextSlug={nextSlug}
       />
       <Footer />
     </>

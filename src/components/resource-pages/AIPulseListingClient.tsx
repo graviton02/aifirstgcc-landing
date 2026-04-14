@@ -1,10 +1,13 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock } from "lucide-react";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { Container } from "@/components/shared/Container";
 import { BriefCard } from "@/components/ai-pulse/BriefCard";
-import { dailyBriefs } from "@/data/aiPulseBriefs";
+import { dailyBriefs as staticBriefs } from "@/data/aiPulseBriefs";
 
 const currentDate = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -14,6 +17,15 @@ const currentDate = new Date().toLocaleDateString("en-US", {
 });
 
 export function AIPulseListingClient() {
+  const convexBriefs = useQuery(api.aiPulse.listBriefs);
+
+  const allBriefs = useMemo(() => {
+    const convex = convexBriefs ?? [];
+    const convexSlugs = new Set(convex.map((b: any) => b.slug));
+    const historical = staticBriefs.filter((b) => !convexSlugs.has(b.slug));
+    return [...convex, ...historical];
+  }, [convexBriefs]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Hero Header */}
@@ -103,7 +115,7 @@ export function AIPulseListingClient() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {dailyBriefs.map((brief, index) => (
+            {allBriefs.map((brief: any, index: number) => (
               <BriefCard key={brief.slug} brief={brief} index={index} />
             ))}
           </div>
