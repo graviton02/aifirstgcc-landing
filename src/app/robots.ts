@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/gcc-dashboard/", "/provider/", "/admin/", "/onboarding/"],
       },
     ],
-    sitemap: "https://orbys360.com/sitemap.xml",
+    sitemap: "https://www.orbys360.com/sitemap.xml",
   };
 }

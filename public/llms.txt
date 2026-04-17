@@ -1,0 +1,65 @@
+# Orbys360
+
+> Orbys360 is an AI-first advisory platform and directory for enterprise AI agents, built for Global Capability Centers (GCCs), shared services leaders, and enterprise AI strategy teams.
+
+## What Orbys360 Does
+
+Orbys360 helps enterprise decision-makers discover, evaluate, and compare AI agents across industries and functions. The platform serves as the definitive directory for agentic AI solutions targeting large-scale enterprise operations.
+
+## Key Resources
+
+### AI Agent Directory
+- URL: https://www.orbys360.com/directory
+- 231 AI agents across 78 companies
+- Filterable by category, industry, and function
+- Categories include: Customer Experience, Sales & Marketing, Finance & Accounting, HR & Talent, Operations, IT & Security, Legal & Compliance, Data & Analytics, R&D & Innovation
+
+### Company Profiles
+- URL: https://www.orbys360.com/companies/{company-slug}
+- 78 enterprise AI companies profiled
+- Includes: company overview, headquarters, verticals, agent portfolio, user reviews
+
+### Agent Detail Pages
+- URL: https://www.orbys360.com/agents/{agent-slug}
+- Detailed profiles for each AI agent
+- Includes: description, use cases, expected outcomes, integrations, user reviews
+
+### Category Pages
+- URL: https://www.orbys360.com/categories/{category-slug}
+- Curated listings by functional category
+- Enterprise-focused categorization
+
+### AI Pulse — Daily Enterprise AI Brief
+- URL: https://www.orbys360.com/ai-pulse
+- Daily intelligence brief covering enterprise AI and agentic systems
+- Covers: top AI developments, enterprise use cases, GCC impact analysis, opportunities and risks
+- Auto-generated daily from verified news sources
+
+### Compare Tool
+- URL: https://www.orbys360.com/compare
+- Side-by-side comparison of AI agents
+
+### Job Board
+- URL: https://www.orbys360.com/jobs
+- AI-focused job board for enterprise roles
+
+## Who This Platform Serves
+
+- **GCC Heads & Shared Services Leaders** evaluating AI agents for enterprise operations
+- **Enterprise AI Strategy Teams** researching agentic AI solutions
+- **Transformation Officers** planning AI adoption across business units
+- **AI/Tech Vendors** seeking visibility with enterprise buyers
+
+## Core Topics
+
+- Enterprise AI agents and agentic systems
+- AI agent evaluation and comparison for enterprises
+- Global Capability Centers (GCCs) and AI adoption
+- Multi-agent orchestration and autonomous workflows
+- AI governance, identity, and risk management
+- Enterprise AI platforms and infrastructure
+
+## Contact
+
+- Website: https://www.orbys360.com
+- Email: hello@orbys360.com
