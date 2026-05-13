@@ -18,9 +18,11 @@
 
 | File | Responsibility after change |
 |---|---|
-| `src/jobs/config.ts` | Add `isValidLinkedInUrl(value)` validator + `LINKEDIN_URL_PATTERN` regex (shared between client and server). |
-| `convex/jobApplications.ts` | `create` mutation: drop `current_title` arg; make `linkedin_url` required; reject malformed URLs via `isValidLinkedInUrl`. |
-| `src/app/jobs/[slug]/apply/page.tsx` (inline `ApplicationForm`) | Drop `current_title` form field. Make `linkedin_url` required with regex validation. Add "Applying as: {name} · {current_title}" header sourced from profile. **This is the user-facing form** — `src/components/jobs/JobApplicationForm.tsx` is an orphaned/unused file (will be deleted in Task 3). |
+| `src/jobs/config.ts` | Add `LINKEDIN_URL_PATTERN` regex, `isValidLinkedInUrl(value)`, and `normalizeLinkedInUrl(value)` (auto-prefixes `https://` when missing). Shared between client and server. |
+| `convex/jobApplications.ts` | `create` mutation: keep `current_title` as optional; make `linkedin_url` **required**; normalize via `normalizeLinkedInUrl` then validate via `isValidLinkedInUrl`. |
+| `src/app/jobs/[slug]/apply/page.tsx` (inline `ApplicationForm`) | Keep `current_title` (pre-filled from profile, editable). Make `linkedin_url` required with regex validation. Add "Applying as: {name}" header sourced from profile. Also: when signed-in null-role user lands here, redirect now includes `&role=jobseeker`. **This is the user-facing form** — `src/components/jobs/JobApplicationForm.tsx` is an orphaned/unused file (will be deleted in Task 3). |
+| `src/app/jobs/post/page.tsx` | When signed-in null-role user lands here, redirect now includes `&role=recruiter`. Existing recruiter-only friendly block stays. |
+| `src/components/jobs/JobDetail.tsx` | "Apply Now" CTA: signed-out branch and no-role branch now carry `role=jobseeker` through the URL chain. |
 | `src/components/jobs/JobOnboarding.tsx` | Accept `presetRole?: JobBoardRole` prop. Hide role picker and force role when present. Remove `linkedin_url` and `phone` from this form (they belong on applications). |
 | `src/app/jobs/onboarding/page.tsx` | Read `?role=` from URL; validate via `isJobBoardRole`; pass to `JobOnboarding` as `presetRole`. |
 | `src/components/jobs/JobHero.tsx` | Replace single "Post a Job" CTA with state-aware matrix keyed on `useJobBoardRole().role` + `isSignedIn`. |
@@ -48,7 +50,7 @@
 
 ---
 
-## Task 1 — LinkedIn URL validator (shared helper)
+## Task 1 — LinkedIn URL validator + normalizer (shared helpers)
 
 **Files:**
 - Modify: `src/jobs/config.ts`
@@ -60,7 +62,7 @@ Create `tests/jobs/linkedinUrl.test.ts`:
 
 ```ts
 import { describe, expect, it } from "vitest";
-import { isValidLinkedInUrl } from "@/jobs/config";
+import { isValidLinkedInUrl, normalizeLinkedInUrl } from "@/jobs/config";
 
 describe("isValidLinkedInUrl", () => {
   it("accepts canonical https://www.linkedin.com/in/ URLs", () => {
@@ -94,14 +96,49 @@ describe("isValidLinkedInUrl", () => {
     expect(isValidLinkedInUrl("https://www.linkedin.com/company/orbys")).toBe(false);
   });
 });
+
+describe("normalizeLinkedInUrl", () => {
+  it("auto-prefixes https:// when missing", () => {
+    expect(normalizeLinkedInUrl("www.linkedin.com/in/jane")).toBe(
+      "https://www.linkedin.com/in/jane"
+    );
+    expect(normalizeLinkedInUrl("linkedin.com/in/jane")).toBe(
+      "https://linkedin.com/in/jane"
+    );
+  });
+
+  it("leaves already-prefixed URLs unchanged", () => {
+    expect(normalizeLinkedInUrl("https://www.linkedin.com/in/jane")).toBe(
+      "https://www.linkedin.com/in/jane"
+    );
+  });
+
+  it("trims whitespace", () => {
+    expect(normalizeLinkedInUrl("  https://www.linkedin.com/in/jane  ")).toBe(
+      "https://www.linkedin.com/in/jane"
+    );
+  });
+
+  it("upgrades http:// to https://", () => {
+    expect(normalizeLinkedInUrl("http://www.linkedin.com/in/jane")).toBe(
+      "https://www.linkedin.com/in/jane"
+    );
+  });
+
+  it("returns empty string for empty/null input", () => {
+    expect(normalizeLinkedInUrl("")).toBe("");
+    expect(normalizeLinkedInUrl(null)).toBe("");
+    expect(normalizeLinkedInUrl(undefined)).toBe("");
+  });
+});
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `npx vitest run tests/jobs/linkedinUrl.test.ts`
-Expected: FAIL — `isValidLinkedInUrl is not exported`.
+Expected: FAIL — `isValidLinkedInUrl` and `normalizeLinkedInUrl` not exported.
 
-- [ ] **Step 3: Add the validator to `src/jobs/config.ts`**
+- [ ] **Step 3: Add helpers to `src/jobs/config.ts`**
 
 Add near the existing `isJobBoardRole` helper (after line ~73):
 
@@ -112,26 +149,35 @@ export const LINKEDIN_URL_PATTERN =
 export function isValidLinkedInUrl(value: string | null | undefined): value is string {
   return typeof value === "string" && LINKEDIN_URL_PATTERN.test(value);
 }
+
+export function normalizeLinkedInUrl(value: string | null | undefined): string {
+  if (!value) return "";
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  if (trimmed.startsWith("http://")) return "https://" + trimmed.slice(7);
+  if (trimmed.startsWith("https://")) return trimmed;
+  return "https://" + trimmed;
+}
 ```
 
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `npx vitest run tests/jobs/linkedinUrl.test.ts`
-Expected: PASS, 7/7.
+Expected: PASS, 12/12.
 
 - [ ] **Step 5: Commit**
 
 ```bash
 git add src/jobs/config.ts tests/jobs/linkedinUrl.test.ts
-git commit -m "feat(jobs): add LinkedIn URL validator"
+git commit -m "feat(jobs): add LinkedIn URL validator and normalizer"
 ```
 
 ---
 
-## Task 2 — Convex `jobApplications.create`: require LinkedIn, drop current_title
+## Task 2 — Convex `jobApplications.create`: require + normalize LinkedIn, keep current_title
 
 **Files:**
-- Modify: `convex/jobApplications.ts:19-100`
+- Modify: `convex/jobApplications.ts:19-102`
 - Test: `tests/convex/jobBoard.test.ts` (extend)
 
 - [ ] **Step 1: Write failing tests**
@@ -185,7 +231,7 @@ Append to `tests/convex/jobBoard.test.ts` inside the `describe("job board workfl
     ).rejects.toThrow("LinkedIn URL");
   });
 
-  it("rejects applications that send a current_title field", async () => {
+  it("normalizes a LinkedIn URL missing the https:// prefix", async () => {
     const jobId = await seedApprovedJob(t);
     await t.withIdentity(seekerIdentity).mutation(api.jobProfiles.createProfile, {
       role: "jobseeker",
@@ -194,28 +240,32 @@ Append to `tests/convex/jobBoard.test.ts` inside the `describe("job board workfl
       current_title: "ML Engineer",
     });
 
-    await expect(
-      t.withIdentity(seekerIdentity).mutation(api.jobApplications.create, {
+    const application = await t
+      .withIdentity(seekerIdentity)
+      .mutation(api.jobApplications.create, {
         job_id: jobId,
         phone: "+91 99999 11111",
         years_of_experience: 4,
-        linkedin_url: "https://www.linkedin.com/in/seeker",
+        linkedin_url: "www.linkedin.com/in/seeker",
         current_title: "ML Engineer",
         resume_storage_id: "storage-resume-1" as any,
         resume_file_name: "resume.pdf",
         resume_content_type: "application/pdf",
         resume_size_bytes: 1024,
-      } as any)
-    ).rejects.toThrow();
+      });
+
+    expect((application as any).linkedin_url).toBe(
+      "https://www.linkedin.com/in/seeker"
+    );
   });
 ```
 
-Also update the existing "blocks duplicate applications" test (lines 75–93 in the file): remove the `current_title` line from `args` so the existing happy-path test still passes after the schema tightens.
+Also update the existing "blocks duplicate applications" test (lines 75–93 in the file): the `args` object stays as-is (it already includes `current_title`); we keep this field accepted in the schema.
 
 - [ ] **Step 2: Run tests to verify they fail**
 
 Run: `npx vitest run tests/convex/jobBoard.test.ts`
-Expected: 3 new tests FAIL (validator absent), existing tests may also fail (current_title still sent in duplicate test) — that's why we updated the args above.
+Expected: 3 new tests FAIL (validator + normalizer + required-check absent). Existing tests still pass.
 
 - [ ] **Step 3: Update `convex/jobApplications.ts:create` args and validation**
 
@@ -227,6 +277,7 @@ export const create = mutation({
     job_id: v.id("jobs"),
     phone: v.string(),
     current_company: v.optional(v.string()),
+    current_title: v.optional(v.string()),
     linkedin_url: v.string(),
     years_of_experience: v.number(),
     cover_note: v.optional(v.string()),
@@ -237,23 +288,7 @@ export const create = mutation({
   },
 ```
 
-(Removed `current_title`; changed `linkedin_url` from optional to required.)
-
-Add this validation block just after the `phone` trim block (around line 67, between the `phone` and `years_of_experience` checks):
-
-```ts
-    const linkedinUrl = args.linkedin_url.trim();
-    if (!linkedinUrl) {
-      appError("job_application_linkedin_required", "LinkedIn URL is required.", 400);
-    }
-    if (!isValidLinkedInUrl(linkedinUrl)) {
-      appError(
-        "job_application_linkedin_invalid",
-        "LinkedIn URL must look like https://www.linkedin.com/in/your-handle",
-        400,
-      );
-    }
-```
+(Kept `current_title` as optional; changed `linkedin_url` from optional to required.)
 
 Update the import at the top of the file (line ~5–10):
 
@@ -263,11 +298,29 @@ import {
   canApplyToJob,
   isPdfResumeFile,
   isValidLinkedInUrl,
+  normalizeLinkedInUrl,
   RESUME_MAX_SIZE_BYTES,
 } from "../src/jobs/config";
 ```
 
-Replace the existing insert block (lines 84–102) with this one — note: drops the `current_title` spread, makes `linkedin_url` unconditional (now required), keeps everything else identical:
+Add this validation block just after the `phone` trim block (around line 67, between the `phone` and `years_of_experience` checks):
+
+```ts
+    const rawLinkedIn = args.linkedin_url.trim();
+    if (!rawLinkedIn) {
+      appError("job_application_linkedin_required", "LinkedIn URL is required.", 400);
+    }
+    const linkedinUrl = normalizeLinkedInUrl(rawLinkedIn);
+    if (!isValidLinkedInUrl(linkedinUrl)) {
+      appError(
+        "job_application_linkedin_invalid",
+        "LinkedIn URL must look like https://www.linkedin.com/in/your-handle",
+        400,
+      );
+    }
+```
+
+The existing insert block (lines 84–102) needs only one change — replace the `...(args.linkedin_url?.trim() ? { linkedin_url: args.linkedin_url.trim() } : {})` spread with unconditional `linkedin_url: linkedinUrl,`. Keep `current_title` spread as-is:
 
 ```ts
     const now = Date.now();
@@ -278,6 +331,7 @@ Replace the existing insert block (lines 84–102) with this one — note: drops
       email: profile.email,
       phone,
       ...(args.current_company?.trim() ? { current_company: args.current_company.trim() } : {}),
+      ...(args.current_title?.trim() ? { current_title: args.current_title.trim() } : {}),
       linkedin_url: linkedinUrl,
       years_of_experience: args.years_of_experience,
       ...(args.cover_note?.trim() ? { cover_note: args.cover_note.trim() } : {}),
@@ -300,17 +354,19 @@ Expected: All tests PASS.
 
 ```bash
 git add convex/jobApplications.ts tests/convex/jobBoard.test.ts
-git commit -m "feat(jobs): require LinkedIn URL on applications, drop current_title input"
+git commit -m "feat(jobs): require + normalize LinkedIn URL on applications"
 ```
 
 ---
 
-## Task 3 — Inline application form (in `/jobs/[slug]/apply`): drop current_title, require LinkedIn, add "Applying as" header
+## Task 3 — Inline application form (in `/jobs/[slug]/apply`): require LinkedIn, add "Applying as" header, keep current_title editable
 
 **Files:**
 - Modify: `src/app/jobs/[slug]/apply/page.tsx` (specifically the inline `ApplicationForm` function at line ~329 and form state at ~348)
 - Delete: `src/components/jobs/JobApplicationForm.tsx` (orphaned, no imports anywhere — verified by `grep -r "JobApplicationForm" src/ tests/`)
 - Test: `tests/app/jobs-apply.page.test.tsx` (new — also covers Task 10's recruiter-guard verification)
+
+**What stays:** `current_title` is kept on the form, pre-filled from `profile.current_title` (existing behavior at line 351), editable. We do NOT drop it — that would break the recruiter dashboard, which reads `application.current_title`, and would also leave users with stale profile data (profile editing is out of scope).
 
 - [ ] **Step 1: Write failing tests**
 
@@ -413,16 +469,16 @@ async function renderPage() {
 }
 
 describe("/jobs/[slug]/apply — application form", () => {
-  it("does not render a current_title input", async () => {
+  it("renders a current_title input pre-filled from profile", async () => {
     await renderPage();
-    expect(screen.queryByLabelText(/current title/i)).not.toBeInTheDocument();
+    const input = screen.getByLabelText(/current title/i) as HTMLInputElement;
+    expect(input.value).toBe("ML Engineer");
   });
 
-  it("shows an 'Applying as' header pulling name and current_title from profile", async () => {
+  it("shows an 'Applying as' header with the profile name", async () => {
     await renderPage();
     expect(screen.getByText(/Applying as/i)).toBeInTheDocument();
     expect(screen.getByText(/Jane Doe/)).toBeInTheDocument();
-    expect(screen.getByText(/ML Engineer/)).toBeInTheDocument();
   });
 
   it("requires LinkedIn URL", async () => {
@@ -437,6 +493,15 @@ describe("/jobs/[slug]/apply — application form", () => {
     fireEvent.change(input, { target: { value: "https://github.com/jane" } });
     fireEvent.blur(input);
     expect(screen.getByText(/LinkedIn URL must look like/i)).toBeInTheDocument();
+  });
+
+  it("accepts a LinkedIn URL without https:// prefix (UI accepts; normalization happens server-side)", async () => {
+    await renderPage();
+    const input = screen.getByLabelText(/LinkedIn URL/i) as HTMLInputElement;
+    fireEvent.change(input, { target: { value: "www.linkedin.com/in/jane" } });
+    fireEvent.blur(input);
+    // No error: the normalized form (https://www.linkedin.com/in/jane) is valid.
+    expect(screen.queryByText(/LinkedIn URL must look like/i)).not.toBeInTheDocument();
   });
 });
 
@@ -453,35 +518,32 @@ describe("/jobs/[slug]/apply — recruiter guard", () => {
 - [ ] **Step 2: Run tests to verify they fail**
 
 Run: `npx vitest run tests/app/jobs-apply.page.test.tsx`
-Expected: FAIL — current_title input still present, no "Applying as" header, LinkedIn not required, no client-side LinkedIn validation. (The recruiter guard test should already pass — that's why we include it as regression coverage.)
+Expected: FAIL — no "Applying as" header, LinkedIn not required, no client-side LinkedIn validation (the normalization-accepts test will also fail). The current_title test and recruiter-guard test should already pass — included as regression coverage.
 
 - [ ] **Step 3: Edit `src/app/jobs/[slug]/apply/page.tsx`**
 
-(a) Add the import near the top (around line 23, with the other `@/jobs/...` imports):
+(a) Update the import near the top (around line 23) to include the LinkedIn helpers:
 
 ```tsx
-import { buildJobBoardSignInUrl, isValidLinkedInUrl, sanitizeJobBoardReturnUrl } from "@/jobs/config";
+import {
+  buildJobBoardSignInUrl,
+  isValidLinkedInUrl,
+  normalizeLinkedInUrl,
+  sanitizeJobBoardReturnUrl,
+} from "@/jobs/config";
 ```
 
-(Replace the existing `buildJobBoardSignInUrl, sanitizeJobBoardReturnUrl` import — add `isValidLinkedInUrl` to it.)
-
-(b) Replace the inline `ApplicationForm` form state (lines 348–355) with:
+(b) Inside the inline `ApplicationForm` function, just after the existing `form` state (lines 348–355), add a LinkedIn error state. The form state itself stays unchanged (it already includes `current_title` and `linkedin_url`):
 
 ```tsx
-  const [form, setForm] = useState({
-    phone: profile?.phone ?? "",
-    current_company: "",
-    linkedin_url: profile?.linkedin_url ?? "",
-    years_of_experience: "0",
-    cover_note: "",
-  });
   const [linkedinError, setLinkedinError] = useState("");
 ```
 
 (c) In `handleSubmit`, just before the `try { ... }` block (around line 376), add LinkedIn validation:
 
 ```tsx
-    if (!isValidLinkedInUrl(form.linkedin_url)) {
+    const normalizedLinkedIn = normalizeLinkedInUrl(form.linkedin_url);
+    if (!isValidLinkedInUrl(normalizedLinkedIn)) {
       setLinkedinError(
         "LinkedIn URL must look like https://www.linkedin.com/in/your-handle"
       );
@@ -489,14 +551,15 @@ import { buildJobBoardSignInUrl, isValidLinkedInUrl, sanitizeJobBoardReturnUrl }
     }
 ```
 
-(d) Inside `handleSubmit`, update the `createApplication` call (lines 401–413) to drop `current_title`:
+(d) Inside `handleSubmit`, update the `createApplication` call (lines 401–413) to pass the normalized LinkedIn URL (other fields unchanged — `current_title` still sent):
 
 ```tsx
       await createApplication({
         job_id: job._id,
         phone: form.phone,
         current_company: form.current_company || undefined,
-        linkedin_url: form.linkedin_url,
+        current_title: form.current_title || undefined,
+        linkedin_url: normalizedLinkedIn,
         years_of_experience: Number(form.years_of_experience),
         cover_note: form.cover_note || undefined,
         resume_storage_id: storageId as any,
@@ -506,21 +569,7 @@ import { buildJobBoardSignInUrl, isValidLinkedInUrl, sanitizeJobBoardReturnUrl }
       });
 ```
 
-(e) Just below the form header (after the closing `</div>` of the header block around line 538), add the "Applying as" header. Specifically, replace this block (lines 530–538):
-
-```tsx
-      {/* Form header */}
-      <div className="border-b border-enterprise-100 px-6 py-6 sm:px-8">
-        <h1 className="font-display text-2xl font-bold text-enterprise-950">
-          Submit your application
-        </h1>
-        <p className="mt-2 text-sm text-enterprise-600">
-          Your information is shared only with the recruiter for this role.
-        </p>
-      </div>
-```
-
-with:
+(e) Replace the form header block (lines 530–538) to add the "Applying as" header:
 
 ```tsx
       {/* Form header */}
@@ -530,13 +579,14 @@ with:
         </h1>
         <p className="mt-2 text-sm text-enterprise-700">
           Applying as <strong>{profile?.name ?? "—"}</strong>
-          {profile?.current_title ? <> · {profile.current_title}</> : null}
         </p>
         <p className="mt-1 text-xs text-enterprise-500">
           Your information is shared only with the recruiter for this role.
         </p>
       </div>
 ```
+
+(Note: we only show the name in "Applying as" — current_title is still presented as its own editable field below, since the user can override it per application.)
 
 (f) In Section 1 ("Contact information") at lines 559–579, replace the LinkedIn field with a required + validated version:
 
@@ -552,7 +602,9 @@ with:
                 }}
                 onBlur={(e) => {
                   const value = e.target.value.trim();
-                  if (value && !isValidLinkedInUrl(value)) {
+                  if (!value) return;
+                  const normalized = normalizeLinkedInUrl(value);
+                  if (!isValidLinkedInUrl(normalized)) {
                     setLinkedinError(
                       "LinkedIn URL must look like https://www.linkedin.com/in/your-handle"
                     );
@@ -567,39 +619,7 @@ with:
             </Field>
 ```
 
-(g) In Section 2 ("Experience") at lines 589–620, delete the `<Field label="Current title">` block entirely. The grid `sm:grid-cols-3` should become `sm:grid-cols-2` since we now have only two fields:
-
-```tsx
-        {/* Section 2: Experience */}
-        <fieldset>
-          <legend className="text-xs font-semibold uppercase tracking-[0.15em] text-enterprise-400">
-            Experience
-          </legend>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <Field label="Current company">
-              <input
-                value={form.current_company}
-                onChange={(e) =>
-                  setForm({ ...form, current_company: e.target.value })
-                }
-                className={inputClassName}
-              />
-            </Field>
-            <Field label="Years of experience" required>
-              <input
-                required
-                type="number"
-                min={0}
-                value={form.years_of_experience}
-                onChange={(e) =>
-                  setForm({ ...form, years_of_experience: e.target.value })
-                }
-                className={inputClassName}
-              />
-            </Field>
-          </div>
-        </fieldset>
-```
+(g) Section 2 ("Experience") at lines 589–620 stays as-is. `current_title` field remains present, pre-filled from profile, editable.
 
 - [ ] **Step 4: Delete the orphaned standalone form component**
 
@@ -613,14 +633,14 @@ rm src/components/jobs/JobApplicationForm.tsx
 - [ ] **Step 5: Run tests to verify they pass**
 
 Run: `npx vitest run tests/app/jobs-apply.page.test.tsx`
-Expected: PASS, 5/5.
+Expected: PASS, 6/6.
 
 - [ ] **Step 6: Commit**
 
 ```bash
 git add 'src/app/jobs/[slug]/apply/page.tsx' tests/app/jobs-apply.page.test.tsx
 git rm src/components/jobs/JobApplicationForm.tsx
-git commit -m "feat(jobs): require LinkedIn + drop current_title in apply form, remove orphan"
+git commit -m "feat(jobs): require + normalize LinkedIn on apply form, add Applying as header, remove orphan"
 ```
 
 ---
@@ -1200,13 +1220,22 @@ Now add these tests:
     expect(screen.queryByRole("link", { name: /Join Now/i })).not.toBeInTheDocument();
   });
 
-  it("shows a 'Sign in' link on /jobs/* for signed-out users", () => {
+  it("shows a 'Sign in' link on /jobs/* for signed-out users with redirect_url to current pathname", () => {
     mockPathname = "/jobs";
     mockIsSignedIn = false;
     render(<Navbar />);
     const signIn = screen.getByRole("link", { name: /Sign in/i });
     expect(signIn).toBeInTheDocument();
-    expect(signIn.getAttribute("href")).toContain("/sign-in");
+    expect(signIn.getAttribute("href")).toBe("/sign-in?redirect_url=%2Fjobs");
+  });
+
+  it("preserves the deep-link pathname in the Sign in redirect_url", () => {
+    mockPathname = "/jobs/ai-engineer";
+    mockIsSignedIn = false;
+    render(<Navbar />);
+    expect(
+      screen.getByRole("link", { name: /Sign in/i }).getAttribute("href")
+    ).toBe("/sign-in?redirect_url=%2Fjobs%2Fai-engineer");
   });
 
   it("keeps 'Join Now' on non-/jobs paths for signed-out users", () => {
@@ -1257,12 +1286,12 @@ Expected: FAIL — Join Now still rendered on /jobs, no Sign in link, dashboardP
   })()
 ```
 
-(b) Replace the signed-out auth CTA in the desktop nav (lines 230–237) with a context-aware version:
+(b) Replace the signed-out auth CTA in the desktop nav (lines 230–237) with a context-aware version that preserves the current pathname:
 
 ```tsx
               ) : isJobsPage ? (
                 <Link
-                  href="/sign-in?redirect_url=/jobs"
+                  href={`/sign-in?redirect_url=${encodeURIComponent(pathname)}`}
                   className={`ml-2 text-sm font-medium transition-colors duration-300 ${
                     hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
                   }`}
@@ -1284,7 +1313,7 @@ Expected: FAIL — Join Now still rendered on /jobs, no Sign in link, dashboardP
 ```tsx
                       ) : isJobsPage ? (
                         <Link
-                          href="/sign-in?redirect_url=/jobs"
+                          href={`/sign-in?redirect_url=${encodeURIComponent(pathname)}`}
                           onClick={() => setIsMobileMenuOpen(false)}
                           className="block w-full px-4 py-3 text-center text-sm font-medium text-enterprise-700 rounded-lg hover:bg-enterprise-50"
                         >
@@ -1479,13 +1508,14 @@ import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 let mockJobBoardRole: "jobseeker" | "recruiter" | null = "jobseeker";
+const replaceMock = vi.fn();
 
 vi.mock("next/link", () => ({
   default: ({ href, children }: any) => <a href={href}>{children}</a>,
 }));
 
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({ replace: vi.fn() }),
+  useRouter: () => ({ replace: replaceMock }),
 }));
 
 vi.mock("@clerk/nextjs", () => ({
@@ -1511,6 +1541,7 @@ vi.mock("@/components/jobs/JobPostForm", () => ({
 
 beforeEach(() => {
   mockJobBoardRole = "jobseeker";
+  replaceMock.mockReset();
 });
 
 afterEach(() => cleanup());
@@ -1557,7 +1588,251 @@ No additional work for this task — skip to Task 11.
 
 ---
 
-## Task 11 — Full-suite verification + manual QA
+## Task 11 — Carry role intent through action-page redirects and JobDetail CTAs
+
+**Why:** Without this, a signed-in null-role user (e.g. a GCC buyer) clicking "Apply Now" on a job detail page, or hitting `/jobs/post` via a deep link, still gets redirected to `/jobs/onboarding` *without* a `role=` param — meaning they hit the role picker. The hero CTAs already set role intent (Task 6); this task closes the same loop for the other two entry paths.
+
+**Files:**
+- Modify: `src/app/jobs/post/page.tsx:27`
+- Modify: `src/app/jobs/[slug]/apply/page.tsx:94-98`
+- Modify: `src/components/jobs/JobDetail.tsx:214-225`
+- Test: `tests/app/jobs-post.page.test.tsx` (extend), `tests/app/jobs-apply.page.test.tsx` (extend)
+
+- [ ] **Step 1: Write failing tests**
+
+Extend `tests/app/jobs-post.page.test.tsx` (created in Task 9 — note that the test file already declares `const replaceMock = vi.fn()` at module level and resets it in `beforeEach`) with this additional case inside `describe("/jobs/post page", ...)`:
+
+```tsx
+  it("redirects null-role signed-in users to onboarding with role=recruiter", async () => {
+    mockJobBoardRole = null;
+    const Page = (await import("@/app/jobs/post/page")).default;
+    render(<Page />);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(replaceMock).toHaveBeenCalledWith(
+      "/jobs/onboarding?role=recruiter&returnUrl=%2Fjobs%2Fpost"
+    );
+  });
+```
+
+Extend `tests/app/jobs-apply.page.test.tsx` (created in Task 3) — first add a module-level `replaceMock` and update the `next/navigation` mock:
+
+```tsx
+// Add near the top (replace the existing next/navigation mock):
+const replaceMock = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ replace: replaceMock }),
+}));
+
+// And reset in beforeEach:
+beforeEach(() => {
+  mockJobBoardRole = "jobseeker";
+  replaceMock.mockReset();
+});
+```
+
+Then add a new `describe` block:
+
+```tsx
+describe("/jobs/[slug]/apply — null-role redirect", () => {
+  it("redirects null-role signed-in users to onboarding with role=jobseeker", async () => {
+    mockJobBoardRole = null;
+    await renderPage();
+    expect(replaceMock).toHaveBeenCalledWith(
+      expect.stringContaining("/jobs/onboarding?role=jobseeker&returnUrl=")
+    );
+  });
+});
+```
+
+Create `tests/components/jobs/JobDetail.cta.test.tsx`:
+
+```tsx
+import type { ReactNode } from "react";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+let mockIsSignedIn = false;
+let mockJobBoardRole: "jobseeker" | "recruiter" | null = null;
+
+vi.mock("next/link", () => ({
+  default: ({ href, children }: any) => <a href={href}>{children}</a>,
+}));
+
+vi.mock("@clerk/nextjs", () => ({
+  useAuth: () => ({ isLoaded: true, isSignedIn: mockIsSignedIn }),
+}));
+
+vi.mock("@/jobs/useJobBoardRole", () => ({
+  useJobBoardRole: () => ({
+    role: mockJobBoardRole,
+    isLoaded: true,
+    profile: null,
+  }),
+}));
+
+vi.mock("convex/react", () => ({
+  useQuery: () => false, // alreadyApplied
+}));
+
+vi.mock("@/components/shared/AnimatedSection", () => ({
+  AnimatedSection: ({ children }: { children: ReactNode }) => <>{children}</>,
+}));
+
+vi.mock("framer-motion", async () => {
+  const React = await import("react");
+  return {
+    motion: new Proxy({}, { get: () => ({ children }: any) => <>{children}</> }),
+    AnimatePresence: ({ children }: any) => <>{children}</>,
+  };
+});
+
+afterEach(() => {
+  cleanup();
+  mockIsSignedIn = false;
+  mockJobBoardRole = null;
+});
+
+const job = {
+  _id: "job_1",
+  title: "AI Engineer",
+  company_name: "Acme",
+  location: "Remote",
+  workplace_type: "remote",
+  job_type: "full-time",
+  seniority: "mid",
+  category: "engineering",
+  description: "Build cool stuff.",
+  can_apply: true,
+  apply_url: null,
+};
+
+async function importDetail() {
+  return (await import("@/components/jobs/JobDetail")).JobDetail;
+}
+
+describe("JobDetail Apply Now CTA — role intent", () => {
+  it("signed-out: 'Sign in to apply' carries role=jobseeker into the apply URL", async () => {
+    mockIsSignedIn = false;
+    const JobDetail = await importDetail();
+    render(<JobDetail job={job} slug="ai-engineer" />);
+    const cta = screen.getByRole("link", { name: /Sign in to apply/i });
+    expect(cta.getAttribute("href")).toContain("role%3Djobseeker");
+  });
+
+  it("signed-in no-role: 'Set up your Job Board profile' goes to onboarding with role=jobseeker", async () => {
+    mockIsSignedIn = true;
+    mockJobBoardRole = null;
+    const JobDetail = await importDetail();
+    render(<JobDetail job={job} slug="ai-engineer" />);
+    const cta = screen.getByRole("link", { name: /Set up your Job Board profile/i });
+    expect(cta.getAttribute("href")).toMatch(
+      /^\/jobs\/onboarding\?role=jobseeker&returnUrl=/
+    );
+  });
+});
+```
+
+- [ ] **Step 2: Run tests to verify they fail**
+
+Run: `npx vitest run tests/app/jobs-post.page.test.tsx tests/app/jobs-apply.page.test.tsx tests/components/jobs/JobDetail.cta.test.tsx`
+Expected: FAIL — current redirects don't include role param.
+
+- [ ] **Step 3: Update `src/app/jobs/post/page.tsx`**
+
+Replace line 27:
+```tsx
+      router.replace("/jobs/onboarding?returnUrl=%2Fjobs%2Fpost");
+```
+
+with:
+```tsx
+      router.replace("/jobs/onboarding?role=recruiter&returnUrl=%2Fjobs%2Fpost");
+```
+
+- [ ] **Step 4: Update `src/app/jobs/[slug]/apply/page.tsx`**
+
+Replace lines 94–98:
+```tsx
+    if (!role) {
+      router.replace(
+        `/jobs/onboarding?returnUrl=${encodeURIComponent(returnUrl)}`
+      );
+    }
+```
+
+with:
+```tsx
+    if (!role) {
+      router.replace(
+        `/jobs/onboarding?role=jobseeker&returnUrl=${encodeURIComponent(returnUrl)}`
+      );
+    }
+```
+
+- [ ] **Step 5: Update `src/components/jobs/JobDetail.tsx`**
+
+Replace the signed-out branch (lines 214–219):
+```tsx
+                ) : !isSignedIn ? (
+                  <Button asChild className="w-full">
+                    <Link href={`/sign-in?redirect_url=${encodeURIComponent(returnUrl)}`}>
+                      Sign in to apply
+                    </Link>
+                  </Button>
+```
+
+with:
+```tsx
+                ) : !isSignedIn ? (
+                  <Button asChild className="w-full">
+                    <Link
+                      href={`/sign-in?redirect_url=${encodeURIComponent(
+                        `/jobs/onboarding?role=jobseeker&returnUrl=${encodeURIComponent(returnUrl)}`
+                      )}`}
+                    >
+                      Sign in to apply
+                    </Link>
+                  </Button>
+```
+
+Replace the no-role branch (lines 220–225):
+```tsx
+                ) : !role ? (
+                  <Button asChild className="w-full">
+                    <Link href={`/jobs/onboarding?returnUrl=${encodeURIComponent(returnUrl)}`}>
+                      Set up your Job Board profile to apply
+                    </Link>
+                  </Button>
+```
+
+with:
+```tsx
+                ) : !role ? (
+                  <Button asChild className="w-full">
+                    <Link
+                      href={`/jobs/onboarding?role=jobseeker&returnUrl=${encodeURIComponent(returnUrl)}`}
+                    >
+                      Set up your Job Board profile to apply
+                    </Link>
+                  </Button>
+```
+
+- [ ] **Step 6: Run tests to verify they pass**
+
+Run: `npx vitest run tests/app/jobs-post.page.test.tsx tests/app/jobs-apply.page.test.tsx tests/components/jobs/JobDetail.cta.test.tsx`
+Expected: All PASS.
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add src/app/jobs/post/page.tsx 'src/app/jobs/[slug]/apply/page.tsx' src/components/jobs/JobDetail.tsx tests/app/jobs-post.page.test.tsx tests/app/jobs-apply.page.test.tsx tests/components/jobs/JobDetail.cta.test.tsx
+git commit -m "feat(jobs): carry role intent through action-page redirects and JobDetail CTAs"
+```
+
+---
+
+## Task 12 — Full-suite verification + manual QA
 
 - [ ] **Step 1: Run the entire Vitest suite**
 
@@ -1576,16 +1851,20 @@ Expected: No type errors.
 
 With `npm run dev` and `npx convex dev` running, walk through:
 
-1. **Signed-out on `/jobs`** — both hero CTAs visible; navbar shows "Sign in" not "Join Now".
+1. **Signed-out on `/jobs`** — both hero CTAs visible; navbar shows "Sign in" not "Join Now"; the Sign in link's `redirect_url` is the current pathname (verify on `/jobs/[slug]` too).
 2. **Click "Find Your Next AI Role"** (signed out) — Clerk sign-up flow, then `/jobs/onboarding` with role-confirm form (no picker). After submit → `/jobs/dashboard`.
 3. **Click "Hire AI Talent"** (signed out) — same flow with `company_name` field, ends at `/jobs/dashboard`.
 4. **Existing jobseeker on `/jobs`** — hero shows only "My Applications".
 5. **Existing recruiter on `/jobs`** — hero shows only "Post a Job".
-6. **GCC user on `/jobs`** (no job-board role) — both hero CTAs visible; clicking either goes directly to `/jobs/onboarding?role=X` (no Clerk re-auth). After completing, they're a multi-role user with both `users` and `jobProfiles` entries.
-7. **Apply to a job** — application form has no Current title input, has required LinkedIn URL with regex validation, "Applying as" header pulled from profile.
-8. **Jobseeker visits `/jobs/post`** — friendly block, no form.
-9. **Recruiter clicks "Apply Now"** on a listing — friendly block, no form.
-10. **Sign in via the `/jobs` "Sign in" link** as a returning recruiter — lands back on `/jobs`, hero shows "Post a Job".
+6. **GCC user on `/jobs`** (no job-board role) — both hero CTAs visible; clicking either goes directly to `/jobs/onboarding?role=X` (no Clerk re-auth). After completing, they're a multi-role user with both marketplace and job-board identities.
+7. **GCC user clicks "Apply Now" on a job detail page** — routed to `/jobs/onboarding?role=jobseeker&returnUrl=/jobs/[slug]/apply` (no role picker). After onboarding → back to apply form.
+8. **GCC user hits `/jobs/post` via deep link** — routed to `/jobs/onboarding?role=recruiter&returnUrl=%2Fjobs%2Fpost`.
+9. **Apply to a job** — application form: "Applying as Jane Doe" header, current_title field pre-filled from profile (editable), required LinkedIn URL field. Submit with `linkedin.com/in/handle` (no https://) — should succeed (server normalizes).
+10. **LinkedIn validation** — try `https://github.com/foo` → inline error. Try empty → required-field error on submit.
+11. **Jobseeker visits `/jobs/post`** — friendly block, no form.
+12. **Recruiter clicks "Apply Now"** on a listing — friendly block, no form.
+13. **Sign in via the `/jobs` "Sign in" link** on `/jobs/ai-engineer` (deep link) as a returning user — lands back on `/jobs/ai-engineer`, not the bare `/jobs`.
+14. **Recruiter dashboard** — open an existing job that has applicants and verify `current_title` displays correctly for both legacy applications (already have it) and new applications submitted post-change.
 
 Document any deviations and fix before declaring done.
 

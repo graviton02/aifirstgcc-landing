@@ -19,18 +19,20 @@ A fourth issue surfaced during design: the "one role per Clerk account" rule fro
 | Decision | Choice | Rationale |
 |---|---|---|
 | Marketplace ↔ job-board role coupling | Independent. A Clerk user can have ONE marketplace role (`gcc`/`provider`) AND ONE job-board role (`jobseeker`/`recruiter`) simultaneously. | Removes the "wall" for GCC users wanting to apply to AI jobs without losing their marketplace access. The two role systems are already structurally separate in the codebase — this decision is mostly about removing implicit "one role" assumptions in UX and routing. |
-| Within job board | Exclusive: `jobseeker` XOR `recruiter` per Clerk user. | Already enforced by `jobProfiles.by_clerkUserId` index. No data migration needed. |
-| Navbar "Join Now" on `/jobs/*` | Hide. Replace with a quiet "Sign in" link for signed-out users. | The hero handles role-specific entry; the navbar should not over-promise. |
+| Within job board | Exclusive: `jobseeker` XOR `recruiter` per Clerk user. | Enforced by the `jobProfiles.createProfile` mutation, which rejects a second profile per Clerk user. The `by_clerkUserId` index supports the lookup but is not itself a uniqueness constraint. |
+| Navbar "Join Now" on `/jobs/*` | Hide. Replace with a quiet "Sign in" link for signed-out users, with `redirect_url` set to the current pathname so the user returns to the same page after auth. | The hero handles role-specific entry; the navbar only needs to serve returning users. |
 | Hero CTA copy | Primary: **Find Your Next AI Role**. Secondary: **Hire AI Talent**. No microcopy. | Outcome-led labels, parallel structure, plain language. |
 | Hero CTA states | `jobBoardRole = null` → both CTAs. `jobseeker` → "My Applications" only. `recruiter` → "Post a Job" only. | Contextual to the user's current job-board identity. |
-| CTA routing | Signed-out: `/sign-up?redirect_url=/jobs/onboarding?role=X`. Signed-in: `/jobs/onboarding?role=X` directly. | One code path. Role intent travels through Clerk to onboarding. |
-| `/jobs/onboarding` | Skip role picker when `?role=` is present. Render only the 1 role-specific field. | Removes the redundant pick step. |
-| Profile fields (jobseeker) | name (Clerk), email (Clerk), `current_title` (required). | Bare minimum. Per-application context lives on applications, not profile. |
+| CTA routing | Signed-out: `/sign-up?redirect_url=<encoded /jobs/onboarding?role=X>`. Signed-in: `/jobs/onboarding?role=X` directly. URLs are built with `URLSearchParams` (or `encodeURIComponent` for nested URLs). | One code path. Role intent travels through Clerk to onboarding. |
+| Action-page redirects (e.g. `/jobs/post`, `/jobs/[slug]/apply`) | When a signed-in null-role user reaches the page, redirect to `/jobs/onboarding?role=X&returnUrl=...` with role intent. JobDetail's "Apply Now" branches for signed-out and no-role users carry the same role intent through sign-in. | Closes the loophole where users entering via non-hero paths (deep links, the JobDetail "Apply Now" button) still hit the role picker. |
+| `/jobs/onboarding` | Skip role picker when `?role=` is present and valid. Invalid `?role=` (e.g. `?role=bogus`) falls back to the picker. Render only the 1 role-specific field. | Removes the redundant pick step while keeping the picker as a safety net. |
+| Profile fields (jobseeker) | name (Clerk), email (Clerk), `current_title` (required). | Bare minimum. Profile editing is out of scope, so this is captured once at onboarding. |
 | Profile fields (recruiter) | name (Clerk), email (Clerk), `company_name` (required). | Same minimum-profile principle. |
-| Application form | Drop `current_title` field (lives on profile). Add `linkedin_url` as **required**. | Eliminates duplication, gives recruiters a second verifiable channel. |
+| Application form | Pre-fill `name`, `email`, `current_title` from profile (shown as "Applying as" header for name/title; `current_title` remains editable per application as a snapshot). Keep phone, current_company, years_of_experience as today. Add `linkedin_url` as **required**. | The reusable deduplication win is the "Applying as" header (name/email never re-asked). `current_title` stays on the application form because profile editing is out of scope — keeping it editable lets users update per application without stale profile data. |
 | Resume requirement | PDF, ≤5 MB, required — unchanged. | Status quo; LinkedIn URL is the added signal, not a replacement. |
+| LinkedIn input UX | Placeholder `https://www.linkedin.com/in/your-handle`. Server auto-prefixes `https://` if user submits `www.linkedin.com/in/...` or `linkedin.com/in/...`, then runs regex. Error copy: "LinkedIn URL must look like https://www.linkedin.com/in/your-handle". | Reduces friction without weakening validation. |
 | `Navbar.dashboardPath` | Pathname-first: on `/jobs/*` with a job-board role → `/jobs/dashboard`. Otherwise existing marketplace logic. | Routes users to the dashboard relevant to where they are. |
-| `/auth-redirect` | Honor `redirect_url` query param when present. Fall back to existing marketplace logic. | Sign-ups from `/jobs` land at `/jobs/onboarding`, not marketplace onboarding. |
+| `/auth-redirect` | Routes by marketplace + job-board role only. Does **not** read `redirect_url` from URL. Clerk's `forceRedirectUrl` (set on `/sign-up` and `/sign-in` based on the incoming `redirect_url` query) handles redirect-to-target for users coming from job-board flows before `/auth-redirect` ever runs. | Removes open-redirect risk by design. Existing sanitization in `resolveJobBoardAuthRedirectUrl` already gates what reaches Clerk. |
 
 ## Data Model Changes
 
@@ -46,10 +48,8 @@ No schema change. The marketplace role union is already `"gcc" | "provider" | nu
 
 | Field | Change |
 |---|---|
-| `current_title` | **Removed** from input schema. Profile is the source of truth. |
-| `linkedin_url` | **Now required** (was optional). Server-side regex check: must start with `https://www.linkedin.com/in/` or `https://linkedin.com/in/`. |
-
-Existing applications keep their `current_title` value (column not dropped); the field is just no longer accepted on `create`.
+| `current_title` | **Unchanged.** Stays as `v.optional(v.string())`. Pre-filled from `jobProfiles.current_title` on the form, editable per application, snapshotted into the application document. Recruiter dashboard continues to read `application.current_title` unchanged. |
+| `linkedin_url` | **Now required** (was optional). Server normalizes: if value doesn't start with `https://`, auto-prefix with `https://`. Then validate via regex (`/^https:\/\/(www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/`). Reject if regex fails. Store the normalized value. |
 
 ## Hero CTA Matrix
 
@@ -63,17 +63,20 @@ Keyed off `jobBoardRole` only — signed-out users have `null`, same as marketpl
 
 ## Routes Touched
 
-| Route | Change |
+| Route / File | Change |
 |---|---|
 | `/jobs` (`JobHero.tsx`) | New CTA matrix. Removes existing "Post a Job" button (replaced by state-aware CTAs). Search bar + category pills unchanged. |
-| `/sign-up` (Clerk page) | Pass through `redirect_url` query param via Clerk's `afterSignUpUrl`. |
-| `/auth-redirect/page.tsx` | Honor `redirect_url` param before falling through to marketplace routing. |
-| `/jobs/onboarding/page.tsx` | Read `?role=` from URL; skip role picker if present; render only required role-specific field. Redirect to dashboard if profile exists. |
-| `/jobs/[slug]/apply/page.tsx` | If signed-in but `jobBoardRole !== 'jobseeker'`, render friendly "this account is a recruiter" block instead of form. |
-| `/jobs/post/page.tsx` | Same pattern: if `jobBoardRole !== 'recruiter'`, render friendly block. |
-| `src/components/shared/Navbar.tsx` | Hide "Join Now" on `/jobs/*`; show "Sign in" link for signed-out users. Pathname-first `dashboardPath` logic. |
-| `src/components/jobs/JobApplicationForm.tsx` | Drop `current_title` field. Add required `linkedin_url` field with client-side regex validation. Show "Applying as: [name] · [current_title]" header pulled from profile. |
-| `convex/jobApplications.ts` (`create`) | Remove `current_title` from args; add required `linkedin_url` with regex validation. |
+| `/sign-up` and `/sign-in` Clerk pages | Already pass through `redirect_url` via `resolveJobBoardAuthRedirectUrl` → `forceRedirectUrl`. No code change needed; just confirm role-bearing `redirect_url` (e.g. `/jobs/onboarding?role=jobseeker&returnUrl=...`) is preserved by existing sanitization. |
+| `/auth-redirect/page.tsx` | Consult `useJobBoardRole`. If marketplace role absent but a job-board role exists, redirect to `/jobs/dashboard`. **Does not read `redirect_url`** (Clerk's `forceRedirectUrl` handles that for job-board flows). |
+| `/jobs/onboarding/page.tsx` | Read `?role=` from URL; if valid via `isJobBoardRole`, pass as `presetRole` to `JobOnboarding`; otherwise fall back to original role picker. Existing profile → redirect to dashboard. |
+| `/jobs/[slug]/apply/page.tsx` | Two changes: **(a)** Inline `ApplicationForm`: pre-fill `current_title` from profile (kept editable), add required `linkedin_url` field with regex validation, add "Applying as: [name]" header. **(b)** Existing recruiter friendly block stays. **(c)** Null-role redirect now includes `&role=jobseeker`: `/jobs/onboarding?role=jobseeker&returnUrl=...`. |
+| `/jobs/post/page.tsx` | **(a)** Existing recruiter-only friendly block stays. **(b)** Null-role redirect now includes `&role=recruiter`: `/jobs/onboarding?role=recruiter&returnUrl=...`. |
+| `src/components/jobs/JobDetail.tsx` | Update the signed-out and no-role branches of the "Apply Now" CTA to carry `role=jobseeker` through the auth/onboarding URL chain. |
+| `src/components/shared/Navbar.tsx` | Hide "Join Now" on `/jobs/*`; show "Sign in" link with `?redirect_url=<current pathname>` for signed-out users. Pathname-first `dashboardPath` logic. |
+| `src/components/jobs/JobOnboarding.tsx` | Accept `presetRole?: JobBoardRole`. Hide picker + "choose carefully" notice when set. Remove `linkedin_url` and `phone` from the onboarding form (they live on application records). |
+| `convex/jobApplications.ts` (`create`) | Keep `current_title: v.optional(v.string())` (unchanged). Make `linkedin_url: v.string()` required + auto-prefix `https://` + regex validation via `isValidLinkedInUrl`. |
+| `src/jobs/config.ts` | Add `isValidLinkedInUrl` + `LINKEDIN_URL_PATTERN` + `normalizeLinkedInUrl` (auto-prefix helper) — used by client and server. |
+| `src/components/jobs/JobApplicationForm.tsx` | **Delete this file** — it's orphaned (no imports anywhere). The user-facing form is the inline `ApplicationForm` inside `/jobs/[slug]/apply/page.tsx`. |
 
 ## User Flows
 
@@ -89,7 +92,7 @@ Keyed off `jobBoardRole` only — signed-out users have `null`, same as marketpl
 8. `/jobs/dashboard` — empty applications list.
 9. Returns to `/jobs`, hero now shows **My Applications** only. Clicks a listing.
 10. On detail page, clicks **Apply Now** → `/jobs/[slug]/apply`.
-11. Fills phone, years_of_experience, resume PDF, **LinkedIn URL** (required), optional cover note + current_company. Submits.
+11. Application form shows "Applying as **Jane Doe** · ML Engineer" header. Current title pre-filled (editable). Fills phone, years_of_experience, resume PDF, **LinkedIn URL** (required), optional cover note + current_company. Submits.
 12. `/jobs/dashboard` shows the new application.
 
 ### Recruiter — first-time, signed out
@@ -136,7 +139,12 @@ Fallback: render the original role picker. Rare edge case (bookmarks, manually-t
 
 ### Page-level / integration
 - `tests/app/job-board-auth.pages.test.tsx` — extend with new flows: signed-out CTA → `/sign-up?redirect_url=...`; signed-in marketplace user CTA → `/jobs/onboarding?role=...`.
-- New: `tests/auth/auth-redirect.test.tsx` — `redirect_url` is honored when present; falls back to marketplace routing otherwise.
+- New: `tests/app/auth-redirect.page.test.tsx` — job-board-only users → `/jobs/dashboard`; marketplace logic preserved.
+- New: `tests/app/jobs-onboarding.page.test.tsx` — `?role=jobseeker|recruiter` propagates as `presetRole`; invalid `?role=bogus` → undefined (picker fallback); `?role=` + `?returnUrl=` both honored.
+- New: `tests/app/jobs-post.page.test.tsx` — null-role signed-in user is redirected to `/jobs/onboarding?role=recruiter&returnUrl=%2Fjobs%2Fpost`; recruiter sees form; jobseeker sees existing friendly block.
+- New: `tests/app/jobs-apply.page.test.tsx` — null-role signed-in user is redirected to `/jobs/onboarding?role=jobseeker&returnUrl=...`; jobseeker sees form (with "Applying as" header, no separate name/email fields, required LinkedIn); recruiter sees existing friendly block.
+- Extend `tests/components/jobs/JobDetail.test.tsx` (or create if absent): signed-out "Apply Now" CTA href includes `role=jobseeker`; no-role CTA goes to `/jobs/onboarding?role=jobseeker&returnUrl=...`.
+- Recruiter dashboard regression: existing applications display correctly whether `application.current_title` is present or absent (defensive — most new applications will have it since the form pre-fills from profile).
 
 ### Manual QA (dogfood pass)
 - Walk through every row of the CTA matrix end-to-end in the running app.
