@@ -12,6 +12,7 @@ import { requireAdmin } from "./lib/admin";
 import { requireAuth } from "./lib/auth";
 import { appError } from "./lib/errors";
 import { withResolvedLogoUrl } from "./lib/companyLogos";
+import { syncAgentDirectoryCard } from "./lib/agentDirectoryCards";
 
 type ReviewReaderCtx =
   | Pick<QueryCtx, "db" | "auth" | "storage">
@@ -191,6 +192,7 @@ async function recalculateAgentMetrics(
       review_count: 0,
       updated_at: Date.now(),
     });
+    await syncAgentDirectoryCard(ctx as any, agentId);
     return;
   }
 
@@ -212,6 +214,7 @@ async function recalculateAgentMetrics(
     review_count: count,
     updated_at: Date.now(),
   });
+  await syncAgentDirectoryCard(ctx as any, agentId);
 }
 
 async function getCompanyPublicSummaryById(

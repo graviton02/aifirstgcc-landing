@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { api } from "../../convex/_generated/api";
+import { api, internal } from "../../convex/_generated/api";
 import { createTestConvex } from "./testHarness";
 
 const adminIdentity = {
@@ -216,6 +216,37 @@ describe("review eligibility", () => {
       status: "pending",
     });
     expect(updatedReview?.reviewed_at).toBeUndefined();
+  });
+
+  it("updates the directory card review metrics when a review is approved", async () => {
+    const { agentId } = await seedReviewableAgent(t);
+    await createGccProfile(t, gccIdentity);
+    await t.mutation(internal.agents.backfillDirectoryCards, {});
+
+    const reviewId = await t.withIdentity(gccIdentity).mutation(
+      api.reviews.createReview,
+      {
+        agent_id: agentId,
+        ...buildReviewInput(),
+      }
+    );
+
+    await t.withIdentity(adminIdentity).mutation(api.reviews.approveReview, {
+      review_id: reviewId,
+    });
+
+    const card = await t.run((ctx) =>
+      ctx.db
+        .query("agentDirectoryCards")
+        .withIndex("by_agentId", (q) => q.eq("agent_id", agentId))
+        .unique()
+    );
+
+    expect(card).toMatchObject({
+      agent_id: agentId,
+      rating: 4,
+      review_count: 1,
+    });
   });
 });
 

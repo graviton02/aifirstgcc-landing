@@ -21,7 +21,7 @@ export function FeaturedAgentCard({ agent }: { agent: Agent }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <Link href={href} className="block p-6 bg-white rounded-xl border border-enterprise-200 shadow-card hover:shadow-card-hover transition-shadow">
+      <Link href={href} prefetch={false} className="block p-6 bg-white rounded-xl border border-enterprise-200 shadow-card hover:shadow-card-hover transition-shadow">
         <h4 className="font-semibold text-enterprise-900 mb-1">{agent.agent_name}</h4>
         {agent.tagline && (
           <p className="text-sm text-enterprise-600 mb-3 line-clamp-2">{agent.tagline}</p>

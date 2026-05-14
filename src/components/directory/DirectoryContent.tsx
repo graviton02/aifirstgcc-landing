@@ -28,7 +28,7 @@ import {
   Sparkle,
   SlidersHorizontal,
 } from "@phosphor-icons/react";
-import type { Agent } from "@/lib/types";
+import type { AgentDirectoryCard } from "@/lib/types";
 import { AgentCard } from "./AgentCard";
 import { FilterSidebar, type Filters } from "./FilterSidebar";
 import { Navbar } from "@/components/shared/Navbar";
@@ -58,7 +58,7 @@ const CompareTray = dynamic(
 );
 
 type DirectorySearchResult = {
-  data: Agent[];
+  data: AgentDirectoryCard[];
   count: number;
   totalAgents: number;
   companyCount: number;
@@ -709,6 +709,7 @@ function SearchSuggestions({
             <Link
               key={agent._id}
               href={agent.slug ? `/agents/${agent.slug}` : `/agents/${agent._id}`}
+              prefetch={false}
               className="flex items-center justify-between gap-3 px-4 py-3 text-sm text-enterprise-700 hover:bg-enterprise-50 transition-colors"
             >
               <span className="font-medium text-enterprise-900">{agent.agent_name}</span>

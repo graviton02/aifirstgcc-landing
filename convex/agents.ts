@@ -1,8 +1,9 @@
-import { query, mutation } from "./_generated/server";
+import { internalMutation, internalQuery, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
-import { requireActiveMembership } from "./companyMembers";
+import { getActiveMembershipForCompany, requireActiveMembership } from "./companyMembers";
 import { appError } from "./lib/errors";
+import { requireAdmin } from "./lib/admin";
 import {
   getInvalidFunctionalCategories,
   getInvalidIndustryCategories,
@@ -20,6 +21,12 @@ import {
   buildAgentSearchTextForDocument,
 } from "./lib/agentSearch";
 import { resolveLogoUrl } from "./lib/companyLogos";
+import {
+  backfillAgentDirectoryCards,
+  hydrateAgentDirectoryCard,
+  removeAgentDirectoryCard,
+  syncAgentDirectoryCard,
+} from "./lib/agentDirectoryCards";
 import {
   getDirectoryStatsSnapshot,
   rebuildDirectoryStats,
@@ -346,6 +353,97 @@ function paginateAgents(agents: any[], page: number, pageSize: number) {
   return agents.slice(startIndex, startIndex + pageSize);
 }
 
+async function getDirectoryCardSource(ctx: any) {
+  const stats = await getDirectoryStatsSnapshot(ctx);
+  const cards = await ctx.db
+    .query("agentDirectoryCards")
+    .withIndex("by_status", (q: any) => q.eq("status", "active"))
+    .collect();
+
+  return {
+    stats,
+    cards,
+    isComplete: cards.length === stats.total_active_agents,
+  };
+}
+
+async function listFromFullAgents(ctx: any, args: any, pageSize: number) {
+  if (args.search && args.search.trim()) {
+    const results = await ctx.db
+      .query("agents")
+      .withSearchIndex("search_agents", (q: any) => {
+        let sq = q.search("search_text", args.search!);
+        sq = sq.eq("status", "active");
+        if (args.category) sq = sq.eq("category", args.category);
+        return sq;
+      })
+      .take(pageSize * 3);
+
+    const filtered = applyFilters(results, args);
+    return {
+      data: await Promise.all(
+        filtered
+          .slice(0, pageSize)
+          .map((agent) => resolveAgentCompanyPreview(ctx, agent))
+      ),
+      count: filtered.length,
+    };
+  }
+
+  const all = await ctx.db
+    .query("agents")
+    .withIndex("by_status", (q: any) => q.eq("status", "active"))
+    .collect();
+  const filtered = applyFilters(all, args);
+  return {
+    data: await Promise.all(
+      filtered
+        .slice(0, pageSize)
+        .map((agent) => resolveAgentCompanyPreview(ctx, agent))
+    ),
+    count: filtered.length,
+  };
+}
+
+async function listFromDirectoryCards(
+  ctx: any,
+  args: any,
+  pageSize: number,
+  cards: any[]
+) {
+  if (args.search && args.search.trim()) {
+    const results = await ctx.db
+      .query("agentDirectoryCards")
+      .withSearchIndex("search_agent_directory_cards", (q: any) => {
+        let sq = q.search("search_text", args.search!);
+        sq = sq.eq("status", "active");
+        if (args.category) sq = sq.eq("category", args.category);
+        return sq;
+      })
+      .take(pageSize * 3);
+
+    const filtered = applyFilters(results, args);
+    return {
+      data: await Promise.all(
+        filtered
+          .slice(0, pageSize)
+          .map((card) => hydrateAgentDirectoryCard(ctx, card))
+      ),
+      count: filtered.length,
+    };
+  }
+
+  const filtered = applyFilters(cards, args);
+  return {
+    data: await Promise.all(
+      filtered
+        .slice(0, pageSize)
+        .map((card) => hydrateAgentDirectoryCard(ctx, card))
+    ),
+    count: filtered.length,
+  };
+}
+
 export const list = query({
   args: {
     search: v.optional(v.string()),
@@ -358,37 +456,116 @@ export const list = query({
   handler: async (ctx, args) => {
     const pageSize = args.limit ?? 12;
 
-    if (args.search && args.search.trim()) {
-      const results = await ctx.db
-        .query("agents")
-        .withSearchIndex("search_agents", (q) => {
-          let sq = q.search("search_text", args.search!);
-          sq = sq.eq("status", "active");
-          if (args.category) sq = sq.eq("category", args.category);
-          return sq;
-        })
-        .take(pageSize * 3);
-
-      const filtered = applyFilters(results, args);
-      return {
-        data: await Promise.all(
-          filtered.slice(0, pageSize).map((agent) => resolveAgentCompanyPreview(ctx, agent))
-        ),
-        count: filtered.length,
-      };
+    const { cards, isComplete } = await getDirectoryCardSource(ctx);
+    if (!isComplete) {
+      return await listFromFullAgents(ctx, args, pageSize);
     }
 
-    const q = ctx.db.query("agents").withIndex("by_status", (q) => q.eq("status", "active"));
-    const all = await q.collect();
-    const filtered = applyFilters(all, args);
-    return {
-      data: await Promise.all(
-        filtered.slice(0, pageSize).map((agent) => resolveAgentCompanyPreview(ctx, agent))
-      ),
-      count: filtered.length,
-    };
+    return await listFromDirectoryCards(ctx, args, pageSize, cards);
   },
 });
+
+async function directoryPageFromFullAgents(
+  ctx: any,
+  args: any,
+  stats: any
+) {
+  const search = normalizeSearchQuery(args.search);
+  const page = Math.max(1, args.page ?? 1);
+  const pageSize = Math.max(1, args.pageSize ?? DEFAULT_DIRECTORY_PAGE_SIZE);
+  const suggestionLimit = Math.max(
+    1,
+    args.suggestionLimit ?? DEFAULT_SUGGESTION_LIMIT
+  );
+  const filters = normalizeDirectoryFilters(args);
+
+  let filteredAgents: any[];
+
+  if (search) {
+    const searchResults = await ctx.db
+      .query("agents")
+      .withSearchIndex("search_agents", (q: any) =>
+        q.search("search_text", search).eq("status", "active")
+      )
+      .take(getDirectorySearchCandidateLimit(page, pageSize));
+
+    filteredAgents = rankDirectoryResults(
+      applyDirectoryFilters(searchResults, filters),
+      search
+    );
+  } else {
+    const activeAgents = await ctx.db
+      .query("agents")
+      .withIndex("by_status", (q: any) => q.eq("status", "active"))
+      .collect();
+
+    filteredAgents = dailyShuffle(applyDirectoryFilters(activeAgents, filters));
+  }
+
+  const pageAgents = await Promise.all(
+    paginateAgents(filteredAgents, page, pageSize).map((agent) =>
+      resolveAgentCompanyPreview(ctx, agent)
+    )
+  );
+
+  return {
+    data: pageAgents,
+    count: filteredAgents.length,
+    totalAgents: stats.total_active_agents,
+    companyCount: stats.company_count,
+    categoryCounts: stats.category_counts as Record<string, number>,
+    suggestions: buildDirectorySuggestions(filteredAgents, search, suggestionLimit),
+  };
+}
+
+async function directoryPageFromCards(
+  ctx: any,
+  args: any,
+  stats: any,
+  cards: any[]
+) {
+  const search = normalizeSearchQuery(args.search);
+  const page = Math.max(1, args.page ?? 1);
+  const pageSize = Math.max(1, args.pageSize ?? DEFAULT_DIRECTORY_PAGE_SIZE);
+  const suggestionLimit = Math.max(
+    1,
+    args.suggestionLimit ?? DEFAULT_SUGGESTION_LIMIT
+  );
+  const filters = normalizeDirectoryFilters(args);
+
+  let filteredCards: any[];
+
+  if (search) {
+    const searchResults = await ctx.db
+      .query("agentDirectoryCards")
+      .withSearchIndex("search_agent_directory_cards", (q: any) =>
+        q.search("search_text", search).eq("status", "active")
+      )
+      .take(getDirectorySearchCandidateLimit(page, pageSize));
+
+    filteredCards = rankDirectoryResults(
+      applyDirectoryFilters(searchResults, filters),
+      search
+    );
+  } else {
+    filteredCards = dailyShuffle(applyDirectoryFilters(cards, filters));
+  }
+
+  const pageCards = await Promise.all(
+    paginateAgents(filteredCards, page, pageSize).map((card) =>
+      hydrateAgentDirectoryCard(ctx, card)
+    )
+  );
+
+  return {
+    data: pageCards,
+    count: filteredCards.length,
+    totalAgents: stats.total_active_agents,
+    companyCount: stats.company_count,
+    categoryCounts: stats.category_counts as Record<string, number>,
+    suggestions: buildDirectorySuggestions(filteredCards, search, suggestionLimit),
+  };
+}
 
 export const directoryPage = query({
   args: {
@@ -402,53 +579,13 @@ export const directoryPage = query({
     suggestionLimit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const search = normalizeSearchQuery(args.search);
-    const page = Math.max(1, args.page ?? 1);
-    const pageSize = Math.max(1, args.pageSize ?? DEFAULT_DIRECTORY_PAGE_SIZE);
-    const suggestionLimit = Math.max(
-      1,
-      args.suggestionLimit ?? DEFAULT_SUGGESTION_LIMIT
-    );
-    const filters = normalizeDirectoryFilters(args);
-    const stats = await getDirectoryStatsSnapshot(ctx);
+    const { stats, cards, isComplete } = await getDirectoryCardSource(ctx);
 
-    let filteredAgents: any[];
-
-    if (search) {
-      const searchResults = await ctx.db
-        .query("agents")
-        .withSearchIndex("search_agents", (q) =>
-          q.search("search_text", search).eq("status", "active")
-        )
-        .take(getDirectorySearchCandidateLimit(page, pageSize));
-
-      filteredAgents = rankDirectoryResults(
-        applyDirectoryFilters(searchResults, filters),
-        search
-      );
-    } else {
-      const activeAgents = await ctx.db
-        .query("agents")
-        .withIndex("by_status", (q) => q.eq("status", "active"))
-        .collect();
-
-      filteredAgents = dailyShuffle(applyDirectoryFilters(activeAgents, filters));
+    if (!isComplete) {
+      return await directoryPageFromFullAgents(ctx, args, stats);
     }
 
-    const pageAgents = await Promise.all(
-      paginateAgents(filteredAgents, page, pageSize).map((agent) =>
-        resolveAgentCompanyPreview(ctx, agent)
-      )
-    );
-
-    return {
-      data: pageAgents,
-      count: filteredAgents.length,
-      totalAgents: stats.total_active_agents,
-      companyCount: stats.company_count,
-      categoryCounts: stats.category_counts as Record<string, number>,
-      suggestions: buildDirectorySuggestions(filteredAgents, search, suggestionLimit),
-    };
+    return await directoryPageFromCards(ctx, args, stats, cards);
   },
 });
 
@@ -682,13 +819,27 @@ export const createEdit = mutation({
 export const softDelete = mutation({
   args: { agent_id: v.id("agents") },
   handler: async (ctx, { agent_id }) => {
-    await requireAuth(ctx);
+    const userId = await requireAuth(ctx);
+    const agent = await ctx.db.get(agent_id);
+    if (!agent) {
+      appError("agent_not_found", "Agent not found", 404);
+    }
+    if (!agent.company_id) {
+      appError("agent_company_missing", "Agent is not associated with a company", 400);
+    }
+
+    const membership = await getActiveMembershipForCompany(ctx, userId, agent.company_id);
+    if (!membership || membership.role !== "owner") {
+      await requireAdmin(ctx);
+    }
+
     await ctx.db.patch(agent_id, { status: "inactive", updated_at: Date.now() });
+    await removeAgentDirectoryCard(ctx, agent_id);
     await rebuildDirectoryStats(ctx);
   },
 });
 
-export const seed = mutation({
+export const seed = internalMutation({
   args: {
     slug: v.string(),
     agent_name: v.string(),
@@ -752,16 +903,15 @@ export const seed = mutation({
       updated_at: now,
     });
 
+    await syncAgentDirectoryCard(ctx, insertedId);
     await rebuildDirectoryStats(ctx);
     return insertedId;
   },
 });
 
-export const backfillTaxonomy = mutation({
+export const backfillTaxonomy = internalMutation({
   args: {},
   handler: async (ctx) => {
-    await requireAuth(ctx);
-
     const now = Date.now();
     const agents = await ctx.db.query("agents").collect();
     const submissions = await ctx.db.query("agentSubmissions").collect();
@@ -841,6 +991,7 @@ export const backfillTaxonomy = mutation({
           ...nextPatch,
           updated_at: now,
         });
+        await syncAgentDirectoryCard(ctx, agent._id);
         updatedAgents += 1;
       }
     }
@@ -900,6 +1051,7 @@ export const backfillTaxonomy = mutation({
     }
 
     await rebuildDirectoryStats(ctx);
+    await backfillAgentDirectoryCards(ctx);
 
     return {
       updatedAgents,
@@ -909,11 +1061,9 @@ export const backfillTaxonomy = mutation({
   },
 });
 
-export const verifyTaxonomyIntegrity = query({
+export const verifyTaxonomyIntegrity = internalQuery({
   args: {},
   handler: async (ctx) => {
-    await requireAuth(ctx);
-
     const agents = await ctx.db.query("agents").collect();
     const submissions = await ctx.db.query("agentSubmissions").collect();
 
@@ -983,7 +1133,7 @@ export const verifyTaxonomyIntegrity = query({
 });
 
 // One-time admin cleanup: unclaim companies and delete test data
-export const adminCleanup = mutation({
+export const adminCleanup = internalMutation({
   args: {
     unclaimSlugs: v.array(v.string()),
     deleteSlugs: v.array(v.string()),
@@ -1032,7 +1182,10 @@ export const adminCleanup = mutation({
       const agents = await ctx.db.query("agents")
         .withIndex("by_companyId", (q) => q.eq("company_id", company._id))
         .collect();
-      for (const a of agents) await ctx.db.delete(a._id);
+      for (const a of agents) {
+        await removeAgentDirectoryCard(ctx, a._id);
+        await ctx.db.delete(a._id);
+      }
 
       const claims = await ctx.db.query("claimRequests")
         .withIndex("by_companyId", (q) => q.eq("company_id", company._id))
@@ -1056,8 +1209,15 @@ export const adminCleanup = mutation({
   },
 });
 
+export const backfillDirectoryCards = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    return await backfillAgentDirectoryCards(ctx);
+  },
+});
+
 // QA data quality fix: strip artifacts, fix integrations, delete test agents
-export const fixQualityIssues = mutation({
+export const fixQualityIssues = internalMutation({
   args: {},
   handler: async (ctx) => {
     const agents = await ctx.db.query("agents").collect();
@@ -1067,6 +1227,7 @@ export const fixQualityIssues = mutation({
     for (const agent of agents) {
       // Delete QA test agents
       if (agent.slug?.includes("qa-browser-agent") || agent.agent_name?.includes("QA Browser Agent")) {
+        await removeAgentDirectoryCard(ctx, agent._id);
         await ctx.db.delete(agent._id);
         deleted++;
         continue;
@@ -1153,6 +1314,7 @@ export const fixQualityIssues = mutation({
         });
         patch.updated_at = Date.now();
         await ctx.db.patch(agent._id, patch);
+        await syncAgentDirectoryCard(ctx, agent._id);
         patched++;
       }
     }
@@ -1166,7 +1328,7 @@ export const fixQualityIssues = mutation({
 });
 
 // Reusable migration: fix capitalization and trailing punctuation on use case titles and expected outcomes
-export const fixAgentTextFields = mutation({
+export const fixAgentTextFields = internalMutation({
   args: {},
   handler: async (ctx) => {
     const agents = await ctx.db.query("agents").collect();
@@ -1213,6 +1375,7 @@ export const fixAgentTextFields = mutation({
         });
         patch.updated_at = Date.now();
         await ctx.db.patch(agent._id, patch);
+        await syncAgentDirectoryCard(ctx, agent._id);
         patchedCount++;
       }
     }

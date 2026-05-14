@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { api } from "../../convex/_generated/api";
+import { api, internal } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { createTestConvex } from "./testHarness";
 
@@ -14,6 +14,10 @@ const providerIdentity = {
 const outsiderIdentity = {
   subject: "outsider-user-id",
   email: "outsider@example.com",
+};
+const memberIdentity = {
+  subject: "member-user-id",
+  email: "member@example.com",
 };
 
 describe("agent workflows", () => {
@@ -97,7 +101,7 @@ describe("agent workflows", () => {
 
   it("indexes company, use-case, infrastructure, and alias terms for seeded agents", async () => {
     const companyId = await seedCompany(t);
-    const agentId = await t.mutation(api.agents.seed, {
+    const agentId = await t.mutation(internal.agents.seed, {
       slug: "orbit-cx-copilot",
       agent_name: "Orbit CX Copilot",
       tagline: "Generative AI support for finance operations",
@@ -127,6 +131,86 @@ describe("agent workflows", () => {
     expect(searchText.toLowerCase()).toContain("cx");
     expect(searchText.toLowerCase()).toContain("genai");
     expect(searchText.toLowerCase()).toContain("finops");
+  });
+
+  it("creates a lightweight directory card for seeded agents and serves list queries from it", async () => {
+    const companyId = await seedCompany(t);
+    const agentId = await t.mutation(internal.agents.seed, {
+      slug: "orbit-ops-pilot",
+      agent_name: "Orbit Ops Pilot",
+      tagline: "Workflow routing for shared services",
+      description: "Automates routing and triage for operational workflows.",
+      company_id: companyId,
+      category: "IT Operations",
+      functional_categories: ["IT Operations"],
+      industry_categories: ["Technology"],
+      infrastructure_categories: ["Cloud & Infrastructure"],
+      use_cases: [
+        {
+          title: "Workflow routing",
+          description: "Routes the right work to the right queue.",
+        },
+      ],
+      expected_outcomes: ["Faster routing"],
+      integrations: ["Slack"],
+      source_url: "https://example.com/orbit",
+    });
+
+    const card = await t.run((ctx) =>
+      ctx.db
+        .query("agentDirectoryCards")
+        .withIndex("by_agentId", (q) => q.eq("agent_id", agentId))
+        .unique()
+    );
+
+    expect(card).toMatchObject({
+      agent_id: agentId,
+      agent_name: "Orbit Ops Pilot",
+      company_name: "Acme Systems",
+    });
+    expect(card).not.toHaveProperty("description");
+    expect(card).not.toHaveProperty("use_cases");
+
+    const result = await t.query(api.agents.list, { limit: 10 });
+    expect(result.data).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          _id: agentId,
+          agent_name: "Orbit Ops Pilot",
+          company_name: "Acme Systems",
+        }),
+      ])
+    );
+    expect(result.data[0]).not.toHaveProperty("description");
+    expect(result.data[0]).not.toHaveProperty("use_cases");
+  });
+
+  it("only allows the company owner or an admin to soft-delete an agent", async () => {
+    const companyId = await seedCompany(t, { includeMember: true });
+    const agentId = await seedAgent(t, companyId);
+
+    await expect(
+      t.withIdentity(outsiderIdentity).mutation(api.agents.softDelete, {
+        agent_id: agentId,
+      })
+    ).rejects.toThrow("Admin access required");
+
+    await expect(
+      t.withIdentity(memberIdentity).mutation(api.agents.softDelete, {
+        agent_id: agentId,
+      })
+    ).rejects.toThrow("Admin access required");
+
+    await t.withIdentity(providerIdentity).mutation(api.agents.softDelete, {
+      agent_id: agentId,
+    });
+    expect((await t.run((ctx) => ctx.db.get(agentId)))?.status).toBe("inactive");
+
+    const secondAgentId = await seedAgent(t, companyId, "ops-pilot-admin");
+    await t.withIdentity(adminIdentity).mutation(api.agents.softDelete, {
+      agent_id: secondAgentId,
+    });
+    expect((await t.run((ctx) => ctx.db.get(secondAgentId)))?.status).toBe("inactive");
   });
 
   it("resubmits change-requested submissions back into the pending queue", async () => {
@@ -259,7 +343,10 @@ describe("agent workflows", () => {
   });
 });
 
-async function seedCompany(t: ReturnType<typeof createTestConvex>) {
+async function seedCompany(
+  t: ReturnType<typeof createTestConvex>,
+  options?: { includeMember?: boolean }
+) {
   return await t.run(async (ctx) => {
     const companyId = await ctx.db.insert("companies", {
       slug: "acme-systems",
@@ -288,17 +375,30 @@ async function seedCompany(t: ReturnType<typeof createTestConvex>) {
       updated_at: Date.now(),
     });
 
+    if (options?.includeMember) {
+      await ctx.db.insert("companyMembers", {
+        company_id: companyId,
+        user_id: memberIdentity.subject,
+        email: memberIdentity.email,
+        role: "member",
+        status: "active",
+        created_at: Date.now(),
+        updated_at: Date.now(),
+      });
+    }
+
     return companyId;
   });
 }
 
 async function seedAgent(
   t: ReturnType<typeof createTestConvex>,
-  companyId: Id<"companies">
+  companyId: Id<"companies">,
+  slug = "ops-pilot"
 ) {
   return await t.run((ctx) =>
     ctx.db.insert("agents", {
-      slug: "ops-pilot",
+      slug,
       agent_name: "Ops Pilot",
       description:
         "Automates ticket triage, workflow routing, and follow-up tasks across enterprise operations teams.",

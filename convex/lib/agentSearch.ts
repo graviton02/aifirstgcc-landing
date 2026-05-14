@@ -1,4 +1,5 @@
 import { buildAgentSearchText } from "./agentTaxonomy";
+import { syncAgentDirectoryCard } from "./agentDirectoryCards";
 
 type AgentSearchDocumentInput = {
   agent_name: string;
@@ -127,6 +128,7 @@ export async function syncCompanyAgentSearchTexts(
       ...nextCompanyFields,
       updated_at: now,
     });
+    await syncAgentDirectoryCard(ctx as any, agent._id);
     updated += 1;
   }
 
