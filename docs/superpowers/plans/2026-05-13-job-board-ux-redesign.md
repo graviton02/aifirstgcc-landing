@@ -10,6 +10,8 @@
 
 **Spec:** `docs/superpowers/specs/2026-05-13-job-board-ux-redesign-design.md`
 
+**Plan corrections applied before implementation:** keep `current_title` as an optional per-application snapshot instead of removing/rejecting it; require and normalize `linkedin_url`; distinguish null job-board role from wrong-role guards; align `JobDetail` tests with the actual `{ slug }` component API.
+
 ---
 
 ## File Structure
@@ -38,7 +40,7 @@
 | `tests/jobs/linkedinUrl.test.ts` | Unit tests for `isValidLinkedInUrl`. |
 | `tests/components/jobs/JobHero.test.tsx` | Renders correct CTAs for each `(jobBoardRole × isSignedIn)` state; clicks route to correct URLs. |
 | `tests/components/jobs/JobOnboarding.test.tsx` | With `presetRole`, role picker hidden + role-specific field rendered. Without it, original picker shown. |
-| `tests/app/jobs-apply.page.test.tsx` | LinkedIn field required + regex-validated; `current_title` field absent from DOM; "Applying as" header shows profile values; recruiter sees friendly block. (Combines Task 3 + Task 10 coverage.) |
+| `tests/app/jobs-apply.page.test.tsx` | LinkedIn field required + regex-validated; `current_title` field remains present, pre-filled, and editable as an application snapshot; "Applying as" header shows profile values; recruiter sees friendly block. (Combines Task 3 + Task 10 coverage.) |
 | `tests/app/auth-redirect.page.test.tsx` | Job-board-only users routed to `/jobs/dashboard`; marketplace logic preserved otherwise. |
 
 ### Tests modified
@@ -46,7 +48,7 @@
 | File | What gets added |
 |---|---|
 | `tests/components/shared/Navbar.test.tsx` | Cases for `/jobs/*` pathname: no "Join Now", visible "Sign in" link for signed-out users; `Dashboard` button routes to `/jobs/dashboard` when on `/jobs/*` with a job-board role. |
-| `tests/convex/jobBoard.test.ts` | `jobApplications.create` rejects missing/malformed `linkedin_url`; rejects extraneous `current_title`. |
+| `tests/convex/jobBoard.test.ts` | `jobApplications.create` rejects missing/malformed `linkedin_url`; keeps accepting optional `current_title` as a per-application snapshot. |
 
 ---
 
@@ -1645,7 +1647,7 @@ describe("/jobs/[slug]/apply — null-role redirect", () => {
 });
 ```
 
-Create `tests/components/jobs/JobDetail.cta.test.tsx`:
+Create `tests/components/jobs/JobDetail.cta.test.tsx`. Important: `JobDetail` only accepts `{ slug }` and loads the job via `api.jobs.getPublicBySlug`, so mock `useQuery` based on the Convex function reference rather than passing a `job` prop:
 
 ```tsx
 import type { ReactNode } from "react";
@@ -1672,7 +1674,11 @@ vi.mock("@/jobs/useJobBoardRole", () => ({
 }));
 
 vi.mock("convex/react", () => ({
-  useQuery: () => false, // alreadyApplied
+  useQuery: (ref: unknown) => {
+    if (String(ref).includes("getPublicBySlug")) return job;
+    if (String(ref).includes("hasApplied")) return false;
+    return undefined;
+  },
 }));
 
 vi.mock("@/components/shared/AnimatedSection", () => ({
@@ -1715,7 +1721,7 @@ describe("JobDetail Apply Now CTA — role intent", () => {
   it("signed-out: 'Sign in to apply' carries role=jobseeker into the apply URL", async () => {
     mockIsSignedIn = false;
     const JobDetail = await importDetail();
-    render(<JobDetail job={job} slug="ai-engineer" />);
+    render(<JobDetail slug="ai-engineer" />);
     const cta = screen.getByRole("link", { name: /Sign in to apply/i });
     expect(cta.getAttribute("href")).toContain("role%3Djobseeker");
   });
@@ -1724,7 +1730,7 @@ describe("JobDetail Apply Now CTA — role intent", () => {
     mockIsSignedIn = true;
     mockJobBoardRole = null;
     const JobDetail = await importDetail();
-    render(<JobDetail job={job} slug="ai-engineer" />);
+    render(<JobDetail slug="ai-engineer" />);
     const cta = screen.getByRole("link", { name: /Set up your Job Board profile/i });
     expect(cta.getAttribute("href")).toMatch(
       /^\/jobs\/onboarding\?role=jobseeker&returnUrl=/
