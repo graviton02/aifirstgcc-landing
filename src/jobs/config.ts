@@ -72,6 +72,34 @@ export function isJobBoardRole(value: string | null | undefined): value is JobBo
   return Boolean(value && JOB_BOARD_ROLES.includes(value as JobBoardRole));
 }
 
+export const LINKEDIN_URL_PATTERN =
+  /^https:\/\/(www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/;
+
+export function normalizeLinkedInUrl(value: string | null | undefined): string {
+  if (!value) {
+    return "";
+  }
+
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return "";
+  }
+
+  if (trimmed.startsWith("http://")) {
+    return `https://${trimmed.slice(7)}`;
+  }
+
+  if (trimmed.startsWith("https://")) {
+    return trimmed;
+  }
+
+  return `https://${trimmed}`;
+}
+
+export function isValidLinkedInUrl(value: string | null | undefined): value is string {
+  return typeof value === "string" && LINKEDIN_URL_PATTERN.test(value);
+}
+
 export function isJobCategory(value: string | null | undefined): value is JobCategory {
   return Boolean(value && JOB_CATEGORIES.includes(value as JobCategory));
 }
@@ -186,6 +214,14 @@ export function resolveJobBoardAuthRedirectUrl(
   return `/jobs/onboarding?returnUrl=${encodeURIComponent(
     sanitizeJobBoardReturnUrl(returnUrl, fallback)
   )}`;
+}
+
+export function buildJobBoardSignInUrl(
+  value: string | null | undefined,
+  fallback = "/jobs/dashboard"
+) {
+  const returnUrl = sanitizeJobBoardReturnUrl(value, fallback);
+  return `/sign-in?redirect_url=${encodeURIComponent(returnUrl)}`;
 }
 
 export function isPdfResumeFile({
