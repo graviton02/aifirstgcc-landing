@@ -44,6 +44,13 @@ type NotificationArgs = {
   emailCtaLabel?: string;
 };
 
+type NotificationUserState = {
+  _id: Id<"notificationUserStates">;
+  user_id: string;
+  unread_count: number;
+  updated_at: number;
+};
+
 function shouldScheduleEmails() {
   return process.env.NODE_ENV !== "test" && !process.env.VITEST;
 }
@@ -142,6 +149,61 @@ async function getCompanyMembershipEmail(
   return membership?.email;
 }
 
+async function getUnreadCountFromNotifications(
+  ctx: NotificationReadCtx,
+  userId: string
+) {
+  const notifications = await ctx.db
+    .query("notifications")
+    .withIndex("by_recipientUserIdAndCreatedAt", (q) =>
+      q.eq("recipient_user_id", userId)
+    )
+    .collect();
+
+  return notifications.filter((notification) => !notification.read_at).length;
+}
+
+async function getOrCreateNotificationUserState(
+  ctx: NotificationWriteCtx,
+  userId: string
+): Promise<NotificationUserState> {
+  const existing = await ctx.db
+    .query("notificationUserStates")
+    .withIndex("by_userId", (q) => q.eq("user_id", userId))
+    .unique();
+
+  if (existing) {
+    return existing;
+  }
+
+  const now = Date.now();
+  const unreadCount = await getUnreadCountFromNotifications(ctx, userId);
+  const stateId = await ctx.db.insert("notificationUserStates", {
+    user_id: userId,
+    unread_count: unreadCount,
+    updated_at: now,
+  });
+
+  return {
+    _id: stateId,
+    user_id: userId,
+    unread_count: unreadCount,
+    updated_at: now,
+  };
+}
+
+async function patchNotificationUserState(
+  ctx: NotificationWriteCtx,
+  state: NotificationUserState,
+  unreadCount: number
+) {
+  const nextUnreadCount = Math.max(0, unreadCount);
+  await ctx.db.patch(state._id, {
+    unread_count: nextUnreadCount,
+    updated_at: Date.now(),
+  });
+}
+
 export async function createUserNotification(
   ctx: NotificationWriteCtx,
   args: NotificationArgs
@@ -156,6 +218,7 @@ export async function createUserNotification(
     return existing._id;
   }
 
+  const state = await getOrCreateNotificationUserState(ctx, args.recipientUserId);
   const notificationId = await ctx.db.insert("notifications", {
     recipient_user_id: args.recipientUserId,
     audience_role: args.audienceRole,
@@ -169,6 +232,7 @@ export async function createUserNotification(
     dedupe_key: dedupeKey,
     created_at: Date.now(),
   });
+  await patchNotificationUserState(ctx, state, state.unread_count + 1);
 
   if (args.shouldEmail && args.recipientEmail && shouldScheduleEmails()) {
     await ctx.scheduler.runAfter(0, internal.notifications.sendNotificationEmail, {
@@ -349,6 +413,49 @@ export const sendNotificationEmail = internalAction({
   },
 });
 
+export const backfillNotificationUserStates = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const notifications = await ctx.db.query("notifications").collect();
+    const states = await ctx.db.query("notificationUserStates").collect();
+    const counts = new Map<string, number>();
+
+    for (const notification of notifications) {
+      if (notification.read_at) continue;
+      counts.set(
+        notification.recipient_user_id,
+        (counts.get(notification.recipient_user_id) ?? 0) + 1
+      );
+    }
+
+    let upserted = 0;
+    const existingStateIds = new Set<string>();
+    for (const state of states) {
+      existingStateIds.add(String(state.user_id));
+      await ctx.db.patch(state._id, {
+        unread_count: counts.get(state.user_id) ?? 0,
+        updated_at: Date.now(),
+      });
+      upserted += 1;
+    }
+
+    for (const userId of counts.keys()) {
+      if (existingStateIds.has(userId)) continue;
+      await ctx.db.insert("notificationUserStates", {
+        user_id: userId,
+        unread_count: counts.get(userId) ?? 0,
+        updated_at: Date.now(),
+      });
+      upserted += 1;
+    }
+
+    return {
+      users: counts.size,
+      upserted,
+    };
+  },
+});
+
 export const listMine = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, { limit }) => {
@@ -369,14 +476,16 @@ export const getUnreadCount = query({
   args: {},
   handler: async (ctx) => {
     const userId = await requireAuth(ctx);
-    const notifications = await ctx.db
-      .query("notifications")
-      .withIndex("by_recipientUserIdAndCreatedAt", (q) =>
-        q.eq("recipient_user_id", userId)
-      )
-      .collect();
+    const state = await ctx.db
+      .query("notificationUserStates")
+      .withIndex("by_userId", (q) => q.eq("user_id", userId))
+      .unique();
 
-    return notifications.filter((notification) => !notification.read_at).length;
+    if (state) {
+      return state.unread_count;
+    }
+
+    return await getUnreadCountFromNotifications(ctx, userId);
   },
 });
 
@@ -391,9 +500,11 @@ export const markRead = mutation({
     }
 
     if (!notification.read_at) {
+      const state = await getOrCreateNotificationUserState(ctx, userId);
       await ctx.db.patch(notification_id, {
         read_at: Date.now(),
       });
+      await patchNotificationUserState(ctx, state, state.unread_count - 1);
     }
 
     return { success: true };
@@ -404,6 +515,7 @@ export const markAllRead = mutation({
   args: {},
   handler: async (ctx) => {
     const userId = await requireAuth(ctx);
+    const state = await getOrCreateNotificationUserState(ctx, userId);
     const notifications = await ctx.db
       .query("notifications")
       .withIndex("by_recipientUserIdAndCreatedAt", (q) =>
@@ -421,6 +533,7 @@ export const markAllRead = mutation({
         })
       )
     );
+    await patchNotificationUserState(ctx, state, 0);
 
     return { updated: unread.length };
   },

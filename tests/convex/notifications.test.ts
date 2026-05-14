@@ -77,8 +77,15 @@ describe("notifications", () => {
     });
 
     const agent = await t.run((ctx) => ctx.db.get(agentId));
+    const card = await t.run((ctx) =>
+      ctx.db
+        .query("agentDirectoryCards")
+        .withIndex("by_agentId", (q) => q.eq("agent_id", agentId))
+        .unique()
+    );
     expect(agent?.search_text).toContain("Orbit Systems");
     expect(agent?.search_text).toContain("Workflow triage");
+    expect(card?.company_name).toBe("Orbit Systems");
   });
 
   it("creates a provider notification for approved company submissions", async () => {
@@ -164,6 +171,13 @@ describe("notifications", () => {
     });
 
     expect(await t.withIdentity(ownerIdentity).query(api.notifications.getUnreadCount, {})).toBe(0);
+    const unreadStateAfterSingleRead = await t.run((ctx) =>
+      ctx.db
+        .query("notificationUserStates")
+        .withIndex("by_userId", (q) => q.eq("user_id", ownerIdentity.subject))
+        .unique()
+    );
+    expect(unreadStateAfterSingleRead?.unread_count).toBe(0);
 
     await expect(
       t.withIdentity(secondOwnerIdentity).mutation(api.notifications.markRead, {
@@ -188,6 +202,13 @@ describe("notifications", () => {
 
     await t.withIdentity(ownerIdentity).mutation(api.notifications.markAllRead, {});
     expect(await t.withIdentity(ownerIdentity).query(api.notifications.getUnreadCount, {})).toBe(0);
+    const unreadStateAfterMarkAll = await t.run((ctx) =>
+      ctx.db
+        .query("notificationUserStates")
+        .withIndex("by_userId", (q) => q.eq("user_id", ownerIdentity.subject))
+        .unique()
+    );
+    expect(unreadStateAfterMarkAll?.unread_count).toBe(0);
 
     const secondNotification = await t.run((ctx) => ctx.db.get(secondNotificationId));
     expect(secondNotification?.read_at).toBeTypeOf("number");
