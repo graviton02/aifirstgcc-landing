@@ -1,4 +1,11 @@
-import { query, mutation, action, internalMutation, internalQuery } from "./_generated/server";
+import {
+  action,
+  internalAction,
+  internalMutation,
+  internalQuery,
+  mutation,
+  query,
+} from "./_generated/server";
 import { v } from "convex/values";
 import { Resend } from "resend";
 import {
@@ -26,6 +33,7 @@ import {
   buildAgentSearchTextForDocument,
   syncCompanyAgentSearchTexts,
 } from "./lib/agentSearch";
+import { syncAgentDirectoryCard } from "./lib/agentDirectoryCards";
 import { resolveLogoUrl, withResolvedLogoUrl } from "./lib/companyLogos";
 import { rebuildDirectoryStats } from "./lib/directoryStats";
 import { appError } from "./lib/errors";
@@ -282,6 +290,20 @@ async function enrichCompanyEdit(ctx: { db: any }, edit: any) {
   };
 }
 
+async function enrichJobRecord(ctx: { db: any }, job: any) {
+  const recruiter = await ctx.db.get(job.recruiter_id);
+  const applications = await ctx.db
+    .query("jobApplications")
+    .withIndex("by_jobId", (q: any) => q.eq("job_id", job._id))
+    .collect();
+
+  return {
+    ...job,
+    recruiter,
+    applicant_count: applications.length,
+  };
+}
+
 function buildReviewBody(defaultMessage: string, notes?: string) {
   const trimmedNotes = notes?.trim();
   return trimmedNotes && trimmedNotes.length > 0 ? trimmedNotes : defaultMessage;
@@ -300,10 +322,9 @@ export const logAuditEventInternal = internalMutation({
   },
 });
 
-export const backfillLegacyProviderRequests = action({
+export const backfillLegacyProviderRequests = internalAction({
   args: {},
   handler: async (ctx) => {
-    await requireAdmin(ctx);
     return await ctx.runMutation(backfillLegacyProviderRequestsRef, {});
   },
 });
@@ -752,11 +773,9 @@ export const rejectCompanySubmission = mutation({
   },
 });
 
-export const removeLegacyCompanySizeData = mutation({
+export const removeLegacyCompanySizeData = internalMutation({
   args: {},
   handler: async (ctx) => {
-    await requireAdmin(ctx);
-
     const now = Date.now();
     const [companies, companySubmissions, providerProfiles] = await Promise.all([
       ctx.db.query("companies").collect(),
@@ -855,7 +874,7 @@ export const approveAgent = mutation({
       use_cases: normalized.use_cases,
     });
 
-    await ctx.db.insert("agents", {
+    const agentId = await ctx.db.insert("agents", {
       slug,
       agent_name: normalized.agent_name,
       tagline: normalized.tagline,
@@ -884,6 +903,7 @@ export const approveAgent = mutation({
       updated_at: now,
     });
 
+    await syncAgentDirectoryCard(ctx as any, agentId);
     await ctx.db.patch(submission_id, { submission_status: "approved", reviewed_at: Date.now(), updated_at: now });
     await rebuildDirectoryStats(ctx);
 
@@ -1204,6 +1224,7 @@ export const approveAgentEdit = mutation({
       }),
       updated_at: Date.now(),
     });
+    await syncAgentDirectoryCard(ctx as any, edit.agent_id);
     await ctx.db.patch(edit_id, { status: "approved", reviewed_at: Date.now() });
     await rebuildDirectoryStats(ctx);
 
@@ -1577,6 +1598,10 @@ export const getDirectoryStats = query({
       .query("reviewResponses")
       .withIndex("by_status_created", (q) => q.eq("status", "pending"))
       .collect();
+    const pendingJobs = await ctx.db
+      .query("jobs")
+      .withIndex("by_status", (q) => q.eq("status", "pending"))
+      .collect();
 
     const claimed = companies.filter((c) => c.claim_status === "claimed").length;
 
@@ -1591,9 +1616,122 @@ export const getDirectoryStats = query({
       pendingAgentSubmissions: pendingAgentSubmissions.length,
       pendingAgentEdits: pendingAgentEdits.length,
       pendingContactRequests: pendingContactRequests.length,
+      pendingJobs: pendingJobs.length,
       pendingReviews: pendingReviews.length,
       pendingReviewResponses: pendingReviewResponses.length,
     };
+  },
+});
+
+export const getPendingJobs = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    const jobs = await ctx.db
+      .query("jobs")
+      .withIndex("by_status", (q) => q.eq("status", "pending"))
+      .collect();
+
+    return await Promise.all(
+      jobs
+        .sort((a, b) => b.created_at - a.created_at)
+        .map((job) => enrichJobRecord(ctx, job))
+    );
+  },
+});
+
+export const getJobsHistory = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    const jobs = await ctx.db.query("jobs").collect();
+    const resolved = jobs.filter((job) => job.status !== "pending");
+
+    const enriched = await Promise.all(
+      resolved.map((job) => enrichJobRecord(ctx, job))
+    );
+
+    return enriched
+      .sort((a, b) => (b.reviewed_at ?? b.created_at) - (a.reviewed_at ?? a.created_at))
+      .slice(0, 50);
+  },
+});
+
+export const approveJob = mutation({
+  args: {
+    job_id: v.id("jobs"),
+  },
+  handler: async (ctx, { job_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
+    const job = await ctx.db.get(job_id);
+
+    if (!job) {
+      appError("job_not_found", "Job not found.", 404);
+    }
+
+    if (job.status !== "pending") {
+      appError("job_review_invalid", "Only pending jobs can be approved.", 400);
+    }
+
+    const reviewedAt = Date.now();
+    await ctx.db.patch(job_id, {
+      status: "approved",
+      admin_notes: undefined,
+      reviewed_at: reviewedAt,
+      updated_at: reviewedAt,
+    });
+
+    await ctx.runMutation(logAuditEventInternalRef, {
+      actor_user_id: adminIdentity.subject,
+      action: "job.approved",
+      entity_type: "job",
+      entity_id: String(job_id),
+      metadata: {
+        previous_status: job.status,
+      },
+    });
+  },
+});
+
+export const rejectJob = mutation({
+  args: {
+    job_id: v.id("jobs"),
+    notes: v.string(),
+  },
+  handler: async (ctx, { job_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
+    const job = await ctx.db.get(job_id);
+
+    if (!job) {
+      appError("job_not_found", "Job not found.", 404);
+    }
+
+    if (job.status !== "pending") {
+      appError("job_review_invalid", "Only pending jobs can be rejected.", 400);
+    }
+
+    const trimmedNotes = notes.trim();
+    if (!trimmedNotes) {
+      appError("job_rejection_notes_required", "Rejection notes are required.", 400);
+    }
+
+    const reviewedAt = Date.now();
+    await ctx.db.patch(job_id, {
+      status: "rejected",
+      admin_notes: trimmedNotes,
+      reviewed_at: reviewedAt,
+      updated_at: reviewedAt,
+    });
+
+    await ctx.runMutation(logAuditEventInternalRef, {
+      actor_user_id: adminIdentity.subject,
+      action: "job.rejected",
+      entity_type: "job",
+      entity_id: String(job_id),
+      metadata: {
+        previous_status: job.status,
+      },
+    });
   },
 });
 
