@@ -1,4 +1,4 @@
-import { query, mutation } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
 import { withResolvedLogoUrl } from "./lib/companyLogos";
@@ -81,7 +81,7 @@ export const listAllSlugs = query({
   },
 });
 
-export const seed = mutation({
+export const seed = internalMutation({
   args: {
     slug: v.string(),
     name: v.string(),

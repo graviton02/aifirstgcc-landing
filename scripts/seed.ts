@@ -1,17 +1,36 @@
 import { ConvexHttpClient } from "convex/browser";
-import { api } from "../convex/_generated/api.js";
+import { internal } from "../convex/_generated/api.js";
 import fs from "fs";
 import path from "path";
 
 const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL;
+const CONVEX_ADMIN_KEY =
+  process.env.CONVEX_ADMIN_KEY ?? process.env.CONVEX_DEPLOY_KEY;
 if (!CONVEX_URL) {
   console.error(
     "NEXT_PUBLIC_CONVEX_URL not set. Run with: NEXT_PUBLIC_CONVEX_URL=<url> npx tsx scripts/seed.ts"
   );
   process.exit(1);
 }
+if (!CONVEX_ADMIN_KEY) {
+  console.error(
+    "CONVEX_ADMIN_KEY or CONVEX_DEPLOY_KEY not set. Internal seed functions now require admin auth."
+  );
+  process.exit(1);
+}
 
 const client = new ConvexHttpClient(CONVEX_URL);
+(client as ConvexHttpClient & { setAdminAuth: (adminKey: string) => void })
+  .setAdminAuth(CONVEX_ADMIN_KEY);
+const adminMutation = async <Args extends Record<string, unknown>, Return>(
+  functionReference: unknown,
+  args: Args
+) =>
+  await (
+    client as unknown as {
+      mutation: (functionReference: unknown, args: Args) => Promise<Return>;
+    }
+  ).mutation(functionReference, args);
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const COMPANIES_FILE = path.join(ROOT, "data/seed/companies.json");
@@ -79,7 +98,7 @@ async function main() {
   for (const company of companies) {
     const logoUrl = findLogoUrl(company.slug);
     try {
-      const id = await client.mutation(api.companies.seed, {
+      const id = await adminMutation(internal.companies.seed, {
         slug: company.slug,
         name: company.name,
         description: company.description,
@@ -121,11 +140,11 @@ async function main() {
     }
 
     try {
-      await client.mutation(api.agents.seed, {
+      await adminMutation(internal.agents.seed, {
         slug: agent.slug,
         agent_name: agent.agent_name,
         description: agent.description,
-        company_id: companyId as any,
+        company_id: companyId,
         tagline: agent.tagline,
         category: agent.category,
         functional_categories: agent.functional_categories,

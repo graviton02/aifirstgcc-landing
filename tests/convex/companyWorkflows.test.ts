@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { api } from "../../convex/_generated/api";
+import { api, internal } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { createTestConvex } from "./testHarness";
 
@@ -175,9 +175,7 @@ describe("company and membership workflows", () => {
       })
     );
 
-    const result = await t
-      .withIdentity(adminIdentity)
-      .mutation(api.admin.removeLegacyCompanySizeData, {});
+    const result = await t.mutation(internal.admin.removeLegacyCompanySizeData, {});
 
     expect(result.totalPatched).toBe(3);
     expect((await t.run((ctx) => ctx.db.get(companyId)))?.company_size).toBeUndefined();

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { api } from "../../convex/_generated/api";
+import { api, internal } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { createTestConvex } from "./testHarness";
 
@@ -360,10 +360,7 @@ describe("contact request workflows", () => {
       status: "approved",
     });
 
-    const firstRun = await t.withIdentity(adminIdentity).action(
-      api.admin.backfillLegacyProviderRequests,
-      {}
-    );
+    const firstRun = await t.action(internal.admin.backfillLegacyProviderRequests, {});
 
     expect(firstRun).toEqual({
       scanned: 1,
@@ -389,10 +386,7 @@ describe("contact request workflows", () => {
       provider_profile_id: "legacy-profile-id",
     });
 
-    const secondRun = await t.withIdentity(adminIdentity).action(
-      api.admin.backfillLegacyProviderRequests,
-      {}
-    );
+    const secondRun = await t.action(internal.admin.backfillLegacyProviderRequests, {});
 
     expect(secondRun).toEqual({
       scanned: 1,
