@@ -9,148 +9,69 @@ import { v } from "convex/values";
 
 // ─── System prompt ───────────────────────────────────
 
-const SYSTEM_PROMPT = `You are an enterprise AI analyst generating a daily intelligence brief for Orbys360.
+const SYSTEM_PROMPT = `You are an enterprise AI analyst generating a daily intelligence brief for Orbys360, an AI-first advisory platform for Global Capability Centers (GCCs).
 
-Your audience consists of enterprise leaders, GCC heads, transformation officers, and AI strategy teams.
+Your audience: enterprise leaders, GCC heads, transformation officers, and AI strategy teams.
 
-You must generate a structured daily brief based strictly on verified developments from the last 24 hours.
-
-OBJECTIVE:
-Produce a structured daily brief covering:
-- Top 3 AI developments
-- 1 AI use case of the day (real enterprise workflow, not a vendor feature)
-- Enterprise / GCC impact
-- Opportunities & risks (deep, structured analysis)
+Generate a structured daily brief based strictly on verified developments from the last 24 hours.
 
 STRICT RULES:
-- Only include developments from the last 24 hours.
-- Only include verifiable, real news from credible sources (Reuters, Bloomberg, FT, WSJ, The Verge, TechCrunch, official press releases, etc).
+- Only include developments from the last 24 hours from credible sources (Reuters, Bloomberg, FT, WSJ, The Verge, TechCrunch, official press releases).
 - Never fabricate companies, funding, model names, numbers, or links.
 - Every development must include a working source link.
-- No hype language.
-- No quotes.
-- No promotional tone.
-- No emojis.
-- No prompts or activity suggestions.
-- No one-line filler commentary.
+- No hype, quotes, promotional tone, emojis, or filler.
 - Proper casing for all headings and text.
 
-TOP 3 DEVELOPMENTS:
-Each must be a concise 4-6 sentence summary explaining: what happened, why it matters for enterprise AI, relevance to agentic systems or GCCs.
+STRUCTURE REQUIREMENTS:
+- 3 top developments: 4-6 sentence analytical summaries explaining what happened, why it matters for enterprise AI, and relevance to agentic systems or GCCs.
+- 1 use case: A real enterprise workflow (not a vendor feature). Must name specific systems, describe multi-step agent workflows, and cite measurable outcomes.
+- 3-4 enterprise/GCC impact bullets: Analytical insights, NOT restatements of the news. At least one must address GCC positioning specifically.
+- 3-5 opportunities: Specific and actionable. A GCC head reading this should know what to do next.
+- 3-5 risks: Name concrete failure modes, not generic categories.
 
-AI USE CASE OF THE DAY:
-Describe a real enterprise workflow where agentic AI is deployed. Must describe: problem context, multi-step agent workflow, enterprise systems involved, measurable business impact. No vendor marketing language.
+QUALITY STANDARD — follow these examples of GOOD vs BAD output:
 
-ENTERPRISE / GCC IMPACT:
-Provide 3-4 analytical insights explaining: operating model impact, governance implications, infrastructure shifts, GCC positioning, security and compliance considerations. Each must be analytical, not descriptive.
+GOOD enterprise impact bullet:
+"Operational acceleration meets governance pressure: Organizations are unlocking tangible cost and efficiency gains from autonomous agents, but GCCs and enterprise teams must prioritize identity, access, and behavioral governance to avoid security blind spots."
 
-OPPORTUNITIES:
-Provide 3-5 structured items explaining strategic upside: operating leverage, automation scale, infrastructure transformation, governance differentiation, competitive advantage.
+BAD enterprise impact bullet (DO NOT write like this):
+"Enterprises must reassess security frameworks to accommodate emerging risks associated with agentic AI."
 
-RISKS:
-Provide 3-5 structured items explaining structural risks: governance gaps, identity & security risk, integration complexity, regulatory exposure, organizational readiness.
+GOOD enterprise impact bullet with GCC angle:
+"GCCs become strategic hubs: With enterprise AI adoption increasing, GCCs are positioned to lead in agentic workflow integration, governance frameworks, and cost optimization, rather than traditional task execution."
+
+GOOD opportunity:
+"Differentiated GCC value via governance leadership: GCCs that build and operationalize agentic AI governance frameworks, identity controls, and observability layers can position themselves as strategic partners in AI-driven transformation, rather than back-office execution centers."
+
+BAD opportunity (DO NOT write like this):
+"Enhanced Operational Leverage: Agentic AI allows enterprises to achieve streamlined operations and labor cost reductions."
+
+GOOD risk:
+"Agent credentials and access control gaps can inadvertently grant broad, unchecked permissions, resulting in security blind spots and attack surfaces if not tightly governed."
+
+BAD risk (DO NOT write like this):
+"Organizations face complex governance issues concerning AI policy compliance and ethical use of autonomous systems."
+
+GOOD editor headline:
+"Enterprise agentic AI adoption accelerates — governance, identity, and cost efficiency emerge as defining battlegrounds"
+
+BAD editor headline (DO NOT write like this):
+"Enterprise AI Expands in Automation and Cyber Security"
+
+The editor headline must synthesize the day's themes into a narrative, not list topics.
+
+GOOD use case:
+"A multinational manufacturing enterprise deployed agentic AI systems to manage procurement workflows across global suppliers. Autonomous agents continuously monitor supplier pricing, delivery timelines, inventory levels, logistics risks, and production schedules. When disruptions or pricing anomalies occur, the agents autonomously trigger mitigation workflows—such as sourcing alternative suppliers, renegotiating contracts, or adjusting production planning. This deployment reduced procurement cycle times by over 35%, improved supply continuity, and enabled proactive risk mitigation."
 
 TONE: Analytical, measured, enterprise-grade, strategic. No hype. No marketing language.
 
-If insufficient credible developments exist in the last 24 hours, return an editorHeadline of: "No major enterprise-relevant AI developments in the last 24 hours." with minimal placeholder content.`;
-
-// ─── JSON schema for structured output ───────────────
-
-const DAILY_BRIEF_JSON_SCHEMA = {
-  type: "object" as const,
-  properties: {
-    slug: { type: "string" as const },
-    date: { type: "string" as const },
-    editorHeadline: { type: "string" as const },
-    topDevelopments: {
-      type: "array" as const,
-      items: {
-        type: "object" as const,
-        properties: {
-          headline: { type: "string" as const },
-          description: { type: "string" as const },
-          source: {
-            type: "object" as const,
-            properties: {
-              label: { type: "string" as const },
-              url: { type: "string" as const },
-            },
-            required: ["label", "url"],
-            additionalProperties: false,
-          },
-        },
-        required: ["headline", "description", "source"],
-        additionalProperties: false,
-      },
-    },
-    useCase: {
-      type: "object" as const,
-      properties: {
-        title: { type: "string" as const },
-        description: { type: "string" as const },
-        source: {
-          type: "object" as const,
-          properties: {
-            label: { type: "string" as const },
-            url: { type: "string" as const },
-          },
-          required: ["label", "url"],
-          additionalProperties: false,
-        },
-      },
-      required: ["title", "description", "source"],
-      additionalProperties: false,
-    },
-    enterpriseImpact: {
-      type: "array" as const,
-      items: { type: "string" as const },
-    },
-    opportunities: {
-      type: "array" as const,
-      items: {
-        type: "object" as const,
-        properties: {
-          title: { type: "string" as const },
-          description: { type: "string" as const },
-        },
-        required: ["title", "description"],
-        additionalProperties: false,
-      },
-    },
-    risks: {
-      type: "array" as const,
-      items: {
-        type: "object" as const,
-        properties: {
-          title: { type: "string" as const },
-          description: { type: "string" as const },
-        },
-        required: ["title", "description"],
-        additionalProperties: false,
-      },
-    },
-  },
-  required: [
-    "slug",
-    "date",
-    "editorHeadline",
-    "topDevelopments",
-    "useCase",
-    "enterpriseImpact",
-    "opportunities",
-    "risks",
-  ],
-  additionalProperties: false,
-};
+If insufficient credible developments exist, return editorHeadline: "No major enterprise-relevant AI developments in the last 24 hours."
+`;
 
 // ─── Helpers ─────────────────────────────────────────
 
 function getTodaySlug(): string {
   return new Date().toISOString().slice(0, 10);
-}
-
-function buildUserPrompt(dateSlug: string): string {
-  return `Generate the AI Pulse daily brief for ${dateSlug}.\n\nSearch for the most important enterprise AI, agentic systems, and AI automation news from the past 24 hours. Focus on:\n- Major AI model releases, capabilities, or policy changes affecting enterprises\n- Agentic AI systems, multi-agent orchestration, and autonomous workflow developments\n- Enterprise AI adoption, governance frameworks, and risk management\n- AI infrastructure, platforms, and tooling for large organizations\n- GCC/shared services and AI center of excellence developments\n\nUse the slug "${dateSlug}" and date "${dateSlug}" in your response.`;
 }
 
 function mapBriefToClientShape(brief: any) {
@@ -223,6 +144,21 @@ export const insertBrief = internalMutation({
   },
 });
 
+export const deleteBriefBySlug = internalMutation({
+  args: { slug: v.string() },
+  handler: async (ctx, { slug }) => {
+    const existing = await ctx.db
+      .query("aiPulseBriefs")
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
+      .unique();
+    if (existing) {
+      await ctx.db.delete(existing._id);
+      return { deleted: true, id: existing._id };
+    }
+    return { deleted: false };
+  },
+});
+
 // ─── Generation action ───────────────────────────────
 
 export const generateDailyBrief = internalAction({
@@ -250,7 +186,14 @@ export const generateDailyBrief = internalAction({
 
     const requestBody = {
       model: "gpt-4o",
-      input: `Search for the top 3 most important enterprise AI, agentic systems, and AI automation news stories from the past 24 hours (${dateSlug}). Include news from sources like Reuters, Bloomberg, TechCrunch, The Verge, WSJ, and FT. For each story, provide the headline, a detailed summary, and the source URL. Also find one real enterprise AI use case deployment.`,
+      input: `Search for the top 3 most important enterprise AI and agentic systems news from the past 24 hours (${dateSlug}). Focus on:
+- Agentic AI deployments, multi-agent orchestration, autonomous enterprise workflows
+- AI governance, risk management, identity/access controls for AI systems
+- Enterprise AI platform shifts (new partnerships, infrastructure, tooling)
+- Global Capability Centers, shared services, and AI center of excellence developments
+- Regulatory or policy changes affecting enterprise AI adoption
+
+Include news from Reuters, Bloomberg, TechCrunch, The Verge, WSJ, FT, and official press releases. For each story provide the headline, a detailed analytical summary (not just what happened, but why it matters for enterprise AI strategy), and the source URL. Also find one real enterprise AI use case deployment with specific systems named and measurable outcomes.`,
       tools: [
         {
           type: "web_search",
