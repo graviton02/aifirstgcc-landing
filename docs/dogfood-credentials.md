@@ -63,6 +63,37 @@ Use a corporate-looking email (free providers like gmail.com are blocked):
 2. On onboarding, select "I'm listing AI agents & services"
 3. Redirected to `/dashboard`
 
+### 5. Job Board Demo Accounts
+
+Pre-seeded recruiter + candidate so you can preview both job board dashboards with realistic data.
+
+| Role | Email | Password |
+|------|-------|----------|
+| Recruiter | `demo-recruiter@orbys360.dev` | `Orbys360!Demo2026` |
+| Candidate | `demo-candidate@orbys360.dev` | `Orbys360!Demo2026` |
+
+**Seed / cleanup commands:**
+```bash
+npx tsx scripts/seed-job-board-demo.ts            # idempotent — safe to re-run
+npx tsx scripts/seed-job-board-demo.ts --cleanup  # delete demo data + Clerk users
+npx tsx scripts/seed-job-board-demo.ts --cleanup-candidate-orgs  # remove accidental Clerk org memberships from candidate only
+```
+
+**What gets created:**
+- Recruiter `jobProfiles` row (Sarah Al-Rashid, Orbys360, Riyadh)
+- 1 approved job: `Senior AI/ML Engineer — GCC Advisory Platform` (slug: `senior-ai-ml-engineer-orbys360-demo`)
+- Candidate `jobProfiles` row (Ahmed Hassan, ML Engineer)
+- 1 application from the candidate to the job, with a generated placeholder PDF resume in Convex storage
+
+**Preview URLs (after signing in as the matching account):**
+- Public job page: `/jobs/senior-ai-ml-engineer-orbys360-demo`
+- Recruiter dashboard: `/jobs/dashboard` — shows the job + 1 applicant + resume download
+- Candidate dashboard: `/jobs/dashboard` — shows the application
+
+**Requirements:** `CLERK_SECRET_KEY`, `NEXT_PUBLIC_CONVEX_URL`, and `CONVEX_DEPLOYMENT` in `.env.local` (the seed script reads them from there).
+
+**Clerk organization requirement:** Job Board demo users should be able to sign in with a personal account. The candidate account must not be required to create or choose a Clerk organization. If Clerk sends the candidate to `/sign-in/tasks/choose-organization`, open Clerk Dashboard → Organizations Settings and switch Organizations from membership required to membership optional / allow personal accounts. Clerk documents this as the setting that lets users choose a Personal Account instead of an Organization. After changing it, run `npx tsx scripts/seed-job-board-demo.ts --cleanup-candidate-orgs`.
+
 ## Notes
 
 - Magic link tokens expire after 7 days
