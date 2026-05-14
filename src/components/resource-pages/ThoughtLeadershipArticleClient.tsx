@@ -122,6 +122,7 @@ function RelatedCard({ post, themes }: { post: BlogPost; themes: ThemeInfo[] }) 
   return (
     <Link
       href={`/thought-leadership/${post.slug}`}
+      prefetch={false}
       className="group rounded-xl border border-enterprise-200 bg-white hover:border-purple-200 hover:shadow-card transition-all duration-300 p-5 flex flex-col"
     >
       <span

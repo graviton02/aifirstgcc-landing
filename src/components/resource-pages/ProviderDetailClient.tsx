@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   MapPin,
@@ -34,6 +35,7 @@ export function ProviderDetailClient({ provider }: ProviderDetailClientProps) {
         {/* Back link */}
         <Link
           href="/providers"
+          prefetch={false}
           className="inline-flex items-center gap-1.5 text-sm text-enterprise-500 hover:text-enterprise-800 transition-colors mb-8 group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
@@ -44,9 +46,11 @@ export function ProviderDetailClient({ provider }: ProviderDetailClientProps) {
         <header className="mb-10">
           <div className="flex items-start gap-4 mb-4">
             {provider.logo ? (
-              <img
+              <Image
                 src={provider.logo}
                 alt={provider.name}
+                width={56}
+                height={56}
                 className="shrink-0 w-14 h-14 rounded-xl object-contain bg-white border border-enterprise-100 p-1.5"
               />
             ) : (

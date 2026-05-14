@@ -136,7 +136,7 @@ export const providerData: ProviderSummary[] = [
     tagline: 'AI-first enterprise modernization powered by Topaz.',
     locations: 'Bengaluru HQ • Global delivery network',
     employees: '320,000+ employees',
-    logo: '/providers/Infosys.png',
+    logo: '/providers/Infosys.webp',
     detail: {
       overview: [
         { label: 'Category', value: 'Enterprise AI & Agentic Transformation' },
