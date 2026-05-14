@@ -45,6 +45,16 @@ describe("middleware route protection", () => {
     expect(protect).toHaveBeenCalledTimes(1);
   });
 
+  it("protects job-board dashboard routes", async () => {
+    const protect = vi.fn();
+
+    await middleware({ protect } as never, {
+      nextUrl: { pathname: "/jobs/dashboard" },
+    } as never);
+
+    expect(protect).toHaveBeenCalledTimes(1);
+  });
+
   it("does not protect public routes", async () => {
     const protect = vi.fn();
 

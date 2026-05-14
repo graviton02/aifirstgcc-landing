@@ -7,7 +7,7 @@ import {
   useMemo,
   type ReactNode,
 } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { UserRole } from "./roles";
@@ -21,16 +21,19 @@ type UserRoleState = {
 const UserRoleContext = createContext<UserRoleState | null>(null);
 
 function useResolvedUserRole(): UserRoleState {
-  const { isLoaded } = useUser();
-  const viewerContext = useQuery(api.viewer.getContext);
+  const { isLoaded, isSignedIn } = useAuth();
+  const viewerContext = useQuery(
+    api.viewer.getContext,
+    isLoaded && isSignedIn ? {} : "skip"
+  );
 
   return useMemo(
     () => ({
       role: viewerContext?.role ?? null,
-      isLoaded: isLoaded && viewerContext !== undefined,
+      isLoaded: isLoaded && (!isSignedIn || viewerContext !== undefined),
       providerSetupStarted: viewerContext?.providerSetupStarted ?? false,
     }),
-    [isLoaded, viewerContext]
+    [isLoaded, isSignedIn, viewerContext]
   );
 }
 

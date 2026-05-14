@@ -2,15 +2,35 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Sparkles, Newspaper, Search, LayoutDashboard, BookOpen, Wrench, Building2, Brain, ChevronDown } from 'lucide-react'
-import { useAuth, UserButton } from '@clerk/nextjs'
+import { Menu, X, Sparkles, Newspaper, Search, BookOpen, Wrench, Building2, Brain, ChevronDown, BriefcaseBusiness } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useUserRole } from '@/auth/useUserRole'
 import { Container } from './Container'
-import { NotificationBell } from './NotificationBell'
 
 const HIDDEN_ROUTES = ['/onboarding', '/admin', '/auth']
+const AUTH_NAV_ROUTES = [
+  '/agents',
+  '/categories',
+  '/claim',
+  '/companies',
+  '/compare',
+  '/dashboard',
+  '/directory',
+  '/gcc-dashboard',
+  '/jobs',
+  '/provider/setup',
+  '/shortlist',
+]
+
+const NavbarAuthControls = dynamic(
+  () => import('./NavbarAuthControls').then((mod) => mod.NavbarAuthControls),
+  { ssr: false }
+)
+
+function shouldLoadAuthControls(pathname: string) {
+  return AUTH_NAV_ROUTES.some((route) => pathname === route || pathname.startsWith(`${route}/`))
+}
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -20,13 +40,13 @@ export function Navbar() {
   const [isMobileAboutOpen, setIsMobileAboutOpen] = useState(false)
   const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false)
   const pathname = usePathname()
-  const { isLoaded: isAuthLoaded, isSignedIn } = useAuth()
-  const { role, providerSetupStarted } = useUserRole()
 
   const isLandingPage = pathname === '/' || pathname === '/about'
   const isHiddenRoute = HIDDEN_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
   const hasScrolledBg = isScrolled || (!isLandingPage)
   const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/thoughtbook'].some(r => pathname.startsWith(r))
+  const isJobsPage = pathname.startsWith('/jobs')
+  const loadAuthControls = shouldLoadAuthControls(pathname)
 
   const aboutItems = [
     { href: '/about', label: 'About Orbys360' },
@@ -54,11 +74,6 @@ export function Navbar() {
 
   // Standalone flows manage their own layout and should not show the shared navbar.
   if (isHiddenRoute) return null
-
-  const dashboardPath =
-    role === 'gcc' ? '/gcc-dashboard' : providerSetupStarted ? '/provider/setup' : '/dashboard'
-  const notificationRole = role === 'provider' || role === 'gcc' ? role : null
-  const showNotifications = isAuthLoaded && isSignedIn && notificationRole !== null
 
   return (
     <>
@@ -111,6 +126,17 @@ export function Navbar() {
                 <Search className="w-4 h-4" />
                 Agent Directory
                 <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${pathname.startsWith('/directory') ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+              </Link>
+
+              <Link
+                href="/jobs"
+                className={`relative text-sm font-medium transition-colors duration-300 group flex items-center gap-1.5 ${
+                  hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
+                } ${isJobsPage ? 'text-purple-600' : ''}`}
+              >
+                <BriefcaseBusiness className="w-4 h-4" />
+                Job Board
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${isJobsPage ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </Link>
 
               {/* About Us dropdown */}
@@ -190,43 +216,27 @@ export function Navbar() {
                 )}
               </div>
 
-              {/* Auth-aware CTA */}
-              {!isAuthLoaded ? (
-                // Prevent flash — render nothing while Clerk loads
-                <div className="w-24" />
-              ) : isSignedIn ? (
-                <div className="flex items-center gap-3 ml-2">
-                  <Link href={dashboardPath}>
-                    <Button size="sm">
-                      <LayoutDashboard className="w-4 h-4" />
-                      Dashboard
-                    </Button>
-                  </Link>
-                  {showNotifications && notificationRole && (
-                    <NotificationBell role={notificationRole} isScrolled={hasScrolledBg} />
-                  )}
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: 'w-8 h-8',
-                      },
-                    }}
-                  />
-                </div>
+              {loadAuthControls ? (
+                <NavbarAuthControls
+                  variant="desktop"
+                  pathname={pathname}
+                  hasScrolledBg={hasScrolledBg}
+                />
+              ) : isJobsPage ? (
+                <StaticSignInLink pathname={pathname} hasScrolledBg={hasScrolledBg} />
               ) : (
-                <Link href="/sign-up" className="ml-2">
-                  <Button size="sm">
-                    <Sparkles className="w-4 h-4" />
-                    Join Now
-                  </Button>
-                </Link>
+                <StaticJoinLink />
               )}
             </div>
 
             {/* Mobile Menu Button */}
             <div className="flex items-center gap-2 md:hidden">
-              {showNotifications && notificationRole && (
-                <NotificationBell role={notificationRole} isScrolled={hasScrolledBg} />
+              {loadAuthControls && (
+                <NavbarAuthControls
+                  variant="mobile-notification"
+                  pathname={pathname}
+                  hasScrolledBg={hasScrolledBg}
+                />
               )}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -258,6 +268,17 @@ export function Navbar() {
                   >
                     <Search className="w-5 h-5" />
                     Agent Directory
+                  </Link>
+
+                  <Link
+                    href="/jobs"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-2 w-full px-4 py-3 font-medium rounded-lg hover:bg-enterprise-50 transition-colors ${
+                      isJobsPage ? 'text-purple-600 bg-purple-50' : 'text-enterprise-700'
+                    }`}
+                  >
+                    <BriefcaseBusiness className="w-5 h-5" />
+                    Job Board
                   </Link>
 
                   {/* Mobile About Us section */}
@@ -319,40 +340,75 @@ export function Navbar() {
                     )}
                   </div>
 
-                  {/* Auth-aware mobile CTA */}
-                  {isAuthLoaded && (
-                    <div className="pt-2">
-                      {isSignedIn ? (
-                        <div className="flex items-center justify-between px-4 py-3">
-                          <Link href={dashboardPath} onClick={() => setIsMobileMenuOpen(false)}>
-                            <Button size="sm">
-                              <LayoutDashboard className="w-4 h-4" />
-                              Dashboard
-                            </Button>
-                          </Link>
-                          <UserButton
-                            appearance={{
-                              elements: {
-                                avatarBox: 'w-8 h-8',
-                              },
-                            }}
-                          />
-                        </div>
-                      ) : (
-                        <Link href="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
-                          <Button className="w-full">
-                            <Sparkles className="w-4 h-4" />
-                            Join Now
-                          </Button>
-                        </Link>
-                      )}
-                    </div>
-                  )}
+                  <div className="pt-2">
+                    {loadAuthControls ? (
+                      <NavbarAuthControls
+                        variant="mobile"
+                        pathname={pathname}
+                        hasScrolledBg={hasScrolledBg}
+                        onNavigate={() => setIsMobileMenuOpen(false)}
+                      />
+                    ) : isJobsPage ? (
+                      <StaticSignInLink
+                        pathname={pathname}
+                        hasScrolledBg={true}
+                        onNavigate={() => setIsMobileMenuOpen(false)}
+                        mobile
+                      />
+                    ) : (
+                      <StaticJoinLink onNavigate={() => setIsMobileMenuOpen(false)} mobile />
+                    )}
+                  </div>
               </div>
             </Container>
           </div>
         </div>
       )}
     </>
+  )
+}
+
+function StaticJoinLink({
+  onNavigate,
+  mobile = false,
+}: {
+  onNavigate?: () => void
+  mobile?: boolean
+}) {
+  return (
+    <Link href="/sign-up" onClick={onNavigate} className={mobile ? undefined : "ml-2"}>
+      <Button size={mobile ? undefined : "sm"} className={mobile ? "w-full" : undefined}>
+        <Sparkles className="w-4 h-4" />
+        Join Now
+      </Button>
+    </Link>
+  )
+}
+
+function StaticSignInLink({
+  pathname,
+  hasScrolledBg,
+  onNavigate,
+  mobile = false,
+}: {
+  pathname: string
+  hasScrolledBg: boolean
+  onNavigate?: () => void
+  mobile?: boolean
+}) {
+  return (
+    <Link
+      href={`/sign-in?redirect_url=${encodeURIComponent(pathname)}`}
+      onClick={onNavigate}
+      className={
+        mobile
+          ? "block w-full px-4 py-3 text-center text-sm font-medium text-enterprise-700 rounded-lg hover:bg-enterprise-50"
+          : `ml-2 text-sm font-medium transition-colors duration-300 ${
+              hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
+            }`
+      }
+    >
+      Sign in
+    </Link>
   )
 }
