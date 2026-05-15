@@ -16,7 +16,6 @@ const REPORT_SLUG = "the-gcc-reckoning";
 const REPORT_TITLE = "The GCC Reckoning";
 const REPORT_SUBTITLE = "How AI Is Rewriting the Economics of Global Capability Centers";
 const REPORT_TAGLINE = "Why half the GCC workforce will be redefined.";
-const REPORT_DOWNLOAD_PATH = `/research/${REPORT_SLUG}.pdf`;
 
 const REPORT_DESCRIPTION =
   "Orbys Research analysed 200+ Global Capability Centers over twelve months. The finding: more than half of current GCC headcount sits in roles with high-to-critical AI displacement risk inside a five-year window. The GCC Reckoning maps the functional, sector, and geographic exposure — and the path from cost arbitrage to intelligence hub.";
@@ -78,7 +77,6 @@ export default function ResearchPage() {
     url: "/research",
     datePublished: "2026-05-13",
     authorName: "Orbys Research",
-    downloadUrl: REPORT_DOWNLOAD_PATH,
   });
 
   const breadcrumbSchema = breadcrumbJsonLd([
@@ -225,7 +223,6 @@ export default function ResearchPage() {
                   <ResearchGateForm
                     reportSlug={REPORT_SLUG}
                     reportTitle={REPORT_TITLE}
-                    downloadPath={REPORT_DOWNLOAD_PATH}
                   />
                 </div>
               </div>

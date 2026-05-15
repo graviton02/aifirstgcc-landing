@@ -1,4 +1,4 @@
-import { mutation, internalAction } from "./_generated/server";
+import { mutation, internalAction, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { appError } from "./lib/errors";
@@ -11,13 +11,14 @@ const FREE_EMAIL_DOMAINS = new Set([
   "yahoo.co.in", "rediffmail.com", "msn.com",
 ]);
 
-const REPORTS: Record<string, { title: string; subtitle: string; path: string }> = {
+const REPORTS: Record<string, { title: string; subtitle: string }> = {
   "the-gcc-reckoning": {
     title: "The GCC Reckoning",
     subtitle: "How AI Is Rewriting the Economics of Global Capability Centers",
-    path: "/research/the-gcc-reckoning.pdf",
   },
 };
+
+const TOKEN_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 
 function getBaseUrl() {
   return (
@@ -74,6 +75,9 @@ export const submitResearchLead = mutation({
       appError("research_industry_required", "Please select your industry.", 400);
     }
 
+    const token = crypto.randomUUID().replace(/-/g, "");
+    const expiresAt = Date.now() + TOKEN_TTL_MS;
+
     await ctx.db.insert("researchLeads", {
       report_slug: args.report_slug,
       full_name: fullName,
@@ -81,10 +85,13 @@ export const submitResearchLead = mutation({
       email,
       industry,
       user_agent: args.user_agent,
+      download_token: token,
+      download_expires_at: expiresAt,
+      download_count: 0,
       created_at: Date.now(),
     });
 
-    const downloadUrl = `${getBaseUrl().replace(/\/+$/, "")}${report.path}`;
+    const downloadUrl = `${getBaseUrl().replace(/\/+$/, "")}/research/download?token=${token}`;
 
     if (shouldScheduleEmails()) {
       await ctx.scheduler.runAfter(0, internal.research.sendResearchDeliveryEmail, {
@@ -96,10 +103,39 @@ export const submitResearchLead = mutation({
       });
     }
 
+    return { ok: true as const };
+  },
+});
+
+export const getLeadByToken = query({
+  args: { token: v.string() },
+  handler: async (ctx, { token }) => {
+    if (!token) return null;
+    const lead = await ctx.db
+      .query("researchLeads")
+      .withIndex("by_token", (q) => q.eq("download_token", token))
+      .first();
+    if (!lead) return null;
     return {
-      ok: true as const,
-      download_url: report.path,
+      report_slug: lead.report_slug,
+      expires_at: lead.download_expires_at ?? 0,
     };
+  },
+});
+
+export const recordDownload = mutation({
+  args: { token: v.string() },
+  handler: async (ctx, { token }) => {
+    if (!token) return;
+    const lead = await ctx.db
+      .query("researchLeads")
+      .withIndex("by_token", (q) => q.eq("download_token", token))
+      .first();
+    if (!lead) return;
+    await ctx.db.patch(lead._id, {
+      download_count: (lead.download_count ?? 0) + 1,
+      last_downloaded_at: Date.now(),
+    });
   },
 });
 

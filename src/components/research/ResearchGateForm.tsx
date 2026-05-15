@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "convex/react";
-import { CheckCircle, Download, Loader2, Mail } from "lucide-react";
+import { Download, Loader2, Mail } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { isFreeEmailProvider } from "@/lib/email-validation";
 import { getErrorMessage } from "@/lib/report-error";
@@ -24,10 +24,9 @@ const INDUSTRY_OPTIONS = [
 interface Props {
   reportSlug: string;
   reportTitle: string;
-  downloadPath: string;
 }
 
-export function ResearchGateForm({ reportSlug, reportTitle, downloadPath }: Props) {
+export function ResearchGateForm({ reportSlug, reportTitle }: Props) {
   const submitLead = useMutation(api.research.submitResearchLead);
 
   const [form, setForm] = useState({
@@ -44,7 +43,7 @@ export function ResearchGateForm({ reportSlug, reportTitle, downloadPath }: Prop
   });
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState<null | { email: string; url: string }>(null);
+  const [success, setSuccess] = useState<null | { email: string }>(null);
 
   const validateName = (value: string) => {
     if (value.trim().length < 2) {
@@ -107,7 +106,7 @@ export function ResearchGateForm({ reportSlug, reportTitle, downloadPath }: Prop
     setIsSubmitting(true);
     setSubmitError("");
     try {
-      const result = await submitLead({
+      await submitLead({
         report_slug: reportSlug,
         full_name: form.full_name,
         position: form.position,
@@ -116,7 +115,7 @@ export function ResearchGateForm({ reportSlug, reportTitle, downloadPath }: Prop
         user_agent:
           typeof window !== "undefined" ? window.navigator.userAgent : undefined,
       });
-      setSuccess({ email: form.email.trim().toLowerCase(), url: result.download_url });
+      setSuccess({ email: form.email.trim().toLowerCase() });
     } catch (err) {
       setSubmitError(
         getErrorMessage(err, "Something went wrong. Please try again in a moment.")
@@ -130,30 +129,18 @@ export function ResearchGateForm({ reportSlug, reportTitle, downloadPath }: Prop
     return (
       <div className="bg-white rounded-2xl border border-enterprise-200 p-8 md:p-10 shadow-sm">
         <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
-          <CheckCircle className="w-7 h-7 text-green-600" />
+          <Mail className="w-7 h-7 text-green-600" />
         </div>
         <h3 className="text-2xl font-bold text-enterprise-900 text-center mb-2">
-          Access granted
+          Check your inbox
         </h3>
-        <p className="text-enterprise-600 text-center max-w-md mx-auto mb-8">
-          Your copy of <span className="font-medium">{reportTitle}</span> is available
-          below. A copy has also been delivered to{" "}
-          <span className="font-medium">{success.email}</span>.
+        <p className="text-enterprise-600 text-center max-w-md mx-auto">
+          We&apos;ve sent your copy of{" "}
+          <span className="font-medium">{reportTitle}</span> to{" "}
+          <span className="font-medium">{success.email}</span>. The download link will
+          arrive within a few minutes — please check your spam folder if you don&apos;t
+          see it.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href={success.url || downloadPath}
-            download
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-enterprise-900 text-white rounded-lg font-medium hover:bg-enterprise-800 transition-colors"
-          >
-            <Download className="w-4 h-4" />
-            Download the report
-          </a>
-          <span className="inline-flex items-center justify-center gap-2 px-6 py-3 text-enterprise-500 text-sm">
-            <Mail className="w-4 h-4" />
-            Sent to your inbox
-          </span>
-        </div>
       </div>
     );
   }
@@ -168,8 +155,7 @@ export function ResearchGateForm({ reportSlug, reportTitle, downloadPath }: Prop
           Access the research report
         </h3>
         <p className="text-enterprise-600 mt-1 text-sm">
-          Complete the form to receive your copy. The report will be delivered to your
-          inbox and available for immediate download.
+          Complete the form and we&apos;ll send a download link to your inbox.
         </p>
       </div>
 

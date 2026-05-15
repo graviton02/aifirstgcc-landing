@@ -589,10 +589,15 @@ export default defineSchema({
     email: v.string(),
     industry: v.string(),
     user_agent: v.optional(v.string()),
+    download_token: v.optional(v.string()),
+    download_expires_at: v.optional(v.number()),
+    download_count: v.optional(v.number()),
+    last_downloaded_at: v.optional(v.number()),
     created_at: v.number(),
   })
     .index("by_email", ["email"])
-    .index("by_report", ["report_slug"]),
+    .index("by_report", ["report_slug"])
+    .index("by_token", ["download_token"]),
 
   // --- Admin Audit Logs ---
   adminAuditLogs: defineTable({

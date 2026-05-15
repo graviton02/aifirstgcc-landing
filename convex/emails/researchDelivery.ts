@@ -66,8 +66,11 @@ export function researchDeliveryEmail({
               <p style="margin:0 0 16px;font-size:14px;color:#64748b;line-height:1.6;">
                 If the button doesn&rsquo;t work, copy and paste this URL into your browser:
               </p>
-              <p style="margin:0 0 24px;font-size:13px;color:#94a3b8;word-break:break-all;">
+              <p style="margin:0 0 16px;font-size:13px;color:#94a3b8;word-break:break-all;">
                 ${safeUrl}
+              </p>
+              <p style="margin:0 0 16px;font-size:13px;color:#94a3b8;line-height:1.6;">
+                This link is unique to you and expires in 90 days.
               </p>
               <p style="margin:0;font-size:14px;color:#64748b;line-height:1.6;">
                 Have questions or want to talk through the implications for your GCC? Just reply to this email — we read every response.

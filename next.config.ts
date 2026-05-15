@@ -68,6 +68,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**.convex.cloud" },
     ],
   },
+  outputFileTracingIncludes: {
+    "/research/download": ["./private/research/**/*"],
+  },
   async headers() {
     return [
       {
