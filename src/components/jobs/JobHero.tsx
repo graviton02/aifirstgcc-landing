@@ -42,18 +42,17 @@ export function JobHero({
           <StaggerItem>
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-blue-700">
               <BriefcaseBusiness className="h-3.5 w-3.5" />
-              AI Careers
+              AI Talent for GCCs
             </div>
           </StaggerItem>
           <StaggerItem>
             <h1 className="mt-5 max-w-2xl font-display text-display-sm font-bold tracking-tight text-enterprise-950 sm:text-display-md">
-              The Job Board for AI Talent
+              Where GCCs Discover AI Talent
             </h1>
           </StaggerItem>
           <StaggerItem>
             <p className="mt-4 max-w-2xl text-base leading-7 text-enterprise-700 sm:text-lg">
-              Discover roles at the companies building the future of AI, or find
-              the talent to build yours.
+              Source AI talent for your Global Capability Center.
             </p>
           </StaggerItem>
 
