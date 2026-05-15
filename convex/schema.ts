@@ -581,6 +581,19 @@ export default defineSchema({
     .index("by_slug", ["slug"])
     .index("by_date", ["date"]),
 
+  // --- Research Report Leads (gated downloads) ---
+  researchLeads: defineTable({
+    report_slug: v.string(),
+    full_name: v.string(),
+    position: v.string(),
+    email: v.string(),
+    industry: v.string(),
+    user_agent: v.optional(v.string()),
+    created_at: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_report", ["report_slug"]),
+
   // --- Admin Audit Logs ---
   adminAuditLogs: defineTable({
     actor_user_id: v.string(),

@@ -203,6 +203,50 @@ export function articleJsonLd(article: {
   };
 }
 
+// Research report page -- Report schema
+export function reportJsonLd(report: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  authorName?: string;
+  fileFormat?: string;
+  downloadUrl?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Report",
+    headline: report.title,
+    name: report.title,
+    description: report.description.slice(0, 160),
+    url: `${BASE_URL}${report.url}`,
+    inLanguage: "en",
+    ...(report.datePublished && { datePublished: report.datePublished }),
+    ...(report.downloadUrl && {
+      encoding: {
+        "@type": "MediaObject",
+        contentUrl: `${BASE_URL}${report.downloadUrl}`,
+        encodingFormat: report.fileFormat || "application/pdf",
+      },
+    }),
+    author: {
+      "@type": "Organization",
+      name: report.authorName || "Orbys Research",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Orbys360",
+      url: BASE_URL,
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Orbys360",
+      url: BASE_URL,
+    },
+  };
+}
+
 // Directory page -- WebPage with search action
 export function directoryJsonLd() {
   return {

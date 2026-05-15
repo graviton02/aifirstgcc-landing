@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Sparkles, Newspaper, Search, BookOpen, Wrench, Building2, Brain, ChevronDown, BriefcaseBusiness } from 'lucide-react'
+import { Menu, X, Sparkles, Newspaper, Search, BookOpen, Wrench, Building2, Brain, ChevronDown, BriefcaseBusiness, FileBarChart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from './Container'
 
@@ -46,6 +46,7 @@ export function Navbar() {
   const hasScrolledBg = isScrolled || (!isLandingPage)
   const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/thoughtbook'].some(r => pathname.startsWith(r))
   const isJobsPage = pathname.startsWith('/jobs')
+  const isResearchPage = pathname.startsWith('/research')
   const loadAuthControls = shouldLoadAuthControls(pathname)
 
   const aboutItems = [
@@ -126,6 +127,17 @@ export function Navbar() {
                 <Search className="w-4 h-4" />
                 Agent Directory
                 <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${pathname.startsWith('/directory') ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+              </Link>
+
+              <Link
+                href="/research"
+                className={`relative text-sm font-medium transition-colors duration-300 group flex items-center gap-1.5 ${
+                  hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
+                } ${isResearchPage ? 'text-purple-600' : ''}`}
+              >
+                <FileBarChart className="w-4 h-4" />
+                Research
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${isResearchPage ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </Link>
 
               <Link
@@ -268,6 +280,17 @@ export function Navbar() {
                   >
                     <Search className="w-5 h-5" />
                     Agent Directory
+                  </Link>
+
+                  <Link
+                    href="/research"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-2 w-full px-4 py-3 font-medium rounded-lg hover:bg-enterprise-50 transition-colors ${
+                      isResearchPage ? 'text-purple-600 bg-purple-50' : 'text-enterprise-700'
+                    }`}
+                  >
+                    <FileBarChart className="w-5 h-5" />
+                    Research
                   </Link>
 
                   <Link
