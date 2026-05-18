@@ -94,16 +94,24 @@ export const submitResearchLead = mutation({
     const downloadUrl = `${getBaseUrl().replace(/\/+$/, "")}/research/download?token=${token}`;
 
     if (shouldScheduleEmails()) {
-      await ctx.scheduler.runAfter(0, internal.research.sendResearchDeliveryEmail, {
-        recipient_email: email,
-        recipient_name: fullName,
-        report_title: report.title,
-        report_subtitle: report.subtitle,
-        download_url: downloadUrl,
-      });
+      try {
+        await ctx.scheduler.runAfter(0, internal.research.sendResearchDeliveryEmail, {
+          recipient_email: email,
+          recipient_name: fullName,
+          report_title: report.title,
+          report_subtitle: report.subtitle,
+          download_url: downloadUrl,
+        });
+      } catch (error) {
+        console.error("Failed to schedule research delivery email", {
+          report_slug: args.report_slug,
+          email,
+          error,
+        });
+      }
     }
 
-    return { ok: true as const };
+    return { ok: true as const, download_url: downloadUrl };
   },
 });
 

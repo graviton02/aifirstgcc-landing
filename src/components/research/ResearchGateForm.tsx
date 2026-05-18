@@ -43,7 +43,10 @@ export function ResearchGateForm({ reportSlug, reportTitle }: Props) {
   });
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState<null | { email: string }>(null);
+  const [success, setSuccess] = useState<null | {
+    email: string;
+    downloadUrl?: string;
+  }>(null);
 
   const validateName = (value: string) => {
     if (value.trim().length < 2) {
@@ -106,7 +109,7 @@ export function ResearchGateForm({ reportSlug, reportTitle }: Props) {
     setIsSubmitting(true);
     setSubmitError("");
     try {
-      await submitLead({
+      const result = await submitLead({
         report_slug: reportSlug,
         full_name: form.full_name,
         position: form.position,
@@ -115,7 +118,10 @@ export function ResearchGateForm({ reportSlug, reportTitle }: Props) {
         user_agent:
           typeof window !== "undefined" ? window.navigator.userAgent : undefined,
       });
-      setSuccess({ email: form.email.trim().toLowerCase() });
+      setSuccess({
+        email: form.email.trim().toLowerCase(),
+        downloadUrl: result.download_url || undefined,
+      });
     } catch (err) {
       setSubmitError(
         getErrorMessage(err, "Something went wrong. Please try again in a moment.")
@@ -141,6 +147,15 @@ export function ResearchGateForm({ reportSlug, reportTitle }: Props) {
           arrive within a few minutes — please check your spam folder if you don&apos;t
           see it.
         </p>
+        {success.downloadUrl && (
+          <a
+            href={success.downloadUrl}
+            className="mt-6 w-full py-3 bg-enterprise-900 text-white rounded-lg font-medium hover:bg-enterprise-800 transition-colors flex items-center justify-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            Download report
+          </a>
+        )}
       </div>
     );
   }
