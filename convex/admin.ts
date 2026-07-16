@@ -1602,6 +1602,10 @@ export const getDirectoryStats = query({
       .query("jobs")
       .withIndex("by_status", (q) => q.eq("status", "pending"))
       .collect();
+    const pendingAdvisorSubmissions = await ctx.db
+      .query("advisorSubmissions")
+      .withIndex("by_status", (q) => q.eq("status", "pending"))
+      .collect();
 
     const claimed = companies.filter((c) => c.claim_status === "claimed").length;
 
@@ -1617,6 +1621,7 @@ export const getDirectoryStats = query({
       pendingAgentEdits: pendingAgentEdits.length,
       pendingContactRequests: pendingContactRequests.length,
       pendingJobs: pendingJobs.length,
+      pendingAdvisorSubmissions: pendingAdvisorSubmissions.length,
       pendingReviews: pendingReviews.length,
       pendingReviewResponses: pendingReviewResponses.length,
     };
@@ -1730,6 +1735,129 @@ export const rejectJob = mutation({
       entity_id: String(job_id),
       metadata: {
         previous_status: job.status,
+      },
+    });
+  },
+});
+
+// ---------------------------------------------------------------------------
+// AI Advisor Program Applications
+// ---------------------------------------------------------------------------
+
+export const getPendingAdvisorSubmissions = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    const submissions = await ctx.db
+      .query("advisorSubmissions")
+      .withIndex("by_status", (q) => q.eq("status", "pending"))
+      .collect();
+
+    return submissions.sort((a, b) => b.created_at - a.created_at);
+  },
+});
+
+export const getAdvisorSubmissionsHistory = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    const submissions = await ctx.db.query("advisorSubmissions").collect();
+
+    return submissions
+      .filter((submission) => submission.status !== "pending")
+      .sort(
+        (a, b) =>
+          (b.reviewed_at ?? b.created_at) - (a.reviewed_at ?? a.created_at)
+      )
+      .slice(0, 50);
+  },
+});
+
+export const approveAdvisorSubmission = mutation({
+  args: {
+    submission_id: v.id("advisorSubmissions"),
+  },
+  handler: async (ctx, { submission_id }) => {
+    const adminIdentity = await requireAdmin(ctx);
+    const submission = await ctx.db.get(submission_id);
+
+    if (!submission) {
+      appError("advisor_submission_not_found", "Advisor application not found.", 404);
+    }
+
+    if (submission.status !== "pending") {
+      appError(
+        "advisor_review_invalid",
+        "Only pending applications can be approved.",
+        400
+      );
+    }
+
+    const reviewedAt = Date.now();
+    await ctx.db.patch(submission_id, {
+      status: "approved",
+      admin_notes: undefined,
+      reviewed_at: reviewedAt,
+      updated_at: reviewedAt,
+    });
+
+    await ctx.runMutation(logAuditEventInternalRef, {
+      actor_user_id: adminIdentity.subject,
+      action: "advisor_submission.approved",
+      entity_type: "advisor_submission",
+      entity_id: String(submission_id),
+      metadata: {
+        previous_status: submission.status,
+      },
+    });
+  },
+});
+
+export const rejectAdvisorSubmission = mutation({
+  args: {
+    submission_id: v.id("advisorSubmissions"),
+    notes: v.string(),
+  },
+  handler: async (ctx, { submission_id, notes }) => {
+    const adminIdentity = await requireAdmin(ctx);
+    const submission = await ctx.db.get(submission_id);
+
+    if (!submission) {
+      appError("advisor_submission_not_found", "Advisor application not found.", 404);
+    }
+
+    if (submission.status !== "pending") {
+      appError(
+        "advisor_review_invalid",
+        "Only pending applications can be rejected.",
+        400
+      );
+    }
+
+    const trimmedNotes = notes.trim();
+    if (!trimmedNotes) {
+      appError(
+        "advisor_rejection_notes_required",
+        "Rejection notes are required.",
+        400
+      );
+    }
+
+    const reviewedAt = Date.now();
+    await ctx.db.patch(submission_id, {
+      status: "rejected",
+      admin_notes: trimmedNotes,
+      reviewed_at: reviewedAt,
+      updated_at: reviewedAt,
+    });
+
+    await ctx.runMutation(logAuditEventInternalRef, {
+      actor_user_id: adminIdentity.subject,
+      action: "advisor_submission.rejected",
+      entity_type: "advisor_submission",
+      entity_id: String(submission_id),
+      metadata: {
+        previous_status: submission.status,
       },
     });
   },

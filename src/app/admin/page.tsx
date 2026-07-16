@@ -15,6 +15,7 @@ import { AdminContactRequestsTab } from "@/components/admin/AdminContactRequests
 import { AdminOverviewTab } from "@/components/admin/AdminOverviewTab";
 import { AdminReviewsTab } from "@/components/admin/AdminReviewsTab";
 import { AdminJobsTab } from "@/components/admin/AdminJobsTab";
+import { AdminAdvisorsTab } from "@/components/admin/AdminAdvisorsTab";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import {
   LogOut,
@@ -29,6 +30,7 @@ import {
   Mail,
   Star,
   BriefcaseBusiness,
+  UserCheck,
 } from "lucide-react";
 import type { NavItem } from "@/components/dashboard/DashboardSidebar";
 
@@ -42,6 +44,7 @@ const TABS = [
   "Agent Edits",
   "Contact Requests",
   "Jobs",
+  "Advisors",
   "Reviews",
 ] as const;
 
@@ -57,6 +60,7 @@ const ICON_MAP: Record<Tab, NavItem["icon"]> = {
   "Agent Edits": FilePenLine,
   "Contact Requests": Mail,
   Jobs: BriefcaseBusiness,
+  Advisors: UserCheck,
   Reviews: Star,
 };
 
@@ -139,6 +143,7 @@ export default function AdminDashboardPage() {
     "Agent Edits": stats?.pendingAgentEdits ?? 0,
     "Contact Requests": stats?.pendingContactRequests ?? 0,
     Jobs: stats?.pendingJobs ?? 0,
+    Advisors: stats?.pendingAdvisorSubmissions ?? 0,
     Reviews:
       (stats?.pendingReviews ?? 0) + (stats?.pendingReviewResponses ?? 0),
   };
@@ -176,6 +181,7 @@ export default function AdminDashboardPage() {
       {activeTab === "Agent Edits" && <AdminAgentEditsTab />}
       {activeTab === "Contact Requests" && <AdminContactRequestsTab />}
       {activeTab === "Jobs" && <AdminJobsTab />}
+      {activeTab === "Advisors" && <AdminAdvisorsTab />}
       {activeTab === "Reviews" && <AdminReviewsTab />}
     </DashboardShell>
   );

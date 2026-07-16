@@ -198,6 +198,18 @@ export function JobDetail({ slug }: { slug: string }) {
                 {job.is_expired ? " · Deadline passed" : ""}
               </p>
 
+              {slug === "ai-advisor-orbys360" ? (
+                <Link
+                  href="/advisors"
+                  className="mt-4 block rounded-2xl border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-900 transition-colors hover:bg-purple-100"
+                >
+                  <span className="font-semibold">
+                    Prefer to be listed as an advisor?
+                  </span>{" "}
+                  Join the Orbys360 AI Advisor Network →
+                </Link>
+              ) : null}
+
               <div className="mt-5">
                 {job.apply_url ? (
                   <Button asChild className="w-full">

@@ -610,4 +610,28 @@ export default defineSchema({
   })
     .index("by_actorUserId", ["actor_user_id"])
     .index("by_createdAt", ["created_at"]),
+
+  // --- AI Advisor Program Applications ---
+  advisorSubmissions: defineTable({
+    full_name: v.string(),
+    email: v.string(),
+    linkedin_url: v.string(),
+    headline: v.string(),
+    years_experience: v.string(),
+    expertise_areas: v.array(v.string()),
+    bio: v.string(),
+    consent: v.boolean(),
+    user_agent: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected")
+    ),
+    admin_notes: v.optional(v.string()),
+    reviewed_at: v.optional(v.number()),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_status", ["status"]),
 });

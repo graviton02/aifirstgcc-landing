@@ -10,6 +10,7 @@
 
 import type * as admin from "../admin.js";
 import type * as adminNotifications from "../adminNotifications.js";
+import type * as advisors from "../advisors.js";
 import type * as agents from "../agents.js";
 import type * as aiPulse from "../aiPulse.js";
 import type * as claims from "../claims.js";
@@ -19,6 +20,7 @@ import type * as companyMembers from "../companyMembers.js";
 import type * as companySubmissions from "../companySubmissions.js";
 import type * as crons from "../crons.js";
 import type * as earlyAccess from "../earlyAccess.js";
+import type * as emails_advisorConfirmation from "../emails/advisorConfirmation.js";
 import type * as emails_claimApproved from "../emails/claimApproved.js";
 import type * as emails_contactRequest from "../emails/contactRequest.js";
 import type * as emails_notification from "../emails/notification.js";
@@ -57,6 +59,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
   adminNotifications: typeof adminNotifications;
+  advisors: typeof advisors;
   agents: typeof agents;
   aiPulse: typeof aiPulse;
   claims: typeof claims;
@@ -66,6 +69,7 @@ declare const fullApi: ApiFromModules<{
   companySubmissions: typeof companySubmissions;
   crons: typeof crons;
   earlyAccess: typeof earlyAccess;
+  "emails/advisorConfirmation": typeof emails_advisorConfirmation;
   "emails/claimApproved": typeof emails_claimApproved;
   "emails/contactRequest": typeof emails_contactRequest;
   "emails/notification": typeof emails_notification;
