@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Sparkles, Newspaper, Search, BookOpen, Wrench, Building2, Brain, ChevronDown, BriefcaseBusiness, FileBarChart } from 'lucide-react'
+import { Menu, X, Sparkles, Newspaper, Search, BookOpen, Wrench, Building2, Brain, ChevronDown, BriefcaseBusiness, FileBarChart, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from './Container'
 
@@ -47,6 +47,7 @@ export function Navbar() {
   const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/thoughtbook'].some(r => pathname.startsWith(r))
   const isJobsPage = pathname.startsWith('/jobs')
   const isResearchPage = pathname.startsWith('/research')
+  const isAdvisorsPage = pathname.startsWith('/advisors')
   const loadAuthControls = shouldLoadAuthControls(pathname)
 
   const aboutItems = [
@@ -149,6 +150,17 @@ export function Navbar() {
                 <BriefcaseBusiness className="w-4 h-4" />
                 Job Board
                 <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${isJobsPage ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+              </Link>
+
+              <Link
+                href="/advisors"
+                className={`relative text-sm font-medium transition-colors duration-300 group flex items-center gap-1.5 ${
+                  hasScrolledBg ? 'text-enterprise-600 hover:text-enterprise-900' : 'text-white/80 hover:text-white'
+                } ${isAdvisorsPage ? 'text-purple-600' : ''}`}
+              >
+                <Users className="w-4 h-4" />
+                AI Advisors
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 ${isAdvisorsPage ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </Link>
 
               {/* About Us dropdown */}
@@ -302,6 +314,17 @@ export function Navbar() {
                   >
                     <BriefcaseBusiness className="w-5 h-5" />
                     Job Board
+                  </Link>
+
+                  <Link
+                    href="/advisors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-2 w-full px-4 py-3 font-medium rounded-lg hover:bg-enterprise-50 transition-colors ${
+                      isAdvisorsPage ? 'text-purple-600 bg-purple-50' : 'text-enterprise-700'
+                    }`}
+                  >
+                    <Users className="w-5 h-5" />
+                    AI Advisors
                   </Link>
 
                   {/* Mobile About Us section */}

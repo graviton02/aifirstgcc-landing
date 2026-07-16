@@ -79,6 +79,13 @@ const bottomCards = [
     href: "/jobs",
     linkText: "Browse jobs",
   },
+  {
+    title: "AI Advisor Network",
+    description: "Get matched with vetted AI advisors — strategy, engineering, data platform, and governance experts.",
+    image: "/images/icons/ai-advisors.webp",
+    href: "/advisors",
+    linkText: "Meet advisors",
+  },
 ]
 
 function ResourceCard({ card }: { card: typeof sideCards[number] }) {
@@ -270,7 +277,7 @@ export function KnowledgeHub() {
 
         {/* Bottom Row — 3 equal cards */}
         <StaggerContainer
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mt-5"
           staggerDelay={0.1}
         >
           {bottomCards.map((card) => (
