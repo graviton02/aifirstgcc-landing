@@ -16,6 +16,7 @@ import { CandidateSignupHero } from "@/components/jobs/CandidateSignupHero";
 import { JobCard } from "@/components/jobs/JobCard";
 import { JobFilters } from "@/components/jobs/JobFilters";
 import { JobHero } from "@/components/jobs/JobHero";
+import { JobSearchControls } from "@/components/jobs/JobSearchControls";
 import { JobListSkeleton } from "@/components/jobs/JobSkeleton";
 import { useJobBoardRole } from "@/jobs/useJobBoardRole";
 
@@ -89,7 +90,23 @@ function JobsPageContent() {
     <div className="bg-enterprise-50 pb-16 pt-24 sm:pt-28">
       <Container size="wide" className="space-y-8">
         {showCandidateCapture ? (
-          <CandidateSignupHero searchControls={searchControls} />
+          <>
+            <CandidateSignupHero />
+            <AnimatedSection delay={0.05}>
+              <div className="rounded-3xl border border-enterprise-200 bg-white p-6 shadow-card sm:p-8">
+                <h2 className="font-display text-lg font-semibold text-enterprise-950">
+                  Browse open roles
+                </h2>
+                <p className="mt-1 text-sm text-enterprise-600">
+                  Already know what you&rsquo;re looking for? Search everything
+                  that&rsquo;s live right now.
+                </p>
+                <div className="mt-6">
+                  <JobSearchControls {...searchControls} />
+                </div>
+              </div>
+            </AnimatedSection>
+          </>
         ) : (
           <JobHero {...searchControls} />
         )}

@@ -11,10 +11,6 @@ import { getErrorMessage } from "@/lib/report-error";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import {
-  JobSearchControls,
-  type JobSearchControlsProps,
-} from "@/components/jobs/JobSearchControls";
-import {
   CANDIDATE_LEAD_DEFAULT_SOURCE,
   CANDIDATE_LEAD_STORAGE_KEY,
   JOB_CATEGORIES,
@@ -27,11 +23,7 @@ type Step = 1 | 2 | "done";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function CandidateSignupHero({
-  searchControls,
-}: {
-  searchControls?: JobSearchControlsProps;
-}) {
+export function CandidateSignupHero() {
   const searchParams = useSearchParams();
   const submitLead = useMutation(api.candidateLeads.submitCandidateLead);
 
@@ -297,8 +289,6 @@ export function CandidateSignupHero({
               </AnimatePresence>
             </>
           )}
-
-          {searchControls ? <JobSearchControls {...searchControls} /> : null}
         </div>
       </section>
     </AnimatedSection>

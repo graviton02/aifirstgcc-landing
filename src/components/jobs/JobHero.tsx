@@ -92,12 +92,14 @@ export function JobHero({
           </StaggerItem>
 
           <StaggerItem>
-            <JobSearchControls
-              search={search}
-              onSearchChange={onSearchChange}
-              category={category}
-              onCategoryChange={onCategoryChange}
-            />
+            <div className="mt-8">
+              <JobSearchControls
+                search={search}
+                onSearchChange={onSearchChange}
+                category={category}
+                onCategoryChange={onCategoryChange}
+              />
+            </div>
           </StaggerItem>
         </StaggerContainer>
       </section>

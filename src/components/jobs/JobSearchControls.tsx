@@ -22,7 +22,7 @@ export function JobSearchControls({
 }: JobSearchControlsProps) {
   return (
     <>
-      <div className="mt-8 max-w-2xl">
+      <div className="max-w-2xl">
         <div className="flex flex-1 items-center gap-3 rounded-2xl border border-enterprise-200 bg-white px-4 py-3 shadow-card transition-all duration-400 ease-smooth focus-within:border-blue-400 focus-within:shadow-card-hover">
           <Search className="h-4 w-4 text-enterprise-400" />
           <input
