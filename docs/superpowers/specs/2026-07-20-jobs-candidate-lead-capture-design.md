@@ -91,15 +91,16 @@ a red error on a second submit is a worse experience than a confirmation.
 First-time submissions return `{ ok: true, alreadyRegistered: false }` and
 schedule the confirmation email.
 
-### `listCandidateLeads` (query)
+### Admin functions — in `convex/admin.ts`
 
-Takes the admin session token and is gated by the same admin-auth helper the
-other admin queries use. Returns leads newest-first via `by_createdAt`.
+The admin surface lives in `convex/admin.ts` and is gated by
+`requireAdmin(ctx)` from `convex/lib/admin.ts` (Clerk identity checked against
+`ADMIN_CLERK_USER_IDS` / `ADMIN_CLERK_EMAILS`), matching the advisor functions.
 
-### `updateCandidateLeadStatus` (mutation)
-
-Admin-gated. Sets `status` to one of `CANDIDATE_LEAD_STATUSES` and bumps
-`updated_at`.
+- `getCandidateLeads` — returns all leads newest-first via `by_createdAt`.
+- `updateCandidateLeadStatus` — sets `status` to one of
+  `CANDIDATE_LEAD_STATUSES`, bumps `updated_at`, and writes an audit log entry
+  the way the advisor review mutations do.
 
 ### `sendCandidateConfirmationEmail` (internalAction)
 
@@ -166,8 +167,8 @@ TDD; tests written before implementation.
 - A valid submission inserts with `status: "new"` and normalised email.
 - A duplicate email returns `alreadyRegistered: true`, does not insert a second
   row, and does not error.
-- `listCandidateLeads` and `updateCandidateLeadStatus` reject a missing or
-  invalid admin token.
+- `getCandidateLeads` and `updateCandidateLeadStatus` reject a non-admin
+  identity.
 
 `tests/components/CandidateSignupHero.test.tsx`
 - Step 1 advances to step 2 only with a name and a valid email.

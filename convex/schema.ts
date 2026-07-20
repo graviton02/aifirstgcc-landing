@@ -599,6 +599,24 @@ export default defineSchema({
     .index("by_report", ["report_slug"])
     .index("by_token", ["download_token"]),
 
+  // --- Candidate Leads (no-auth job board interest capture) ---
+  candidateLeads: defineTable({
+    full_name: v.string(),
+    email: v.string(),
+    current_title: v.string(),
+    years_experience: v.string(),
+    job_category: v.string(),
+    profile_url: v.optional(v.string()),
+    source: v.optional(v.string()),
+    user_agent: v.optional(v.string()),
+    status: v.string(),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_status", ["status"])
+    .index("by_createdAt", ["created_at"]),
+
   // --- Admin Audit Logs ---
   adminAuditLogs: defineTable({
     actor_user_id: v.string(),

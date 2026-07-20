@@ -40,6 +40,7 @@ import { appError } from "./lib/errors";
 import { getAdminViewerAccess, requireAdmin } from "./lib/admin";
 import { assertCanCreateProviderPersona } from "./lib/personas";
 import { normalizeProviderRequest } from "./lib/providerRequests";
+import { isCandidateLeadStatus } from "../src/jobs/config";
 
 function makeInternalQueryReference<Args extends Record<string, unknown>, Return = unknown>(
   name: string
@@ -2030,5 +2031,54 @@ export const unclaimCompany = mutation({
     });
 
     return { success: true, company: company.name };
+  },
+});
+
+// ---------------------------------------------------------------------------
+// Candidate Leads (job board interest capture)
+// ---------------------------------------------------------------------------
+
+export const getCandidateLeads = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    const leads = await ctx.db.query("candidateLeads").collect();
+
+    return leads.sort((a, b) => b.created_at - a.created_at);
+  },
+});
+
+export const updateCandidateLeadStatus = mutation({
+  args: {
+    lead_id: v.id("candidateLeads"),
+    status: v.string(),
+  },
+  handler: async (ctx, { lead_id, status }) => {
+    const adminIdentity = await requireAdmin(ctx);
+
+    if (!isCandidateLeadStatus(status)) {
+      appError(
+        "candidate_status_invalid",
+        "That candidate status is not recognised.",
+        400
+      );
+    }
+
+    const lead = await ctx.db.get(lead_id);
+    if (!lead) {
+      appError("candidate_lead_not_found", "Candidate lead not found.", 404);
+    }
+
+    await ctx.db.patch(lead_id, { status, updated_at: Date.now() });
+
+    await insertAdminAuditLog(ctx, {
+      actor_user_id: adminIdentity.subject,
+      action: "candidate_lead.status_changed",
+      entity_type: "candidate_lead",
+      entity_id: String(lead_id),
+      metadata: { previous_status: lead.status, status },
+    });
+
+    return { success: true };
   },
 });

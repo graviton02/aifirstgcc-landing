@@ -61,6 +61,22 @@ export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number];
 export const SALARY_TYPES = ["annual", "monthly"] as const;
 export type SalaryType = (typeof SALARY_TYPES)[number];
 
+export const JOB_EXPERIENCE_LEVELS = ["0-2", "3-5", "6-10", "10+"] as const;
+export type JobExperienceLevel = (typeof JOB_EXPERIENCE_LEVELS)[number];
+
+export const JOB_EXPERIENCE_LABELS: Record<JobExperienceLevel, string> = {
+  "0-2": "0-2 years",
+  "3-5": "3-5 years",
+  "6-10": "6-10 years",
+  "10+": "10+ years",
+};
+
+export const CANDIDATE_LEAD_STATUSES = ["new", "contacted", "archived"] as const;
+export type CandidateLeadStatus = (typeof CANDIDATE_LEAD_STATUSES)[number];
+
+export const CANDIDATE_LEAD_STORAGE_KEY = "orbys_candidate_lead";
+export const CANDIDATE_LEAD_DEFAULT_SOURCE = "jobs-page";
+
 export const JOBS_PAGE_SIZE = 12;
 export const RESUME_MAX_SIZE_BYTES = 5 * 1024 * 1024;
 export const ALLOWED_RESUME_CONTENT_TYPES = new Set([
@@ -102,6 +118,22 @@ export function isValidLinkedInUrl(value: string | null | undefined): value is s
 
 export function isJobCategory(value: string | null | undefined): value is JobCategory {
   return Boolean(value && JOB_CATEGORIES.includes(value as JobCategory));
+}
+
+export function isJobExperienceLevel(
+  value: string | null | undefined
+): value is JobExperienceLevel {
+  return Boolean(
+    value && JOB_EXPERIENCE_LEVELS.includes(value as JobExperienceLevel)
+  );
+}
+
+export function isCandidateLeadStatus(
+  value: string | null | undefined
+): value is CandidateLeadStatus {
+  return Boolean(
+    value && CANDIDATE_LEAD_STATUSES.includes(value as CandidateLeadStatus)
+  );
 }
 
 export function isJobType(value: string | null | undefined): value is JobType {

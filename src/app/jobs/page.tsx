@@ -12,10 +12,12 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/shared/AnimatedSection";
+import { CandidateSignupHero } from "@/components/jobs/CandidateSignupHero";
 import { JobCard } from "@/components/jobs/JobCard";
 import { JobFilters } from "@/components/jobs/JobFilters";
 import { JobHero } from "@/components/jobs/JobHero";
 import { JobListSkeleton } from "@/components/jobs/JobSkeleton";
+import { useJobBoardRole } from "@/jobs/useJobBoardRole";
 
 export default function JobsPage() {
   return (
@@ -54,6 +56,13 @@ function JobsPageContent() {
     return Math.max(1, Math.ceil(result.count / result.pageSize));
   }, [result]);
 
+  const { role: jobBoardRole, isLoaded: roleLoaded, isSignedIn } = useJobBoardRole();
+
+  // Visitors without a job board role get the lead capture hero. Signed-in
+  // users keep the existing hero, and we wait for their role to load rather
+  // than flashing the capture card at them.
+  const showCandidateCapture = !jobBoardRole && !(isSignedIn && !roleLoaded);
+
   const updateParams = (updates: Record<string, string>) => {
     const params = new URLSearchParams(searchParams.toString());
     Object.entries(updates).forEach(([key, value]) => {
@@ -69,15 +78,21 @@ function JobsPageContent() {
     router.replace(`${pathname}?${params.toString()}`);
   };
 
+  const searchControls = {
+    search,
+    onSearchChange: (value: string) => updateParams({ search: value }),
+    category,
+    onCategoryChange: (cat: string) => updateParams({ category: cat }),
+  };
+
   return (
     <div className="bg-enterprise-50 pb-16 pt-24 sm:pt-28">
       <Container size="wide" className="space-y-8">
-        <JobHero
-          search={search}
-          onSearchChange={(value) => updateParams({ search: value })}
-          category={category}
-          onCategoryChange={(cat) => updateParams({ category: cat })}
-        />
+        {showCandidateCapture ? (
+          <CandidateSignupHero searchControls={searchControls} />
+        ) : (
+          <JobHero {...searchControls} />
+        )}
         <JobFilters
           category={category}
           workplaceType={workplaceType}
