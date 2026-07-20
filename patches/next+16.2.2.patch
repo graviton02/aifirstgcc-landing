@@ -1,0 +1,44 @@
+diff --git a/node_modules/next/dist/client/asset-prefix.js b/node_modules/next/dist/client/asset-prefix.js
+index 801bdc6..58bc76d 100644
+--- a/node_modules/next/dist/client/asset-prefix.js
++++ b/node_modules/next/dist/client/asset-prefix.js
+@@ -11,12 +11,12 @@ Object.defineProperty(exports, "getAssetPrefix", {
+ const _invarianterror = require("../shared/lib/invariant-error");
+ function getAssetPrefix() {
+     const currentScript = document.currentScript;
++    // PATCH: some Android browsers (Samsung Internet, Chrome WebView) report a
++    // null currentScript here. Upstream throws, which aborts appBootstrap
++    // before hydrate() and leaves the whole app inert. This app configures no
++    // assetPrefix, so '' is the correct value -- fall back instead of throwing.
+     if (!(currentScript instanceof HTMLScriptElement)) {
+-        throw Object.defineProperty(new _invarianterror.InvariantError(`Expected document.currentScript to be a <script> element. Received ${currentScript} instead.`), "__NEXT_ERROR_CODE", {
+-            value: "E783",
+-            enumerable: false,
+-            configurable: true
+-        });
++        return '';
+     }
+     const { pathname } = new URL(currentScript.src);
+     const nextIndex = pathname.indexOf('/_next/');
+diff --git a/node_modules/next/dist/esm/client/asset-prefix.js b/node_modules/next/dist/esm/client/asset-prefix.js
+index 773eaaa..fd204f3 100644
+--- a/node_modules/next/dist/esm/client/asset-prefix.js
++++ b/node_modules/next/dist/esm/client/asset-prefix.js
+@@ -1,12 +1,12 @@
+ import { InvariantError } from '../shared/lib/invariant-error';
+ export function getAssetPrefix() {
+     const currentScript = document.currentScript;
++    // PATCH: some Android browsers (Samsung Internet, Chrome WebView) report a
++    // null currentScript here. Upstream throws, which aborts appBootstrap
++    // before hydrate() and leaves the whole app inert. This app configures no
++    // assetPrefix, so '' is the correct value -- fall back instead of throwing.
+     if (!(currentScript instanceof HTMLScriptElement)) {
+-        throw Object.defineProperty(new InvariantError(`Expected document.currentScript to be a <script> element. Received ${currentScript} instead.`), "__NEXT_ERROR_CODE", {
+-            value: "E783",
+-            enumerable: false,
+-            configurable: true
+-        });
++        return '';
+     }
+     const { pathname } = new URL(currentScript.src);
+     const nextIndex = pathname.indexOf('/_next/');
