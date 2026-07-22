@@ -15,7 +15,7 @@ export function candidateConfirmationEmail({
   const safeName = escapeHtml(recipientName);
 
   return {
-    subject: "You're on the Orbys360 AI talent list",
+    subject: "You're on the Orbys360 AI jobs list",
     html: `
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@ export function candidateConfirmationEmail({
           <tr>
             <td style="padding:32px 40px 0;text-align:center;">
               <h1 style="margin:0;font-size:22px;font-weight:700;color:#0f172a;">Orbys360</h1>
-              <p style="margin:6px 0 0;font-size:13px;color:#64748b;letter-spacing:0.08em;text-transform:uppercase;">AI Talent for GCCs</p>
+              <p style="margin:6px 0 0;font-size:13px;color:#64748b;letter-spacing:0.08em;text-transform:uppercase;">AI Jobs in India</p>
             </td>
           </tr>
           <tr>
@@ -40,7 +40,7 @@ export function candidateConfirmationEmail({
                 Hi ${safeName},
               </p>
               <p style="margin:0 0 16px;font-size:16px;color:#334155;line-height:1.6;">
-                You&rsquo;re on the list. We&rsquo;ll email you when an AI role opens at a Global Capability Center that matches what you told us.
+                You&rsquo;re on the list. We&rsquo;ll email you when new AI roles open in India.
               </p>
               <p style="margin:0 0 16px;font-size:16px;color:#334155;line-height:1.6;">
                 In the meantime, you can browse everything that&rsquo;s currently open at <a href="https://orbys360.com/jobs" style="color:#2563eb;text-decoration:none;">orbys360.com/jobs</a>.

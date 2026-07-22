@@ -5,10 +5,6 @@ import { createTestConvex } from "./testHarness";
 const VALID_LEAD = {
   full_name: "Ravi Menon",
   email: "ravi.menon@example.com",
-  current_title: "Senior ML Engineer",
-  years_experience: "6-10",
-  job_category: "ai-ml",
-  profile_url: "https://www.linkedin.com/in/ravi-menon",
   source: "linkedin",
   user_agent: "vitest",
 };
@@ -40,13 +36,12 @@ describe("candidate lead capture", () => {
     expect(leads[0]).toMatchObject({
       full_name: "Ravi Menon",
       email: "ravi.menon@example.com",
-      current_title: "Senior ML Engineer",
-      years_experience: "6-10",
-      job_category: "ai-ml",
-      profile_url: "https://www.linkedin.com/in/ravi-menon",
       source: "linkedin",
       status: "new",
     });
+    // The live form no longer collects these.
+    expect(leads[0]?.current_title).toBeUndefined();
+    expect(leads[0]?.job_category).toBeUndefined();
     expect(leads[0]?.created_at).toEqual(expect.any(Number));
     expect(leads[0]?.updated_at).toEqual(expect.any(Number));
   });
@@ -59,17 +54,6 @@ describe("candidate lead capture", () => {
 
     const leads = await t.run((ctx) => ctx.db.query("candidateLeads").collect());
     expect(leads[0]?.email).toBe("ravi.menon@example.com");
-  });
-
-  it("accepts a lead without a profile URL", async () => {
-    const result = await t.mutation(api.candidateLeads.submitCandidateLead, {
-      ...VALID_LEAD,
-      profile_url: "",
-    });
-
-    expect(result.ok).toBe(true);
-    const leads = await t.run((ctx) => ctx.db.query("candidateLeads").collect());
-    expect(leads[0]?.profile_url).toBeUndefined();
   });
 
   it("defaults the source when none is provided", async () => {
@@ -88,14 +72,14 @@ describe("candidate lead capture", () => {
     const result = await t.mutation(api.candidateLeads.submitCandidateLead, {
       ...VALID_LEAD,
       email: "RAVI.MENON@example.com",
-      current_title: "Staff ML Engineer",
+      full_name: "Ravi M.",
     });
 
     expect(result).toEqual({ ok: true, alreadyRegistered: true });
 
     const leads = await t.run((ctx) => ctx.db.query("candidateLeads").collect());
     expect(leads).toHaveLength(1);
-    expect(leads[0]?.current_title).toBe("Senior ML Engineer");
+    expect(leads[0]?.full_name).toBe("Ravi Menon");
   });
 
   it("rejects a name that is too short", async () => {
@@ -114,42 +98,6 @@ describe("candidate lead capture", () => {
         email: "not-an-email",
       })
     ).rejects.toThrow("candidate_email_invalid");
-  });
-
-  it("requires a current title", async () => {
-    await expect(
-      t.mutation(api.candidateLeads.submitCandidateLead, {
-        ...VALID_LEAD,
-        current_title: " ",
-      })
-    ).rejects.toThrow("candidate_title_required");
-  });
-
-  it("rejects an unrecognised experience level", async () => {
-    await expect(
-      t.mutation(api.candidateLeads.submitCandidateLead, {
-        ...VALID_LEAD,
-        years_experience: "a very long time",
-      })
-    ).rejects.toThrow("candidate_experience_invalid");
-  });
-
-  it("rejects an unrecognised job category", async () => {
-    await expect(
-      t.mutation(api.candidateLeads.submitCandidateLead, {
-        ...VALID_LEAD,
-        job_category: "underwater-basket-weaving",
-      })
-    ).rejects.toThrow("candidate_category_invalid");
-  });
-
-  it("rejects a profile URL that is not an http(s) link", async () => {
-    await expect(
-      t.mutation(api.candidateLeads.submitCandidateLead, {
-        ...VALID_LEAD,
-        profile_url: "javascript:alert(1)",
-      })
-    ).rejects.toThrow("candidate_profile_url_invalid");
   });
 });
 

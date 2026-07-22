@@ -3,14 +3,7 @@ import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { appError } from "./lib/errors";
 import { candidateConfirmationEmail } from "./emails/candidateConfirmation";
-import {
-  CANDIDATE_LEAD_DEFAULT_SOURCE,
-  JOB_CATEGORIES,
-  JOB_EXPERIENCE_LEVELS,
-} from "../src/jobs/config";
-
-const CATEGORY_SET = new Set<string>(JOB_CATEGORIES);
-const EXPERIENCE_SET = new Set<string>(JOB_EXPERIENCE_LEVELS);
+import { CANDIDATE_LEAD_DEFAULT_SOURCE } from "../src/jobs/config";
 
 function shouldScheduleEmails() {
   return process.env.NODE_ENV !== "test" && !process.env.VITEST;
@@ -25,10 +18,6 @@ export const submitCandidateLead = mutation({
   args: {
     full_name: v.string(),
     email: v.string(),
-    current_title: v.string(),
-    years_experience: v.string(),
-    job_category: v.string(),
-    profile_url: v.optional(v.string()),
     source: v.optional(v.string()),
     user_agent: v.optional(v.string()),
   },
@@ -41,42 +30,6 @@ export const submitCandidateLead = mutation({
     const email = args.email.trim().toLowerCase();
     if (!email.includes("@") || !email.includes(".")) {
       appError("candidate_email_invalid", "Please enter a valid email address.", 400);
-    }
-
-    const currentTitle = args.current_title.trim();
-    if (currentTitle.length < 2) {
-      appError(
-        "candidate_title_required",
-        "Please enter your current job title.",
-        400
-      );
-    }
-
-    const yearsExperience = args.years_experience.trim();
-    if (!EXPERIENCE_SET.has(yearsExperience)) {
-      appError(
-        "candidate_experience_invalid",
-        "Please select your years of experience.",
-        400
-      );
-    }
-
-    const jobCategory = args.job_category.trim();
-    if (!CATEGORY_SET.has(jobCategory)) {
-      appError(
-        "candidate_category_invalid",
-        "Please select the kind of role you're looking for.",
-        400
-      );
-    }
-
-    const profileUrl = args.profile_url?.trim() ?? "";
-    if (profileUrl && !/^https?:\/\/.+/i.test(profileUrl)) {
-      appError(
-        "candidate_profile_url_invalid",
-        "Please enter a full link starting with https://",
-        400
-      );
     }
 
     const now = Date.now();
@@ -95,10 +48,6 @@ export const submitCandidateLead = mutation({
     await ctx.db.insert("candidateLeads", {
       full_name: fullName,
       email,
-      current_title: currentTitle,
-      years_experience: yearsExperience,
-      job_category: jobCategory,
-      profile_url: profileUrl || undefined,
       source: args.source?.trim() || CANDIDATE_LEAD_DEFAULT_SOURCE,
       user_agent: args.user_agent,
       status: "new",

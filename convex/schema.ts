@@ -603,9 +603,11 @@ export default defineSchema({
   candidateLeads: defineTable({
     full_name: v.string(),
     email: v.string(),
-    current_title: v.string(),
-    years_experience: v.string(),
-    job_category: v.string(),
+    // Optional: earlier leads captured these; the live form now asks only for
+    // name and email.
+    current_title: v.optional(v.string()),
+    years_experience: v.optional(v.string()),
+    job_category: v.optional(v.string()),
     profile_url: v.optional(v.string()),
     source: v.optional(v.string()),
     user_agent: v.optional(v.string()),

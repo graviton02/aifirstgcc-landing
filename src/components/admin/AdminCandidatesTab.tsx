@@ -19,9 +19,10 @@ type CandidateLead = {
   _id: Id<"candidateLeads">;
   full_name: string;
   email: string;
-  current_title: string;
-  years_experience: string;
-  job_category: string;
+  // Only older leads carry these — the live form captures name + email only.
+  current_title?: string;
+  years_experience?: string;
+  job_category?: string;
   profile_url?: string;
   source?: string;
   status: string;
@@ -57,10 +58,15 @@ export function buildCandidateCsv(leads: CandidateLead[]) {
     [
       lead.full_name,
       lead.email,
-      lead.current_title,
-      JOB_EXPERIENCE_LABELS[lead.years_experience as JobExperienceLevel] ??
-        lead.years_experience,
-      JOB_CATEGORY_LABELS[lead.job_category as JobCategory] ?? lead.job_category,
+      lead.current_title ?? "",
+      lead.years_experience
+        ? JOB_EXPERIENCE_LABELS[lead.years_experience as JobExperienceLevel] ??
+          lead.years_experience
+        : "",
+      lead.job_category
+        ? JOB_CATEGORY_LABELS[lead.job_category as JobCategory] ??
+          lead.job_category
+        : "",
       lead.profile_url ?? "",
       lead.source ?? "",
       lead.status,
