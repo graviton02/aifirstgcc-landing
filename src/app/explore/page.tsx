@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { BrandShowcase } from "@/components/brand-showcase/BrandShowcase";
 
 export const metadata: Metadata = {
-  title: "OpenMesh360, Orbys360 and GCCWorx360",
+  title: "Explore Orbys360, OpenMesh360 and GCCWorx360",
   description:
-    "Explore three distinct platforms for GCC vendor discovery, knowledge and decision intelligence.",
+    "Three distinct platforms for GCC knowledge, vendor discovery and decision intelligence.",
 };
 
-export default function HomePage() {
+export default function ExplorePage() {
   return <BrandShowcase />;
 }

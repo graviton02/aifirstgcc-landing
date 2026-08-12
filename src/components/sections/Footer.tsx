@@ -1,7 +1,9 @@
 "use client"
 
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { Container } from '@/components/shared/Container'
+import { openCookieSettings } from '@/lib/cookie-consent'
 
 export function Footer() {
   return (
@@ -46,8 +48,29 @@ export function Footer() {
             <div className="h-px w-8 bg-enterprise-700" />
           </div>
 
-          {/* Copyright */}
-          <div className="space-y-2">
+          {/* Legal links and copyright */}
+          <div className="space-y-4">
+            <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+              <Link
+                href="/cookie-policy"
+                className="min-h-11 inline-flex items-center text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300 focus-visible:ring-offset-2 focus-visible:ring-offset-enterprise-950"
+              >
+                Cookie policy
+              </Link>
+              <button
+                type="button"
+                onClick={openCookieSettings}
+                className="min-h-11 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300 focus-visible:ring-offset-2 focus-visible:ring-offset-enterprise-950"
+              >
+                Cookie settings
+              </button>
+              <a
+                href="mailto:team@orbys360.com"
+                className="min-h-11 inline-flex items-center text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300 focus-visible:ring-offset-2 focus-visible:ring-offset-enterprise-950"
+              >
+                Contact
+              </a>
+            </nav>
             <p className="text-white/60 text-sm">
               © 2026 Orbys360. All rights reserved.
             </p>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 30 280 250" role="img" aria-labelledby="title">
+  <title id="title">OpenMesh360 symbol</title>
+  <g stroke="#064E5C" fill="none" stroke-width="12">
+    <circle cx="155" cy="115" r="70" />
+    <circle cx="155" cy="205" r="70" />
+    <circle cx="245" cy="205" r="70" />
+    <circle cx="245" cy="115" r="70" />
+    <circle cx="200" cy="160" r="13.92" fill="#064E5C" />
+  </g>
+</svg>
