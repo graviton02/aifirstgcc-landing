@@ -41,7 +41,7 @@ export function Navbar() {
   const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false)
   const pathname = usePathname()
 
-  const isLandingPage = pathname === '/' || pathname === '/about'
+  const isLandingPage = pathname === '/orbys360' || pathname === '/about'
   const isHiddenRoute = HIDDEN_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
   const hasScrolledBg = isScrolled || (!isLandingPage)
   const isResourcesPage = ['/ai-pulse', '/thought-leadership', '/tools', '/providers', '/thoughtbook'].some(r => pathname.startsWith(r))

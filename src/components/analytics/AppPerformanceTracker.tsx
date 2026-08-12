@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useReportWebVitals } from "next/web-vitals";
-import { track } from "@vercel/analytics";
+import { trackAnalytics } from "@/lib/analytics";
 
 function roundMetricValue(value: number) {
   return Math.round(value * 100) / 100;
@@ -13,7 +13,7 @@ export function AppPerformanceTracker() {
   const pathname = usePathname();
 
   useReportWebVitals((metric: any) => {
-    track("web_vital", {
+    trackAnalytics("web_vital", {
       metric_name: String(metric.name),
       metric_value: roundMetricValue(Number(metric.value)),
       metric_rating:
@@ -40,7 +40,7 @@ export function AppPerformanceTracker() {
       }
 
       flushed = true;
-      track("long_task_summary", {
+      trackAnalytics("long_task_summary", {
         pathname,
         long_task_count: longTaskCount,
         longest_task_ms: roundMetricValue(longestTask),

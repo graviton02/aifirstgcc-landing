@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { AppPerformanceTracker } from "@/components/analytics/AppPerformanceTracker";
-import { LinkedInInsightTag } from "@/components/analytics/LinkedInInsightTag";
+import { CookieConsentManager } from "@/components/privacy/CookieConsentManager";
 import "./globals.css";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://orbys360.com";
@@ -48,10 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
-        <Analytics />
-        <SpeedInsights />
-        <AppPerformanceTracker />
-        <LinkedInInsightTag />
+        <CookieConsentManager />
       </body>
     </html>
   );
